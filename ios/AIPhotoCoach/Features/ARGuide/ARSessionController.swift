@@ -1,5 +1,4 @@
 import ARKit
-import RealityKit
 import SceneKit
 import Combine
 import simd
@@ -10,7 +9,13 @@ import simd
 ///
 /// Tries to enable scene reconstruction (LiDAR mesh) when supported —
 /// gracefully falls back to plane-only when on a non-LiDAR device.
-@MainActor
+///
+/// Note: this class is intentionally NOT @MainActor-annotated. ARKit
+/// delivers `session(_:didUpdate:)` on a background queue, and Xcode 16
+/// elevates "access main-actor property from nonisolated context" from
+/// warning to error even with strict concurrency = minimal. We keep the
+/// class non-isolated and explicitly hop to MainActor via
+/// `Task { @MainActor in ... }` only when writing @Published state.
 public final class ARSessionController: NSObject, ObservableObject, ARSessionDelegate {
     public let scene = SCNScene()
     public let session = ARSession()
@@ -34,14 +39,18 @@ public final class ARSessionController: NSObject, ObservableObject, ARSessionDel
         let config = ARWorldTrackingConfiguration()
         config.planeDetection = [.horizontal]
         config.isLightEstimationEnabled = true
+        var liDAR = false
         if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
             config.sceneReconstruction = .mesh
-            hasLiDAR = true
+            liDAR = true
         }
         if ARWorldTrackingConfiguration.supportsFrameSemantics([.bodyDetection]) {
             config.frameSemantics.insert(.bodyDetection)
         }
         session.run(config, options: [.resetTracking, .removeExistingAnchors])
+        // Setting @Published value should happen on MainActor.
+        let captured = liDAR
+        Task { @MainActor in self.hasLiDAR = captured }
     }
 
     public func placeAvatar(style: AvatarStyle, pose: PoseSuggestion?, target: AlignmentMachine.Targets) {
@@ -90,7 +99,7 @@ public final class ARSessionController: NSObject, ObservableObject, ARSessionDel
 
     // ---- ARSessionDelegate ----------------------------------------------------
 
-    nonisolated public func session(_ session: ARSession, didUpdate frame: ARFrame) {
+    public func session(_ session: ARSession, didUpdate frame: ARFrame) {
         let cam = frame.camera
         // ARKit eulerAngles: pitch (x), yaw (y), roll (z). The camera
         // y-rotation gives compass-like heading once we map identity to
@@ -119,7 +128,7 @@ public final class ARSessionController: NSObject, ObservableObject, ARSessionDel
         }
     }
 
-    nonisolated private func estimateDistance(frame: ARFrame) -> Double? {
+    private func estimateDistance(frame: ARFrame) -> Double? {
         // Prefer the body-anchor depth when ARKit detected a person —
         // it's the most relevant distance for a "subject is X meters
         // away" UX signal.
@@ -142,7 +151,7 @@ public final class ARSessionController: NSObject, ObservableObject, ARSessionDel
             direction: simd_normalize(SIMD3<Float>(
                 -frame.camera.transform.columns.2.x,
                 -frame.camera.transform.columns.2.y,
-                -frame.camera.transform.columns.2.z,
+                -frame.camera.transform.columns.2.z
             )),
             allowing: .estimatedPlane,
             alignment: .any

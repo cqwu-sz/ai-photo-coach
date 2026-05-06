@@ -20,7 +20,7 @@ public struct ARGuideView: View {
         let targets = AlignmentMachine.Targets(
             azimuthDeg: shot.angle.azimuthDeg,
             pitchDeg: shot.angle.pitchDeg,
-            distanceM: shot.angle.distanceM,
+            distanceM: shot.angle.distanceM
         )
         _alignment = StateObject(wrappedValue: AlignmentMachine(targets: targets))
     }

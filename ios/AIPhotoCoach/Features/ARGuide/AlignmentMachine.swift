@@ -48,7 +48,7 @@ public final class AlignmentMachine: ObservableObject {
             headingOk: 4.0, headingWarn: 12.0,
             pitchOk: 5.0, pitchWarn: 12.0,
             distanceOkM: 0.25, distanceWarnM: 0.6,
-            holdTime: 0.7,
+            holdTime: 0.7
         )
     }
 
