@@ -6,15 +6,15 @@ import SwiftUI
 /// AlignmentMachine off the ARSessionController's published signals,
 /// shows a HUD with 4 status cards, and pulses the screen green when
 /// all four signals are aligned for the hold time.
-public struct ARGuideView: View {
-    public let shot: ShotRecommendation
-    public let avatarStyle: AvatarStyle
+struct ARGuideView: View {
+    let shot: ShotRecommendation
+    let avatarStyle: AvatarStyle
 
     @StateObject private var session = ARSessionController()
     @StateObject private var alignment: AlignmentMachine
     @State private var greenLightActive = false
 
-    public init(shot: ShotRecommendation, avatarStyle: AvatarStyle) {
+    init(shot: ShotRecommendation, avatarStyle: AvatarStyle) {
         self.shot = shot
         self.avatarStyle = avatarStyle
         let targets = AlignmentMachine.Targets(
@@ -25,7 +25,7 @@ public struct ARGuideView: View {
         _alignment = StateObject(wrappedValue: AlignmentMachine(targets: targets))
     }
 
-    public var body: some View {
+    var body: some View {
         ZStack(alignment: .top) {
             ARViewContainer(controller: session)
                 .ignoresSafeArea()

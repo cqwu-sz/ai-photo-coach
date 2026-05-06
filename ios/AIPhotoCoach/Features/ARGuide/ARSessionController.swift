@@ -16,24 +16,24 @@ import simd
 /// warning to error even with strict concurrency = minimal. We keep the
 /// class non-isolated and explicitly hop to MainActor via
 /// `Task { @MainActor in ... }` only when writing @Published state.
-public final class ARSessionController: NSObject, ObservableObject, ARSessionDelegate {
-    public let scene = SCNScene()
-    public let session = ARSession()
+final class ARSessionController: NSObject, ObservableObject, ARSessionDelegate {
+let scene = SCNScene()
+let session = ARSession()
 
-    @Published public private(set) var hasLiDAR: Bool = false
-    @Published public private(set) var personDetected: Bool = false
-    @Published public private(set) var distanceM: Double? = nil
-    @Published public private(set) var headingDeg: Double? = nil
-    @Published public private(set) var pitchDeg: Double? = nil
+    @Published private(set) var hasLiDAR: Bool = false
+    @Published private(set) var personDetected: Bool = false
+    @Published private(set) var distanceM: Double? = nil
+    @Published private(set) var headingDeg: Double? = nil
+    @Published private(set) var pitchDeg: Double? = nil
 
     private(set) var avatarRoot: SCNNode? = nil
     private var avatarAnchor: ARAnchor? = nil
 
     /// Target azimuth (relative to the user's initial heading at session
     /// start) and distance the avatar should be placed at.
-    public var target: AlignmentMachine.Targets?
+var target: AlignmentMachine.Targets?
 
-    public override init() {
+override init() {
         super.init()
         session.delegate = self
         let config = ARWorldTrackingConfiguration()
@@ -53,7 +53,7 @@ public final class ARSessionController: NSObject, ObservableObject, ARSessionDel
         Task { @MainActor in self.hasLiDAR = captured }
     }
 
-    public func placeAvatar(style: AvatarStyle, pose: PoseSuggestion?, target: AlignmentMachine.Targets) {
+func placeAvatar(style: AvatarStyle, pose: PoseSuggestion?, target: AlignmentMachine.Targets) {
         self.target = target
         // Build the avatar
         let built = AvatarBuilderSCN.build(style)
@@ -99,7 +99,7 @@ public final class ARSessionController: NSObject, ObservableObject, ARSessionDel
 
     // ---- ARSessionDelegate ----------------------------------------------------
 
-    public func session(_ session: ARSession, didUpdate frame: ARFrame) {
+func session(_ session: ARSession, didUpdate frame: ARFrame) {
         let cam = frame.camera
         // ARKit eulerAngles: pitch (x), yaw (y), roll (z). The camera
         // y-rotation gives compass-like heading once we map identity to

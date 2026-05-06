@@ -3,11 +3,11 @@ import Foundation
 // Mirrors backend/app/models/schemas.py and shared/schema/analyze.openapi.yaml.
 // Keep these enums/cases byte-for-byte equal to the backend.
 
-enum QualityMode: String, Codable, CaseIterable, Sendable {
+enum QualityMode: String, Codable, CaseIterable, Sendable, Hashable {
     case fast, high
 }
 
-enum Lighting: String, Codable, Sendable {
+enum Lighting: String, Codable, Sendable, Hashable {
     case goldenHour = "golden_hour"
     case blueHour = "blue_hour"
     case harshNoon = "harsh_noon"
@@ -20,7 +20,7 @@ enum Lighting: String, Codable, Sendable {
     case mixed
 }
 
-enum CompositionType: String, Codable, Sendable {
+enum CompositionType: String, Codable, Sendable, Hashable {
     case ruleOfThirds = "rule_of_thirds"
     case leadingLine = "leading_line"
     case symmetry
@@ -31,11 +31,11 @@ enum CompositionType: String, Codable, Sendable {
     case goldenRatio = "golden_ratio"
 }
 
-enum HeightHint: String, Codable, Sendable {
+enum HeightHint: String, Codable, Sendable, Hashable {
     case low, eyeLevel = "eye_level", high, overhead
 }
 
-enum Layout: String, Codable, Sendable {
+enum Layout: String, Codable, Sendable, Hashable {
     case single
     case sideBySide = "side_by_side"
     case highLowOffset = "high_low_offset"
@@ -48,7 +48,7 @@ enum Layout: String, Codable, Sendable {
     case custom
 }
 
-enum IphoneLens: String, Codable, Sendable {
+enum IphoneLens: String, Codable, Sendable, Hashable {
     case ultrawide = "ultrawide_0_5x"
     case wide = "wide_1x"
     case tele2x = "tele_2x"
@@ -56,11 +56,11 @@ enum IphoneLens: String, Codable, Sendable {
     case tele5x = "tele_5x"
 }
 
-enum Difficulty: String, Codable, Sendable {
+enum Difficulty: String, Codable, Sendable, Hashable {
     case easy, medium, hard
 }
 
-struct FrameMeta: Codable, Sendable {
+struct FrameMeta: Codable, Sendable, Hashable {
     let index: Int
     let azimuthDeg: Double
     let pitchDeg: Double
@@ -78,7 +78,7 @@ struct FrameMeta: Codable, Sendable {
     }
 }
 
-struct CaptureMeta: Codable, Sendable {
+struct CaptureMeta: Codable, Sendable, Hashable {
     let personCount: Int
     let qualityMode: QualityMode
     let styleKeywords: [String]
@@ -92,7 +92,7 @@ struct CaptureMeta: Codable, Sendable {
     }
 }
 
-struct SceneSummary: Codable, Sendable {
+struct SceneSummary: Codable, Sendable, Hashable {
     let type: String
     let lighting: Lighting
     let backgroundSummary: String
@@ -106,7 +106,7 @@ struct SceneSummary: Codable, Sendable {
     }
 }
 
-struct Angle: Codable, Sendable {
+struct Angle: Codable, Sendable, Hashable {
     let azimuthDeg: Double
     let pitchDeg: Double
     let distanceM: Double
@@ -120,13 +120,13 @@ struct Angle: Codable, Sendable {
     }
 }
 
-struct Composition: Codable, Sendable {
+struct Composition: Codable, Sendable, Hashable {
     let primary: CompositionType
     let secondary: [String]
     let notes: String?
 }
 
-struct DeviceHints: Codable, Sendable {
+struct DeviceHints: Codable, Sendable, Hashable {
     let iphoneLens: IphoneLens?
     let thirdPartyApp: String?
 
@@ -136,7 +136,7 @@ struct DeviceHints: Codable, Sendable {
     }
 }
 
-struct CameraSettings: Codable, Sendable {
+struct CameraSettings: Codable, Sendable, Hashable {
     let focalLengthMm: Double
     let aperture: String
     let shutter: String
@@ -158,7 +158,7 @@ struct CameraSettings: Codable, Sendable {
     }
 }
 
-struct PersonPose: Codable, Sendable, Identifiable {
+struct PersonPose: Codable, Sendable, Identifiable, Hashable {
     let role: String
     let stance: String?
     let upperBody: String?
@@ -198,7 +198,7 @@ struct PoseSuggestion: Codable, Sendable {
     }
 }
 
-struct ShotRecommendation: Codable, Sendable, Identifiable {
+struct ShotRecommendation: Codable, Sendable, Identifiable, Hashable {
     let id: String
     let title: String?
     let angle: Angle
@@ -217,7 +217,7 @@ struct ShotRecommendation: Codable, Sendable, Identifiable {
     }
 }
 
-struct StyleInspiration: Codable, Sendable {
+struct StyleInspiration: Codable, Sendable, Hashable {
     let usedCount: Int
     let summary: String?
     let inheritedTraits: [String]
@@ -229,7 +229,7 @@ struct StyleInspiration: Codable, Sendable {
     }
 }
 
-struct AnalyzeResponse: Codable, Sendable {
+struct AnalyzeResponse: Codable, Sendable, Hashable {
     let scene: SceneSummary
     let shots: [ShotRecommendation]
     let generatedAt: Date

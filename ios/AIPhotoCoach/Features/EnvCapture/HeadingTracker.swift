@@ -17,7 +17,7 @@ final class HeadingTracker: ObservableObject {
     func start() {
         guard manager.isDeviceMotionAvailable else { return }
         manager.deviceMotionUpdateInterval = 1.0 / 30.0
-        manager.startDeviceMotionUpdates(using: .xMagneticZVertical, to: .main) { [weak self] motion, _ in
+        manager.startDeviceMotionUpdates(using: .xMagneticNorthZVertical, to: .main) { [weak self] motion, _ in
             guard let self, let m = motion else { return }
             let yaw = m.attitude.yaw
             var deg = (yaw * 180.0 / .pi)

@@ -4,12 +4,12 @@ import UIKit
 /// supported anime-style face expressions onto a UIImage so the
 /// AvatarBuilderSCN's face plane has a textured face matching the AI's
 /// recommended emotion.
-public enum ExpressionRenderer {
-    public enum Expression: String {
+enum ExpressionRenderer {
+enum Expression: String {
         case neutral, joy, smirk, surprised, pensive
     }
 
-    public static func render(_ expr: Expression, style: AvatarStyle, size: CGFloat = 256) -> UIImage {
+static func render(_ expr: Expression, style: AvatarStyle, size: CGFloat = 256) -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: size, height: size))
         return renderer.image { ctx in
             let cg = ctx.cgContext

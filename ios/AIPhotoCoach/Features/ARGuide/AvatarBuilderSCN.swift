@@ -5,15 +5,15 @@ import UIKit
 /// hierarchy you can drop into an ARAnchor child node — no shared
 /// vertices, no skinning, just rotated SCNNode joints. Same skeleton
 /// names as the JS version so PosePresets.swift stays in sync.
-public final class AvatarBuilderSCN {
-    public struct Built {
-        public let root: SCNNode
-        public let joints: [String: SCNNode]
-        public let facePlate: SCNNode
-        public let style: AvatarStyle
+final class AvatarBuilderSCN {
+struct Built {
+let root: SCNNode
+let joints: [String: SCNNode]
+let facePlate: SCNNode
+let style: AvatarStyle
     }
 
-    public static func build(_ style: AvatarStyle) -> Built {
+static func build(_ style: AvatarStyle) -> Built {
         let total = style.height
         let headH = total * 0.13
         let neckH = total * 0.025

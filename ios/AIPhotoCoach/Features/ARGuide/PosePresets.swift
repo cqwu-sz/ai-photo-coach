@@ -6,14 +6,14 @@ import SceneKit
 /// AvatarBuilderSCN. We keep the joint *names* identical to the JS
 /// builder so the same AI-rationale-driven preset names work on both
 /// clients.
-public enum PosePresets {
-    public static let all: [String] = [
+enum PosePresets {
+static let all: [String] = [
         "standing", "hands_clasped", "walking", "half_sit", "crouch",
         "looking_back", "holding_hands", "hand_on_hip", "v_sign",
         "arms_crossed", "facing_partner", "leaning",
     ]
 
-    public static func apply(_ name: String, joints: [String: SCNNode], mirror: Bool = false) {
+static func apply(_ name: String, joints: [String: SCNNode], mirror: Bool = false) {
         // Always start from standing so any unset joint stays sensible.
         standing(joints)
         switch name {
@@ -32,7 +32,7 @@ public enum PosePresets {
         }
     }
 
-    public static func pick(for person: PersonPose) -> String {
+static func pick(for person: PersonPose) -> String {
         let blob = [
             person.stance ?? "",
             person.upperBody ?? "",
@@ -66,7 +66,7 @@ public enum PosePresets {
         return "standing"
     }
 
-    public static func classifyExpression(_ person: PersonPose) -> ExpressionRenderer.Expression {
+static func classifyExpression(_ person: PersonPose) -> ExpressionRenderer.Expression {
         let t = (person.expression ?? "").lowercased()
         if t.isEmpty { return .neutral }
         if t.range(of: #"抿嘴|smirk|淡笑|微微一笑"#, options: .regularExpression) != nil { return .smirk }

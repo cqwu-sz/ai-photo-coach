@@ -5,52 +5,52 @@ import UIKit
 /// avatar on Web and gets the *same* character in the native AR view —
 /// they're saved in `userDefaults` keyed by id and translated to/from
 /// the Web build via the shared API contract.
-public struct AvatarStyle: Identifiable, Hashable, Codable {
-    public enum Gender: String, Codable { case male, female }
-    public enum Hair: String, Codable {
+struct AvatarStyle: Identifiable, Hashable, Codable {
+enum Gender: String, Codable { case male, female }
+enum Hair: String, Codable {
         case short, buzz, bob, longStraight = "long_straight"
         case twinTails = "twin_tails", longCurly = "long_curly"
         case sideSwept = "side_swept", wolfTail = "wolf_tail"
     }
-    public enum Top: String, Codable {
+enum Top: String, Codable {
         case shortSleeve = "short_sleeve", jacket, dress, hoodie, sweater
     }
-    public enum Bottom: String, Codable {
+enum Bottom: String, Codable {
         case pants, shorts, skirt, longSkirt = "long_skirt", jeans, dress
     }
-    public enum Accessory: String, Codable {
+enum Accessory: String, Codable {
         case none, glasses, hairband, earrings
     }
 
-    public let id: String
-    public let gender: Gender
-    public let name: String
-    public let summary: String
-    public let height: CGFloat
-    public let skinHue: CGFloat
-    public let skinLightness: CGFloat
-    public let hairColorHex: String
-    public let hair: Hair
-    public let top: Top
-    public let topColorHex: String
-    public let bottom: Bottom
-    public let bottomColorHex: String
-    public let accessory: Accessory
-    public let accessoryColorHex: String?
-    public let shoeColorHex: String
+let id: String
+let gender: Gender
+let name: String
+let summary: String
+let height: CGFloat
+let skinHue: CGFloat
+let skinLightness: CGFloat
+let hairColorHex: String
+let hair: Hair
+let top: Top
+let topColorHex: String
+let bottom: Bottom
+let bottomColorHex: String
+let accessory: Accessory
+let accessoryColorHex: String?
+let shoeColorHex: String
 
-    public var hairColor: UIColor { UIColor(hex: hairColorHex) }
-    public var topColor: UIColor { UIColor(hex: topColorHex) }
-    public var bottomColor: UIColor { UIColor(hex: bottomColorHex) }
-    public var accessoryColor: UIColor? { accessoryColorHex.map(UIColor.init(hex:)) }
-    public var shoeColor: UIColor { UIColor(hex: shoeColorHex) }
-    public var skinColor: UIColor {
+var hairColor: UIColor { UIColor(hex: hairColorHex) }
+var topColor: UIColor { UIColor(hex: topColorHex) }
+var bottomColor: UIColor { UIColor(hex: bottomColorHex) }
+var accessoryColor: UIColor? { accessoryColorHex.map(UIColor.init(hex:)) }
+var shoeColor: UIColor { UIColor(hex: shoeColorHex) }
+var skinColor: UIColor {
         UIColor(hue: skinHue / 360.0, saturation: 0.45, brightness: skinLightness, alpha: 1.0)
     }
 }
 
-public enum AvatarPresets {
-    public static let all: [AvatarStyle] = [
+enum AvatarPresets {
+static let all: [AvatarStyle] = [
         .init(id: "akira", gender: .male, name: "彻 Akira", summary: "黑短发 · 蓝衬衫",
               height: 1.78, skinHue: 24, skinLightness: 0.74,
               hairColorHex: "#1a1a22", hair: .short,
@@ -95,13 +95,13 @@ public enum AvatarPresets {
               accessory: .none, accessoryColorHex: nil, shoeColorHex: "#3a3a3a"),
     ]
 
-    public static let defaultPicks = ["akira", "yuki", "sakura", "luna"]
+static let defaultPicks = ["akira", "yuki", "sakura", "luna"]
 
-    public static func style(for id: String) -> AvatarStyle {
+static func style(for id: String) -> AvatarStyle {
         all.first { $0.id == id } ?? all[0]
     }
 
-    public static func resolve(_ stored: [String], count n: Int) -> [String] {
+static func resolve(_ stored: [String], count n: Int) -> [String] {
         (0..<n).map { i in
             let s = i < stored.count ? stored[i] : nil
             if let s, all.contains(where: { $0.id == s }) { return s }

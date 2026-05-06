@@ -9,42 +9,42 @@ import Combine
 /// (`ARFrame.camera.eulerAngles`), distance comes from LiDAR ray-cast,
 /// and person presence comes from `ARFrame.detectedBody`. See
 /// `ARSessionController` for wiring.
-public final class AlignmentMachine: ObservableObject {
-    public enum Status: String, CaseIterable {
+final class AlignmentMachine: ObservableObject {
+enum Status: String, CaseIterable {
         case ok, warn, bad, disabled
     }
 
-    public struct DimensionState {
-        public var status: Status = .bad
-        public var value: Double? = nil
-        public var hint: String = ""
+struct DimensionState {
+var status: Status = .bad
+var value: Double? = nil
+var hint: String = ""
     }
 
-    public struct AggregateState {
-        public var heading: DimensionState
-        public var pitch: DimensionState
-        public var distance: DimensionState
-        public var person: DimensionState
-        public var allOK: Bool
-        public var worst: (label: String, hint: String, status: Status)
+struct AggregateState {
+var heading: DimensionState
+var pitch: DimensionState
+var distance: DimensionState
+var person: DimensionState
+var allOK: Bool
+var worst: (label: String, hint: String, status: Status)
     }
 
-    public struct Targets {
-        public let azimuthDeg: Double
-        public let pitchDeg: Double
-        public let distanceM: Double
+struct Targets {
+let azimuthDeg: Double
+let pitchDeg: Double
+let distanceM: Double
     }
 
-    public struct Tolerances {
-        public let headingOk: Double
-        public let headingWarn: Double
-        public let pitchOk: Double
-        public let pitchWarn: Double
-        public let distanceOkM: Double
-        public let distanceWarnM: Double
-        public let holdTime: TimeInterval
+struct Tolerances {
+let headingOk: Double
+let headingWarn: Double
+let pitchOk: Double
+let pitchWarn: Double
+let distanceOkM: Double
+let distanceWarnM: Double
+let holdTime: TimeInterval
 
-        public static let `default` = Tolerances(
+static let `default` = Tolerances(
             headingOk: 4.0, headingWarn: 12.0,
             pitchOk: 5.0, pitchWarn: 12.0,
             distanceOkM: 0.25, distanceWarnM: 0.6,
@@ -52,16 +52,16 @@ public final class AlignmentMachine: ObservableObject {
         )
     }
 
-    @Published public private(set) var state: AggregateState
-    public let targets: Targets
-    public let tol: Tolerances
+    @Published private(set) var state: AggregateState
+let targets: Targets
+let tol: Tolerances
 
-    public var onGreenLight: (() -> Void)?
+var onGreenLight: (() -> Void)?
 
     private var greenSince: Date?
     private var lastFiredGreen = false
 
-    public init(targets: Targets, tolerances: Tolerances = .default) {
+init(targets: Targets, tolerances: Tolerances = .default) {
         self.targets = targets
         self.tol = tolerances
         self.state = AggregateState(
@@ -76,7 +76,7 @@ public final class AlignmentMachine: ObservableObject {
 
     // ---- inputs ---------------------------------------------------------------
 
-    public func update(headingDeg: Double?) {
+func update(headingDeg: Double?) {
         var d = state.heading
         if let h = headingDeg {
             let delta = circDelta(h, targets.azimuthDeg)
@@ -91,7 +91,7 @@ public final class AlignmentMachine: ObservableObject {
         recompute()
     }
 
-    public func update(pitchDeg: Double?) {
+func update(pitchDeg: Double?) {
         var d = state.pitch
         if let p = pitchDeg {
             let delta = p - targets.pitchDeg
@@ -106,7 +106,7 @@ public final class AlignmentMachine: ObservableObject {
         recompute()
     }
 
-    public func update(distanceM: Double?) {
+func update(distanceM: Double?) {
         var d = state.distance
         if let m = distanceM {
             let delta = m - targets.distanceM
@@ -121,7 +121,7 @@ public final class AlignmentMachine: ObservableObject {
         recompute()
     }
 
-    public func update(personPresent: Bool?) {
+func update(personPresent: Bool?) {
         var d = state.person
         if let p = personPresent {
             d.value = p ? 1 : 0

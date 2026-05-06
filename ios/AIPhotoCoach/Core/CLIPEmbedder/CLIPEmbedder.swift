@@ -57,7 +57,7 @@ actor CLIPEmbedder {
             let provider = try MLDictionaryFeatureProvider(dictionary: [
                 inputName: MLFeatureValue(pixelBuffer: resized)
             ])
-            let out = try model.prediction(from: provider)
+            let out = try await model.prediction(from: provider)
             let outputName = out.featureNames.first ?? ""
             guard let array = out.featureValue(for: outputName)?.multiArrayValue else {
                 return nil
