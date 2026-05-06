@@ -26,7 +26,10 @@ on:
 jobs:
   build-unsigned-ipa:
     name: Build unsigned .ipa (macOS)
-    runs-on: macos-14
+    # macos-15 ships Xcode 16.x by default, which is required because
+    # XcodeGen ≥ 2.42 emits projects with `objectVersion = 77` that
+    # Xcode 15.4 (the macos-14 default) refuses to open.
+    runs-on: macos-15
     timeout-minutes: 25
 
     steps:
@@ -35,12 +38,14 @@ jobs:
 
       - name: Show Xcode version
         run: |
+          xcode-select -p
           xcodebuild -version
           xcrun simctl list runtimes | head -n 5 || true
 
       - name: Install XcodeGen
         run: |
           brew install xcodegen
+          xcodegen --version
 
       - name: Generate Xcode project
         working-directory: ios
