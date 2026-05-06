@@ -1,0 +1,343 @@
+openapi: 3.1.0
+info:
+  title: AI Photo Coach - Analyze API
+  version: 0.1.0
+  description: |
+    Schema shared between iOS app and backend.
+    Source of truth for the /analyze contract.
+servers:
+  - url: http://localhost:8000
+    description: Local development
+
+paths:
+  /healthz:
+    get:
+      summary: Health check
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, example: ok }
+
+  /analyze:
+    post:
+      summary: Analyze keyframes from an environment scan video and return shot recommendations
+      operationId: analyzeScene
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/AnalyzeRequest"
+      responses:
+        "200":
+          description: Recommendations
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalyzeResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+
+components:
+  schemas:
+    AnalyzeRequest:
+      type: object
+      required: [meta, frames]
+      properties:
+        meta:
+          $ref: "#/components/schemas/CaptureMeta"
+        frames:
+          type: array
+          description: 8-12 keyframes extracted client-side
+          minItems: 4
+          maxItems: 16
+          items:
+            type: string
+            format: binary
+        reference_thumbnails:
+          type: array
+          description: Optional Phase 2 personalization - small thumbnails of user-favorited reference images
+          items:
+            type: string
+            format: binary
+
+    CaptureMeta:
+      type: object
+      required: [person_count, frame_meta]
+      properties:
+        person_count:
+          type: integer
+          minimum: 1
+          maximum: 4
+          description: How many people will be in the photo (1..4)
+        quality_mode:
+          type: string
+          enum: [fast, high]
+          default: fast
+          description: fast = Gemini 2.5 Flash, high = Gemini 2.5 Pro
+        style_keywords:
+          type: array
+          items: { type: string }
+          example: ["clean", "moody", "cinematic"]
+        frame_meta:
+          type: array
+          minItems: 4
+          maxItems: 16
+          items:
+            $ref: "#/components/schemas/FrameMeta"
+
+    FrameMeta:
+      type: object
+      required: [index, azimuth_deg]
+      properties:
+        index: { type: integer, minimum: 0 }
+        azimuth_deg:
+          type: number
+          description: Heading at capture time, 0..360
+        pitch_deg: { type: number, default: 0 }
+        roll_deg: { type: number, default: 0 }
+        timestamp_ms: { type: integer }
+        ambient_lux: { type: number, nullable: true }
+
+    AnalyzeResponse:
+      type: object
+      required: [scene, shots, generated_at]
+      properties:
+        scene: { $ref: "#/components/schemas/SceneSummary" }
+        shots:
+          type: array
+          minItems: 1
+          maxItems: 5
+          items: { $ref: "#/components/schemas/ShotRecommendation" }
+        style_inspiration:
+          $ref: "#/components/schemas/StyleInspiration"
+        generated_at:
+          type: string
+          format: date-time
+        model:
+          type: string
+          example: gemini-2.5-flash
+        debug:
+          type: object
+          additionalProperties: true
+
+    SceneSummary:
+      type: object
+      required: [type, lighting, background_summary]
+      properties:
+        type:
+          type: string
+          example: outdoor_park
+          description: Coarse scene type tag
+        lighting:
+          type: string
+          enum:
+            [
+              golden_hour,
+              blue_hour,
+              harsh_noon,
+              overcast,
+              shade,
+              indoor_warm,
+              indoor_cool,
+              low_light,
+              backlight,
+              mixed,
+            ]
+        background_summary:
+          type: string
+        cautions:
+          type: array
+          items: { type: string }
+
+    ShotRecommendation:
+      type: object
+      required: [id, angle, composition, camera, poses, rationale]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        angle: { $ref: "#/components/schemas/Angle" }
+        composition: { $ref: "#/components/schemas/Composition" }
+        camera: { $ref: "#/components/schemas/CameraSettings" }
+        poses:
+          type: array
+          minItems: 1
+          maxItems: 5
+          items: { $ref: "#/components/schemas/PoseSuggestion" }
+        rationale: { type: string }
+        coach_brief:
+          type: string
+          description: First-person 20-character on-scene command, e.g. "蹲下来，靠着那块石头，看向我"
+        representative_frame_index:
+          type: integer
+          minimum: 0
+          description: Index into CaptureMeta.frame_meta of the keyframe that best matches this shot's azimuth (UI uses it as backdrop)
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+
+    StyleInspiration:
+      type: object
+      description: How the user-provided reference photos influenced this analysis.
+      properties:
+        used_count:
+          type: integer
+          minimum: 0
+          description: How many of the user's reference photos the model actually drew on
+        summary:
+          type: string
+          description: One-sentence Chinese summary, e.g. "借鉴了你图1的低饱和暖调与图2的高低错位站位。"
+        inherited_traits:
+          type: array
+          items: { type: string }
+          description: Short tags like ["暖调", "高低错位", "三分线"]
+
+    Angle:
+      type: object
+      required: [azimuth_deg, pitch_deg, distance_m]
+      properties:
+        azimuth_deg:
+          type: number
+          description: Recommended heading 0..360, relative to capture start
+        pitch_deg:
+          type: number
+          description: -30..30, negative = camera tilted down
+        distance_m:
+          type: number
+          minimum: 0.3
+          maximum: 20
+        height_hint:
+          type: string
+          enum: [low, eye_level, high, overhead]
+
+    Composition:
+      type: object
+      required: [primary]
+      properties:
+        primary:
+          type: string
+          enum:
+            [
+              rule_of_thirds,
+              leading_line,
+              symmetry,
+              frame_within_frame,
+              negative_space,
+              centered,
+              diagonal,
+              golden_ratio,
+            ]
+        secondary:
+          type: array
+          items: { type: string }
+        notes: { type: string }
+
+    CameraSettings:
+      type: object
+      required: [focal_length_mm, aperture, shutter, iso]
+      properties:
+        focal_length_mm:
+          type: number
+          minimum: 14
+          maximum: 200
+        aperture:
+          type: string
+          example: f/2.0
+        shutter:
+          type: string
+          example: 1/250
+        iso:
+          type: integer
+          minimum: 50
+          maximum: 12800
+        white_balance_k:
+          type: integer
+          minimum: 2500
+          maximum: 10000
+        ev_compensation:
+          type: number
+          minimum: -3
+          maximum: 3
+        rationale: { type: string }
+        device_hints:
+          type: object
+          properties:
+            iphone_lens:
+              type: string
+              enum: [ultrawide_0_5x, wide_1x, tele_2x, tele_3x, tele_5x]
+            third_party_app: { type: string }
+
+    PoseSuggestion:
+      type: object
+      required: [person_count, layout, persons]
+      properties:
+        person_count: { type: integer, minimum: 1, maximum: 4 }
+        layout:
+          type: string
+          enum:
+            [
+              single,
+              side_by_side,
+              high_low_offset,
+              triangle,
+              line,
+              cluster,
+              diagonal,
+              v_formation,
+              circle,
+              custom,
+            ]
+        persons:
+          type: array
+          items: { $ref: "#/components/schemas/PersonPose" }
+        interaction:
+          type: string
+          description: How people interact, e.g. "holding hands looking at each other"
+        reference_thumbnail_id:
+          type: string
+          description: ID into the on-device pose library
+        difficulty:
+          type: string
+          enum: [easy, medium, hard]
+
+    PersonPose:
+      type: object
+      required: [role]
+      properties:
+        role:
+          type: string
+          example: person_a
+        stance: { type: string }
+        upper_body: { type: string }
+        hands: { type: string }
+        gaze: { type: string }
+        expression: { type: string }
+        position_hint:
+          type: string
+          description: Where to stand relative to scene, e.g. "left third, 1m from camera"
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code: { type: string }
+            message: { type: string }
+            details: { type: object, additionalProperties: true }

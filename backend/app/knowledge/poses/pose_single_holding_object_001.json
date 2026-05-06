@@ -1,0 +1,9 @@
+{
+  "id": "pose_single_holding_object_001",
+  "person_count": 1,
+  "layout": "single",
+  "summary": "single, holding a coffee cup or book at chest level, eyes on object",
+  "tags": ["lifestyle", "intimate", "natural"],
+  "best_for": ["indoor_warm", "indoor_cool", "centered"],
+  "thumbnail": "pose_single_holding_object_001.png"
+}

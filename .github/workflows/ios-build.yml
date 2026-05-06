@@ -1,0 +1,103 @@
+name: iOS Build (unsigned IPA)
+
+# Why this exists:
+#   Most contributors here are on Windows (no Mac). To still get a binary
+#   onto a real iPhone we run the iOS build on a free GitHub-hosted macOS
+#   runner, archive without code signing, and zip the .app into a bare
+#   "Payload/" so Sideloadly / AltStore can re-sign it locally with the
+#   user's free Apple ID. See docs/IOS_SIDELOAD.md.
+#
+# Triggers: pushes to main, manual dispatch, and tags v* (for releases).
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+    paths:
+      - "ios/**"
+      - "shared/schema/**"
+      - ".github/workflows/ios-build.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "ios/**"
+  workflow_dispatch: {}
+
+jobs:
+  build-unsigned-ipa:
+    name: Build unsigned .ipa (macOS)
+    runs-on: macos-14
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: |
+          xcodebuild -version
+          xcrun simctl list runtimes | head -n 5 || true
+
+      - name: Install XcodeGen
+        run: |
+          brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: ios
+        run: |
+          xcodegen generate
+          ls -la AIPhotoCoach.xcodeproj || true
+
+      - name: Build (no code signing)
+        working-directory: ios
+        run: |
+          set -euo pipefail
+          # Archive into ./build/AIPhotoCoach.xcarchive without signing.
+          # CODE_SIGNING_ALLOWED=NO is the canonical way to produce an
+          # unsigned .app on GitHub Actions where no provisioning profile
+          # is installed.
+          xcodebuild \
+            -project AIPhotoCoach.xcodeproj \
+            -scheme AIPhotoCoach \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination "generic/platform=iOS" \
+            -archivePath build/AIPhotoCoach.xcarchive \
+            archive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY= \
+            DEVELOPMENT_TEAM= \
+            PROVISIONING_PROFILE_SPECIFIER= \
+            ONLY_ACTIVE_ARCH=NO
+          # Fail loud if archive is missing.
+          test -d build/AIPhotoCoach.xcarchive
+
+      - name: Package unsigned .ipa
+        working-directory: ios
+        run: |
+          set -euo pipefail
+          APP_PATH="build/AIPhotoCoach.xcarchive/Products/Applications/AIPhotoCoach.app"
+          test -d "$APP_PATH" || (echo "missing $APP_PATH" && exit 1)
+          rm -rf build/Payload
+          mkdir -p build/Payload
+          cp -R "$APP_PATH" build/Payload/
+          # An IPA is just a zip with a Payload/ folder.
+          cd build
+          zip -qr AIPhotoCoach-unsigned.ipa Payload
+          ls -lh AIPhotoCoach-unsigned.ipa
+
+      - name: Upload .ipa artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AIPhotoCoach-unsigned-ipa
+          path: ios/build/AIPhotoCoach-unsigned.ipa
+          retention-days: 14
+          if-no-files-found: error
+
+      - name: Attach to GitHub Release (only on tags)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ios/build/AIPhotoCoach-unsigned.ipa
+          generate_release_notes: true

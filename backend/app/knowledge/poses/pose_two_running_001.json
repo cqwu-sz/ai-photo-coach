@@ -1,0 +1,9 @@
+{
+  "id": "pose_two_running_001",
+  "person_count": 2,
+  "layout": "diagonal",
+  "summary": "two people running across the frame, one slightly ahead, both looking at each other",
+  "tags": ["energy", "couple", "friends", "candid"],
+  "best_for": ["leading_line", "diagonal", "overcast", "harsh_noon"],
+  "thumbnail": "pose_two_running_001.png"
+}

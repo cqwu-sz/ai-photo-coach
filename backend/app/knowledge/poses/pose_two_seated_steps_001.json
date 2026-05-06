@@ -1,0 +1,9 @@
+{
+  "id": "pose_two_seated_steps_001",
+  "person_count": 2,
+  "layout": "high_low_offset",
+  "summary": "two people seated on stairs, A higher than B, B leaning back into A",
+  "tags": ["couple", "friends", "story"],
+  "best_for": ["frame_within_frame", "indoor_cool", "shade"],
+  "thumbnail": "pose_two_seated_steps_001.png"
+}

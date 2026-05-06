@@ -1,0 +1,9 @@
+{
+  "id": "pose_two_side_by_side_001",
+  "person_count": 2,
+  "layout": "side_by_side",
+  "summary": "two people side by side, slight body lean towards each other",
+  "tags": ["family", "siblings", "casual"],
+  "best_for": ["overcast", "centered_composition"],
+  "thumbnail": "pose_two_side_by_side_001.png"
+}

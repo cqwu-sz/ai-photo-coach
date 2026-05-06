@@ -1,0 +1,9 @@
+{
+  "id": "pose_single_leaning_wall_001",
+  "person_count": 1,
+  "layout": "single",
+  "summary": "single leaning back against wall, one foot up flat, gaze off-axis",
+  "tags": ["casual", "street", "magazine"],
+  "best_for": ["frame_within_frame", "leading_line", "indoor_warm", "shade"],
+  "thumbnail": "pose_single_leaning_wall_001.png"
+}

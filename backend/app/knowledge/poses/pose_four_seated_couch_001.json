@@ -1,0 +1,9 @@
+{
+  "id": "pose_four_seated_couch_001",
+  "person_count": 4,
+  "layout": "line",
+  "summary": "four people seated on couch / steps, varying postures (some leaning forward)",
+  "tags": ["family", "friends", "indoor"],
+  "best_for": ["indoor_warm", "centered", "frame_within_frame"],
+  "thumbnail": "pose_four_seated_couch_001.png"
+}

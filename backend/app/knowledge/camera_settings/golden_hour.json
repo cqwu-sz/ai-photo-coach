@@ -1,0 +1,10 @@
+{
+  "scenario": "golden_hour",
+  "focal_length_mm": 50,
+  "aperture": "f/2.0",
+  "shutter": "1/320",
+  "iso": 200,
+  "white_balance_k": 5500,
+  "ev_compensation": -0.3,
+  "note": "Side-back light common; expose for highlights, lift shadows in post"
+}

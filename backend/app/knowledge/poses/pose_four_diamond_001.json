@@ -1,0 +1,9 @@
+{
+  "id": "pose_four_diamond_001",
+  "person_count": 4,
+  "layout": "cluster",
+  "summary": "four people in a diamond layout, one front, two sides, one back",
+  "tags": ["friends", "team", "balanced"],
+  "best_for": ["centered", "overcast", "outdoor_park"],
+  "thumbnail": "pose_four_diamond_001.png"
+}

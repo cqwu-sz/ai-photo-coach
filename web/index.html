@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>AI 摄影教练 · 环视一圈给你出片方案</title>
+    <meta
+      name="description"
+      content="用手机环拍 10 秒，AI 帮你识别场景、规划机位、调整相机参数、安排人物姿势。1 到 N 人都行。"
+    />
+    <link rel="stylesheet" href="/web/css/style.css" />
+  </head>
+  <body>
+    <div class="aurora-bg" aria-hidden="true">
+      <span class="aurora a1"></span>
+      <span class="aurora a2"></span>
+      <span class="aurora a3"></span>
+    </div>
+
+    <main class="app">
+      <header class="app-header">
+        <div class="brand">
+          <span class="brand-mark">◐</span>
+          <h1>AI 摄影教练</h1>
+        </div>
+        <span id="mode-badge" class="badge">checking…</span>
+      </header>
+
+      <section class="hero hero-fancy">
+        <div class="hero-eyebrow">PWA · 无需安装 · iPhone Safari 可用</div>
+        <h2 class="hero-title">
+          环视一圈，<br />
+          AI 给你<span class="grad-text">出片方案</span>
+        </h2>
+        <p class="hero-sub">
+          10 秒环境视频 → 机位 / 构图 / 焦段光圈快门 ISO / 人物姿势<br />
+          全部一键生成，1 到 N 人都覆盖
+        </p>
+
+        <div class="hero-preview" aria-hidden="true">
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="phone-shot">
+                <div class="phone-tag">SHOT 1</div>
+                <div class="phone-title">黄昏侧逆光半身</div>
+                <div class="phone-meta">
+                  <span>50mm</span><span>f/2.0</span><span>1/320</span><span>ISO 200</span>
+                </div>
+              </div>
+              <div class="phone-shot delayed">
+                <div class="phone-tag">SHOT 2</div>
+                <div class="phone-title">蓝调对角线漫步</div>
+                <div class="phone-meta">
+                  <span>28mm</span><span>f/1.8</span><span>1/60</span><span>ISO 3200</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-glow"></div>
+        </div>
+      </section>
+
+      <section class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <b>原地慢转一圈</b>
+            <span>陀螺仪指引你转完 360°</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <b>AI 看完整环境</b>
+            <span>抽 8-12 张关键帧给 Gemini</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <b>2-3 个出片方案</b>
+            <span>含相机参数 + 中文姿势描述</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h3>人数</h3>
+        <div id="person-count" class="chip-row">
+          <button class="chip active" data-value="1">1 人</button>
+          <button class="chip" data-value="2">2 人</button>
+          <button class="chip" data-value="3">3 人</button>
+          <button class="chip" data-value="4">4 人</button>
+        </div>
+      </section>
+
+      <section class="section avatar-section">
+        <div class="avatar-head">
+          <h3>选你的虚拟角色</h3>
+          <span class="avatar-hint">每个机位会用这些角色摆 pose 在 3D 场景里给你看</span>
+        </div>
+        <div id="avatar-slots" class="avatar-slots"></div>
+        <div id="avatar-grid" class="avatar-grid"></div>
+      </section>
+
+      <section class="section">
+        <h3>质量档</h3>
+        <div id="quality-mode" class="chip-row">
+          <button class="chip active" data-value="fast">
+            <b>快速</b><span class="chip-sub">Flash · ~30s · 免费额度大</span>
+          </button>
+          <button class="chip" data-value="high">
+            <b>高质量</b><span class="chip-sub">Pro · ~60s · 推理更稳</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="section">
+        <h3>风格关键词（可选）</h3>
+        <input
+          id="style-input"
+          class="input"
+          placeholder="例如：cinematic, moody, clean"
+        />
+        <div class="suggest-row">
+          <button type="button" class="suggest-chip" data-suggest="cinematic, moody">cinematic moody</button>
+          <button type="button" class="suggest-chip" data-suggest="clean, bright">clean bright</button>
+          <button type="button" class="suggest-chip" data-suggest="film, warm">film warm</button>
+          <button type="button" class="suggest-chip" data-suggest="street, candid">street candid</button>
+          <button type="button" class="suggest-chip" data-suggest="editorial, fashion">editorial fashion</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="ref-head">
+          <h3>参考图库 <span id="ref-count" class="ref-count">0/8</span></h3>
+          <span class="ref-hint">分析时随上传，AI 会模仿你喜欢的风格</span>
+        </div>
+        <div id="ref-grid" class="ref-grid"></div>
+        <div class="ref-actions">
+          <label class="btn secondary ref-add-btn" for="ref-input">
+            <span>+ 添加参考图</span>
+          </label>
+          <input
+            id="ref-input"
+            type="file"
+            accept="image/*"
+            multiple
+            hidden
+          />
+          <button id="ref-clear" class="btn-link" type="button">清空</button>
+        </div>
+        <p id="ref-error" class="ref-error" style="display: none"></p>
+        <div id="ref-learn-card" class="ref-learn-card" style="display: none">
+          <span class="ref-learn-icon">✨</span>
+          <div class="ref-learn-body">
+            <b>AI 会从这 <span id="ref-learn-count">0</span> 张里学</b>
+            <span>色调 · 光线 · 站位 · 构图。结果页会显示借鉴了哪几张。</span>
+          </div>
+        </div>
+      </section>
+
+      <button id="start-btn" class="btn btn-cta">
+        <span>开始环视拍摄</span>
+        <span class="cta-arrow">→</span>
+      </button>
+
+      <button id="demo-btn" class="btn btn-secondary-cta" type="button">
+        <span>用示例数据跑一次真分析（无需摄像头）</span>
+      </button>
+      <p class="demo-note">
+        没摄像头？后端会送上 8 张预制环视场景帧 + 3 张参考样片，直接走真 Gemini 出方案。
+      </p>
+
+      <div id="demo-overlay" class="spinner-overlay" style="display: none">
+        <div class="spinner"></div>
+        <div id="demo-msg">准备示例数据…</div>
+        <div class="progress-stages" id="demo-stages">
+          <div class="stage" data-stage="fetch">
+            <span class="stage-icon"></span>
+            <span>下载示例环视帧</span>
+          </div>
+          <div class="stage" data-stage="refs">
+            <span class="stage-icon"></span>
+            <span>下载示例参考图</span>
+          </div>
+          <div class="stage" data-stage="ai">
+            <span class="stage-icon"></span>
+            <span>Gemini 真分析</span>
+          </div>
+          <div class="stage" data-stage="render">
+            <span class="stage-icon"></span>
+            <span>跳转结果页</span>
+          </div>
+        </div>
+        <div id="demo-error" class="error-banner" style="display: none; max-width: 320px; margin-top: 12px"></div>
+      </div>
+
+      <p class="footer-note">
+        当前为 PWA 演示版 · 后端 <code id="api-url"></code><br />
+        姿势库 <span id="pose-count">…</span> 条 · 模型 <span id="model-name">…</span>
+      </p>
+    </main>
+
+    <script type="module" src="/web/js/index.js"></script>
+  </body>
+</html>

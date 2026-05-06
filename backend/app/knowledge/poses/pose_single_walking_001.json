@@ -1,0 +1,9 @@
+{
+  "id": "pose_single_walking_001",
+  "person_count": 1,
+  "layout": "single",
+  "summary": "single walking towards camera, gaze off-axis, mid stride",
+  "tags": ["movement", "candid", "story"],
+  "best_for": ["leading_line", "street", "park_path"],
+  "thumbnail": "pose_single_walking_001.png"
+}

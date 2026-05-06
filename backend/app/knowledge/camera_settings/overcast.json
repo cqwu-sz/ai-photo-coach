@@ -1,0 +1,10 @@
+{
+  "scenario": "overcast",
+  "focal_length_mm": 35,
+  "aperture": "f/2.0",
+  "shutter": "1/250",
+  "iso": 400,
+  "white_balance_k": 6500,
+  "ev_compensation": 0.0,
+  "note": "Soft even light; raise WB slightly to avoid blue cast"
+}

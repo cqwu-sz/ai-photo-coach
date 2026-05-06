@@ -1,0 +1,10 @@
+{
+  "scenario": "backlight",
+  "focal_length_mm": 50,
+  "aperture": "f/2.0",
+  "shutter": "1/500",
+  "iso": 200,
+  "white_balance_k": 5500,
+  "ev_compensation": 0.7,
+  "note": "Positive EV to avoid silhouettes; consider reflector or fill flash"
+}

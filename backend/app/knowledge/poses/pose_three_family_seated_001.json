@@ -1,0 +1,9 @@
+{
+  "id": "pose_three_family_seated_001",
+  "person_count": 3,
+  "layout": "triangle",
+  "summary": "two parents seated, child in front center, all looking at camera",
+  "tags": ["family", "formal", "warm"],
+  "best_for": ["centered", "indoor_warm", "shade"],
+  "thumbnail": "pose_three_family_seated_001.png"
+}

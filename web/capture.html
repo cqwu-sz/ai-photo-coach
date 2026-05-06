@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>环境扫描 - AI 摄影教练</title>
+    <link rel="stylesheet" href="/web/css/style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app-header">
+        <button id="back-btn" class="badge">← 返回</button>
+        <span id="meta-badge" class="badge"></span>
+      </header>
+
+      <div class="capture-stage">
+        <video id="preview" autoplay playsinline muted></video>
+        <div class="heading-overlay">
+          <div class="heading-ring">
+            <svg id="ring-svg" viewBox="0 0 220 220"></svg>
+            <div id="needle" class="needle">⌖</div>
+          </div>
+          <div id="heading-hint" class="heading-hint">
+            授权摄像头与方向感应器…
+          </div>
+        </div>
+      </div>
+
+      <div class="capture-controls">
+        <button id="record-btn" class="record-btn"></button>
+      </div>
+
+      <p
+        style="
+          text-align: center;
+          color: var(--text-muted);
+          margin-top: 12px;
+          font-size: 12px;
+        "
+      >
+        手机端：缓慢顺时针转动手机一圈；桌面端：随便晃动鼠标即可（陀螺仪没有时用模拟数据）。
+      </p>
+
+      <div id="error" class="error-banner" style="display: none"></div>
+      <div id="retry-bar" class="retry-bar" style="display: none">
+        <button id="retry-btn" class="btn">重试</button>
+        <button id="back-from-error" class="btn secondary">返回首页</button>
+      </div>
+
+      <div id="spinner" class="spinner-overlay" style="display: none">
+        <div class="spinner"></div>
+        <div id="spinner-msg">正在分析环境，AI 正在出方案…</div>
+        <div class="progress-stages" id="stages">
+          <div class="stage" data-stage="extract">
+            <span class="stage-icon"></span>
+            <span>抽取关键帧</span>
+          </div>
+          <div class="stage" data-stage="upload">
+            <span class="stage-icon"></span>
+            <span>上传到后端</span>
+          </div>
+          <div class="stage" data-stage="ai">
+            <span class="stage-icon"></span>
+            <span>Gemini 分析</span>
+          </div>
+          <div class="stage" data-stage="render">
+            <span class="stage-icon"></span>
+            <span>整理结果</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="/web/js/capture.js"></script>
+  </body>
+</html>

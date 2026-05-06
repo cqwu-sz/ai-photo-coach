@@ -1,0 +1,9 @@
+{
+  "id": "pose_two_high_low_001",
+  "person_count": 2,
+  "layout": "high_low_offset",
+  "summary": "two people, A standing, B half-squat, mutual gaze",
+  "tags": ["couple", "friends", "interactive"],
+  "best_for": ["golden_hour", "outdoor_park"],
+  "thumbnail": "pose_two_high_low_001.png"
+}

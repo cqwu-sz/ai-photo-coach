@@ -1,0 +1,9 @@
+{
+  "id": "pose_three_triangle_001",
+  "person_count": 3,
+  "layout": "triangle",
+  "summary": "three people, A center front, B/C symmetric back, mild stagger",
+  "tags": ["family", "friends", "balanced"],
+  "best_for": ["overcast", "outdoor_park"],
+  "thumbnail": "pose_three_triangle_001.png"
+}

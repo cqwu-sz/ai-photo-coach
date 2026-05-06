@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>可视化预览 - AI 摄影教练</title>
+    <link rel="stylesheet" href="/web/css/style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app-header">
+        <h1>可视化预览</h1>
+        <span class="badge">demo</span>
+      </header>
+
+      <p style="color: var(--text-dim); margin-top: -8px;">
+        渲染几个典型 PoseSuggestion + 机位 angle 的 SVG，方便直接评估视觉效果。
+      </p>
+
+      <div id="cards"></div>
+    </main>
+
+    <script type="module">
+      import { renderPoseSVG } from "/web/js/pose_viz.js";
+      import { renderShotMinimap } from "/web/js/shot_minimap.js";
+
+      const samples = [
+        {
+          title: "1 人 · 站立放松（45°，2.0m）",
+          angle: { azimuth_deg: 45, pitch_deg: -3, distance_m: 2.0, height_hint: "eye_level" },
+          pose: {
+            person_count: 1,
+            layout: "single",
+            persons: [{
+              role: "person_a",
+              stance: "放松站立，重心后脚",
+              upper_body: "略侧身",
+              hands: "一手插裤兜",
+              gaze: "看向镜头",
+              expression: "微笑",
+            }],
+          },
+        },
+        {
+          title: "2 人 · 高低错位（90°，2.4m）",
+          angle: { azimuth_deg: 90, pitch_deg: -5, distance_m: 2.4, height_hint: "eye_level" },
+          pose: {
+            person_count: 2,
+            layout: "high_low_offset",
+            persons: [
+              { role: "person_a", stance: "站立略侧身", hands: "一手搭对方肩" },
+              { role: "person_b", stance: "半蹲坐在台阶", hands: "双手交叠膝前" },
+            ],
+            interaction: "高低错位，视线互动",
+          },
+        },
+        {
+          title: "3 人 · 三角（180°，3.0m，高位）",
+          angle: { azimuth_deg: 180, pitch_deg: 5, distance_m: 3.0, height_hint: "high" },
+          pose: {
+            person_count: 3,
+            layout: "triangle",
+            persons: [
+              { role: "person_a", stance: "居中略前", hands: "双手自然下垂" },
+              { role: "person_b", stance: "左侧略后", hands: "搭 person_a 肩" },
+              { role: "person_c", stance: "右侧略后", hands: "搭 person_a 背后" },
+            ],
+          },
+        },
+        {
+          title: "4 人 · 簇拥（270°，3.2m）",
+          angle: { azimuth_deg: 270, pitch_deg: 0, distance_m: 3.2, height_hint: "eye_level" },
+          pose: {
+            person_count: 4,
+            layout: "cluster",
+            persons: [
+              { role: "person_a", stance: "居中略前", hands: "搭两侧肩" },
+              { role: "person_b", stance: "左侧略后", hands: "搭后背" },
+              { role: "person_c", stance: "右侧半蹲", hands: "双手交叠" },
+              { role: "person_d", stance: "最右后方", hands: "一手搭肩" },
+            ],
+          },
+        },
+      ];
+
+      const cards = document.getElementById("cards");
+      for (const s of samples) {
+        const card = document.createElement("section");
+        card.className = "section";
+        const h = document.createElement("h3");
+        h.textContent = s.title;
+        h.style.color = "var(--text)";
+        h.style.textTransform = "none";
+        h.style.letterSpacing = "0";
+        h.style.fontSize = "15px";
+        card.appendChild(h);
+
+        const row = document.createElement("div");
+        row.className = "shot-visual-row";
+
+        const mapWrap = document.createElement("div");
+        mapWrap.className = "shot-minimap";
+        mapWrap.appendChild(renderShotMinimap(s.angle, { label: "MODEL" }));
+        row.appendChild(mapWrap);
+
+        const poseWrap = document.createElement("div");
+        poseWrap.className = "pose-viz";
+        poseWrap.appendChild(renderPoseSVG(s.pose));
+        row.appendChild(poseWrap);
+
+        card.appendChild(row);
+        cards.appendChild(card);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+name: AIPhotoCoach
+options:
+  bundleIdPrefix: com.aiphotocoach
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+    GENERATE_INFOPLIST_FILE: YES
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    SWIFT_STRICT_CONCURRENCY: minimal
+
+targets:
+  AIPhotoCoach:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: AIPhotoCoach
+    info:
+      path: AIPhotoCoach/Info.plist
+      properties:
+        CFBundleDisplayName: AI Photo Coach
+        CFBundleShortVersionString: "0.1.0"
+        CFBundleVersion: "1"
+        UILaunchScreen:
+          UIColorName: ""
+          UIImageName: ""
+        UIRequiredDeviceCapabilities:
+          - armv7
+          - arkit
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSCameraUsageDescription: "Used to capture an environment scan video for AI shot analysis, and to power the live AR shot-guide view."
+        NSMicrophoneUsageDescription: "Optional - audio is not stored, only video frames are analyzed."
+        NSPhotoLibraryUsageDescription: "Used so you can import reference photos that train your personal style."
+        NSMotionUsageDescription: "Used to estimate the direction your camera is facing during the scan and AR alignment."
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: false
+          NSAllowsLocalNetworking: true
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.aiphotocoach.app
+        TARGETED_DEVICE_FAMILY: "1"
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+
+  AIPhotoCoachTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: AIPhotoCoachTests
+    dependencies:
+      - target: AIPhotoCoach
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.aiphotocoach.app.tests
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+
+schemes:
+  AIPhotoCoach:
+    build:
+      targets:
+        AIPhotoCoach: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - AIPhotoCoachTests
+    archive:
+      config: Release

@@ -1,0 +1,9 @@
+{
+  "id": "pose_single_seated_wall_001",
+  "person_count": 1,
+  "layout": "single",
+  "summary": "single seated against a wall, knees up, hands resting on knees",
+  "tags": ["intimate", "moody", "magazine"],
+  "best_for": ["indoor_warm", "shade", "frame_within_frame"],
+  "thumbnail": "pose_single_seated_wall_001.png"
+}

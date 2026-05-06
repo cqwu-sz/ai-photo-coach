@@ -1,0 +1,10 @@
+{
+  "scenario": "harsh_noon",
+  "focal_length_mm": 50,
+  "aperture": "f/2.8",
+  "shutter": "1/1000",
+  "iso": 100,
+  "white_balance_k": 5500,
+  "ev_compensation": -0.7,
+  "note": "Find shade or use backlight to avoid eye-bag shadows"
+}

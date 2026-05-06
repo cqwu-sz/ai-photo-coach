@@ -1,0 +1,6 @@
+{
+  "id": "leading_line",
+  "summary": "Use a path/edge/railing to guide the eye towards the subject",
+  "good_for": ["walking", "diagonal", "story"],
+  "tip": "Start the line from a bottom corner so it leads inward"
+}

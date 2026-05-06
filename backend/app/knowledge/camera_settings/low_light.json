@@ -1,0 +1,10 @@
+{
+  "scenario": "low_light",
+  "focal_length_mm": 28,
+  "aperture": "f/1.8",
+  "shutter": "1/60",
+  "iso": 3200,
+  "white_balance_k": 3200,
+  "ev_compensation": 0.3,
+  "note": "Stay above 1/60s to avoid motion blur; brace phone or use night mode"
+}

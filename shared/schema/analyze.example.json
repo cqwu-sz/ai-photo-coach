@@ -1,0 +1,71 @@
+{
+  "scene": {
+    "type": "outdoor_park",
+    "lighting": "golden_hour",
+    "background_summary": "Open lawn with a row of trees on the right, golden backlight from west, distant pavilion as anchor",
+    "cautions": ["Watch for harsh backlight clipping highlights on hair"]
+  },
+  "shots": [
+    {
+      "id": "shot_1",
+      "title": "黄昏侧逆光半身",
+      "angle": {
+        "azimuth_deg": 95,
+        "pitch_deg": -5,
+        "distance_m": 2.2,
+        "height_hint": "eye_level"
+      },
+      "composition": {
+        "primary": "rule_of_thirds",
+        "secondary": ["leading_line"],
+        "notes": "Place subjects on left third, let path lead from bottom-right"
+      },
+      "camera": {
+        "focal_length_mm": 50,
+        "aperture": "f/2.0",
+        "shutter": "1/320",
+        "iso": 200,
+        "white_balance_k": 5500,
+        "ev_compensation": -0.3,
+        "rationale": "侧逆光下用 50mm 压缩空间感，f/2.0 浅景深虚化树叶，-0.3EV 保留高光",
+        "device_hints": {
+          "iphone_lens": "tele_2x",
+          "third_party_app": "Halide / ProCamera"
+        }
+      },
+      "poses": [
+        {
+          "person_count": 2,
+          "layout": "high_low_offset",
+          "persons": [
+            {
+              "role": "person_a",
+              "stance": "面向相机略侧身，左脚向前迈半步",
+              "upper_body": "微微前倾",
+              "hands": "右手自然垂落，左手轻搭对方肩",
+              "gaze": "看向 person_b",
+              "expression": "微笑",
+              "position_hint": "Left third, 2.0m from camera"
+            },
+            {
+              "role": "person_b",
+              "stance": "蹲下半蹲，重心放在前脚",
+              "upper_body": "侧身向 person_a",
+              "hands": "双手交握于膝前",
+              "gaze": "回望 person_a",
+              "expression": "轻笑",
+              "position_hint": "Slightly behind person_a, 0.5m offset"
+            }
+          ],
+          "interaction": "高低错位互动注视，避免两人同高呆板",
+          "reference_thumbnail_id": "pose_two_high_low_001",
+          "difficulty": "easy"
+        }
+      ],
+      "rationale": "黄昏侧逆光最适合双人半身互动，高低错位让画面更有层次",
+      "confidence": 0.82
+    }
+  ],
+  "generated_at": "2026-05-05T15:00:00Z",
+  "model": "gemini-2.5-flash"
+}

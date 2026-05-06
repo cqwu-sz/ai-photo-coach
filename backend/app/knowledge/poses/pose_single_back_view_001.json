@@ -1,0 +1,9 @@
+{
+  "id": "pose_single_back_view_001",
+  "person_count": 1,
+  "layout": "single",
+  "summary": "single shot from behind, head turned 30 degrees, looking off into the scene",
+  "tags": ["story", "moody", "scenic"],
+  "best_for": ["leading_line", "negative_space", "golden_hour", "blue_hour"],
+  "thumbnail": "pose_single_back_view_001.png"
+}

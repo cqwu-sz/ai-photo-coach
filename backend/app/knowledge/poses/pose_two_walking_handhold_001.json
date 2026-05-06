@@ -1,0 +1,9 @@
+{
+  "id": "pose_two_walking_handhold_001",
+  "person_count": 2,
+  "layout": "diagonal",
+  "summary": "couple walking diagonally away from camera, holding hands, one looking back",
+  "tags": ["couple", "story", "movement"],
+  "best_for": ["leading_line", "golden_hour", "park_path"],
+  "thumbnail": "pose_two_walking_handhold_001.png"
+}
