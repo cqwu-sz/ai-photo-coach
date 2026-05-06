@@ -180,7 +180,7 @@ struct PersonPose: Codable, Sendable, Identifiable, Hashable {
     }
 }
 
-struct PoseSuggestion: Codable, Sendable {
+struct PoseSuggestion: Codable, Sendable, Hashable {
     let personCount: Int
     let layout: Layout
     let persons: [PersonPose]
