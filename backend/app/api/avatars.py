@@ -103,6 +103,15 @@ PRESET_AVATARS: list[dict[str, object]] = [
         "usdz": "Avatars/child_girl_8.usdz",
         "thumbnail": "/web/avatars/preset/child_girl_8.png",
     },
+    {
+        "id": "female_youth_18",
+        "name_zh": "少女 · 18",
+        "gender": "female", "age": 18,
+        "style": "youth", "tags": ["youth", "summer", "sweet"],
+        "glb": "/web/avatars/preset/female_youth_18.glb",
+        "usdz": "Avatars/female_youth_18.usdz",
+        "thumbnail": "/web/avatars/preset/female_youth_18.png",
+    },
 ]
 
 

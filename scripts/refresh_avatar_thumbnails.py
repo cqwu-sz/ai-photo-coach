@@ -31,6 +31,7 @@ PRESET_IDS = [
     "female_artsy_25",
     "child_boy_8",
     "child_girl_8",
+    "female_youth_18",
 ]
 
 

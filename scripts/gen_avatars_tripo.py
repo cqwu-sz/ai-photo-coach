@@ -169,6 +169,20 @@ PRESETS: list[PresetSpec] = [
             "studio lighting, plain background, game-ready PBR textures"
         ),
     ),
+    PresetSpec(
+        id="female_youth_18",
+        name_zh="少女 · 18",
+        prompt=(
+            "Photorealistic stylized 3D character, full body, T-pose, "
+            "Asian young woman around 18 years old, fresh and pretty, "
+            "black hair tied in a single high bun (odango / top knot) with "
+            "a few loose face-framing strands, wearing a short white "
+            "summer dress with cap sleeves and a soft pleated skirt above "
+            "the knee, white low sneakers, bright cheerful neutral expression, "
+            "looking forward, slender youthful build, studio lighting, "
+            "plain background, game-ready PBR textures"
+        ),
+    ),
 ]
 
 
