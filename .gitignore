@@ -48,3 +48,6 @@ docs/preview/*_fullpage.png
 
 # Cursor / agent transcript junk inside workspace
 agent-transcripts/
+
+# Tripo3D intermediate task artifacts (logs, raw glb/usdz/webp downloads)
+scripts/_tripo_logs/
