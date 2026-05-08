@@ -93,9 +93,13 @@ def preset_for(lighting: Lighting, person_count: int) -> _ParamPreset:
 
 
 def synthesize_camera_settings(
-    lighting: Lighting, person_count: int, rationale: Optional[str] = None
+    lighting: Lighting,
+    person_count: int,
+    rationale: Optional[str] = None,
+    scene_mode: str = "portrait",
 ) -> CameraSettings:
     p = preset_for(lighting, person_count)
+    p = _apply_scene_mode(p, scene_mode)
     return CameraSettings(
         focal_length_mm=p.focal_length_mm,
         aperture=p.aperture,
@@ -103,23 +107,27 @@ def synthesize_camera_settings(
         iso=p.iso,
         white_balance_k=p.wb_k,
         ev_compensation=p.ev,
-        rationale=rationale or _default_rationale(lighting, person_count),
+        rationale=rationale or _default_rationale(lighting, person_count, scene_mode),
         device_hints=DeviceHints(iphone_lens=p.iphone_lens),
     )
 
 
 def repair_camera_settings(
-    cam: CameraSettings, lighting: Lighting, person_count: int
+    cam: CameraSettings,
+    lighting: Lighting,
+    person_count: int,
+    scene_mode: str = "portrait",
 ) -> CameraSettings:
     """Clamp obviously-wrong LLM output back into a safe range, filling holes
-    with the deterministic preset."""
-    fallback = synthesize_camera_settings(lighting, person_count)
+    with the deterministic preset specialised by scene mode."""
+    fallback = synthesize_camera_settings(lighting, person_count, scene_mode=scene_mode)
     data = cam.model_dump()
     for k, default_val in fallback.model_dump().items():
         if data.get(k) in (None, ""):
             data[k] = default_val
 
-    if not (14 <= data["focal_length_mm"] <= 200):
+    lo, hi = _focal_range_for(scene_mode)
+    if not (lo <= data["focal_length_mm"] <= hi):
         data["focal_length_mm"] = fallback.focal_length_mm
     if not (50 <= data["iso"] <= 12800):
         data["iso"] = fallback.iso
@@ -127,7 +135,78 @@ def repair_camera_settings(
     return CameraSettings.model_validate(data)
 
 
-def _default_rationale(lighting: Lighting, person_count: int) -> str:
+def _apply_scene_mode(p: _ParamPreset, scene_mode: str) -> _ParamPreset:
+    """Tweak a preset for the requested scene mode.
+
+    The preset table is keyed by (lighting, person_count) which captures
+    exposure correctly. Scene mode adjusts the lens/aperture sweet spot:
+    closeup wants long + wide, full_body wants standard, scenery wants
+    wide + small aperture.
+    """
+    if scene_mode == "closeup":
+        return _ParamPreset(
+            focal_length_mm=max(85.0, p.focal_length_mm),
+            aperture=p.aperture if _f_value(p.aperture) <= 2.0 else "f/1.8",
+            shutter=p.shutter,
+            iso=p.iso,
+            wb_k=p.wb_k,
+            ev=p.ev,
+            iphone_lens=IphoneLens.tele_3x,
+        )
+    if scene_mode == "full_body":
+        return _ParamPreset(
+            focal_length_mm=min(50.0, max(35.0, p.focal_length_mm)),
+            aperture=p.aperture,
+            shutter=p.shutter,
+            iso=p.iso,
+            wb_k=p.wb_k,
+            ev=p.ev,
+            iphone_lens=IphoneLens.wide_1x,
+        )
+    if scene_mode == "documentary":
+        # 抓拍质感: 28-35mm, slightly faster shutter
+        return _ParamPreset(
+            focal_length_mm=28.0 if p.focal_length_mm >= 50 else p.focal_length_mm,
+            aperture=p.aperture,
+            shutter=p.shutter,
+            iso=p.iso,
+            wb_k=p.wb_k,
+            ev=p.ev,
+            iphone_lens=IphoneLens.wide_1x,
+        )
+    if scene_mode == "scenery":
+        # 风景: 14-35, 小光圈大景深
+        return _ParamPreset(
+            focal_length_mm=24.0,
+            aperture="f/8",
+            shutter=p.shutter,
+            iso=max(100, min(p.iso, 400)),
+            wb_k=p.wb_k,
+            ev=p.ev,
+            iphone_lens=IphoneLens.ultrawide_0_5x,
+        )
+    return p
+
+
+def _focal_range_for(scene_mode: str) -> tuple[float, float]:
+    return {
+        "closeup": (50.0, 200.0),
+        "full_body": (24.0, 85.0),
+        "documentary": (24.0, 85.0),
+        "scenery": (14.0, 50.0),
+    }.get(scene_mode, (14.0, 200.0))
+
+
+def _f_value(aperture: str) -> float:
+    try:
+        return float(aperture.lstrip("f/").lstrip("F/"))
+    except (ValueError, AttributeError):
+        return 2.8
+
+
+def _default_rationale(
+    lighting: Lighting, person_count: int, scene_mode: str = "portrait"
+) -> str:
     base = {
         Lighting.golden_hour: "黄金时段侧逆光，长焦压缩 + 浅景深突出主体",
         Lighting.blue_hour: "蓝调时段光线弱，开大光圈 + 提 ISO 保留氛围",
@@ -140,5 +219,13 @@ def _default_rationale(lighting: Lighting, person_count: int) -> str:
         Lighting.backlight: "逆光下使用正补偿避免人物过暗",
         Lighting.mixed: "混合光线，选最干净光源做主光",
     }.get(lighting, "标准室外曝光")
-    suffix = "" if person_count <= 1 else f"，{person_count} 人合影需保证景深覆盖所有人"
-    return base + suffix
+    person_suffix = (
+        "" if person_count <= 1 else f"，{person_count} 人合影需保证景深覆盖所有人"
+    )
+    mode_suffix = {
+        "closeup": "；特写场景偏好长焦大光圈突出五官与神态",
+        "full_body": "；全身场景用 35-50mm 平衡比例与背景",
+        "documentary": "；人文抓拍优先 28-35mm 广角带环境",
+        "scenery": "；风景场景用小光圈追求大景深与锐利天际线",
+    }.get(scene_mode, "")
+    return base + person_suffix + mode_suffix

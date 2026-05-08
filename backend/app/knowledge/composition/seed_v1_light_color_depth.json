@@ -1,0 +1,193 @@
+[
+  {
+    "id": "light_golden_hour",
+    "category": "light",
+    "name_zh": "黄金时刻",
+    "summary": "日出后或日落前 1 小时内的低色温斜光，最讨喜的人像光",
+    "axes": ["light", "color"],
+    "scene_modes": ["portrait", "full_body", "documentary", "scenery", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 5,
+    "when_to_use": ["户外人像", "风光", "情绪写真"],
+    "evidence": "色温 2800-3500K + 太阳低角度（< 20°）让光线柔和暖调，皮肤上发光感天然，被称为 magic hour",
+    "watch_out": "时间窗短，一次只有 30-50 分钟；要提前看天气和位置预演",
+    "counter_example": "正午顶光为黄金时刻的反面",
+    "tags": ["黄金时刻", "暖光", "斜光"],
+    "citations": [
+      { "source": "Bryan Peterson《Understanding Exposure》", "chapter": "Golden Hour" },
+      { "source": "宁思潇潇《新摄影笔记》", "chapter": "Ch.6 自然光" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_blue_hour",
+    "category": "light",
+    "name_zh": "蓝调时刻",
+    "summary": "日落后 / 日出前 20-40 分钟，天空冷蓝、人造光暖黄的双色温",
+    "axes": ["light", "color"],
+    "scene_modes": ["full_body", "documentary", "scenery", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["城市夜景", "蓝调人像", "建筑摄影"],
+    "evidence": "天光约 8000K + 路灯约 2700K 形成强烈冷暖对比，最适合表达都市感与现代感",
+    "watch_out": "ISO 会被迫拉高（800-3200），iPhone 上要打开夜景模式或保持稳定",
+    "counter_example": "甜美糖水写真不适合冷蓝调",
+    "tags": ["蓝调时刻", "冷暖对比", "夜景"],
+    "citations": [
+      { "source": "Bryan Peterson《Understanding Exposure》", "chapter": "Blue Hour" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_side_short",
+    "category": "light",
+    "name_zh": "短光人像",
+    "summary": "光从主体面部远离镜头那一侧打来，让脸显瘦、立体",
+    "axes": ["light", "subject_fit"],
+    "scene_modes": ["portrait", "closeup", "light_shadow"],
+    "person_count_range": [1, 2],
+    "priority": 4,
+    "when_to_use": ["人像", "瘦脸需求"],
+    "evidence": "短光（short light）让脸朝镜头的一侧处于阴影，立体且显瘦；长光（broad light）反之，会让脸显胖",
+    "watch_out": "短光会让阴影一侧细节被压暗，皮肤瑕疵也藏起来；但要避免阴影完全死黑",
+    "counter_example": "圆脸要瘦脸用短光，方脸应用偏正光弱化棱角",
+    "tags": ["短光", "瘦脸", "立体"],
+    "citations": [
+      { "source": "巴内克《人像摄影经典教程》", "chapter": "Ch.7 用光" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_window",
+    "category": "light",
+    "name_zh": "窗光人像",
+    "summary": "把模特放在窗边 45° 角，窗就是天然柔光箱",
+    "axes": ["light"],
+    "scene_modes": ["portrait", "closeup", "documentary"],
+    "person_count_range": [1, 2],
+    "priority": 5,
+    "when_to_use": ["室内", "雨天救场", "极简风格"],
+    "evidence": "窗光面积大、衰减快，能在脸部形成柔和明暗过渡，是 Vermeer 式经典肖像光",
+    "watch_out": "强直射阳光从窗口入会变硬光，可加薄白纱柔化",
+    "counter_example": "需要剪影时反向用 — 让窗在主体身后",
+    "tags": ["窗光", "柔光", "Vermeer"],
+    "citations": [
+      { "source": "巴内克《人像摄影经典教程》", "chapter": "Ch.7 自然光" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_avoid_noon",
+    "category": "light",
+    "name_zh": "避开正午顶光",
+    "summary": "11-14 点高角度阳光会在脸上造成熊猫眼与下巴硬影，不适合人像",
+    "axes": ["light"],
+    "scene_modes": ["portrait", "full_body", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["户外人像计划"],
+    "evidence": "顶光让眼眶、鼻底、下巴下方变成深黑阴影，俗称熊猫眼，几乎无法后期挽救",
+    "watch_out": "如必须在正午拍，让模特进入树荫、屋檐、墙阴影中能立刻救场",
+    "counter_example": "光影模式想要硬切剪影时反而需要顶光",
+    "tags": ["正午", "禁忌", "熊猫眼"],
+    "citations": [
+      { "source": "Bryan Peterson《Understanding Exposure》", "chapter": "Hard Light" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "color_complementary",
+    "category": "color",
+    "name_zh": "互补色对比",
+    "summary": "主体与背景采用色轮上对角的颜色（蓝 vs 橙 / 红 vs 绿 / 黄 vs 紫）",
+    "axes": ["color"],
+    "scene_modes": ["portrait", "full_body", "documentary", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["蓝调时刻 + 暖灯（橙蓝）", "红墙 + 绿衣", "黄花 + 紫衣"],
+    "evidence": "互补色对比是色彩理论里最强的视觉张力组合，主体瞬间从背景里跳出",
+    "watch_out": "对比强度要受控，避免每个角落都有强对比导致眼花",
+    "counter_example": "古典油画风格、莫兰迪风格不用互补色",
+    "tags": ["色彩对比", "互补色", "张力"],
+    "citations": [
+      { "source": "Itten《The Art of Color》", "chapter": "Complementary Contrast" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "color_analogous",
+    "category": "color",
+    "name_zh": "邻近色统一",
+    "summary": "整张照片使用色轮上相邻的颜色（绿黄棕 / 蓝紫红）形成统一调性",
+    "axes": ["color"],
+    "scene_modes": ["portrait", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["唯美风", "风光", "莫兰迪人像"],
+    "evidence": "邻近色让画面气质统一、平静；东方水墨画与莫兰迪静物常用",
+    "watch_out": "色彩太接近会显灰，需用明度差或一处小面积的对比色提神",
+    "counter_example": "需要强烈视觉冲击的商业人像不适合",
+    "tags": ["邻近色", "莫兰迪", "统一感"],
+    "citations": [
+      { "source": "Itten《The Art of Color》", "chapter": "Analogous Colors" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "color_skin_tone",
+    "category": "color",
+    "name_zh": "肤色优先",
+    "summary": "肤色是观者最敏感的颜色，色温 4800-5400K，肤色不偏即是好白平衡",
+    "axes": ["color"],
+    "scene_modes": ["portrait", "closeup", "full_body", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["所有人像"],
+    "evidence": "人眼对肤色偏色极其敏感，绿肤、紫肤、黄肤都会立刻显假；自动白平衡在混合光下经常翻车",
+    "watch_out": "复杂光源下用灰卡 / 自定白平衡 / 后期挑健康肤色作为基准",
+    "counter_example": "概念艺术故意做夸张色调时除外",
+    "tags": ["肤色", "白平衡", "健康"],
+    "citations": [
+      { "source": "巴内克《人像摄影经典教程》", "chapter": "Ch.8 色温与白平衡" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "depth_three_layers",
+    "category": "depth",
+    "name_zh": "三层景深",
+    "summary": "前清-中实-远虚（或反之）让二维画面获得三维层次",
+    "axes": ["depth", "composition"],
+    "scene_modes": ["full_body", "documentary", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["环境人像", "风光"],
+    "evidence": "层次差形成视觉穿越，避免画面贴平；前景小元素 + 主体清晰 + 远景虚化最常用",
+    "watch_out": "必须有层与层之间的虚实差或明度差，否则只是『靠得近一点』",
+    "counter_example": "极简平面化构图主动放弃景深",
+    "tags": ["纵深", "三层", "空气感"],
+    "citations": [
+      { "source": "Michael Freeman, The Photographer's Eye", "chapter": "Ch.8 Depth Cues" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "depth_atmospheric",
+    "category": "depth",
+    "name_zh": "大气透视",
+    "summary": "远处由于空气散射会变浅、偏蓝、对比度降低，强化远近感",
+    "axes": ["depth", "color"],
+    "scene_modes": ["scenery", "full_body", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["山景", "城市天际线", "晨雾"],
+    "evidence": "大气透视让远处自动『退后』，是表达辽阔与距离的天然手法",
+    "watch_out": "雾霾天的灰是污染不是大气透视，画面会显脏",
+    "counter_example": "新清通透摄影避免远景偏蓝偏灰",
+    "tags": ["大气透视", "山景", "辽阔"],
+    "citations": [
+      { "source": "Michael Freeman, The Photographer's Eye", "chapter": "Ch.8 Aerial Perspective" }
+    ],
+    "embedding": null
+  }
+]

@@ -1,10 +1,26 @@
-# AI Photo Coach
+# 拾光 · AI 摄影教练 (AI Photo Coach)
 
 iOS app + PWA web demo + Python backend that turns a 10-20s environment scan
 video into a structured shot plan: best angle, composition, camera settings
-(focal length, aperture, shutter, ISO, EV) and pose suggestions for 1-N
+(focal length, aperture, shutter, ISO, EV) and pose suggestions for 0-4
 people. Reference images on-device personalize the recommendations to your
 style.
+
+**4 维质量评分**：每个机位都按 *构图 / 光线 / 色彩 / 景深* 4 个维度打分（1-5），
+配上一行规则引用，结果页直接画成进度条 + "亮点 / 可改" 标签。让 AI 的建议从抽象
+评论变成可视化指南。
+
+**光影模式 + 太阳罗盘**：新增 `light_shadow` 出片场景。授权位置后后端用 NREL SPA
+算法计算太阳方位 / 高度 / 黄金时刻倒计时（纯本地计算，无需外部 API），结果页
+显示一个圆形罗盘 + 倒计时 chip，AI 还会**按时间敏感度重排方案**——先拍即将
+消失的光线方向。
+
+**多模型 BYOK**：原生 Gemini + 9 个 OpenAI 兼容预设（智谱 GLM-4.6V / GPT-4o /
+Qwen-VL / DeepSeek-VL2 / Kimi Vision），用户可以在 PWA / iOS 设置里选模型 +
+填自己的 API key（密钥仅存本地）。详见 [docs/MULTI_MODEL.md](docs/MULTI_MODEL.md)。
+
+**6 档出片场景**：人像 / 特写 / 全身 / 人文 / 风景 / 光影 —— 风景模式可不出
+人，光影模式按位置实时计算太阳数据。详见 [docs/SCENE_MODES.md](docs/SCENE_MODES.md)。
 
 See `docs/ARCHITECTURE.md` for a top-down view, `docs/WEB_DEMO.md` for the
 fastest way to see the product in action without a Mac, and the plan file in

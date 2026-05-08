@@ -1,0 +1,154 @@
+[
+  {
+    "id": "barthes_studium",
+    "category": "theme",
+    "name_zh": "Studium 公共面",
+    "summary": "Studium = 照片可被普遍解读的部分（场景 / 信息 / 文化语境）；它让照片『进入』观者",
+    "axes": ["theme", "background"],
+    "scene_modes": ["portrait", "documentary", "scenery", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["纪实创作前期构思"],
+    "evidence": "Roland Barthes《Camera Lucida》核心概念；studium 决定『这张为什么有意义』",
+    "watch_out": "Studium 不能完全主导；缺 punctum 的照片只是 documentary",
+    "counter_example": "纯抽象艺术摄影可不强调 studium",
+    "tags": ["Barthes", "Studium", "理论"],
+    "citations": [
+      { "source": "Roland Barthes《Camera Lucida》", "chapter": "Studium" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "barthes_punctum",
+    "category": "theme",
+    "name_zh": "Punctum 刺点",
+    "summary": "Punctum = 照片中刺中观者的『细节』；不可预设、来自照片本身的偶然",
+    "axes": ["theme", "subject_fit"],
+    "scene_modes": ["portrait", "documentary", "light_shadow"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["情绪人像", "纪实", "故事系列"],
+    "evidence": "Barthes：『punctum 是从场景中刺出像箭一样的东西，刺中我』；它使照片『难忘』",
+    "watch_out": "punctum 不能强行制造；保留拍摄中的小意外（一只走过的猫 / 风吹的发丝）",
+    "counter_example": "证件照、商品图无 punctum 也成立",
+    "tags": ["Barthes", "Punctum", "刺点"],
+    "citations": [
+      { "source": "Roland Barthes《Camera Lucida》", "chapter": "Punctum" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "barthes_ca_a_ete",
+    "category": "theme",
+    "name_zh": "曾经存在",
+    "summary": "Ça-a-été = 『这曾经存在过』；摄影的本质是『过去的当下』，与时间对抗",
+    "axes": ["theme"],
+    "scene_modes": ["portrait", "documentary", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["回忆主题", "家人摄影", "时间档案"],
+    "evidence": "Barthes 区分摄影与绘画：摄影必须『被拍过』，是与现实的物理粘合",
+    "watch_out": "概念偏哲学；用于解释为什么家人合影、童年照不可替代",
+    "counter_example": "概念合成、AI 生成图无 ça-a-été",
+    "tags": ["Barthes", "时间", "存在"],
+    "citations": [
+      { "source": "Roland Barthes《Camera Lucida》", "chapter": "That-Has-Been" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "barthes_spectator_operator",
+    "category": "theme",
+    "name_zh": "拍摄者与观者",
+    "summary": "Operator（摄影师）/ Spectator（观者）/ Spectrum（被摄者）三者关系；构图前先想清自己是哪个",
+    "axes": ["theme", "subject_fit"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 3,
+    "when_to_use": ["创作思考"],
+    "evidence": "Barthes 三角关系；摄影师必须意识到三方都在『看』",
+    "watch_out": "不要纯按 operator 视角拍；想象 spectator 看到什么",
+    "counter_example": "纯档案 / 监控摄影不需要这层关系",
+    "tags": ["Barthes", "三角关系", "理论"],
+    "citations": [
+      { "source": "Roland Barthes《Camera Lucida》", "chapter": "Operator/Spectator" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "barthes_unary_image",
+    "category": "theme",
+    "name_zh": "单一意象",
+    "summary": "Unary photograph = 只有 studium 没 punctum 的『单一意象』；视觉好看但没刺",
+    "axes": ["theme"],
+    "scene_modes": ["portrait", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["自我审稿"],
+    "evidence": "Barthes 警告：unary photograph 是新闻图、广告图的常态；属于 not photographically interesting",
+    "watch_out": "拍前后期问自己：除了好看还有什么？没有就再拍一张",
+    "counter_example": "做品牌图鉴时反而需要 unary",
+    "tags": ["Barthes", "unary", "审稿"],
+    "citations": [
+      { "source": "Roland Barthes《Camera Lucida》", "chapter": "Unary Photograph" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "barthes_air_of_face",
+    "category": "theme",
+    "name_zh": "面孔的『气』",
+    "summary": "Barthes 称为 air ——拍人像的目标不是『还原长相』，而是抓到某种『气』",
+    "axes": ["theme", "subject_fit"],
+    "scene_modes": ["portrait", "closeup"],
+    "person_count_range": [1, 1],
+    "priority": 4,
+    "when_to_use": ["人物肖像", "亲人留影"],
+    "evidence": "Barthes 的母亲照片只有一张让他认出『母亲的 air』；这是肖像超越识别的标准",
+    "watch_out": "不要为追求长相精确而失去 air；表情细微差距决定 air",
+    "counter_example": "证件照只要识别功能",
+    "tags": ["Barthes", "Air", "肖像"],
+    "citations": [
+      { "source": "Roland Barthes《Camera Lucida》", "chapter": "Air" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "barthes_madness_evidence",
+    "category": "theme",
+    "name_zh": "疯狂的证据",
+    "summary": "摄影既是疯狂（魔法记录）又是证据（真实档案）；好照片同时拥有两面",
+    "axes": ["theme"],
+    "scene_modes": ["documentary", "portrait", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["创作哲学思考"],
+    "evidence": "Barthes 终极结论：摄影 = certain magic + clinical evidence；二者缺一不可",
+    "watch_out": "纯证据照变档案没温度；纯魔法照变插画没真实",
+    "counter_example": "AI 生成图缺 evidence",
+    "tags": ["Barthes", "魔法", "证据"],
+    "citations": [
+      { "source": "Roland Barthes《Camera Lucida》", "chapter": "Tame & Mad" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "barthes_intractable_referent",
+    "category": "theme",
+    "name_zh": "不可分割的指涉",
+    "summary": "摄影中的 'referent' 与照片不可分；这棵树的照片必然是这棵真实存在过的树",
+    "axes": ["theme"],
+    "scene_modes": ["documentary", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 2,
+    "when_to_use": ["纪实理论"],
+    "evidence": "Barthes 强调与绘画的关键区别：摄影 referent 是物质实体，无法仅凭想象生成",
+    "watch_out": "AI 时代这一前提面临挑战；需对 AI 图像与摄影做严格区分",
+    "counter_example": "AIGC 图像无 referent",
+    "tags": ["Barthes", "Referent", "本体论"],
+    "citations": [
+      { "source": "Roland Barthes《Camera Lucida》", "chapter": "The Photograph's Referent" }
+    ],
+    "embedding": null
+  }
+]

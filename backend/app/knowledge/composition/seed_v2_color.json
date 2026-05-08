@@ -1,0 +1,192 @@
+[
+  {
+    "id": "color_60_30_10",
+    "category": "color",
+    "name_zh": "60-30-10 配色法",
+    "summary": "主色 60% + 辅色 30% + 点缀色 10% 是设计学黄金比；让画面色彩有秩序感",
+    "axes": ["color", "composition"],
+    "scene_modes": ["portrait", "documentary", "scenery", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 5,
+    "when_to_use": ["杂乱色场景救场", "服装搭配", "环境人像"],
+    "evidence": "源自室内设计 60-30-10 法则；扩展到摄影后让画面避免色彩平均=没主角",
+    "watch_out": "不必精确 60-30-10，但点缀色 10% 必须存在（否则画面闷）；主色和辅色要有色相差",
+    "counter_example": "单色调极简画面（monochrome）不需要分三色",
+    "tags": ["60-30-10", "配色", "比例"],
+    "citations": [
+      { "source": "Tigz Rice《色彩原理》", "chapter": "60-30-10" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "color_complementary_pop",
+    "category": "color",
+    "name_zh": "互补色冲击",
+    "summary": "蓝 vs 橙 / 红 vs 绿 / 黄 vs 紫 互补色让主体瞬间跳出，电影海报常用",
+    "axes": ["color", "subject_fit"],
+    "scene_modes": ["portrait", "documentary", "light_shadow"],
+    "person_count_range": [1, 3],
+    "priority": 5,
+    "when_to_use": ["主体衣服 vs 背景", "海报感", "强调情绪冲突"],
+    "evidence": "好莱坞 teal-orange 公式即蓝橙互补；色环对面色互相增强对比",
+    "watch_out": "互补色饱和度都拉满会刺眼；让一方偏中性、另一方饱和",
+    "counter_example": "想表达和谐 / 平静的画面要用相邻色，不用互补",
+    "tags": ["互补色", "Teal-Orange", "海报"],
+    "citations": [
+      { "source": "Color Theory for Cinematographers", "chapter": "Complementary Colors" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "color_analogous_harmony",
+    "category": "color",
+    "name_zh": "相邻色和谐",
+    "summary": "色环上相邻 30°-60° 范围内的颜色组成画面，柔和耐看；适合环境人像",
+    "axes": ["color", "theme"],
+    "scene_modes": ["portrait", "scenery", "documentary"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["秋叶环境", "沙漠日落", "莫兰迪风"],
+    "evidence": "相邻色因色相近共享色温和明度区间，画面的和谐度极高；莫兰迪风格的核心",
+    "watch_out": "纯相邻色易显平，需要明度对比或饱和度阶梯救场",
+    "counter_example": "想表达矛盾 / 戏剧性时不用相邻色",
+    "tags": ["相邻色", "Harmony", "莫兰迪"],
+    "citations": [
+      { "source": "Color Theory for Cinematographers", "chapter": "Analogous" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "color_low_saturation_mood",
+    "category": "color",
+    "name_zh": "低饱和氛围",
+    "summary": "整体降饱和到 -20 — -40，让画面气质从『鲜艳 vlog』变为『胶片文艺』",
+    "axes": ["color", "theme"],
+    "scene_modes": ["portrait", "documentary", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["故事人像", "怀旧主题", "雨天阴天"],
+    "evidence": "低饱和让色彩变成『支撑』而非『主角』，观众的注意力转回光影 / 表情；胶片相纸天生低饱和",
+    "watch_out": "肤色饱和不能再降，否则人脸『发灰』；分轨调整",
+    "counter_example": "节日 / 童年 / 食物等需要鲜艳的主题不要降饱和",
+    "tags": ["低饱和", "胶片", "氛围"],
+    "citations": [
+      { "source": "Bryan Peterson《Understanding Color》", "chapter": "Saturation" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "color_warm_dominate_skin",
+    "category": "color",
+    "name_zh": "暖调护肤色",
+    "summary": "肤色在偏暖（约 5500-6500K）下最讨喜；冷调环境时给肤色加 +5 暖修",
+    "axes": ["color", "subject_fit"],
+    "scene_modes": ["portrait", "closeup", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["所有人像"],
+    "evidence": "人脑对偏黄红的肤色判断为『健康』；过冷会让人显病",
+    "watch_out": "全图暖调过度让白衣发黄；分通道调，肤色单独偏暖",
+    "counter_example": "工业风 / 冷调主题人像故意压暖会很酷，但要心中有数",
+    "tags": ["肤色", "暖调", "白平衡"],
+    "citations": [
+      { "source": "Roberto Valenzuela《Picture Perfect Posing》", "chapter": "Skin Tone Workflow" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "color_block_balance",
+    "category": "color",
+    "name_zh": "色块平衡",
+    "summary": "把画面划成 3-5 个大色块（衣 / 墙 / 地 / 天 / 物），让每块面积与色相互相呼应",
+    "axes": ["color", "composition"],
+    "scene_modes": ["portrait", "documentary", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["色彩主导画面", "服装搭配预演"],
+    "evidence": "蒙德里安式色块构图最早将这一概念引入 20 世纪艺术；摄影中改成『大色块互称』",
+    "watch_out": "色块过多变碎片；3-5 块就好",
+    "counter_example": "光影主题、单色画面不需要多色块",
+    "tags": ["色块", "Mondrian", "平衡"],
+    "citations": [
+      { "source": "Piet Mondrian Studies", "chapter": "Color Block" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "color_temperature_contradict",
+    "category": "color",
+    "name_zh": "色温矛盾",
+    "summary": "故意保留两侧光源色温差（窗外冷蓝 + 室内暖橙），让画面叙事感倍增",
+    "axes": ["color", "light", "theme"],
+    "scene_modes": ["documentary", "light_shadow", "portrait"],
+    "person_count_range": [1, 3],
+    "priority": 4,
+    "when_to_use": ["蓝调时刻室内", "霓虹街头", "电影感"],
+    "evidence": "色温矛盾是电影摄影 'Teal-Orange' 公式的根；让两个色温都成立而非各自怪",
+    "watch_out": "不要两边都拉满饱和；让一方做主一方做辅",
+    "counter_example": "证件照、商业产品图色温要统一",
+    "tags": ["色温", "矛盾", "电影感"],
+    "citations": [
+      { "source": "Roger Deakins《Variations in Light》", "chapter": "Color Temperature" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "color_psychology_mood",
+    "category": "color",
+    "name_zh": "色彩心理学",
+    "summary": "蓝 = 平静 / 红 = 激情 / 黄 = 温暖 / 绿 = 生机；选色彩前先选情绪",
+    "axes": ["color", "theme"],
+    "scene_modes": ["portrait", "documentary", "scenery", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["主题摄影", "故事拍摄", "海报"],
+    "evidence": "色彩心理学跨文化普遍；先确定情绪再挑色环角度，反向选色让画面与文案统一",
+    "watch_out": "文化差异（如白色在东亚是哀，西方是纯）；多元主题需谨慎",
+    "counter_example": "纯纪录片不要预设色彩心理强行修色",
+    "tags": ["色彩心理", "情绪", "主题"],
+    "citations": [
+      { "source": "Faber Birren《Color and Human Response》", "chapter": "Color Psychology" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "color_monochrome_one_pop",
+    "category": "color",
+    "name_zh": "黑白加一抹色",
+    "summary": "把全图做成黑白后只保留一种主体色（红伞 / 黄裙），辨识度爆棚",
+    "axes": ["color", "subject_fit", "theme"],
+    "scene_modes": ["documentary", "light_shadow", "portrait"],
+    "person_count_range": [1, 3],
+    "priority": 3,
+    "when_to_use": ["概念创作", "海报", "情绪片"],
+    "evidence": "选择性着色让单色成为『绝对主角』；《辛德勒的名单》小红帽是经典示例",
+    "watch_out": "技巧重，超过 3 张就显套路；只在必要时用",
+    "counter_example": "日常人像、风光不要这样玩",
+    "tags": ["选择性着色", "单色", "Red Coat"],
+    "citations": [
+      { "source": "Spielberg《辛德勒的名单》", "chapter": "Selective Color" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "color_avoid_clash",
+    "category": "color",
+    "name_zh": "避免色彩打架",
+    "summary": "服装色与主体背景色不能同色相同饱和；红衣 + 红墙会让主体『化掉』",
+    "axes": ["color", "subject_fit", "background"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["所有人像"],
+    "evidence": "色彩相同时眼睛分不清主体边界；前期拍摄前看一眼模特衣 vs 墙颜色",
+    "watch_out": "不只是衣服 vs 墙，鞋子 vs 地板也算；不要 3 个红集中",
+    "counter_example": "故意做单色调主题（如全红 cinematic）除外",
+    "tags": ["色彩冲突", "避雷", "新手必看"],
+    "citations": [
+      { "source": "Roberto Valenzuela《Picture Perfect Posing》", "chapter": "Wardrobe Conflict" }
+    ],
+    "embedding": null
+  }
+]

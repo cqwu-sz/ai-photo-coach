@@ -1,0 +1,116 @@
+[
+  {
+    "id": "hcb_geometry_first",
+    "category": "composition",
+    "name_zh": "几何先于内容",
+    "summary": "Cartier-Bresson：构图就是『让画面里的形状变得几何严密』；内容只能在几何之后",
+    "axes": ["composition"],
+    "scene_modes": ["documentary", "portrait", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 5,
+    "when_to_use": ["纪实", "街拍", "决定性瞬间训练"],
+    "evidence": "HCB 在卢浮宫学画时学习 Cézanne / Poussin 的几何分析；他认为没有几何就没有摄影",
+    "watch_out": "几何不能僵死（如永远三分），要根据场景灵活判断",
+    "counter_example": "纯极简 / 抽象不强求几何",
+    "tags": ["HCB", "几何", "构图"],
+    "citations": [
+      { "source": "Henri Cartier-Bresson《The Decisive Moment》", "chapter": "Foreword" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "hcb_decisive_moment_def",
+    "category": "theme",
+    "name_zh": "决定性瞬间定义",
+    "summary": "事件的意义 + 形式的精确同时到位的那一秒；二者缺一就不是 decisive moment",
+    "axes": ["theme", "subject_fit", "composition"],
+    "scene_modes": ["documentary", "portrait"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["纪实创作"],
+    "evidence": "原文 'l'instant décisif'；HCB 强调是『同时到位』，不是其中之一",
+    "watch_out": "不要为追形式而错失情绪；二者权重相等",
+    "counter_example": "棚拍肖像、商品图无 decisive moment",
+    "tags": ["HCB", "decisive moment", "纪实"],
+    "citations": [
+      { "source": "Henri Cartier-Bresson《The Decisive Moment》", "chapter": "Definition" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "hcb_predict_anticipate",
+    "category": "subject",
+    "name_zh": "预判而非追拍",
+    "summary": "HCB 强调『不动声色地预判』；提前到位 → 等 → 一击；不要追着事件按快门",
+    "axes": ["subject_fit", "theme"],
+    "scene_modes": ["documentary"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["街拍训练"],
+    "evidence": "HCB 自传：『我相机是我眼睛的延伸，但我必须先眼睛到位』",
+    "watch_out": "不要连拍 30 张图找一张；预判比连拍更重要",
+    "counter_example": "体育摄影部分依赖连拍",
+    "tags": ["HCB", "预判", "街拍"],
+    "citations": [
+      { "source": "Henri Cartier-Bresson《Mind's Eye》", "chapter": "Anticipation" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "hcb_50mm_natural",
+    "category": "composition",
+    "name_zh": "50mm 是眼睛",
+    "summary": "HCB 一生用 50mm 镜头；它接近人眼视野，让取景=看",
+    "axes": ["composition", "subject_fit"],
+    "scene_modes": ["documentary", "portrait"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["决定焦段"],
+    "evidence": "HCB《心眼》：『换镜头 = 换眼睛，太麻烦』；他坚持用 50mm",
+    "watch_out": "现代手机/相机更灵活，不强制 50mm；但训练期可只用一焦段",
+    "counter_example": "野生动物、体育需要长焦",
+    "tags": ["HCB", "50mm", "焦段"],
+    "citations": [
+      { "source": "Henri Cartier-Bresson《Mind's Eye》", "chapter": "On Lenses" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "hcb_invisible_photographer",
+    "category": "subject",
+    "name_zh": "隐形摄影师",
+    "summary": "HCB 用黑色胶布遮住相机商标，穿不显眼衣服；让被摄者忽略他的存在",
+    "axes": ["subject_fit", "theme"],
+    "scene_modes": ["documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["街拍", "纪实人像"],
+    "evidence": "HCB 的工作方式：在被摄者发现前已经按完快门；这是他能拍到自然瞬间的秘密",
+    "watch_out": "尊重隐私 / 当地法律；不要为偷拍而偷拍",
+    "counter_example": "棚拍、肖像创作不需要隐形",
+    "tags": ["HCB", "隐形", "街拍"],
+    "citations": [
+      { "source": "Henri Cartier-Bresson《Mind's Eye》", "chapter": "Invisible" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "hcb_no_crop",
+    "category": "composition",
+    "name_zh": "不裁切",
+    "summary": "HCB 几乎不二次裁切；构图在按快门那一刻完成；这是对纪律的极端要求",
+    "axes": ["composition"],
+    "scene_modes": ["documentary"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["训练自律", "构图打磨"],
+    "evidence": "HCB 编辑助理 Pierre Gassmann 证实：HCB 几乎所有名作都是 full frame；他要『按下时画面已完成』",
+    "watch_out": "现代灵活，可以适度后裁；但训练阶段强制不裁会显著提升取景能力",
+    "counter_example": "数码时代裁切是合法工具",
+    "tags": ["HCB", "不裁切", "纪律"],
+    "citations": [
+      { "source": "Henri Cartier-Bresson《The Decisive Moment》", "chapter": "On Cropping" }
+    ],
+    "embedding": null
+  }
+]

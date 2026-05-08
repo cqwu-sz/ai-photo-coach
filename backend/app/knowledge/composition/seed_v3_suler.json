@@ -1,0 +1,287 @@
+[
+  {
+    "id": "suler_psychology_of_subject",
+    "category": "subject",
+    "name_zh": "主体的心理学",
+    "summary": "Suler：被摄者的姿态、眼神、衣着都在『说话』；摄影师要读懂这些信号",
+    "axes": ["subject_fit", "theme"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["所有人像"],
+    "evidence": "John Suler《Photographic Psychology》主张照片是『心理学文本』；摄影师=心理观察者",
+    "watch_out": "不要把模特当道具；尊重他们的自我呈现",
+    "counter_example": "纯抽象 / 风光不适用",
+    "tags": ["Suler", "心理学", "主体"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Subject Psychology" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_self_presentation",
+    "category": "subject",
+    "name_zh": "自我呈现",
+    "summary": "人在镜头前会调整自己（衣着、姿态、表情）以呈现『理想自我』；拍纪实要等他放松后",
+    "axes": ["subject_fit", "theme"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 3],
+    "priority": 4,
+    "when_to_use": ["纪实人像", "肖像创作"],
+    "evidence": "Suler 引 Goffman 戏剧理论：人在公共场合都在表演；摄影师的任务是穿透表演找到真实",
+    "watch_out": "不要急按快门；前 5 分钟通常拍到的都是『表演』",
+    "counter_example": "正式肖像、广告需要『理想自我』",
+    "tags": ["Suler", "自我呈现", "Goffman"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Self-Presentation" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_eye_contact_intimacy",
+    "category": "subject",
+    "name_zh": "眼神接触的亲密度",
+    "summary": "看向镜头 = 与观者直接对话；看向画外 = 沉思 / 期待 / 故事；二者表达完全不同",
+    "axes": ["subject_fit", "theme"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["决定眼神朝向"],
+    "evidence": "Suler 引心理学：直接眼神接触提升观者『被看见』感；偏开则邀请观者『参与故事』",
+    "watch_out": "拍组照时让眼神朝向有变化，避免 5 张都正对镜头",
+    "counter_example": "团体合影通常眼神都对镜头",
+    "tags": ["Suler", "眼神", "亲密度"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Eye Contact" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_personal_space",
+    "category": "subject",
+    "name_zh": "私人距离",
+    "summary": "Hall 距离学：亲密 < 0.5m / 个人 0.5-1.2m / 社交 1.2-3.6m；构图要尊重这层心理边界",
+    "axes": ["subject_fit", "depth"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["决定与模特距离"],
+    "evidence": "Edward Hall 提出 Proxemics；Suler 把它引入摄影分析；距离决定情感力度",
+    "watch_out": "不熟模特别贸然进 0.5m；让对方主动减距离",
+    "counter_example": "舞台 / 远景纪实属于公共距离",
+    "tags": ["Suler", "Proxemics", "距离"],
+    "citations": [
+      { "source": "Edward Hall《The Hidden Dimension》", "chapter": "Proxemics" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_decisive_moment_psyche",
+    "category": "theme",
+    "name_zh": "心理决定性瞬间",
+    "summary": "Suler 扩展 Cartier-Bresson：除了视觉决定瞬间，还存在『心理决定瞬间』——情绪到位的那一刻",
+    "axes": ["theme", "subject_fit"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["故事人像", "情绪写真"],
+    "evidence": "Suler 区分 visual / psychological / decisive；情绪到位的那一刻对感染力最关键",
+    "watch_out": "心理瞬间不能强求；要建立信任 + 等待",
+    "counter_example": "商品图、棚拍不依赖心理瞬间",
+    "tags": ["Suler", "心理瞬间", "情绪"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "The Decisive Moment" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_metaphoric_self",
+    "category": "theme",
+    "name_zh": "隐喻自我",
+    "summary": "用环境元素表达模特的内在；落叶 = 转变 / 大门 = 选择；让肖像变心理画像",
+    "axes": ["theme", "background"],
+    "scene_modes": ["portrait", "documentary", "light_shadow"],
+    "person_count_range": [1, 2],
+    "priority": 3,
+    "when_to_use": ["概念人像", "故事拍摄"],
+    "evidence": "Suler 提倡『摄影心理画像』；通过环境把内在外化",
+    "watch_out": "象征不要太直白；让观者参与解读",
+    "counter_example": "新闻摄影不要刻意隐喻",
+    "tags": ["Suler", "隐喻", "心理画像"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Metaphoric Self" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_authentic_vs_staged",
+    "category": "theme",
+    "name_zh": "真实与摆拍",
+    "summary": "纪实摄影是『等』，肖像创作是『构』；明确自己在哪条路上能减少风格摇摆",
+    "axes": ["theme"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["创作前定调"],
+    "evidence": "Suler 不否定摆拍；但强调要意识到摆拍=作者干预，要承担作者表达的责任",
+    "watch_out": "不要把摆拍当真实推；标注创作类型",
+    "counter_example": "新闻、报道不可摆拍",
+    "tags": ["Suler", "纪实", "摆拍"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Authentic vs Staged" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_color_emotion",
+    "category": "color",
+    "name_zh": "色彩与情绪",
+    "summary": "暖色（红 / 橙 / 黄）让画面亲近兴奋；冷色（蓝 / 绿）让画面距离平静；混色让画面矛盾复杂",
+    "axes": ["color", "theme"],
+    "scene_modes": ["portrait", "scenery", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["情绪定调"],
+    "evidence": "Suler 引心理学色彩理论；色彩对潜意识情绪的影响极快（< 200ms）",
+    "watch_out": "色彩心理跨文化差异；西方蓝色冷静，东亚部分文化蓝色哀悼",
+    "counter_example": "纯档案不预设色彩情绪",
+    "tags": ["Suler", "色彩心理", "情绪"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Color and Mood" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_light_symbolic",
+    "category": "light",
+    "name_zh": "光的象征",
+    "summary": "光 = 启示 / 希望 / 真相；阴影 = 隐藏 / 恐惧 / 未知；用光影对话主题",
+    "axes": ["light", "theme"],
+    "scene_modes": ["portrait", "light_shadow", "documentary"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["主题创作"],
+    "evidence": "Suler 引荣格原型分析；光与影是普遍象征，跨文化共识",
+    "watch_out": "象征要由画面其他元素支撑；单纯一束光不构成主题",
+    "counter_example": "技术功能照（产品图、医学图）不用象征",
+    "tags": ["Suler", "光象征", "Jung"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Light Symbolism" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_archetypes",
+    "category": "theme",
+    "name_zh": "原型符号",
+    "summary": "母亲 / 英雄 / 流浪者 / 隐者……荣格原型在摄影中是隐性叙事；选好原型就有结构",
+    "axes": ["theme", "subject_fit"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 3],
+    "priority": 3,
+    "when_to_use": ["概念创作", "肖像系列"],
+    "evidence": "Suler 引荣格原型；Jung 12 原型可成为肖像创作模板",
+    "watch_out": "原型不要直白扮演；用环境 + 道具暗示即可",
+    "counter_example": "纯纪实不预设原型",
+    "tags": ["Suler", "Jung", "原型"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Archetypal Imagery" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_visual_pause",
+    "category": "composition",
+    "name_zh": "视觉停顿",
+    "summary": "画面里要有让眼睛『歇一下』的空白；密集元素旁必有空白，节奏才存在",
+    "axes": ["composition", "depth"],
+    "scene_modes": ["portrait", "documentary", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["复杂构图"],
+    "evidence": "Suler 心理学解释 Gestalt closure；眼睛需要节奏才能消化画面",
+    "watch_out": "空白不能太大（变负空间），也不能太小（没节奏）",
+    "counter_example": "极简风格已是全空白",
+    "tags": ["Suler", "Gestalt", "节奏"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Visual Rhythm" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_face_dominance",
+    "category": "subject",
+    "name_zh": "面孔优先",
+    "summary": "人脸在画面中天然吸引视线（前进波光锥效应）；只要画面有脸，构图必须考虑脸的位置",
+    "axes": ["subject_fit", "composition"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["所有有人画面"],
+    "evidence": "fMRI 研究显示人脸激活梭状脸区（FFA）；视觉优先级仅次于直接威胁",
+    "watch_out": "脸的位置决定整张构图；放对位置（三分线交点 / 黄金分割）画面就稳",
+    "counter_example": "无人风光不适用",
+    "tags": ["Suler", "面孔优先", "FFA"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Face Bias" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_movement_anticipation",
+    "category": "subject",
+    "name_zh": "动作预判",
+    "summary": "拍动态人物时构图留出『动作前方』的空间，眼睛会自动预判动作方向",
+    "axes": ["subject_fit", "composition"],
+    "scene_modes": ["documentary", "portrait"],
+    "person_count_range": [1, 3],
+    "priority": 4,
+    "when_to_use": ["运动 / 行走 / 视线方向"],
+    "evidence": "Suler 引格式塔『闭合原理』；视线 / 动作朝向需要空间『接收』",
+    "watch_out": "前方空间过大变留白；占 30-50% 是甜区",
+    "counter_example": "对称构图刻意压视线",
+    "tags": ["Suler", "动作预判", "格式塔"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Anticipation Space" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_image_silence",
+    "category": "theme",
+    "name_zh": "画面的沉默",
+    "summary": "好照片需要『沉默的能力』——画面里没说的部分让观者去说",
+    "axes": ["theme"],
+    "scene_modes": ["portrait", "documentary", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["创作哲学"],
+    "evidence": "Suler 引海德格尔『存在的沉默』；好照片留 20-30% 不告诉观众",
+    "watch_out": "不要把所有信息塞满；适度留白",
+    "counter_example": "新闻图必须信息完整",
+    "tags": ["Suler", "沉默", "诗意"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "The Silence of the Image" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "suler_observer_self",
+    "category": "theme",
+    "name_zh": "观察者也是被观察者",
+    "summary": "拍摄者的选择透露其内在（拍什么 / 怎么拍）；摄影是双向的心理镜",
+    "axes": ["theme"],
+    "scene_modes": ["portrait", "documentary", "scenery", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 2,
+    "when_to_use": ["自我审稿"],
+    "evidence": "Suler 引 Lacan 镜像理论；摄影师在选择中暴露自己",
+    "watch_out": "看自己作品时问：『这张为什么是我拍的？』",
+    "counter_example": "纯档案不需要这层反思",
+    "tags": ["Suler", "Lacan", "镜像"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Observer as Observed" }
+    ],
+    "embedding": null
+  }
+]

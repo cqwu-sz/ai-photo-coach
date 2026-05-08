@@ -1,19 +1,35 @@
 /**
- * 3D scene composer — equirectangular panorama sphere with virtual
- * anime-style avatars placed at the recommended azimuth/distance per
- * shot. The user can drag to look around (or rotate the phone for
- * gyro-driven view); we don't try to wander outside the camera origin
- * because we don't have parallax data, only a 360° backdrop.
+ * v7 ShotPreview3D — camera-viewpoint photo preview.
  *
- * Public API:
- *   const scene = createSceneView(container, { panoramaUrl, shot, picks });
- *   scene.dispose();   // when the user closes / re-renders
+ * The previous version (v6) put the camera at the "user's feet" and
+ * rotated a 360° backdrop around them — a 360-environment-viewer. That
+ * was the wrong mental model: users want to see *what the photo will
+ * look like*, not *what's around the photographer*.
  *
- * `picks` is an array of avatar style ids ("akira", "yuki", ...) — one
- * per person in the shot's first pose. We pull the matching presets
- * from avatar_styles and the joint poses from pose_presets.
+ * v7 inverts the relationship:
+ *   - The subject (avatar) sits at world origin.
+ *   - The camera stands at the recommended (azimuth, distance, pitch)
+ *     and looks back at the subject's chest.
+ *   - FOV is computed from the LLM-recommended focal length (35mm
+ *     equivalent), so the framing matches the parameters in the HUD.
+ *   - DOF (BokehPass) blur strength is derived from `shot.camera.aperture`
+ *     so f/1.4 looks creamy and f/8 looks sharp.
+ *   - Background panorama is a large-radius sphere with a blur shader
+ *     applied — it's context, not the focal point.
+ *   - DirectionalLight orbits to the recommended `environment.sun`
+ *     azimuth/altitude when present.
+ *
+ * Public API stays compatible:
+ *   const view = createSceneView(container, { panoramaUrl, shot, picks, environment });
+ *   view.dispose();
+ *
+ * Returns extras for the constructive overlay/HUD wiring:
+ *   view.fov, view.cameraAzimuthDeg, view.aperture, view.focalMm
  */
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import { EffectComposer } from "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/RenderPass.js";
+import { BokehPass } from "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/BokehPass.js";
 
 import { buildAvatar } from "./avatar_builder.js";
 import { getAvatarStyle, resolveAvatarPicks } from "./avatar_styles.js";
@@ -22,6 +38,20 @@ import {
   classifyExpression,
   pickPosePreset,
 } from "./pose_presets.js";
+import {
+  loadAvatar,
+  loadAnimationClip,
+  playAnimation,
+  loadAvatarManifest,
+  resolveMixamoId,
+} from "./avatar_loader.js";
+
+const SUBJECT_HEIGHT = 1.65;        // average chest at 1.05m, eye at 1.55m
+const SUBJECT_LOOK_AT_Y = 1.05;
+const FOCAL_FRAME_HEIGHT_MM = 24;   // 24×36mm full frame; vertical FOV
+const BG_RADIUS = 50;
+const NEAR_PLANE = 0.05;
+const FAR_PLANE = 200;
 
 /**
  * @param {HTMLElement} container
@@ -29,21 +59,30 @@ import {
  *   panoramaUrl?: string,
  *   shot: any,
  *   picks?: string[],
+ *   environment?: any,
  * }} opts
  */
 export function createSceneView(container, opts) {
-  const { panoramaUrl, shot, picks } = opts;
+  const { panoramaUrl, shot, picks, environment } = opts;
 
   const W = () => container.clientWidth || 320;
   const H = () => container.clientHeight || 200;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0d0d12);
+  scene.background = new THREE.Color(0x0a0a0e);
 
-  const camera = new THREE.PerspectiveCamera(70, W() / H(), 0.05, 200);
-  // Stand at the user's "capture origin" – feet at y=0, eye level ≈ 1.55m.
-  camera.position.set(0, 1.55, 0);
+  // ── Camera at the recommended capture pose ──
+  const focalMm = clampNumber(
+    shot?.camera?.focal_length_mm,
+    14, 200, 50,
+  );
+  const fovDeg = focalToFov(focalMm);
+  const camera = new THREE.PerspectiveCamera(
+    fovDeg, W() / H(), NEAR_PLANE, FAR_PLANE,
+  );
+  positionCameraForShot(camera, shot);
 
+  // ── Renderer + post-processing chain ──
   const renderer = new THREE.WebGLRenderer({
     antialias: true,
     alpha: false,
@@ -54,6 +93,8 @@ export function createSceneView(container, opts) {
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.0;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   container.innerHTML = "";
   container.appendChild(renderer.domElement);
@@ -61,106 +102,69 @@ export function createSceneView(container, opts) {
   renderer.domElement.style.height = "100%";
   renderer.domElement.style.touchAction = "none";
 
-  // ── Lights ──
-  const hemi = new THREE.HemisphereLight(0xb8d4ff, 0xffd9a8, 0.8);
-  scene.add(hemi);
-  const sun = new THREE.DirectionalLight(0xffe0b8, 1.1);
-  sun.position.set(8, 12, 6);
-  scene.add(sun);
-  const fill = new THREE.DirectionalLight(0x8eb6ff, 0.35);
-  fill.position.set(-6, 4, -4);
-  scene.add(fill);
+  const composer = new EffectComposer(renderer);
+  composer.setSize(W(), H());
+  composer.addPass(new RenderPass(scene, camera));
 
-  // ── Panorama sphere ──
-  const sphereGeo = new THREE.SphereGeometry(50, 64, 32);
-  sphereGeo.scale(-1, 1, 1); // flip inward
-  const sphereMat = new THREE.MeshBasicMaterial({
-    color: 0x404a64, // until texture loads
+  const apertureF = parseAperture(shot?.camera?.aperture);
+  // Bokeh's `aperture` arg is *not* an f-number — it's a unitless
+  // screen-space blur scale. We map f/1.4 → strong (0.0010) and
+  // f/8 → mild (0.0001) on a smooth curve.
+  const bokehAperture = mapApertureToBokeh(apertureF);
+  const bokehPass = new BokehPass(scene, camera, {
+    focus: cameraDistance(shot),
+    aperture: bokehAperture,
+    maxblur: 0.012,
   });
-  const sphere = new THREE.Mesh(sphereGeo, sphereMat);
-  scene.add(sphere);
+  composer.addPass(bokehPass);
 
-  if (panoramaUrl) {
-    const loader = new THREE.TextureLoader();
-    loader.load(
-      panoramaUrl,
-      (tex) => {
-        tex.colorSpace = THREE.SRGBColorSpace;
-        tex.minFilter = THREE.LinearFilter;
-        tex.magFilter = THREE.LinearFilter;
-        sphereMat.map = tex;
-        sphereMat.color.set(0xffffff);
-        sphereMat.needsUpdate = true;
-      },
-      undefined,
-      (err) => console.warn("panorama load failed", err),
-    );
-  }
+  // ── Lighting (sun-locked when environment.sun present) ──
+  const lights = installLights(scene, environment);
 
-  // ── Ground plane (subtle, for footing context) ──
-  const ground = new THREE.Mesh(
-    new THREE.CircleGeometry(8, 48),
-    new THREE.MeshStandardMaterial({
-      color: 0x2a2f3c,
-      roughness: 0.95,
-      transparent: true,
-      opacity: 0.55,
-    }),
-  );
-  ground.rotation.x = -Math.PI / 2;
-  ground.position.y = 0;
-  scene.add(ground);
+  // ── 360 backdrop sphere (context only — the camera looks INWARD
+  //    so we put it far away, with a softening blur via emissive
+  //    intensity not screen-space). ──
+  const bg = installBackdrop(scene, panoramaUrl);
 
-  // Camera marker (small disc at origin so users see "this is where you stand")
-  const me = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.2, 0.2, 0.04, 24),
-    new THREE.MeshStandardMaterial({
-      color: 0x5b9cff,
-      emissive: 0x223a66,
-      roughness: 0.4,
-    }),
-  );
-  me.position.y = 0.02;
-  scene.add(me);
-
-  // ── Avatars ──
+  // ── Subject avatar(s) at world origin ──
   const pose = (shot.poses && shot.poses[0]) || null;
   const personCount = pose?.persons?.length || 1;
-  const resolved = resolveAvatarPicks(picks || [], personCount);
-  const avatars = [];
-
+  const legacyPicks = resolveAvatarPicks(picks || [], personCount);
+  const avatarRegistry = [];
+  const animationMixers = [];
   if (pose) {
-    placeAvatars(scene, shot, pose, resolved, avatars);
+    placeSubjects(scene, shot, pose, picks || [], legacyPicks, avatarRegistry, animationMixers);
   }
 
-  // ── Shot label sprite at the recommended azimuth ──
-  if (shot.angle && shot.angle.azimuth_deg != null) {
-    const dir = azimuthToDir(shot.angle.azimuth_deg);
-    const arrow = makeArrowSprite(`目标 ${Math.round(shot.angle.azimuth_deg)}°`);
-    arrow.position.set(dir.x * 6, 2.0, dir.z * 6);
-    scene.add(arrow);
-  }
+  // Subtle ground shadow disc — gives the avatar a footing reference.
+  const ground = installGround(scene);
 
-  // ── Camera controls (drag + pinch zoom + optional gyro) ──
-  const controls = installOrbitControls(camera, renderer.domElement);
+  // ── Lightweight orbit-style adjustment so users can nudge the
+  //    preview by 10–15° if they don't like the AI default.
+  //    Disabled by default — most users want the AI's exact framing. ──
+  const controls = installSubjectOrbitControls(camera, renderer.domElement, shot);
 
-  // ── Animate ──
+  // ── Render loop ──
   let raf = null;
   let disposed = false;
-
+  let lastT = performance.now();
   function tick() {
     if (disposed) return;
     raf = requestAnimationFrame(tick);
+    const now = performance.now();
+    const dt = Math.min(0.05, (now - lastT) / 1000);
+    lastT = now;
+    animationMixers.forEach((m) => m.update(dt));
     controls.update();
-    renderer.render(scene, camera);
+    composer.render();
   }
   tick();
 
   function onResize() {
-    const w = W();
-    const h = H();
+    const w = W(), h = H();
     if (w === 0 || h === 0) return;
     renderer.setSize(w, h, false);
+    composer.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
   }
@@ -172,87 +176,328 @@ export function createSceneView(container, opts) {
     if (raf) cancelAnimationFrame(raf);
     ro.disconnect();
     controls.dispose();
-    avatars.forEach((a) => a.dispose());
+    avatarRegistry.forEach((a) => a.dispose && a.dispose());
+    animationMixers.length = 0;
+    lights.dispose();
+    bg.dispose();
+    ground.dispose();
+    composer.dispose && composer.dispose();
     renderer.dispose();
-    sphereGeo.dispose();
-    sphereMat.dispose();
-    if (sphereMat.map) sphereMat.map.dispose();
     container.innerHTML = "";
   }
 
-  function setShot(newShot) {
-    // Update the arrow + avatars in-place when result switches shot
-    avatars.forEach((a) => a.dispose());
-    avatars.length = 0;
-    while (scene.children.length > 0) {
-      // Defer — partial wipe is risky. We'll rebuild on demand.
-    }
-  }
-
-  return { dispose, setShot };
+  return {
+    dispose,
+    fov: fovDeg,
+    focalMm,
+    aperture: apertureF,
+    cameraAzimuthDeg: shot?.angle?.azimuth_deg ?? 0,
+    cameraDistanceM: shot?.angle?.distance_m ?? cameraDistance(shot),
+    cameraPitchDeg: shot?.angle?.pitch_deg ?? 0,
+  };
 }
 
 // ---------------------------------------------------------------------------
-// Avatar placement
+// Camera positioning
 // ---------------------------------------------------------------------------
 
-function placeAvatars(scene, shot, pose, picks, registry) {
-  const baseDir = azimuthToDir(shot.angle?.azimuth_deg ?? 0);
-  const baseDist = clamp(shot.angle?.distance_m ?? 2.5, 1.0, 6.0);
-  const layout = pose.layout || "single";
-  const persons = pose.persons || [];
-  const n = Math.max(1, persons.length || picks.length);
+function positionCameraForShot(camera, shot) {
+  const az = ((shot?.angle?.azimuth_deg ?? 0) * Math.PI) / 180;
+  const r = clampNumber(shot?.angle?.distance_m, 0.6, 8.0, 2.5);
+  const pitchDeg = shot?.angle?.pitch_deg ?? 0;
+  const eyeY = SUBJECT_LOOK_AT_Y + Math.tan((pitchDeg * Math.PI) / 180) * r;
+  // Camera at distance r along azimuth. We use Three's convention:
+  //   azimuth=0 → +Z (front of subject), 90° → +X (subject's left)
+  camera.position.set(
+    Math.sin(az) * r,
+    eyeY,
+    Math.cos(az) * r,
+  );
+  camera.lookAt(0, SUBJECT_LOOK_AT_Y, 0);
+}
 
-  const offsets = layoutOffsets(layout, n);
+function cameraDistance(shot) {
+  return clampNumber(shot?.angle?.distance_m, 0.6, 8.0, 2.5);
+}
+
+function focalToFov(focalMm) {
+  // Vertical FOV from focal length on a 24mm-tall sensor (full frame).
+  const rad = 2 * Math.atan(FOCAL_FRAME_HEIGHT_MM / 2 / focalMm);
+  return Math.max(8, Math.min(120, (rad * 180) / Math.PI));
+}
+
+function parseAperture(input) {
+  if (typeof input === "number" && Number.isFinite(input)) return input;
+  if (typeof input !== "string") return 2.8;
+  const m = input.match(/f\/?\s*([0-9]+\.?[0-9]*)/i);
+  if (m) {
+    const v = parseFloat(m[1]);
+    if (Number.isFinite(v) && v > 0) return v;
+  }
+  return 2.8;
+}
+
+function mapApertureToBokeh(fNum) {
+  // We empirically picked these endpoints by visual taste in the
+  // preview — f/1.4 should obviously melt the background, f/11+
+  // should be effectively no blur. Smooth power curve in between.
+  const minF = 1.4;
+  const maxF = 11.0;
+  const clamped = Math.max(minF, Math.min(maxF, fNum));
+  const t = (maxF - clamped) / (maxF - minF); // 1 at f/1.4, 0 at f/11
+  return 0.00012 + 0.0010 * Math.pow(t, 1.4);
+}
+
+// ---------------------------------------------------------------------------
+// Lighting — locks to environment.sun when present
+// ---------------------------------------------------------------------------
+
+function installLights(scene, environment) {
+  const hemi = new THREE.HemisphereLight(0xb8d4ff, 0xffd9a8, 0.55);
+  scene.add(hemi);
+
+  const sun = new THREE.DirectionalLight(0xffe6b8, 1.45);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(1024, 1024);
+  sun.shadow.camera.near = 0.5;
+  sun.shadow.camera.far = 12;
+  sun.shadow.camera.left = -4;
+  sun.shadow.camera.right = 4;
+  sun.shadow.camera.top = 4;
+  sun.shadow.camera.bottom = -4;
+  scene.add(sun);
+  scene.add(sun.target);
+
+  const fill = new THREE.DirectionalLight(0x9ec0ff, 0.32);
+  scene.add(fill);
+
+  applySunOrientation(sun, fill, environment);
+
+  return {
+    dispose() {
+      scene.remove(hemi);
+      scene.remove(sun);
+      scene.remove(sun.target);
+      scene.remove(fill);
+      hemi.dispose && hemi.dispose();
+    },
+  };
+}
+
+function applySunOrientation(sun, fill, environment) {
+  const sunInfo = environment?.sun;
+  let az = 45, alt = 55;
+  if (sunInfo && Number.isFinite(sunInfo.azimuth_deg) &&
+      Number.isFinite(sunInfo.altitude_deg) && sunInfo.altitude_deg > -3) {
+    az = sunInfo.azimuth_deg;
+    alt = sunInfo.altitude_deg;
+  } else if (environment?.visionLight?.directionDeg != null) {
+    az = environment.visionLight.directionDeg;
+    alt = environment.visionLight.elevationDeg ?? 35;
+  }
+  const r = 8;
+  const azR = (az * Math.PI) / 180;
+  const altR = Math.max(2, alt) * Math.PI / 180;
+  sun.position.set(
+    Math.sin(azR) * Math.cos(altR) * r,
+    Math.sin(altR) * r,
+    Math.cos(azR) * Math.cos(altR) * r,
+  );
+  sun.target.position.set(0, SUBJECT_LOOK_AT_Y, 0);
+  // Fill light from the opposite side
+  fill.position.set(-sun.position.x * 0.6, sun.position.y * 0.4, -sun.position.z * 0.6);
+  // Warmer at low sun, cooler at high sun
+  const warm = alt < 15 ? 0xffb872 : (alt < 40 ? 0xffd6a0 : 0xfff0d8);
+  sun.color.setHex(warm);
+}
+
+// ---------------------------------------------------------------------------
+// Backdrop sphere
+// ---------------------------------------------------------------------------
+
+function installBackdrop(scene, panoramaUrl) {
+  const geo = new THREE.SphereGeometry(BG_RADIUS, 64, 32);
+  geo.scale(-1, 1, 1);
+  const mat = new THREE.MeshBasicMaterial({
+    color: 0x2a3346,
+    fog: false,
+  });
+  const sphere = new THREE.Mesh(geo, mat);
+  scene.add(sphere);
+
+  if (panoramaUrl) {
+    const loader = new THREE.TextureLoader();
+    loader.load(
+      panoramaUrl,
+      (tex) => {
+        tex.colorSpace = THREE.SRGBColorSpace;
+        tex.minFilter = THREE.LinearFilter;
+        tex.magFilter = THREE.LinearFilter;
+        mat.map = tex;
+        mat.color.set(0xc8c8c8); // slightly desaturate so subject pops
+        mat.needsUpdate = true;
+      },
+      undefined,
+      (err) => console.debug("[scene_3d] panorama load failed:", err),
+    );
+  }
+
+  return {
+    dispose() {
+      scene.remove(sphere);
+      geo.dispose();
+      mat.dispose();
+      if (mat.map) mat.map.dispose();
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Ground plane (subtle, for footing context + shadow catching)
+// ---------------------------------------------------------------------------
+
+function installGround(scene) {
+  const geo = new THREE.CircleGeometry(6, 64);
+  const mat = new THREE.MeshStandardMaterial({
+    color: 0x202533,
+    roughness: 0.95,
+    metalness: 0.0,
+    transparent: true,
+    opacity: 0.55,
+  });
+  const m = new THREE.Mesh(geo, mat);
+  m.rotation.x = -Math.PI / 2;
+  m.position.y = 0;
+  m.receiveShadow = true;
+  scene.add(m);
+  return {
+    dispose() {
+      scene.remove(m);
+      geo.dispose();
+      mat.dispose();
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Subjects — placed at origin (camera looks at them)
+// ---------------------------------------------------------------------------
+
+function placeSubjects(scene, shot, pose, picksRPM, picksLegacy, registry, mixers) {
+  const persons = pose.persons || [];
+  const n = Math.max(1, persons.length || picksLegacy.length);
+
+  // Layout offsets are in *meters around the origin* (subject-local):
+  // person 0 sits at (0,0,0) (or close), the rest spread sideways.
+  const offsets = layoutOffsets(pose.layout || "single", n);
+
+  const pc = personCountFromPose(pose);
 
   for (let i = 0; i < n; i++) {
-    const styleId = picks[i] || picks[picks.length - 1];
-    const style = getAvatarStyle(styleId);
-    const character = buildAvatar(style);
-    registry.push(character);
-    scene.add(character.root);
-
-    // Position: base point in front of the camera at distance `baseDist`,
-    // then add the layout offset (in world meters) along the local axes
-    // perpendicular to the look direction.
     const p = persons[i] || persons[0] || {};
-    const ofx = offsets[i].x; // sideways offset (m)
-    const ofz = offsets[i].z; // forward/back offset (m)
+    const ofx = offsets[i].x;
+    const ofz = offsets[i].z;
 
-    // World axes: dir = look direction, right = perpendicular
-    const dir = baseDir;
-    const right = { x: -dir.z, z: dir.x };
+    // Try the high-quality glb pipeline first; fall back to procedural
+    // mesh if assets aren't bundled yet.
+    const placeholder = buildPlaceholder(picksLegacy[i] || picksLegacy[picksLegacy.length - 1]);
+    placeholder.root.position.set(ofx, 0, ofz);
+    placeholder.root.lookAt(getCameraTargetFromShot(shot, ofx, ofz));
+    placeholder.root.castShadow = true;
+    placeholder.root.traverse?.((c) => { c.castShadow = true; });
+    scene.add(placeholder.root);
+    registry.push(placeholder);
 
-    const worldX = dir.x * (baseDist + ofz) + right.x * ofx;
-    const worldZ = dir.z * (baseDist + ofz) + right.z * ofx;
-
-    character.root.position.set(worldX, 0, worldZ);
-
-    // Face roughly back toward the camera (origin), with a personal
-    // tilt for some variety.
-    const yaw = Math.atan2(-worldX, -worldZ) + (i - (n - 1) / 2) * 0.18;
-    character.root.rotation.y = yaw;
-
-    // Pose + expression
-    const presetName = pickPosePreset(p);
-    applyPosePreset(presetName, character.joints, {
-      mirror: shouldMirror(layout, i, n),
+    // Pose + expression on placeholder
+    applyPosePreset(pickPosePreset(p), placeholder.joints, {
+      mirror: shouldMirror(pose.layout, i, n),
     });
-    character.setExpression(classifyExpression(p));
+    placeholder.setExpression?.(classifyExpression(p));
+    placeholder.joints.head.rotation.y += (i - (n - 1) / 2) * 0.06;
 
-    // Slight randomness in head bow / shoulder relax to avoid clones
-    character.joints.head.rotation.y += (i - (n - 1) / 2) * 0.06;
+    // Async upgrade — when the glb arrives, swap it in.
+    upgradeToRPM({
+      scene,
+      registry,
+      mixers,
+      placeholder,
+      personIndex: i,
+      pose,
+      personCount: pc,
+      preferredPresetId: picksRPM[i],
+    });
   }
 }
 
+function personCountFromPose(pose) {
+  if (pose?.persons?.length) return pose.persons.length;
+  return 1;
+}
+
+function buildPlaceholder(styleId) {
+  const style = getAvatarStyle(styleId);
+  return buildAvatar(style);
+}
+
+async function upgradeToRPM({
+  scene, registry, mixers, placeholder,
+  personIndex, pose, personCount, preferredPresetId,
+}) {
+  try {
+    const manifest = await loadAvatarManifest();
+    const presetId = preferredPresetId || pickPresetForPerson(manifest.presets, personIndex);
+    if (!presetId) return;
+    const avatar = await loadAvatar(presetId);
+    if (!avatar) return;  // glb not bundled, keep placeholder
+    avatar.position.copy(placeholder.root.position);
+    avatar.rotation.copy(placeholder.root.rotation);
+    avatar.traverse((c) => { c.castShadow = true; });
+    scene.add(avatar);
+    scene.remove(placeholder.root);
+    placeholder.dispose && placeholder.dispose();
+    // Replace registry entry so dispose() finds the upgraded mesh.
+    const idx = registry.indexOf(placeholder);
+    if (idx >= 0) registry[idx] = { dispose: () => scene.remove(avatar) };
+
+    // Bind Mixamo animation
+    const poseId = pose?.id || pose?.reference_thumbnail_id;
+    const mixamoId = resolveMixamoId(poseId, personCount, manifest);
+    const clip = await loadAnimationClip(mixamoId);
+    const ctrl = playAnimation(avatar, clip);
+    if (ctrl) mixers.push(ctrl.mixer);
+  } catch (err) {
+    console.debug("[scene_3d] RPM upgrade skipped:", err?.message || err);
+  }
+}
+
+function pickPresetForPerson(presets, idx) {
+  if (!presets || !presets.length) return null;
+  const order = ["female_casual_22", "male_casual_25",
+                 "female_elegant_30", "child_girl_8"];
+  const found = order.filter((id) => presets.some((p) => p.id === id));
+  return found[idx % found.length] || presets[0].id;
+}
+
+function getCameraTargetFromShot(shot, fromX, fromZ) {
+  // Approximate the camera location for "subject faces camera"
+  const az = ((shot?.angle?.azimuth_deg ?? 0) * Math.PI) / 180;
+  const r = clampNumber(shot?.angle?.distance_m, 0.6, 8.0, 2.5);
+  return new THREE.Vector3(
+    Math.sin(az) * r - fromX * 0.0,  // keep relative aim simple
+    SUBJECT_LOOK_AT_Y,
+    Math.cos(az) * r - fromZ * 0.0,
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Layout offsets — same heuristics as v6, kept for consistency
+// ---------------------------------------------------------------------------
+
 function layoutOffsets(layout, n) {
-  // Side-to-side offsets in meters, with optional forward/back offset.
   const out = [];
   switch (layout) {
     case "side_by_side":
-      for (let i = 0; i < n; i++) {
-        out.push({ x: (i - (n - 1) / 2) * 0.7, z: 0 });
-      }
+      for (let i = 0; i < n; i++) out.push({ x: (i - (n - 1) / 2) * 0.7, z: 0 });
       break;
     case "high_low_offset":
       for (let i = 0; i < n; i++) {
@@ -299,9 +544,7 @@ function layoutOffsets(layout, n) {
     case "single":
     default:
       out.push({ x: 0, z: 0 });
-      for (let i = 1; i < n; i++) {
-        out.push({ x: i * 0.55, z: 0.1 });
-      }
+      for (let i = 1; i < n; i++) out.push({ x: i * 0.55, z: 0.1 });
   }
   return out.slice(0, n);
 }
@@ -313,91 +556,52 @@ function shouldMirror(layout, i, n) {
   return false;
 }
 
-function azimuthToDir(deg) {
-  // 0° = +Z (north / front), 90° = +X (east), going clockwise as the
-  // user perceives it. In Three.js the camera looks toward -Z by default
-  // so we match that convention by treating azimuth=0 as -Z.
-  const r = (deg * Math.PI) / 180;
-  return { x: Math.sin(r), z: -Math.cos(r) };
-}
-
-function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
-
 // ---------------------------------------------------------------------------
-// Arrow + label sprite
+// Subject-locked orbit controls — small drag delta around the AI default
 // ---------------------------------------------------------------------------
 
-function makeArrowSprite(text) {
-  const canvas = document.createElement("canvas");
-  canvas.width = 256;
-  canvas.height = 96;
-  const ctx = canvas.getContext("2d");
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "rgba(91, 156, 255, 0.95)";
-  ctx.beginPath();
-  ctx.roundRect(10, 16, canvas.width - 20, 64, 28);
-  ctx.fill();
-  ctx.fillStyle = "#06122a";
-  ctx.font = "700 30px system-ui, -apple-system";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(text, canvas.width / 2, 48);
-
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false });
-  const spr = new THREE.Sprite(mat);
-  spr.scale.set(2.0, 0.75, 1);
-  return spr;
-}
-
-// ---------------------------------------------------------------------------
-// Lightweight orbit-style camera controls (no external dependency)
-// Supports mouse-drag, pinch, and gyro.
-// ---------------------------------------------------------------------------
-
-function installOrbitControls(camera, dom) {
-  let yaw = 0;
-  let pitch = 0;
-  let fov = 70;
+function installSubjectOrbitControls(camera, dom, shot) {
+  // Stash the AI-default camera position so we can restore it.
+  const target = new THREE.Vector3(0, SUBJECT_LOOK_AT_Y, 0);
+  let azimuth = (shot?.angle?.azimuth_deg ?? 0) * Math.PI / 180;
+  let elevation = (shot?.angle?.pitch_deg ?? 0) * Math.PI / 180;
+  let radius = clampNumber(shot?.angle?.distance_m, 0.6, 8.0, 2.5);
 
   const state = { dragging: false, lastX: 0, lastY: 0, pinchD: 0 };
 
-  function applyToCamera() {
-    pitch = Math.max(-Math.PI / 2 + 0.05, Math.min(Math.PI / 2 - 0.05, pitch));
-    const dir = new THREE.Vector3(
-      Math.sin(yaw) * Math.cos(pitch),
-      Math.sin(pitch),
-      -Math.cos(yaw) * Math.cos(pitch),
+  function applyCamera() {
+    const eyeY = target.y + Math.sin(elevation) * radius;
+    const horizontal = Math.cos(elevation) * radius;
+    camera.position.set(
+      target.x + Math.sin(azimuth) * horizontal,
+      eyeY,
+      target.z + Math.cos(azimuth) * horizontal,
     );
-    camera.lookAt(camera.position.clone().add(dir));
-    camera.fov = fov;
-    camera.updateProjectionMatrix();
+    camera.lookAt(target);
   }
+  applyCamera();
 
   function onPointerDown(e) {
     state.dragging = true;
-    state.lastX = e.clientX;
-    state.lastY = e.clientY;
+    state.lastX = e.clientX; state.lastY = e.clientY;
     dom.setPointerCapture?.(e.pointerId);
   }
   function onPointerMove(e) {
     if (!state.dragging) return;
     const dx = e.clientX - state.lastX;
     const dy = e.clientY - state.lastY;
-    state.lastX = e.clientX;
-    state.lastY = e.clientY;
-    yaw -= dx * 0.005;
-    pitch -= dy * 0.005;
-    applyToCamera();
+    state.lastX = e.clientX; state.lastY = e.clientY;
+    azimuth -= dx * 0.005;
+    elevation = Math.max(-Math.PI / 2 + 0.05, Math.min(Math.PI / 2 - 0.05, elevation + dy * 0.005));
+    applyCamera();
   }
   function onPointerUp(e) {
     state.dragging = false;
     dom.releasePointerCapture?.(e.pointerId);
   }
   function onWheel(e) {
-    fov = Math.max(30, Math.min(95, fov + e.deltaY * 0.05));
-    applyToCamera();
+    radius = Math.max(0.5, Math.min(8, radius + e.deltaY * 0.0015));
+    applyCamera();
     e.preventDefault();
   }
 
@@ -407,7 +611,6 @@ function installOrbitControls(camera, dom) {
   dom.addEventListener("pointercancel", onPointerUp);
   dom.addEventListener("wheel", onWheel, { passive: false });
 
-  // Touch pinch zoom
   function getTouchDist(e) {
     const a = e.touches[0]; const b = e.touches[1];
     return Math.hypot(b.clientX - a.clientX, b.clientY - a.clientY);
@@ -418,19 +621,17 @@ function installOrbitControls(camera, dom) {
   function onTouchMove(e) {
     if (e.touches.length === 2 && state.pinchD > 0) {
       const d = getTouchDist(e);
-      fov = Math.max(30, Math.min(95, fov - (d - state.pinchD) * 0.1));
+      radius = Math.max(0.5, Math.min(8, radius - (d - state.pinchD) * 0.005));
       state.pinchD = d;
-      applyToCamera();
+      applyCamera();
       e.preventDefault();
     }
   }
   dom.addEventListener("touchstart", onTouchStart, { passive: true });
   dom.addEventListener("touchmove", onTouchMove, { passive: false });
 
-  applyToCamera();
-
   return {
-    update() {/* nothing per-frame; we apply on input only */},
+    update() { /* no per-frame work */ },
     dispose() {
       dom.removeEventListener("pointerdown", onPointerDown);
       dom.removeEventListener("pointermove", onPointerMove);
@@ -441,4 +642,13 @@ function installOrbitControls(camera, dom) {
       dom.removeEventListener("touchmove", onTouchMove);
     },
   };
+}
+
+// ---------------------------------------------------------------------------
+// Numeric helpers
+// ---------------------------------------------------------------------------
+
+function clampNumber(v, lo, hi, fallback) {
+  if (!Number.isFinite(v)) return fallback;
+  return Math.max(lo, Math.min(hi, v));
 }

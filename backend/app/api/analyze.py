@@ -3,10 +3,9 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import Annotated
+from typing import Annotated, Optional
 
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile, status
-from fastapi.responses import JSONResponse
 from pydantic import ValidationError
 
 from ..config import get_settings
@@ -36,6 +35,18 @@ async def analyze(
     frames: Annotated[list[UploadFile], File(description="8-12 keyframes")],
     reference_thumbnails: Annotated[
         list[UploadFile] | None, File(description="Optional reference thumbnails")
+    ] = None,
+    model_id: Annotated[
+        Optional[str],
+        Form(description="Vision-model id (defaults to settings.default_model_id)"),
+    ] = None,
+    model_api_key: Annotated[
+        Optional[str],
+        Form(description="BYOK key for the chosen model. Never logged."),
+    ] = None,
+    model_base_url: Annotated[
+        Optional[str],
+        Form(description="Custom OpenAI-compatible base URL for the chosen model."),
     ] = None,
 ) -> AnalyzeResponse:
     settings = get_settings()
@@ -90,9 +101,30 @@ async def analyze(
     for r in refs:
         ref_bytes.append(await r.read())
 
+    # IMPORTANT: never log the BYOK api key. Truncate / redact for safety.
+    log.info(
+        "analyze_request",
+        extra={
+            "scene_mode": capture_meta.scene_mode.value,
+            "person_count": capture_meta.person_count,
+            "model_id": (model_id or settings.default_model_id),
+            "byok_key_supplied": bool(model_api_key),
+            "byok_base_url_supplied": bool(model_base_url),
+            "frames": len(frame_bytes),
+            "references": len(ref_bytes),
+        },
+    )
+
     service = AnalyzeService(settings)
     try:
-        return await service.run(capture_meta, frame_bytes, ref_bytes)
+        return await service.run(
+            capture_meta,
+            frame_bytes,
+            ref_bytes,
+            model_id=model_id,
+            model_api_key=model_api_key if settings.enable_byok else None,
+            model_base_url=model_base_url if settings.enable_byok else None,
+        )
     except Exception as exc:
         log.exception("analyze failed")
         raise _error(

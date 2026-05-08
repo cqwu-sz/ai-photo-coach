@@ -3,7 +3,24 @@
   "person_count": 2,
   "layout": "high_low_offset",
   "summary": "two people seated on stairs, A higher than B, B leaning back into A",
-  "tags": ["couple", "friends", "story"],
-  "best_for": ["frame_within_frame", "indoor_cool", "shade"],
-  "thumbnail": "pose_two_seated_steps_001.png"
+  "tags": [
+    "couple",
+    "friends",
+    "story"
+  ],
+  "best_for": [
+    "frame_within_frame",
+    "indoor_cool",
+    "shade"
+  ],
+  "thumbnail": "pose_two_seated_steps_001.png",
+  "summary_zh": "两人坐在台阶上 闲聊 朋友",
+  "tags_zh": [
+    "坐",
+    "台阶",
+    "闲聊",
+    "朋友",
+    "坐姿",
+    "街头"
+  ]
 }

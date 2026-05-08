@@ -24,7 +24,8 @@ targets:
     info:
       path: AIPhotoCoach/Info.plist
       properties:
-        CFBundleDisplayName: AI Photo Coach
+        CFBundleDisplayName: 拾光
+        CFBundleName: ShiGuang
         CFBundleShortVersionString: "0.1.0"
         CFBundleVersion: "1"
         UILaunchScreen:
@@ -35,10 +36,12 @@ targets:
           - arkit
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
-        NSCameraUsageDescription: "Used to capture an environment scan video for AI shot analysis, and to power the live AR shot-guide view."
+        NSCameraUsageDescription: "Used to capture an environment scan video, run the live AR shot-guide view, and power the AI-tuned shoot screen that auto-applies focal length / ISO / shutter / EV / WB."
         NSMicrophoneUsageDescription: "Optional - audio is not stored, only video frames are analyzed."
         NSPhotoLibraryUsageDescription: "Used so you can import reference photos that train your personal style."
-        NSMotionUsageDescription: "Used to estimate the direction your camera is facing during the scan and AR alignment."
+        NSPhotoLibraryAddUsageDescription: "Used when you tap '保存到相册' on a photo you just shot with an AI plan, so the final image lands in your camera roll."
+        NSMotionUsageDescription: "Used to estimate the direction your camera is facing during the scan, AR alignment, and the live shoot HUD."
+        NSLocationWhenInUseUsageDescription: "Optional — for the 光影 (light & shadow) scene mode, your location lets us compute exact sun direction and golden-hour countdowns so the AI can recommend rim-light angles and time-sensitive shots."
         NSAppTransportSecurity:
           NSAllowsArbitraryLoads: false
           NSAllowsLocalNetworking: true

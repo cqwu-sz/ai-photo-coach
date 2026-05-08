@@ -3,7 +3,24 @@
   "person_count": 2,
   "layout": "side_by_side",
   "summary": "couple foreheads touching, eyes closed or downcast, very close",
-  "tags": ["couple", "intimate", "wedding"],
-  "best_for": ["golden_hour", "indoor_warm", "frame_within_frame"],
-  "thumbnail": "pose_two_forehead_touch_001.png"
+  "tags": [
+    "couple",
+    "intimate",
+    "wedding"
+  ],
+  "best_for": [
+    "golden_hour",
+    "indoor_warm",
+    "frame_within_frame"
+  ],
+  "thumbnail": "pose_two_forehead_touch_001.png",
+  "summary_zh": "两人额头相贴 闭眼 温馨 情侣",
+  "tags_zh": [
+    "额头",
+    "贴额",
+    "闭眼",
+    "温馨",
+    "情侣",
+    "亲密"
+  ]
 }

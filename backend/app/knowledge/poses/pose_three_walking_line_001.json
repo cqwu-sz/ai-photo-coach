@@ -3,7 +3,25 @@
   "person_count": 3,
   "layout": "line",
   "summary": "three friends walking abreast away from camera, slight stagger",
-  "tags": ["friends", "story", "candid"],
-  "best_for": ["leading_line", "diagonal", "golden_hour"],
-  "thumbnail": "pose_three_walking_line_001.png"
+  "tags": [
+    "friends",
+    "story",
+    "candid"
+  ],
+  "best_for": [
+    "leading_line",
+    "diagonal",
+    "golden_hour"
+  ],
+  "thumbnail": "pose_three_walking_line_001.png",
+  "summary_zh": "三人一字排开 走在路上 朋友",
+  "tags_zh": [
+    "一字排开",
+    "一字",
+    "排开",
+    "走",
+    "朋友",
+    "line",
+    "排队"
+  ]
 }

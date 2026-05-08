@@ -3,7 +3,24 @@
   "person_count": 2,
   "layout": "high_low_offset",
   "summary": "adult lifting child up high, both laughing, looking up at child",
-  "tags": ["family", "joy", "candid"],
-  "best_for": ["overcast", "centered", "outdoor_park"],
-  "thumbnail": "pose_two_kids_lift_001.png"
+  "tags": [
+    "family",
+    "joy",
+    "candid"
+  ],
+  "best_for": [
+    "overcast",
+    "centered",
+    "outdoor_park"
+  ],
+  "thumbnail": "pose_two_kids_lift_001.png",
+  "summary_zh": "孩子被举高 向上欢笑 亲子",
+  "tags_zh": [
+    "举高",
+    "举",
+    "孩子",
+    "亲子",
+    "欢笑",
+    "举起"
+  ]
 }

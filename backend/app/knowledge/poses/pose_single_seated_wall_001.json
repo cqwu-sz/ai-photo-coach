@@ -3,7 +3,23 @@
   "person_count": 1,
   "layout": "single",
   "summary": "single seated against a wall, knees up, hands resting on knees",
-  "tags": ["intimate", "moody", "magazine"],
-  "best_for": ["indoor_warm", "shade", "frame_within_frame"],
-  "thumbnail": "pose_single_seated_wall_001.png"
+  "tags": [
+    "intimate",
+    "moody",
+    "magazine"
+  ],
+  "best_for": [
+    "indoor_warm",
+    "shade",
+    "frame_within_frame"
+  ],
+  "thumbnail": "pose_single_seated_wall_001.png",
+  "summary_zh": "坐在矮墙上 双手放膝盖 放松",
+  "tags_zh": [
+    "坐",
+    "矮墙",
+    "膝盖",
+    "放松",
+    "坐姿"
+  ]
 }

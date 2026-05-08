@@ -44,10 +44,15 @@ actor APIClient {
     }
 
     /// Upload N keyframes + meta and return a structured shot plan.
+    /// Optional BYOK overrides are forwarded to the backend on this single
+    /// request and are never persisted server-side.
     func analyze(
         meta: CaptureMeta,
         frames: [Data],
-        referenceThumbnails: [Data] = []
+        referenceThumbnails: [Data] = [],
+        modelId: String? = nil,
+        modelApiKey: String? = nil,
+        modelBaseUrl: String? = nil
     ) async throws -> AnalyzeResponse {
         let url = APIConfig.baseURL.appendingPathComponent("analyze")
         var request = URLRequest(url: url)
@@ -70,6 +75,15 @@ actor APIClient {
         for (i, ref) in referenceThumbnails.enumerated() {
             body.appendFile(name: "reference_thumbnails", filename: "ref_\(i).jpg",
                             mimeType: "image/jpeg", data: ref, boundary: boundary)
+        }
+        if let id = modelId, !id.isEmpty {
+            body.appendFormField(name: "model_id", value: id, boundary: boundary)
+        }
+        if let key = modelApiKey, !key.isEmpty {
+            body.appendFormField(name: "model_api_key", value: key, boundary: boundary)
+        }
+        if let baseUrl = modelBaseUrl, !baseUrl.isEmpty {
+            body.appendFormField(name: "model_base_url", value: baseUrl, boundary: boundary)
         }
         body.append("--\(boundary)--\r\n")
 
@@ -114,6 +128,82 @@ actor APIClient {
     func poseThumbnailURL(id: String) -> URL {
         APIConfig.baseURL.appendingPathComponent("pose-library/thumbnail/\(id).png")
     }
+
+    /// Fetch the registry of available vision-model presets.
+    func fetchModels() async throws -> ModelsResponse {
+        let url = APIConfig.baseURL.appendingPathComponent("models")
+        let (data, response) = try await session.data(from: url)
+        guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+            throw APIError.invalidResponse
+        }
+        return try JSONDecoder().decode(ModelsResponse.self, from: data)
+    }
+
+    /// Sanity-check a (model_id, api_key, base_url?) tuple.
+    func testModel(modelId: String, apiKey: String?, baseUrl: String?) async throws -> ModelsTestResponse {
+        let url = APIConfig.baseURL.appendingPathComponent("models/test")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let payload: [String: Any?] = [
+            "model_id": modelId,
+            "api_key": apiKey,
+            "base_url": baseUrl,
+        ]
+        let cleaned = payload.compactMapValues { $0 }
+        request.httpBody = try JSONSerialization.data(withJSONObject: cleaned)
+        let (data, response) = try await session.data(for: request)
+        guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+            throw APIError.invalidResponse
+        }
+        return try JSONDecoder().decode(ModelsTestResponse.self, from: data)
+    }
+}
+
+struct ModelsResponse: Codable, Sendable {
+    let defaultModelId: String
+    let enableByok: Bool
+    let models: [ModelPreset]
+
+    enum CodingKeys: String, CodingKey {
+        case defaultModelId = "default_model_id"
+        case enableByok = "enable_byok"
+        case models
+    }
+}
+
+struct ModelPreset: Codable, Sendable, Identifiable, Hashable {
+    let id: String
+    let displayName: String
+    let vendor: String
+    let kind: String
+    let baseUrl: String?
+    let supportsNativeVideo: Bool
+    let jsonSchemaMode: String
+    let apiKeyEnv: String?
+    let notes: String
+    let requiresKey: Bool
+    let hasOperatorKey: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case displayName = "display_name"
+        case vendor
+        case kind
+        case baseUrl = "base_url"
+        case supportsNativeVideo = "supports_native_video"
+        case jsonSchemaMode = "json_schema_mode"
+        case apiKeyEnv = "api_key_env"
+        case notes
+        case requiresKey = "requires_key"
+        case hasOperatorKey = "has_operator_key"
+    }
+}
+
+struct ModelsTestResponse: Codable, Sendable {
+    let ok: Bool
+    let snippet: String?
+    let error: String?
 }
 
 struct PoseLibraryManifest: Codable {

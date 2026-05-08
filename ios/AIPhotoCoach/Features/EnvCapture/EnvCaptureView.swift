@@ -7,6 +7,7 @@ import SwiftUI
 struct EnvCaptureView: View {
     let personCount: Int
     let qualityMode: QualityMode
+    let sceneMode: SceneMode
     let styleKeywords: [String]
 
     @StateObject private var heading = HeadingTracker()
@@ -14,9 +15,10 @@ struct EnvCaptureView: View {
     @StateObject private var viewModel: EnvCaptureViewModel
     @EnvironmentObject var router: AppRouter
 
-    init(personCount: Int, qualityMode: QualityMode, styleKeywords: [String]) {
+    init(personCount: Int, qualityMode: QualityMode, sceneMode: SceneMode = .portrait, styleKeywords: [String]) {
         self.personCount = personCount
         self.qualityMode = qualityMode
+        self.sceneMode = sceneMode
         self.styleKeywords = styleKeywords
 
         let h = HeadingTracker()
@@ -26,6 +28,7 @@ struct EnvCaptureView: View {
         _viewModel = StateObject(wrappedValue: EnvCaptureViewModel(
             personCount: personCount,
             qualityMode: qualityMode,
+            sceneMode: sceneMode,
             styleKeywords: styleKeywords,
             capture: cap
         ))
@@ -64,6 +67,19 @@ struct EnvCaptureView: View {
         } message: {
             Text(viewModel.errorMessage ?? "Unknown error")
         }
+        .sheet(item: Binding(
+            get: { viewModel.clientVerdict.map(IdentifiedVerdict.init) },
+            set: { _ in viewModel.dismissVerdict() }
+        )) { wrapper in
+            CaptureQualitySheet(
+                verdict: wrapper.verdict,
+                onRetake: { viewModel.dismissVerdict() },
+                onProceed: viewModel.clientVerdict?.severity == .warn
+                    ? { Task { await viewModel.proceedAnalyze() } }
+                    : nil
+            )
+            .presentationDetents([.medium])
+        }
         .onChange(of: viewModel.analyzeResult) { _, response in
             guard let response else { return }
             router.push(.results(response))
@@ -72,7 +88,7 @@ struct EnvCaptureView: View {
 
     private var topBar: some View {
         HStack {
-            Text("人数 \(personCount)  •  \(qualityMode == .fast ? "Fast" : "High")")
+            Text("\(sceneMode.displayName) · \(personCount) 人 · \(qualityMode == .fast ? "Fast" : "High")")
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
                 .background(.ultraThinMaterial, in: Capsule())
@@ -155,6 +171,102 @@ struct EnvCaptureView: View {
 
     private func stopAndAnalyze() {
         Task { await viewModel.stopAndAnalyze(heading: heading) }
+    }
+}
+
+/// Tiny wrapper so `.sheet(item:)` can use the value-typed
+/// ``ClientCaptureVerdict`` (sheet items must be Identifiable).
+private struct IdentifiedVerdict: Identifiable {
+    let id = UUID()
+    let verdict: ClientCaptureVerdict
+}
+
+/// Modal that surfaces the client-side capture-quality verdict before
+/// /analyze is called. Mirrors `.capture-sheet` on web. For block-severity
+/// it only offers "重新环视"; for warn it also offers "知道了，继续分析".
+private struct CaptureQualitySheet: View {
+    let verdict: ClientCaptureVerdict
+    let onRetake: () -> Void
+    /// nil -> hide the proceed button (block severity).
+    let onProceed: (() -> Void)?
+
+    private var title: String {
+        switch verdict.severity {
+        case .block: return "这段环视看起来不太够 AI 出片"
+        case .warn:  return "环视有几个小问题，要继续吗？"
+        case .ok:    return "环视已就绪"
+        }
+    }
+
+    private var tint: Color {
+        switch verdict.severity {
+        case .block: return Color(red: 0.93, green: 0.40, blue: 0.40)
+        case .warn:  return Color(red: 0.96, green: 0.72, blue: 0.38)
+        case .ok:    return Color.accentColor
+        }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack(spacing: 10) {
+                Image(systemName: verdict.severity == .block
+                      ? "exclamationmark.triangle.fill"
+                      : "exclamationmark.circle.fill")
+                    .font(.system(size: 22, weight: .bold))
+                    .foregroundStyle(tint)
+                Text(title)
+                    .font(.headline)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            VStack(alignment: .leading, spacing: 6) {
+                ForEach(verdict.issues, id: \.self) { issue in
+                    HStack(alignment: .top, spacing: 6) {
+                        Text("·").foregroundStyle(.secondary)
+                        Text(issue)
+                            .font(.subheadline)
+                            .foregroundStyle(.primary)
+                    }
+                }
+            }
+            .padding(12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Color(.secondarySystemBackground))
+            )
+            HStack(spacing: 10) {
+                Button(action: onRetake) {
+                    Text("重新环视")
+                        .font(.callout.weight(.semibold))
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .fill(LinearGradient(
+                                    colors: [tint, tint.opacity(0.7)],
+                                    startPoint: .leading, endPoint: .trailing))
+                        )
+                }
+                .buttonStyle(.plain)
+                if let proceed = onProceed {
+                    Button(action: proceed) {
+                        Text("知道了，继续分析")
+                            .font(.callout.weight(.semibold))
+                            .foregroundStyle(.primary)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                    .stroke(Color.primary.opacity(0.18), lineWidth: 1)
+                            )
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+        }
+        .padding(20)
+        .padding(.top, 6)
     }
 }
 

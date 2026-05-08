@@ -1,17 +1,34 @@
 """Pose engine: post-process the LLM's pose suggestions against the local
 pose library so the iOS app can show a real reference thumbnail.
 
-Right now this is a simple lookup-by-id and layout-fallback. Phase 2 will add
-embedding similarity once the iOS side starts uploading reference vectors.
+v6 (Phase 3.2) introduces a character-n-gram cosine matcher
+(``pose_embed.PoseEmbeddingIndex``) used when the LLM didn't supply a
+``reference_thumbnail_id`` or supplied one we don't have. Falls back to
+the legacy layout+person_count lookup when the embedding score is too
+low to trust.
 """
 from __future__ import annotations
 
 from typing import Any, Optional
 
 from ..models import Layout, PersonPose, PoseSuggestion
+from .pose_embed import PoseEmbeddingIndex, query_text_for
 
 
-def fallback_pose(person_count: int) -> PoseSuggestion:
+def fallback_pose(person_count: int, scene_mode: str = "portrait") -> PoseSuggestion:
+    """Deterministic pose suggestion used by mock_provider and post-pass
+    repair. Returns an empty (poses-less) suggestion when the user is
+    shooting scenery with no people.
+    """
+    if scene_mode == "scenery" and person_count == 0:
+        return PoseSuggestion(
+            person_count=0,
+            layout=Layout.single,
+            persons=[],
+            interaction=None,
+            reference_thumbnail_id=None,
+            difficulty="easy",
+        )
     if person_count <= 1:
         return PoseSuggestion(
             person_count=1,
@@ -147,20 +164,53 @@ def map_to_library(
     pose: PoseSuggestion,
     library: list[dict[str, Any]],
 ) -> PoseSuggestion:
-    """If the LLM gave a reference_thumbnail_id, verify it exists in the
-    library; otherwise try to find one with matching layout + person_count."""
+    """Attach a reference thumbnail to ``pose``.
+
+    Strategy (in order):
+      1. If the LLM gave us an id that's actually in the library, keep it.
+      2. Build a character-n-gram cosine index over the library; query it
+         with the LLM's free-text pose description and pick the best
+         ``person_count``-matched entry above a similarity floor.
+      3. Fall back to layout + person_count lookup (old v5 behaviour).
+    """
     if pose.reference_thumbnail_id and any(
         p.get("id") == pose.reference_thumbnail_id for p in library
     ):
         return pose
 
-    candidate = _best_match(library, pose.layout.value, pose.person_count)
+    candidate = _embedding_best_match(pose, library)
+    if candidate is None:
+        candidate = _layout_best_match(library, pose.layout.value, pose.person_count)
     if candidate is not None:
         pose.reference_thumbnail_id = candidate
     return pose
 
 
-def _best_match(
+def _embedding_best_match(
+    pose: PoseSuggestion,
+    library: list[dict[str, Any]],
+) -> Optional[str]:
+    """Cosine match against the KB using the character-n-gram embedder."""
+    if not library:
+        return None
+    query = query_text_for(pose)
+    if not query.strip():
+        return None
+    try:
+        idx = PoseEmbeddingIndex.build(library)
+    except Exception:
+        # Defensive — embedding is a best-effort enhancement; never block
+        # /analyze on it.
+        return None
+    return idx.best_match(
+        query,
+        person_count=pose.person_count,
+        prefer_layout=pose.layout.value,
+        min_similarity=0.05,
+    )
+
+
+def _layout_best_match(
     library: list[dict[str, Any]], layout: str, person_count: int
 ) -> Optional[str]:
     same_count = [p for p in library if p.get("person_count") == person_count]

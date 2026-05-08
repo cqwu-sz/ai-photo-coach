@@ -1,0 +1,306 @@
+[
+  {
+    "id": "anti_centered_subject_default",
+    "category": "composition",
+    "name_zh": "反例：默认居中",
+    "summary": "新手拍人下意识把脸放正中央；除非对称构图，否则居中=单调",
+    "axes": ["composition", "subject_fit"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["新手避雷"],
+    "evidence": "三分构图存在的根本原因就是因为人眼不喜欢正中；居中只是『没找到位置』",
+    "watch_out": "对称水面 / 对称建筑 / 双胞胎合影 = 居中合理；其他不要默认",
+    "counter_example": "对称是反例的反例",
+    "tags": ["反例", "居中", "新手"],
+    "citations": [
+      { "source": "Bryan Peterson《Learning to See Creatively》", "chapter": "Avoid Center" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_dead_center_horizon",
+    "category": "composition",
+    "name_zh": "反例：地平线居中",
+    "summary": "把地平线压在画面正中是新手最常犯的风光错；让画面被切成两段相等而无主次",
+    "axes": ["composition"],
+    "scene_modes": ["scenery"],
+    "person_count_range": [0, 2],
+    "priority": 5,
+    "when_to_use": ["风光避雷"],
+    "evidence": "三分线规则的对应面：地平线居中 = 画面无重心",
+    "watch_out": "对称倒影例外；绝大部分情况上 1/3 或下 1/3",
+    "counter_example": "对称湖泊倒影",
+    "tags": ["反例", "地平线", "风光"],
+    "citations": [
+      { "source": "Bryan Peterson《Understanding Composition》", "chapter": "Horizon" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_pole_in_head",
+    "category": "background",
+    "name_zh": "反例：电线杆穿头",
+    "summary": "拍人前不看背景，结果电线杆 / 树枝 / 招牌从模特头上『长出』；最经典的新手错",
+    "axes": ["background"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["新手避雷"],
+    "evidence": "构图前 3 秒检查头顶 / 肩膀有无『长出』物体；移 30cm 解决",
+    "watch_out": "不只是头顶，肩膀穿栏杆、耳朵长出灯柱也算",
+    "counter_example": "故意做超现实拼贴例外",
+    "tags": ["反例", "穿头", "排雷"],
+    "citations": [
+      { "source": "Scott Kelby《The Digital Photography Book》", "chapter": "Watch the Background" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_amputation_at_joint",
+    "category": "subject",
+    "name_zh": "反例：关节切人",
+    "summary": "构图框边缘切在脚踝 / 手腕 / 膝盖等关节处，让画面像『断肢』；视觉极不舒服",
+    "axes": ["subject_fit", "composition"],
+    "scene_modes": ["portrait", "full_body", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["半身 / 全身构图"],
+    "evidence": "Roberto Valenzuela 总结 'amputation rule'；切框要在两关节中间（如大腿中段、上臂中段）",
+    "watch_out": "宁愿多收入半个身体也不要切关节",
+    "counter_example": "概念创作刻意切关节例外",
+    "tags": ["反例", "关节", "切框"],
+    "citations": [
+      { "source": "Roberto Valenzuela《Picture Perfect Posing》", "chapter": "Don't Cut at Joints" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_dutch_tilt_overuse",
+    "category": "composition",
+    "name_zh": "反例：滥用斜构图",
+    "summary": "新手喜欢倾斜构图显『动感』；过度倾斜让画面只剩噱头无主题",
+    "axes": ["composition"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["避免技巧滥用"],
+    "evidence": "Dutch tilt 在电影里只用于『精神崩溃 / 不安』场景；用得太多即变娱乐化",
+    "watch_out": "倾斜超过 15° 必须有理由；地平线水平是基础",
+    "counter_example": "刻意表达不安、混乱主题例外",
+    "tags": ["反例", "斜构图", "Dutch tilt"],
+    "citations": [
+      { "source": "Cinematography Guide", "chapter": "Dutch Angle" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_chimping",
+    "category": "subject",
+    "name_zh": "反例：拍一张看一张",
+    "summary": "新手按一张就低头看回放（chimping），错过下一个瞬间；纪实摄影头号杀手",
+    "axes": ["subject_fit"],
+    "scene_modes": ["documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["纪实训练"],
+    "evidence": "HCB 派纪实摄影：低头 1 秒 = 错过 5 个瞬间；前期相信曝光设置，后期再看",
+    "watch_out": "棚拍合作可以 chimping；街拍不行",
+    "counter_example": "棚拍、肖像创作可以 chimping",
+    "tags": ["反例", "chimping", "回放"],
+    "citations": [
+      { "source": "Joe McNally《The Moment It Clicks》", "chapter": "On Chimping" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_oversharpen",
+    "category": "subject",
+    "name_zh": "反例：过度锐化",
+    "summary": "后期把锐化拉到『头发丝边缘出白边』；新手以为锐化越多越清楚，其实是伪锐",
+    "axes": ["subject_fit"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["后期避雷"],
+    "evidence": "锐化过度产生 halo（白边光晕）；专业作品锐化看不见痕迹",
+    "watch_out": "Lightroom 锐化 ≤ 40，clarity ≤ 20；蒙版排除肤色",
+    "counter_example": "故意做插画风格的图可加重",
+    "tags": ["反例", "锐化", "后期"],
+    "citations": [
+      { "source": "Scott Kelby《Lightroom Book》", "chapter": "Sharpening" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_oversaturate",
+    "category": "color",
+    "name_zh": "反例：饱和度爆表",
+    "summary": "新手喜欢拉饱和让色彩鲜艳；皮肤先死、其次天空，最后画面像广告插画",
+    "axes": ["color", "subject_fit"],
+    "scene_modes": ["portrait", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["后期避雷"],
+    "evidence": "饱和度 +30 后肤色变橙；专业用 vibrance（自然饱和）+ HSL 单色控制",
+    "watch_out": "整体饱和 ≤ +10；HSL 单独调蓝 / 绿即可；肤色保持自然",
+    "counter_example": "故意做强色彩主题（如 60s pop 风）例外",
+    "tags": ["反例", "饱和度", "后期"],
+    "citations": [
+      { "source": "Bryan Peterson《Understanding Color》", "chapter": "Saturation Trap" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_no_reason_bokeh",
+    "category": "depth",
+    "name_zh": "反例：无脑大光圈",
+    "summary": "f/1.4 不是万能；多人合影 / 全身环境人像应缩到 f/4-f/5.6 才合适",
+    "axes": ["depth", "subject_fit"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [2, 4],
+    "priority": 4,
+    "when_to_use": ["避免技术滥用"],
+    "evidence": "焦平面在 f/1.4 时只有几厘米；多人时一定有人脱焦",
+    "watch_out": "单人特写 f/1.4-2.0；双人 f/2.8-4；多人 f/4-5.6；全身 f/2.8-4",
+    "counter_example": "明确单人主体可大光圈",
+    "tags": ["反例", "大光圈", "焦平面"],
+    "citations": [
+      { "source": "Bryan Peterson《Understanding Exposure》", "chapter": "Aperture" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_too_many_subjects",
+    "category": "subject",
+    "name_zh": "反例：主体太多",
+    "summary": "画面里超过 3-4 个『竞争主角』视线就会被瓜分；不如选一个为主、其余为辅",
+    "axes": ["subject_fit", "composition"],
+    "scene_modes": ["documentary", "portrait", "scenery"],
+    "person_count_range": [2, 4],
+    "priority": 5,
+    "when_to_use": ["复杂场景"],
+    "evidence": "认知心理学：人脑同时处理 ≤ 3 个视觉重心；超过即混乱",
+    "watch_out": "构图前问：『主角是谁？』每张照片只能有一个主角",
+    "counter_example": "节庆合影、群体抓拍除外",
+    "tags": ["反例", "主体太多", "瓜分"],
+    "citations": [
+      { "source": "Bryan Peterson《Learning to See Creatively》", "chapter": "Subject" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_panorama_no_subject",
+    "category": "subject",
+    "name_zh": "反例：风光无主体",
+    "summary": "新手风光照只有山没有任何视觉锚点（一棵树 / 一块石 / 一个小人）；让眼睛无处停留",
+    "axes": ["subject_fit", "composition"],
+    "scene_modes": ["scenery"],
+    "person_count_range": [0, 1],
+    "priority": 5,
+    "when_to_use": ["风光必看"],
+    "evidence": "Galen Rowell 风光铁律：每张风光照都要有 anchor point；可以是地形特征 / 人物 / 异色物体",
+    "watch_out": "anchor 占画面 5-15%，放在三分线交点",
+    "counter_example": "极简自然纹理（冰裂、沙纹）例外",
+    "tags": ["反例", "无主体", "风光"],
+    "citations": [
+      { "source": "Galen Rowell《Mountain Light》", "chapter": "Anchor Point" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_frontlight_flat",
+    "category": "light",
+    "name_zh": "反例：纯顺光平板",
+    "summary": "顺光（光从摄影师身后）让画面无阴影、无立体；除了证件照都不应是首选",
+    "axes": ["light"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["避免无趣光位"],
+    "evidence": "顺光让人脸像贴纸；侧光 / 侧逆光都比顺光立体感强",
+    "watch_out": "顺光仅在阴天散光下勉强可用；其他情况换光位",
+    "counter_example": "证件照需要顺光",
+    "tags": ["反例", "顺光", "平板"],
+    "citations": [
+      { "source": "Roberto Valenzuela《Picture Perfect Lighting》", "chapter": "Flat Light" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_busy_background_portrait",
+    "category": "background",
+    "name_zh": "反例：杂背景人像",
+    "summary": "背景里出现行人 / 招牌 / 杂物；让人像主体被瓜分注意力",
+    "axes": ["background", "subject_fit"],
+    "scene_modes": ["portrait", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["人像必看"],
+    "evidence": "人像首要规则：背景做减法；可以移动 / 等行人走开 / 大光圈虚化",
+    "watch_out": "环境人像故意保留环境例外，但也要让环境不抢戏",
+    "counter_example": "环境人像、街拍纪实需要环境",
+    "tags": ["反例", "杂背景", "人像"],
+    "citations": [
+      { "source": "Scott Kelby《Crush the Composition》", "chapter": "Backgrounds" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_horizon_slant",
+    "category": "composition",
+    "name_zh": "反例：地平线歪",
+    "summary": "地平线没拉平是最低级错误；除非主题需要 Dutch tilt，否则永远要水平",
+    "axes": ["composition"],
+    "scene_modes": ["scenery", "documentary", "portrait"],
+    "person_count_range": [0, 4],
+    "priority": 5,
+    "when_to_use": ["所有有地平线场景"],
+    "evidence": "歪 1° 都看得出；后期裁切+1°可解决；前期开取景框水平仪",
+    "watch_out": "海岸 / 桌面 / 水面都属于地平线，全部要水平",
+    "counter_example": "故意倾斜（Dutch）例外",
+    "tags": ["反例", "地平线", "水平"],
+    "citations": [
+      { "source": "Bryan Peterson《Understanding Composition》", "chapter": "Level Horizon" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_overhead_face",
+    "category": "subject",
+    "name_zh": "反例：高俯拍脸",
+    "summary": "镜头高于眼睛拍人脸 = 大额头小下巴；视角越高越不讨喜",
+    "axes": ["subject_fit"],
+    "scene_modes": ["portrait", "closeup"],
+    "person_count_range": [1, 1],
+    "priority": 4,
+    "when_to_use": ["人像视角避雷"],
+    "evidence": "人像视角法则：镜头≈眼睛或略高 5-10cm；过高扭曲面部",
+    "watch_out": "拍儿童 / 宠物时蹲到他们的眼睛高度",
+    "counter_example": "情绪 / 概念人像可俯拍",
+    "tags": ["反例", "俯拍脸", "视角"],
+    "citations": [
+      { "source": "Sue Bryce《Posing & Lighting》", "chapter": "Camera Height" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "anti_filter_overload",
+    "category": "color",
+    "name_zh": "反例：滤镜套太重",
+    "summary": "VSCO / 复古滤镜直接套用『最浓预设』；让所有照片看上去同质同色",
+    "axes": ["color", "theme"],
+    "scene_modes": ["portrait", "documentary", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["后期审稿"],
+    "evidence": "强滤镜让色彩失真，不可逆；用预设后还要根据画面调整",
+    "watch_out": "套预设后强度 ≤ 60%；保留肤色单独调",
+    "counter_example": "做风格统一的系列作品可以套同一预设",
+    "tags": ["反例", "滤镜", "VSCO"],
+    "citations": [
+      { "source": "Scott Kelby《Lightroom Book》", "chapter": "Presets" }
+    ],
+    "embedding": null
+  }
+]

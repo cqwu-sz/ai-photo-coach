@@ -21,7 +21,7 @@ import io
 import math
 from functools import lru_cache
 
-from fastapi import APIRouter, HTTPException, Response
+from fastapi import APIRouter, HTTPException, Query, Response
 
 router = APIRouter(prefix="/dev", tags=["dev"])
 
@@ -30,9 +30,50 @@ SAMPLE_REFERENCE_COUNT = 3
 FRAME_SIZE = (960, 540)
 REF_SIZE = (640, 800)
 
+# Per-scene-mode demo presets. Each tuple is (person_count, style_keywords,
+# label) — the manifest layer pre-fills CaptureMeta hints so the frontend
+# can pick them up without a manual second screen.
+_SCENE_DEFAULTS: dict[str, dict] = {
+    "portrait": {
+        "person_count": 1,
+        "style_keywords": ["clean", "bright"],
+        "blurb": "黄昏公园人像，半身或全身都能出。",
+    },
+    "closeup": {
+        "person_count": 1,
+        "style_keywords": ["mood", "tele"],
+        "blurb": "侧逆光下的脸部 / 上半身特写。",
+    },
+    "full_body": {
+        "person_count": 1,
+        "style_keywords": ["clean", "wide"],
+        "blurb": "拉远到 35mm，全身入画带环境。",
+    },
+    "documentary": {
+        "person_count": 2,
+        "style_keywords": ["candid", "story"],
+        "blurb": "街拍人文，自然走动 + 互动。",
+    },
+    "scenery": {
+        "person_count": 0,
+        "style_keywords": ["wide", "leading line"],
+        "blurb": "纯环境出片，无人。",
+    },
+    "light_shadow": {
+        "person_count": 1,
+        "style_keywords": ["chiaroscuro", "rim light"],
+        "blurb": "用强对比光影做戏剧画面，剪影 / 长影 / 光柱。",
+    },
+}
 
-def _sample_manifest() -> dict:
+
+def _sample_manifest(scene_mode: str = "portrait") -> dict:
+    cfg = _SCENE_DEFAULTS.get(scene_mode, _SCENE_DEFAULTS["portrait"])
     return {
+        "scene_mode": scene_mode,
+        "person_count_default": cfg["person_count"],
+        "style_keywords_default": cfg["style_keywords"],
+        "blurb": cfg["blurb"],
         "frames": [
             {
                 "index": i,
@@ -44,17 +85,25 @@ def _sample_manifest() -> dict:
             }
             for i in range(SAMPLE_FRAME_COUNT)
         ],
-        "references": [
-            {"index": i, "url": f"/dev/sample-reference/{i}.jpg"}
-            for i in range(SAMPLE_REFERENCE_COUNT)
-        ],
+        "references": (
+            [
+                {"index": i, "url": f"/dev/sample-reference/{i}.jpg"}
+                for i in range(SAMPLE_REFERENCE_COUNT)
+            ]
+            if scene_mode != "scenery"
+            else []
+        ),
         "panorama_url": "/dev/panorama-demo.jpg",
     }
 
 
 @router.get("/sample-manifest")
-def sample_manifest() -> dict:
-    return _sample_manifest()
+def sample_manifest(
+    scene_mode: str = Query("portrait", description="portrait/closeup/full_body/documentary/scenery"),
+) -> dict:
+    if scene_mode not in _SCENE_DEFAULTS:
+        scene_mode = "portrait"
+    return _sample_manifest(scene_mode)
 
 
 @router.get(

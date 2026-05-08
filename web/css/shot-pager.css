@@ -1,0 +1,137 @@
+/* v7 Phase A — shots horizontal swipe pager.
+ *
+ * Replaces the old vertical stack of 3 plans (which forced the user to
+ * scroll past every plan to see the others). Now each plan is a 100%
+ * column inside a scroll-snap container; chips at the top let the user
+ * jump or page laterally.
+ */
+
+.shots-pager-header {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  margin: 0 0 14px;
+  padding: 8px 4px;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 13, 18, 0.96) 0%,
+    rgba(13, 13, 18, 0.85) 100%
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.shots-pager-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 4px 8px;
+  scroll-snap-type: x mandatory;
+}
+.shots-pager-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.shots-pager-chip {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-soft);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  scroll-snap-align: start;
+}
+.shots-pager-chip:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ink-bright);
+}
+.shots-pager-chip.is-active {
+  background: linear-gradient(135deg, rgba(91, 156, 255, 0.32), rgba(91, 156, 255, 0.10));
+  color: #fff;
+  border-color: rgba(91, 156, 255, 0.6);
+  box-shadow: 0 0 16px rgba(91, 156, 255, 0.20);
+  transform: translateY(-1px);
+}
+.shots-pager-chip-num {
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  opacity: 0.86;
+}
+.shots-pager-chip-title {
+  font-weight: 500;
+  opacity: 0.9;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.shots-pager-chip-score {
+  background: rgba(91, 156, 255, 0.20);
+  color: #cfe1ff;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.shots-pager-chip.is-active .shots-pager-chip-score {
+  background: rgba(255, 255, 255, 0.20);
+  color: #fff;
+}
+
+/* The horizontal scroll-snap container that holds each plan's slide. */
+.shots-pager {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-padding: 0;
+  margin: 0 -16px;  /* break out of the page padding so each slide can be 100vw */
+  padding: 0 0 8px;
+}
+.shots-pager::-webkit-scrollbar {
+  display: none;
+}
+
+.shot-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: start;
+  padding: 0 16px;
+  box-sizing: border-box;
+  /* Subtle stagger animation when the slide enters/leaves the snap point —
+   * lets the user *feel* the swipe took effect instead of just instantly
+   * showing a different shot. */
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+
+/* The shot-card itself already has its own padding/border; we just
+ * make sure it can grow tall and the slide container sizes to it. */
+.shot-slide > .shot-card {
+  margin: 0;
+}
+
+/* On wider screens (desktop preview), 1 plan still occupies the full
+ * width but capped at 800px so it doesn't span absurdly wide. */
+@media (min-width: 720px) {
+  .shots-pager {
+    margin: 0;
+  }
+  .shot-slide {
+    flex: 0 0 min(800px, 100%);
+    padding: 0;
+  }
+}

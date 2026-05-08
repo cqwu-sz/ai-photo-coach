@@ -1,0 +1,155 @@
+[
+  {
+    "id": "theme_one_idea",
+    "category": "theme",
+    "name_zh": "一张照片一个想法",
+    "summary": "出片前用一句话讲清这张要表达什么，所有元素都为这句话服务",
+    "axes": ["theme"],
+    "scene_modes": ["portrait", "closeup", "full_body", "documentary", "scenery", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 5,
+    "when_to_use": ["所有有意识的拍摄"],
+    "evidence": "好照片源于明确意图：『海边晨光下的孤独』『地铁里的归途人』等一句话主题让画面所有抉择都有方向",
+    "watch_out": "不要『又想要 A 又想要 B』，主题模糊画面就发散",
+    "counter_example": "纯随手记录可不必预设主题",
+    "tags": ["意图", "主题先行", "一句话"],
+    "citations": [
+      { "source": "David duChemin《Within the Frame》", "chapter": "Vision First" },
+      { "source": "顾荣军《非常摄影手记》", "chapter": "意图篇" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "theme_studium_punctum",
+    "category": "theme",
+    "name_zh": "Studium 与 Punctum",
+    "summary": "画面要有可阅读的语境（Studium）+ 一处刺穿观者的意外细节（Punctum）",
+    "axes": ["theme", "subject_fit"],
+    "scene_modes": ["portrait", "documentary", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["纪实", "人文", "情绪人像"],
+    "evidence": "Roland Barthes 在《Camera Lucida》提出：所有人能读懂的是 Studium，但让人忘不掉的是某个『刺点』，可能是一只手、一道光、一只眼神",
+    "watch_out": "刺点不能强造，只能等或在大量素材中挑出来",
+    "counter_example": "商业平面图不需要刺点",
+    "tags": ["刺点", "意外", "纪实"],
+    "citations": [
+      { "source": "Roland Barthes《Camera Lucida》", "chapter": "Part 2 — Punctum" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "theme_emotion_metaphor",
+    "category": "theme",
+    "name_zh": "情绪的隐喻表达",
+    "summary": "用环境元素做情绪隐喻：雨 = 哀愁，逆光 = 希望，剪影 = 孤独，长椅 = 等待",
+    "axes": ["theme", "light"],
+    "scene_modes": ["portrait", "documentary", "light_shadow", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["概念人像", "诗意纪实"],
+    "evidence": "隐喻让照片从『记录』升级为『表达』；视觉符号系统（Visual Iconography）有跨文化的共识",
+    "watch_out": "隐喻不可堆砌，一张照片用 1-2 个就够",
+    "counter_example": "证件照、商业产品图不需要隐喻",
+    "tags": ["隐喻", "情绪", "符号"],
+    "citations": [
+      { "source": "Michael Freeman, The Photographer's Mind", "chapter": "Symbolism" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "theme_decisive_moment",
+    "category": "theme",
+    "name_zh": "决定性瞬间",
+    "summary": "事件高潮、几何构图、人物表情三者同时到位的那一刻",
+    "axes": ["theme", "subject_fit", "composition"],
+    "scene_modes": ["documentary", "portrait", "full_body"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["街拍", "纪实", "运动"],
+    "evidence": "Cartier-Bresson 提出：内容、形式、时机三合一才是决定性瞬间，错失即错失",
+    "watch_out": "不要用连拍打卡式扫，应预判 + 等候 + 单击；连拍是工具，不是借口",
+    "counter_example": "静物、产品摄影不存在决定性瞬间",
+    "tags": ["决定性瞬间", "纪实", "等候"],
+    "citations": [
+      { "source": "Henri Cartier-Bresson《The Decisive Moment》", "chapter": "Foreword" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "theme_solitude_vs_belonging",
+    "category": "theme",
+    "name_zh": "孤独与归属",
+    "summary": "一个人 + 大留白 = 孤独；一个人 + 紧密小空间 = 归属或压抑",
+    "axes": ["theme", "composition"],
+    "scene_modes": ["portrait", "documentary", "light_shadow"],
+    "person_count_range": [1, 1],
+    "priority": 3,
+    "when_to_use": ["概念人像", "情绪故事"],
+    "evidence": "空间体量直接对应情绪：极简留白触发孤独感，挤压式空间触发挤压感或亲密感",
+    "watch_out": "孤独不等于阴沉，留白可以是亮色调",
+    "counter_example": "合照、运动场景不适用",
+    "tags": ["情绪", "空间感", "孤独"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Solitude in Photography" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "theme_time_capsule",
+    "category": "theme",
+    "name_zh": "时光胶囊",
+    "summary": "用时代符号（招牌字体、衣着、设备）让照片自带年代",
+    "axes": ["theme", "background"],
+    "scene_modes": ["documentary", "full_body", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["纪实", "旅行", "怀旧主题"],
+    "evidence": "人脸 + 时代符号 = 故事，缺一不可；老招牌、老相机、复古服装让画面有时光维度",
+    "watch_out": "不要只有符号没有人，否则只是『道具陈列』",
+    "counter_example": "极简肖像不需要时代标签",
+    "tags": ["时代感", "符号", "纪实"],
+    "citations": [
+      { "source": "Susan Sontag《On Photography》", "chapter": "In Plato's Cave" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "theme_intimate_distance",
+    "category": "theme",
+    "name_zh": "亲密距离",
+    "summary": "人脸特写在画面占 70%+ 时，观者会被强制进入亲密距离",
+    "axes": ["theme", "subject_fit"],
+    "scene_modes": ["portrait", "closeup"],
+    "person_count_range": [1, 2],
+    "priority": 3,
+    "when_to_use": ["特写人像", "情绪肖像"],
+    "evidence": "人际距离学（Edward T. Hall）：< 0.5m 是亲密距离，特写镜头模拟这种距离感",
+    "watch_out": "亲密距离要求模特真的放松，否则镜头记录的是紧张而非亲密",
+    "counter_example": "陌生人街拍特写有侵犯感，慎用",
+    "tags": ["亲密", "特写", "心理学"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Personal Space" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "theme_anchor_emotion",
+    "category": "theme",
+    "name_zh": "锚定情绪关键词",
+    "summary": "拍前先选 1 个核心情绪词（喜、惊、思、静、躁），所有调度围绕它",
+    "axes": ["theme"],
+    "scene_modes": ["portrait", "documentary", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["概念人像", "情绪写真"],
+    "evidence": "明确情绪词后，光线、姿势、色温、构图都能围绕它选；情绪发散是 90% 习作的通病",
+    "watch_out": "情绪词不是滤镜风格，是希望观者看到后产生的感受",
+    "counter_example": "纯纪实抓拍不需要预设",
+    "tags": ["情绪关键词", "意图先行"],
+    "citations": [
+      { "source": "David duChemin《Photographically Speaking》", "chapter": "Mood" }
+    ],
+    "embedding": null
+  }
+]

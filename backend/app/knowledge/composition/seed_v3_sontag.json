@@ -1,0 +1,97 @@
+[
+  {
+    "id": "sontag_image_world",
+    "category": "theme",
+    "name_zh": "图像世界",
+    "summary": "Sontag：现代人通过图像理解世界；摄影师承担『构建图像世界』的责任",
+    "axes": ["theme"],
+    "scene_modes": ["documentary", "portrait", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["创作哲学"],
+    "evidence": "《On Photography》开篇：『一切从图像开始』；图像比真实更真实是 20 世纪症状",
+    "watch_out": "拍前问：『我贡献给图像世界的是什么？』",
+    "counter_example": "纯档案 / 监控不属于图像世界",
+    "tags": ["Sontag", "图像世界", "理论"],
+    "citations": [
+      { "source": "Susan Sontag《On Photography》", "chapter": "In Plato's Cave" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sontag_aestheticization",
+    "category": "theme",
+    "name_zh": "审美化警告",
+    "summary": "Sontag 警告：摄影把苦难也审美化；过度优雅的纪实可能消解事件的严肃性",
+    "axes": ["theme"],
+    "scene_modes": ["documentary"],
+    "person_count_range": [1, 4],
+    "priority": 3,
+    "when_to_use": ["社会议题摄影"],
+    "evidence": "Sontag 批评 Salgado 把贫困拍得太美；『美』反而让观者不再行动",
+    "watch_out": "纪实苦难时不要追求美学完美；适度粗糙反而更真",
+    "counter_example": "广告 / 时尚反而需要美学化",
+    "tags": ["Sontag", "审美化", "伦理"],
+    "citations": [
+      { "source": "Susan Sontag《On Photography》", "chapter": "America Seen Through Photographs" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sontag_pain_of_others",
+    "category": "theme",
+    "name_zh": "他人的痛苦",
+    "summary": "拍摄苦难时摄影师与被摄者权力不平等；要持续追问『我有权拍这一张吗』",
+    "axes": ["theme"],
+    "scene_modes": ["documentary"],
+    "person_count_range": [1, 4],
+    "priority": 3,
+    "when_to_use": ["新闻 / 纪实"],
+    "evidence": "Sontag《Regarding the Pain of Others》延伸；拍摄苦难既必要又有伦理风险",
+    "watch_out": "不要消费苦难；获取知情同意；保留尊严",
+    "counter_example": "日常生活、风光不涉及此问题",
+    "tags": ["Sontag", "伦理", "苦难"],
+    "citations": [
+      { "source": "Susan Sontag《Regarding the Pain of Others》", "chapter": "Ch.1" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sontag_appropriation",
+    "category": "theme",
+    "name_zh": "图像的占有",
+    "summary": "拍照 = 占有那一刻的世界；摄影师承担『决定哪些值得保存』的权力",
+    "axes": ["theme"],
+    "scene_modes": ["documentary", "portrait", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 2,
+    "when_to_use": ["创作反思"],
+    "evidence": "Sontag：『拍照本质上是侵入性的占有』；这种权力不应被滥用",
+    "watch_out": "尊重被摄者；不要把镜头当武器",
+    "counter_example": "棚拍合作摄影不存在『占有』问题",
+    "tags": ["Sontag", "占有", "权力"],
+    "citations": [
+      { "source": "Susan Sontag《On Photography》", "chapter": "Photographic Evangels" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sontag_memory_substitute",
+    "category": "theme",
+    "name_zh": "照片代替记忆",
+    "summary": "Sontag 观察：人们越拍照越少看；照片成为『记忆的替代品』",
+    "axes": ["theme"],
+    "scene_modes": ["documentary", "portrait", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 2,
+    "when_to_use": ["旅行摄影反思"],
+    "evidence": "现代人习惯于『拍下来再看』；这导致当下被忽略",
+    "watch_out": "拍 5 张就停下来用眼睛感受；不要全靠照片记录",
+    "counter_example": "档案类工作就是要用照片代替记忆",
+    "tags": ["Sontag", "记忆", "当下"],
+    "citations": [
+      { "source": "Susan Sontag《On Photography》", "chapter": "Image-World" }
+    ],
+    "embedding": null
+  }
+]

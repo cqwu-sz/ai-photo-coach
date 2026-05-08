@@ -3,7 +3,24 @@
   "person_count": 1,
   "layout": "single",
   "summary": "single relaxed standing, body 15deg off-axis, one hand in pocket",
-  "tags": ["casual", "everyday", "street"],
-  "best_for": ["outdoor_urban", "outdoor_park"],
-  "thumbnail": "pose_single_relaxed_001.png"
+  "tags": [
+    "casual",
+    "everyday",
+    "street"
+  ],
+  "best_for": [
+    "outdoor_urban",
+    "outdoor_park"
+  ],
+  "thumbnail": "pose_single_relaxed_001.png",
+  "summary_zh": "放松站立 一手插袋 微微转体 街头随性",
+  "tags_zh": [
+    "放松",
+    "站立",
+    "插袋",
+    "转体",
+    "街头",
+    "随性",
+    "casual"
+  ]
 }

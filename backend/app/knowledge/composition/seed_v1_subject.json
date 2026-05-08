@@ -1,0 +1,193 @@
+[
+  {
+    "id": "sub_subject_size",
+    "category": "subject",
+    "name_zh": "主体大小比例",
+    "summary": "特写 80% / 半身 60% / 全身 1/3-1/2 / 环境人像 1/4 — 按主题选大小",
+    "axes": ["subject_fit"],
+    "scene_modes": ["portrait", "closeup", "full_body", "documentary", "light_shadow"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["所有有人主体场景"],
+    "evidence": "人物在画面中占比直接决定信息密度：占比越高情绪越聚焦，越低环境越发言",
+    "watch_out": "全身像把人塞满画面会让脚被切；特写若占不到 80% 又会显得犹豫",
+    "counter_example": "纪实街拍里硬把环境人像放大到 60% 会丢失故事背景",
+    "tags": ["占比", "信息密度", "主体优先"],
+    "citations": [
+      { "source": "巴内克《人像摄影经典教程》", "chapter": "Ch.2 取景" },
+      { "source": "Scott Kelby《Crush the Composition》", "chapter": "Composition for Portraits" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sub_eyeline_breathing",
+    "category": "subject",
+    "name_zh": "视线呼吸距离",
+    "summary": "主体看向哪一边，那一边就要留 60% 以上的呼吸空间",
+    "axes": ["subject_fit", "composition"],
+    "scene_modes": ["portrait", "closeup", "full_body", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["人像", "纪实", "环境人像"],
+    "evidence": "视线方向是隐性的指针，没有呼吸空间会让主体『撞到画框』，画面立刻紧张憋闷",
+    "watch_out": "对称居中构图例外，视线对镜头时不需要呼吸空间",
+    "counter_example": "证件照视线直对镜头不需要刻意留白",
+    "tags": ["视线", "呼吸", "心理空间"],
+    "citations": [
+      { "source": "David duChemin《Photographically Speaking》", "chapter": "Decisions: Eye Line" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sub_edge_breathing",
+    "category": "subject",
+    "name_zh": "边缘呼吸距离",
+    "summary": "主体距画面四边至少留 1 个头距，避免顶头碰边",
+    "axes": ["subject_fit"],
+    "scene_modes": ["portrait", "closeup", "full_body", "documentary", "light_shadow"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["所有人像"],
+    "evidence": "主体头顶到画面顶端有空隙，画面才不会显得局促；脚也不要紧贴画面下沿",
+    "watch_out": "特写时可主动让头顶被切（hair crop），但不要让眼睛切",
+    "counter_example": "极简留白构图为情绪可主动违反此规则",
+    "tags": ["呼吸距离", "切边", "局促"],
+    "citations": [
+      { "source": "巴内克《人像摄影经典教程》", "chapter": "Ch.2 取景边缘" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sub_no_joint_crop",
+    "category": "subject",
+    "name_zh": "不切关节",
+    "summary": "拍人时画面下沿别正好切在膝盖、脚踝、手腕、肘等关节处",
+    "axes": ["subject_fit"],
+    "scene_modes": ["portrait", "full_body", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["半身人像", "全身人像", "群像"],
+    "evidence": "关节是肢体的转折点，切在那里会让人体显得『被截肢』，应切大腿中段、小腿中段",
+    "watch_out": "关节切得过低（脚踝以下）也不行，应保留到鞋面或主动切到小腿中段",
+    "counter_example": "故意做断肢艺术效果时除外",
+    "tags": ["切边", "关节", "构图禁区"],
+    "citations": [
+      { "source": "巴内克《人像摄影经典教程》", "chapter": "Ch.2 取景禁忌" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sub_pose_break_symmetry",
+    "category": "subject",
+    "name_zh": "姿态破对称",
+    "summary": "肢体不要左右完全对称：一只手插袋、一脚轻提、肩膀微歪",
+    "axes": ["subject_fit"],
+    "scene_modes": ["portrait", "full_body", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["站姿人像", "情侣合影", "团体照"],
+    "evidence": "完全对称的姿态会显得呆板紧张，破对称让画面有动势与人味",
+    "watch_out": "破对称别太大幅，否则会显得做作或不自然",
+    "counter_example": "证件照、毕业照需要严肃的对称",
+    "tags": ["动势", "自然", "破对称"],
+    "citations": [
+      { "source": "David duChemin《Within the Frame》", "chapter": "Photographing People" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sub_high_low_offset",
+    "category": "subject",
+    "name_zh": "多人高低错位",
+    "summary": "2 人以上时让头部高度差至少一个头距，破并排站桩",
+    "axes": ["subject_fit", "composition"],
+    "scene_modes": ["portrait", "full_body", "documentary"],
+    "person_count_range": [2, 4],
+    "priority": 5,
+    "when_to_use": ["情侣", "三人行", "亲子", "团体合影"],
+    "evidence": "并排同高的多人构图无视觉重心，错落让画面有阅读顺序与互动感",
+    "watch_out": "通过坐/站、蹲/站、矮台阶/平地造高度差，不是真的让人趴下",
+    "counter_example": "毕业班级照、足球队合影本就是排排站",
+    "tags": ["多人", "错位", "互动"],
+    "citations": [
+      { "source": "巴内克《人像摄影经典教程》", "chapter": "Ch.5 多人布局" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sub_hand_placement",
+    "category": "subject",
+    "name_zh": "手的处置",
+    "summary": "手不要遮脸/夹腋下/直直下垂，给一个动作（托腮、摸发、插袋、拿物）",
+    "axes": ["subject_fit"],
+    "scene_modes": ["portrait", "closeup", "full_body"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["人像", "证件照升级版"],
+    "evidence": "手是『第二张脸』，无所事事下垂会让人显紧张；给手一个具体动作能让人放松",
+    "watch_out": "动作要符合身份与场景，过度摆拍（比比心、剪刀手）会幼稚化",
+    "counter_example": "纪实抓拍要求自然，不必干预手部",
+    "tags": ["手部", "动作", "自然"],
+    "citations": [
+      { "source": "巴内克《人像摄影经典教程》", "chapter": "Ch.4 手部摆姿" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sub_silhouette_pose",
+    "category": "subject",
+    "name_zh": "剪影姿态可读",
+    "summary": "逆光剪影时姿态轮廓必须可读，肢体要张开避免叠加成一团",
+    "axes": ["subject_fit", "light"],
+    "scene_modes": ["light_shadow", "scenery"],
+    "person_count_range": [1, 3],
+    "priority": 4,
+    "when_to_use": ["黄昏剪影", "蓝调剪影", "光影模式"],
+    "evidence": "剪影没有面部信息，全靠轮廓表达；张开的肢体（伸手、跨步、手插腰）才有可读性",
+    "watch_out": "剪影中身体侧面比正面更可读；多人剪影要避免轮廓互相吞噬",
+    "counter_example": "正常曝光人像不需要专门展开肢体",
+    "tags": ["剪影", "轮廓", "光影模式"],
+    "citations": [
+      { "source": "Bryan Peterson《Understanding Exposure》", "chapter": "Silhouette" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sub_emotion_peak",
+    "category": "subject",
+    "name_zh": "情绪峰值",
+    "summary": "等表情或动作的最高峰再按下快门，而不是平淡的开始或结尾",
+    "axes": ["subject_fit", "theme"],
+    "scene_modes": ["portrait", "closeup", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["纪实", "孩童", "动态人像"],
+    "evidence": "情绪有起承转合，峰值的笑、动作、互动只持续 0.3 秒；连拍 + 等候是关键",
+    "watch_out": "峰值不等于最大幅度的笑，过度夸张会假；关注眼神的触动那一瞬",
+    "counter_example": "证件照需要平静的中性表情",
+    "tags": ["决定性瞬间", "情绪", "连拍"],
+    "citations": [
+      { "source": "Cartier-Bresson《Decisive Moment》", "chapter": "Foreword" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "sub_one_main",
+    "category": "subject",
+    "name_zh": "单一视觉主体",
+    "summary": "一张照片只能有一个主角，多人时要靠大小/位置/虚化分主辅",
+    "axes": ["subject_fit", "composition"],
+    "scene_modes": ["portrait", "documentary", "light_shadow"],
+    "person_count_range": [2, 4],
+    "priority": 5,
+    "when_to_use": ["合影", "情侣", "亲子"],
+    "evidence": "无主次的并排合影没有视觉锚点，眼睛不知道先看谁；摄影故事感的基本要求",
+    "watch_out": "对称构图例外（双人对视），但即便如此也会有一个『先被看到』的角色",
+    "counter_example": "毕业大合影故意要『所有人都是主角』",
+    "tags": ["主次", "视觉锚点", "故事"],
+    "citations": [
+      { "source": "David duChemin《Photographically Speaking》", "chapter": "The Subject" }
+    ],
+    "embedding": null
+  }
+]

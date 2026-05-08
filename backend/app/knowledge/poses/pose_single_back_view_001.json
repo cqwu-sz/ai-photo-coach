@@ -3,7 +3,25 @@
   "person_count": 1,
   "layout": "single",
   "summary": "single shot from behind, head turned 30 degrees, looking off into the scene",
-  "tags": ["story", "moody", "scenic"],
-  "best_for": ["leading_line", "negative_space", "golden_hour", "blue_hour"],
-  "thumbnail": "pose_single_back_view_001.png"
+  "tags": [
+    "story",
+    "moody",
+    "scenic"
+  ],
+  "best_for": [
+    "leading_line",
+    "negative_space",
+    "golden_hour",
+    "blue_hour"
+  ],
+  "thumbnail": "pose_single_back_view_001.png",
+  "summary_zh": "背对镜头 仰头看天空 远眺",
+  "tags_zh": [
+    "背影",
+    "背对",
+    "仰头",
+    "天空",
+    "远眺",
+    "意境"
+  ]
 }

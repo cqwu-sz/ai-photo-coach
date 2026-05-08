@@ -1,0 +1,52 @@
+{
+  "_meta": {
+    "version": "v7.0.0",
+    "description": "Pose KB id -> Mixamo animation id mapping. Used by web/js/avatar_loader.js (drives the 3D shot preview) and ios AvatarLoader.swift (drives RealityKit USDZ animation library).",
+    "fallback": "idle_relaxed",
+    "asset_path_web": "/web/avatars/animations/{id}.glb",
+    "asset_path_ios": "Avatars/Animations/{id}.usdz",
+    "loop_behavior": "Idle/standing animations loop. One-shot animations (jump, dance, run) loop with 1s pause for an organic feel."
+  },
+  "single": {
+    "pose_single_relaxed_001": "idle_relaxed",
+    "pose_single_hand_in_hair_001": "pose_hand_in_hair",
+    "pose_single_leaning_wall_001": "idle_lean_wall",
+    "pose_single_walking_001": "walk_natural",
+    "pose_single_back_view_001": "pose_back_view",
+    "pose_single_seated_wall_001": "idle_sit_low_wall",
+    "pose_single_jumping_001": "pose_jumping",
+    "pose_single_lying_grass_001": "pose_lying_grass",
+    "pose_single_holding_object_001": "pose_holding_object"
+  },
+  "two_person": {
+    "pose_two_high_low_001": "couple_high_low",
+    "pose_two_forehead_touch_001": "couple_forehead_touch",
+    "pose_two_side_by_side_001": "couple_side_by_side",
+    "pose_two_back_to_back_001": "couple_back_to_back",
+    "pose_two_walking_handhold_001": "couple_walk_handhold",
+    "pose_two_running_001": "couple_running",
+    "pose_two_dancing_001": "couple_dancing",
+    "pose_two_seated_steps_001": "couple_seated_steps",
+    "pose_two_holding_each_other_001": "couple_embrace",
+    "pose_two_kids_lift_001": "family_lift_child",
+    "pose_two_piggyback_001": "couple_piggyback"
+  },
+  "three_person": {
+    "pose_three_triangle_001": "group_triangle_pose",
+    "pose_three_circle_jumping_001": "group_circle_jump",
+    "pose_three_diagonal_001": "group_diagonal_walk",
+    "pose_three_walking_line_001": "group_walking_line",
+    "pose_three_huddle_001": "group_huddle",
+    "pose_three_family_seated_001": "family_three_seated"
+  },
+  "four_person": {
+    "pose_four_diamond_001": "group_diamond_pose",
+    "pose_four_seated_couch_001": "group_four_couch"
+  },
+  "fallback_by_count": {
+    "1": "idle_relaxed",
+    "2": "couple_side_by_side",
+    "3": "group_triangle_pose",
+    "4": "group_diamond_pose"
+  }
+}

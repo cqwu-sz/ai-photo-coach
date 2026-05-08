@@ -3,7 +3,24 @@
   "person_count": 1,
   "layout": "single",
   "summary": "single, holding a coffee cup or book at chest level, eyes on object",
-  "tags": ["lifestyle", "intimate", "natural"],
-  "best_for": ["indoor_warm", "indoor_cool", "centered"],
-  "thumbnail": "pose_single_holding_object_001.png"
+  "tags": [
+    "lifestyle",
+    "intimate",
+    "natural"
+  ],
+  "best_for": [
+    "indoor_warm",
+    "indoor_cool",
+    "centered"
+  ],
+  "thumbnail": "pose_single_holding_object_001.png",
+  "summary_zh": "手中拿着咖啡杯 视线看向远方 文艺",
+  "tags_zh": [
+    "拿杯子",
+    "咖啡杯",
+    "拿物",
+    "看远方",
+    "视线",
+    "文艺"
+  ]
 }

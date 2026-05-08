@@ -27,8 +27,47 @@ import {
 } from "./avatar_styles.js";
 import { applyPosePreset } from "./pose_presets.js";
 import { loadAvatarPicks, saveAvatarPicks } from "./store.js";
+import { loadAvatarManifest } from "./avatar_loader.js";
 
 const THUMB_CACHE_KEY = "apc.avatarThumbs.v1";
+
+/**
+ * v7 — when the backend manifest is reachable AND every preset has a
+ * real PNG thumbnail bundled, prefer the RPM avatars over the
+ * procedural ones. Otherwise we fall back to the v6 procedural pack
+ * so the gallery is never empty.
+ *
+ * Returns one of:
+ *   - { kind: "rpm", presets, thumbs }   (real images, no Three.js render)
+ *   - { kind: "legacy" }                 (use AVATAR_PRESETS + offscreen render)
+ */
+async function chooseAvatarSource() {
+  try {
+    const manifest = await loadAvatarManifest();
+    if (!manifest || !manifest.presets || manifest.presets.length === 0) {
+      return { kind: "legacy" };
+    }
+    // Probe a single thumbnail; if it 404s we treat the whole pack as
+    // "not yet shipped" and fall back. Avoids 8 network errors on a
+    // dev box that hasn't run the asset import script.
+    const probe = manifest.presets[0].thumbnail;
+    const ok = probe ? await imageHeadOk(probe) : false;
+    if (!ok) return { kind: "legacy" };
+    return { kind: "rpm", presets: manifest.presets };
+  } catch {
+    return { kind: "legacy" };
+  }
+}
+
+function imageHeadOk(url) {
+  return new Promise((resolve) => {
+    const im = new Image();
+    im.onload = () => resolve(true);
+    im.onerror = () => resolve(false);
+    im.src = url;
+    setTimeout(() => resolve(false), 2500);
+  });
+}
 
 /**
  * Initialise the gallery. Returns an interface to read/write the
@@ -44,8 +83,30 @@ export function initAvatarGallery({ slotsHost, gridHost, personCount }) {
   let activeSlot = 0;
   let picks = resolveAvatarPicks(loadAvatarPicks(), personCount());
 
-  // Render thumbnails (cached). Returns a {[id]: dataUrl} map.
-  const thumbsPromise = renderAllThumbnails();
+  // v7 — race the RPM-manifest probe against the procedural fallback.
+  // When RPM is available we use real preset pngs; otherwise we
+  // render the legacy procedural set offscreen.
+  const sourcePromise = chooseAvatarSource();
+  const thumbsPromise = sourcePromise.then((src) => {
+    if (src.kind === "rpm") {
+      const map = {};
+      for (const p of src.presets) map[p.id] = p.thumbnail;
+      return map;
+    }
+    return renderAllThumbnails();
+  });
+  // The catalog used by the grid: RPM presets when available, legacy
+  // procedural otherwise.
+  const catalogPromise = sourcePromise.then((src) => {
+    if (src.kind === "rpm") {
+      return src.presets.map((p) => ({
+        id: p.id,
+        name: p.nameZh,
+        summary: `${p.style} · ${p.gender}`,
+      }));
+    }
+    return AVATAR_PRESETS.map((s) => ({ id: s.id, name: s.name, summary: s.summary }));
+  });
 
   function setActiveSlot(i) {
     activeSlot = i;
@@ -62,6 +123,12 @@ export function initAvatarGallery({ slotsHost, gridHost, personCount }) {
 
   function refreshSlots() {
     const n = personCount();
+    // Scenery (or any 0-person mode) has no avatar slots; just clear.
+    if (n <= 0) {
+      slotsHost.innerHTML = "";
+      gridHost.innerHTML = "";
+      return;
+    }
     if (picks.length !== n) {
       picks = resolveAvatarPicks(picks, n);
       saveAvatarPicks(picks);
@@ -69,18 +136,19 @@ export function initAvatarGallery({ slotsHost, gridHost, personCount }) {
     if (activeSlot >= n) activeSlot = n - 1;
     if (activeSlot < 0) activeSlot = 0;
     slotsHost.innerHTML = "";
-    thumbsPromise.then((thumbs) => {
+    if (gridHost.children.length === 0) buildGrid();
+    Promise.all([thumbsPromise, catalogPromise]).then(([thumbs, catalog]) => {
       for (let i = 0; i < n; i++) {
         const slot = document.createElement("button");
         slot.type = "button";
         slot.className = "avatar-slot" + (i === activeSlot ? " active" : "");
         slot.dataset.slot = String(i);
-        const style = AVATAR_PRESETS.find((p) => p.id === picks[i]) || AVATAR_PRESETS[0];
-        const tn = thumbs[picks[i]] || thumbs[AVATAR_PRESETS[0].id];
+        const style = catalog.find((p) => p.id === picks[i]) || catalog[0];
+        const tn = thumbs[picks[i]] || thumbs[catalog[0]?.id];
         slot.innerHTML = `
-          <img src="${tn || ""}" alt="${style.name}" />
+          <img src="${tn || ""}" alt="${style?.name || ""}" />
           <span class="avatar-slot-num">${i + 1}</span>
-          <span class="avatar-slot-name">${style.name}</span>
+          <span class="avatar-slot-name">${style?.name || ""}</span>
         `;
         slot.addEventListener("click", () => setActiveSlot(i));
         slotsHost.appendChild(slot);
@@ -97,8 +165,8 @@ export function initAvatarGallery({ slotsHost, gridHost, personCount }) {
 
   function buildGrid() {
     gridHost.innerHTML = "";
-    thumbsPromise.then((thumbs) => {
-      for (const style of AVATAR_PRESETS) {
+    Promise.all([thumbsPromise, catalogPromise]).then(([thumbs, catalog]) => {
+      for (const style of catalog) {
         const cell = document.createElement("button");
         cell.type = "button";
         cell.className = "avatar-cell";
@@ -112,7 +180,6 @@ export function initAvatarGallery({ slotsHost, gridHost, personCount }) {
         `;
         cell.addEventListener("click", () => {
           setPick(activeSlot, style.id);
-          // Auto-advance to next slot for fast filling
           const n = personCount();
           if (activeSlot < n - 1) setActiveSlot(activeSlot + 1);
         });

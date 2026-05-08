@@ -3,7 +3,22 @@
   "person_count": 3,
   "layout": "diagonal",
   "summary": "three people in a diagonal stagger from front-left to back-right",
-  "tags": ["editorial", "fashion", "dynamic"],
-  "best_for": ["leading_line", "indoor_cool"],
-  "thumbnail": "pose_three_diagonal_001.png"
+  "tags": [
+    "editorial",
+    "fashion",
+    "dynamic"
+  ],
+  "best_for": [
+    "leading_line",
+    "indoor_cool"
+  ],
+  "thumbnail": "pose_three_diagonal_001.png",
+  "summary_zh": "三人对角分布 错落有致 时尚",
+  "tags_zh": [
+    "对角",
+    "对角线",
+    "错落",
+    "diagonal",
+    "时尚"
+  ]
 }

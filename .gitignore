@@ -31,3 +31,20 @@ desktop.ini
 # IDE
 .vscode/
 .idea/
+
+# Node tooling (Playwright snapshots / scripts)
+node_modules/
+package-lock.json
+
+# Local logs & transient debug
+*.log
+backend.err.log
+backend.out.log
+tmp_*
+*.tmp
+
+# Local agent-only debug screenshots
+docs/preview/*_fullpage.png
+
+# Cursor / agent transcript junk inside workspace
+agent-transcripts/

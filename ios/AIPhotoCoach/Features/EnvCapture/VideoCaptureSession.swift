@@ -112,6 +112,10 @@ extension VideoCaptureSession: AVCaptureVideoDataOutputSampleBufferDelegate {
         let context = CIContext(options: nil)
         guard let cg = context.createCGImage(ciImage, from: ciImage.extent) else { return }
 
+        // Compute on-device quality signals here on the sample queue so we
+        // don't block the main actor with per-frame Accelerate work.
+        let quality = FrameQuality.compute(cgImage: cg)
+
         Task { @MainActor [weak self] in
             guard let self, self.isRecording else { return }
             let frame = HeadedFrame(
@@ -119,7 +123,9 @@ extension VideoCaptureSession: AVCaptureVideoDataOutputSampleBufferDelegate {
                 azimuthDeg: self.heading.azimuthDeg,
                 pitchDeg: self.heading.pitchDeg,
                 rollDeg: self.heading.rollDeg,
-                timestampMs: timestampMs
+                timestampMs: timestampMs,
+                meanLuma: quality.meanLuma,
+                blurScore: quality.blurScore
             )
             self.capturedSamples.append(frame)
             self.sampleCount = self.capturedSamples.count
@@ -133,4 +139,75 @@ struct HeadedFrame: Sendable {
     let pitchDeg: Double
     let rollDeg: Double
     let timestampMs: Int
+    /// BT-601 mean luma in [0, 1] computed at 96 px during capture.
+    let meanLuma: Double?
+    /// Average |dI/dx| over a 96-px greyscale view; >= 8 ≈ in focus,
+    /// < 3 ≈ blurry. See ``FrameQuality.compute`` for calibration.
+    let blurScore: Double?
+
+    init(
+        image: UIImage,
+        azimuthDeg: Double,
+        pitchDeg: Double,
+        rollDeg: Double,
+        timestampMs: Int,
+        meanLuma: Double? = nil,
+        blurScore: Double? = nil
+    ) {
+        self.image = image
+        self.azimuthDeg = azimuthDeg
+        self.pitchDeg = pitchDeg
+        self.rollDeg = rollDeg
+        self.timestampMs = timestampMs
+        self.meanLuma = meanLuma
+        self.blurScore = blurScore
+    }
+}
+
+/// Cheap on-device quality signals that pair with the LLM's `capture_quality`
+/// self-assessment. Computed during sampling so the user can be warned
+/// *before* the round-trip to the model.
+enum FrameQuality {
+    /// Compute (meanLuma, blurScore) over a 96-px-wide greyscale grab of
+    /// ``cg``. Runs in a few hundred microseconds — safe to call per
+    /// captured sample on the camera queue.
+    static func compute(cgImage cg: CGImage) -> (meanLuma: Double, blurScore: Double) {
+        let targetW = 96
+        let aspect = Double(cg.height) / Double(cg.width)
+        let targetH = max(48, Int(Double(targetW) * aspect))
+
+        let cs = CGColorSpaceCreateDeviceGray()
+        guard let ctx = CGContext(
+            data: nil, width: targetW, height: targetH,
+            bitsPerComponent: 8, bytesPerRow: targetW,
+            space: cs, bitmapInfo: CGImageAlphaInfo.none.rawValue
+        ) else {
+            return (0.5, 0)
+        }
+        ctx.interpolationQuality = .low
+        ctx.draw(cg, in: CGRect(x: 0, y: 0, width: targetW, height: targetH))
+        guard let data = ctx.data else { return (0.5, 0) }
+        let buf = data.bindMemory(to: UInt8.self, capacity: targetW * targetH)
+
+        var sum: UInt64 = 0
+        let px = targetW * targetH
+        for i in 0..<px { sum &+= UInt64(buf[i]) }
+        let meanLuma = (Double(sum) / Double(px)) / 255.0
+
+        var grad: UInt64 = 0
+        for y in 0..<targetH {
+            let row = y * targetW
+            for x in 0..<(targetW - 1) {
+                let a = Int(buf[row + x])
+                let b = Int(buf[row + x + 1])
+                grad &+= UInt64(abs(a - b))
+            }
+        }
+        let blurScore = Double(grad) / Double(px)
+
+        return (
+            (meanLuma * 1000).rounded() / 1000,
+            (blurScore * 1000).rounded() / 1000
+        )
+    }
 }

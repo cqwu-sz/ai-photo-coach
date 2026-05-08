@@ -3,7 +3,24 @@
   "person_count": 2,
   "layout": "high_low_offset",
   "summary": "two people, A standing, B half-squat, mutual gaze",
-  "tags": ["couple", "friends", "interactive"],
-  "best_for": ["golden_hour", "outdoor_park"],
-  "thumbnail": "pose_two_high_low_001.png"
+  "tags": [
+    "couple",
+    "friends",
+    "interactive"
+  ],
+  "best_for": [
+    "golden_hour",
+    "outdoor_park"
+  ],
+  "thumbnail": "pose_two_high_low_001.png",
+  "summary_zh": "两人高低错位 互相注视 一站一蹲 亲密互动",
+  "tags_zh": [
+    "高低错位",
+    "高低",
+    "互相注视",
+    "蹲",
+    "亲密",
+    "互动",
+    "情侣"
+  ]
 }

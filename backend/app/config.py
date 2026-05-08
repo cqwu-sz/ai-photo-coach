@@ -24,13 +24,28 @@ class Settings(BaseSettings):
 
     mock_mode: bool = True
 
+    # ---- model selection ------------------------------------------------
+    default_model_id: str = "gemini-2.5-flash"
+    enable_byok: bool = True
+    """When False, the /analyze endpoint ignores per-request model_api_key
+    overrides and always uses operator-side env keys."""
+
+    # ---- per-vendor operator-side fallback keys -------------------------
     gemini_api_key: str = ""
+    openai_api_key: str = ""
+    zhipu_api_key: str = ""
+    dashscope_api_key: str = ""
+    deepseek_api_key: str = ""
+    moonshot_api_key: str = ""
+
+    # Legacy fields kept for backward compatibility with /healthz logging.
     gemini_model_fast: str = "gemini-2.5-flash"
     gemini_model_high: str = "gemini-2.5-pro"
 
     kb_poses_dir: str = "app/knowledge/poses"
     kb_camera_dir: str = "app/knowledge/camera_settings"
     kb_composition_dir: str = "app/knowledge/composition"
+    kb_animations_path_str: str = "app/knowledge/animations/pose_to_mixamo.json"
 
     max_frames: int = 16
     max_frame_bytes: int = 2 * 1024 * 1024
@@ -47,6 +62,23 @@ class Settings(BaseSettings):
     @property
     def kb_composition_path(self) -> Path:
         return BACKEND_ROOT / self.kb_composition_dir
+
+    @property
+    def kb_animations_path(self) -> Path:
+        return BACKEND_ROOT / self.kb_animations_path_str
+
+    @property
+    def models_api_keys(self) -> dict[str, str]:
+        """Vendor -> operator-side fallback key. BYOK overrides win over
+        these on a per-request basis."""
+        return {
+            "google": self.gemini_api_key,
+            "openai": self.openai_api_key,
+            "zhipu": self.zhipu_api_key,
+            "dashscope": self.dashscope_api_key,
+            "deepseek": self.deepseek_api_key,
+            "moonshot": self.moonshot_api_key,
+        }
 
 
 @lru_cache(maxsize=1)

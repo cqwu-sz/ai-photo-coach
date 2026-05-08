@@ -74,6 +74,29 @@ init(targets: Targets, tolerances: Tolerances = .default) {
         )
     }
 
+    /// Force a dimension into ``.disabled`` so the green-light aggregator
+    /// stops waiting on it. Used for scenery shots where we don't need a
+    /// person in frame.
+    enum Dimension { case heading, pitch, distance, person }
+
+    func disable(dimension: Dimension) {
+        switch dimension {
+        case .heading:
+            state.heading.status = .disabled
+            state.heading.hint = "方位不参与对位"
+        case .pitch:
+            state.pitch.status = .disabled
+            state.pitch.hint = "仰角不参与对位"
+        case .distance:
+            state.distance.status = .disabled
+            state.distance.hint = "距离不参与对位"
+        case .person:
+            state.person.status = .disabled
+            state.person.hint = "无需入框"
+        }
+        recompute()
+    }
+
     // ---- inputs ---------------------------------------------------------------
 
 func update(headingDeg: Double?) {

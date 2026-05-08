@@ -1,0 +1,192 @@
+[
+  {
+    "id": "doc_decisive_moment",
+    "category": "composition",
+    "name_zh": "决定性瞬间",
+    "summary": "动作 / 情绪 / 构图三要素同时到位的那一帧；不可重来，需要预判",
+    "axes": ["theme", "subject_fit", "composition"],
+    "scene_modes": ["documentary", "portrait", "light_shadow"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["街拍", "婚礼抓拍", "现场新闻"],
+    "evidence": "Henri Cartier-Bresson 1952 提出 'The Decisive Moment'；他常等 30 分钟只为最后 0.5 秒",
+    "watch_out": "提前 1-2 档曝光锁定；连拍勿超过 5 张避免错失节奏",
+    "counter_example": "静物 / 棚拍 / 商品图不存在『决定性瞬间』",
+    "tags": ["决定性瞬间", "Cartier-Bresson", "街拍"],
+    "citations": [
+      { "source": "Henri Cartier-Bresson《The Decisive Moment》", "chapter": "Foreword" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "doc_relationship_narrative",
+    "category": "composition",
+    "name_zh": "关系叙事",
+    "summary": "纪实拍人不孤立，要让人与人 / 人与物 / 人与场之间出现『动作连接』",
+    "axes": ["theme", "subject_fit"],
+    "scene_modes": ["documentary", "portrait"],
+    "person_count_range": [2, 4],
+    "priority": 5,
+    "when_to_use": ["家庭", "街头互动", "工作场景"],
+    "evidence": "纪实摄影核心不是『拍到人』而是『拍到关系』；眼神、手势、距离都是关系信号",
+    "watch_out": "构图中两人不要『各自看向画面外』，至少一个看着另一个",
+    "counter_example": "纯肖像、雕塑式人像不依赖关系",
+    "tags": ["关系", "叙事", "纪实"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Relationships" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "doc_third_person_observer",
+    "category": "composition",
+    "name_zh": "第三方观察",
+    "summary": "纪实尽量保持『旁观』身份，不要让被摄者直视镜头；偷拍非贬义，是身份选择",
+    "axes": ["theme", "subject_fit"],
+    "scene_modes": ["documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["街拍", "民俗", "市井烟火"],
+    "evidence": "Cartier-Bresson 用 35mm Leica + 黑色胶带遮挡机身，正是为了不打扰观察对象",
+    "watch_out": "尊重隐私 / 拍摄许可（特别是儿童）；不要做偷窥姿态",
+    "counter_example": "需要肖像授权的商业肖像必须正面对镜",
+    "tags": ["旁观", "街拍", "伦理"],
+    "citations": [
+      { "source": "Henri Cartier-Bresson《Mind's Eye》", "chapter": "On Observation" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "doc_layered_subjects",
+    "category": "composition",
+    "name_zh": "多主体分层",
+    "summary": "纪实场景常有 2-3 个主体，让他们『前后景分别讲一句话』比并排更耐看",
+    "axes": ["depth", "composition", "theme"],
+    "scene_modes": ["documentary", "scenery"],
+    "person_count_range": [2, 4],
+    "priority": 4,
+    "when_to_use": ["集市", "车站", "婚礼"],
+    "evidence": "Alex Webb 的纪实摄影以多层叙事著称；前景人 + 中景人 + 背景人，各自动作互不抢戏",
+    "watch_out": "三层都清晰才好读，光圈不能太小（≤f/4）也不能太大（≤f/8）",
+    "counter_example": "单人特写不需要多层",
+    "tags": ["多主体", "Alex Webb", "层次"],
+    "citations": [
+      { "source": "Alex Webb《The Suffering of Light》", "chapter": "Layered Compositions" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "doc_geometry_environment",
+    "category": "composition",
+    "name_zh": "几何环境",
+    "summary": "用环境的窗、阶梯、马路线条做『几何切割』，让人物嵌进有秩序的画面",
+    "axes": ["composition", "theme"],
+    "scene_modes": ["documentary", "light_shadow"],
+    "person_count_range": [1, 3],
+    "priority": 4,
+    "when_to_use": ["地铁", "现代建筑", "城市街角"],
+    "evidence": "Andre Kertesz、Saul Leiter 都依赖几何形状定位人物；几何让纪实变成『构图实验』",
+    "watch_out": "几何不能完全压住主体；让人物处在几何线交点上",
+    "counter_example": "自然纪实、人物特写不强求几何",
+    "tags": ["几何", "建筑", "Saul Leiter"],
+    "citations": [
+      { "source": "Saul Leiter《Early Color》", "chapter": "Geometry of City" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "doc_punctum_detail",
+    "category": "composition",
+    "name_zh": "刺点细节",
+    "summary": "在纪实画面里留一个『打破常规的小细节』（一只翘起的脚、一个错位的手），让画面有刺",
+    "axes": ["theme", "subject_fit"],
+    "scene_modes": ["documentary", "portrait", "light_shadow"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["故事人像", "纪实组照", "节庆"],
+    "evidence": "Roland Barthes《Camera Lucida》提出 punctum：刺中观者的细节；这是照片『难忘』的根",
+    "watch_out": "刺点是减法不是加法；只留 1-2 个，太多就乱",
+    "counter_example": "证件照、商品图不需要刺点",
+    "tags": ["punctum", "Barthes", "刺点"],
+    "citations": [
+      { "source": "Roland Barthes《Camera Lucida》", "chapter": "Studium and Punctum" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "doc_place_specific",
+    "category": "composition",
+    "name_zh": "地点感",
+    "summary": "纪实里『拍这里』比『拍这个人』更重要；保留地点标识（招牌、街景、地砖）",
+    "axes": ["theme", "background"],
+    "scene_modes": ["documentary", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["旅行", "城市纪实", "民俗"],
+    "evidence": "纪实价值=人 + 地 + 时；没有地点标识等于失去『历史档案』价值",
+    "watch_out": "招牌出现要清晰可读；同时避免过多文字干扰主体",
+    "counter_example": "情绪人像不要让招牌抢戏",
+    "tags": ["地点感", "档案", "纪实"],
+    "citations": [
+      { "source": "Susan Sontag《On Photography》", "chapter": "In Plato's Cave" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "doc_color_echo_outfit",
+    "category": "composition",
+    "name_zh": "服装与环境色彩呼应",
+    "summary": "让模特衣服与环境某个元素同色（红衣 + 红柱、蓝伞 + 蓝天）形成视觉串联",
+    "axes": ["color", "subject_fit"],
+    "scene_modes": ["documentary", "portrait"],
+    "person_count_range": [1, 3],
+    "priority": 3,
+    "when_to_use": ["事先看景", "造型联动"],
+    "evidence": "色彩呼应让画面『内在统一』，提升氛围感；Steve McCurry 阿富汗女孩红巾正是与背景红呼应",
+    "watch_out": "不要让呼应色压过主体；呼应≠同色，可以是同色相不同饱和",
+    "counter_example": "戏剧冲突主题反而要色彩对抗",
+    "tags": ["呼应色", "Steve McCurry", "造型"],
+    "citations": [
+      { "source": "Steve McCurry《Untold》", "chapter": "Color Continuity" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "doc_market_chaos_to_order",
+    "category": "composition",
+    "name_zh": "杂乱中找秩序",
+    "summary": "市集 / 街头看似混乱，但找到一组对齐线（柱、货摊、人群朝向）能瞬间成画",
+    "axes": ["composition", "background"],
+    "scene_modes": ["documentary"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["集市", "庙会", "繁华街角"],
+    "evidence": "纪实大师都在『从乱到序』中工作；预判一秒到位的视觉重心",
+    "watch_out": "不要试图把所有元素都拍进；1 个主体 + 1 个秩序线即可",
+    "counter_example": "极简风光不需要从乱到序",
+    "tags": ["秩序", "市集", "街头"],
+    "citations": [
+      { "source": "Henri Cartier-Bresson《The Mind's Eye》", "chapter": "Composition" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "doc_emotion_caught_eye",
+    "category": "composition",
+    "name_zh": "情绪定格",
+    "summary": "纪实中眼神 + 表情若同时到位，画面立刻成立；不要等到笑容才按快门",
+    "axes": ["theme", "subject_fit"],
+    "scene_modes": ["documentary", "portrait"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["人物特写", "婚礼", "情绪写真"],
+    "evidence": "情绪 1/4 秒内变化；预对焦 + 半按快门 + 等表情；连拍 3-5 张找最佳",
+    "watch_out": "不要追求『完美笑』，皱眉、流泪、深思都是情绪；眼神最关键",
+    "counter_example": "商业广告需要标准笑，不适用",
+    "tags": ["情绪", "眼神", "瞬间"],
+    "citations": [
+      { "source": "John Suler《Photographic Psychology》", "chapter": "Capturing Expression" }
+    ],
+    "embedding": null
+  }
+]

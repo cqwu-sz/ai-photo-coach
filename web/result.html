@@ -6,8 +6,21 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>拍摄方案 - AI 摄影教练</title>
+    <title>拍摄方案 · 拾光</title>
     <link rel="stylesheet" href="/web/css/style.css" />
+    <link rel="stylesheet" href="/web/css/shot-pager.css" />
+    <!-- v7 — Three.js examples/jsm modules use bare "three" imports.
+         An importmap remaps them to the same CDN copy as the explicit
+         imports in our own modules so SkeletonUtils, GLTFLoader,
+         BokehPass, etc. all resolve. -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+        }
+      }
+    </script>
   </head>
   <body>
     <main class="app">

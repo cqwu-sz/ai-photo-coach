@@ -9,6 +9,17 @@ const KEY_FRAMES = "apc.frames";
 const KEY_REF_INSPIRATION = "apc.refInspiration";
 const KEY_AVATAR_PICKS = "apc.avatarPicks";
 const KEY_PANORAMA_URL = "apc.panoramaUrl";
+const KEY_SCENE_MODE = "apc.sceneMode";
+const KEY_MODEL_CONFIG = "apc.modelConfig";
+const KEY_LAST_PREFS = "apc.lastPrefs";
+
+export const SCENE_MODES = [
+  { id: "portrait", label: "人像", blurb: "半身或全身，人物为主" },
+  { id: "closeup", label: "特写", blurb: "脸 / 上半身 / 神态特写" },
+  { id: "full_body", label: "全身", blurb: "完整人物 + 背景" },
+  { id: "documentary", label: "人文", blurb: "抓拍质感 + 故事感" },
+  { id: "scenery", label: "风景", blurb: "纯环境出片，可不出人" },
+];
 
 export function saveSettings(s) {
   sessionStorage.setItem(KEY_SETTINGS, JSON.stringify(s));
@@ -154,4 +165,98 @@ export function savePanoramaUrl(url) {
 
 export function loadPanoramaUrl() {
   return sessionStorage.getItem(KEY_PANORAMA_URL) || null;
+}
+
+/**
+ * Scene mode (portrait/closeup/full_body/documentary/scenery). Stored in
+ * localStorage so it survives across sessions — most users have a habit.
+ */
+export function saveSceneMode(mode) {
+  try {
+    localStorage.setItem(KEY_SCENE_MODE, mode || "portrait");
+  } catch {}
+}
+
+export function loadSceneMode() {
+  try {
+    const raw =
+      (typeof localStorage !== "undefined"
+        ? localStorage.getItem(KEY_SCENE_MODE)
+        : null) || sessionStorage.getItem(KEY_SCENE_MODE);
+    return raw || "portrait";
+  } catch {
+    return "portrait";
+  }
+}
+
+/**
+ * Model config: { model_id, api_key, base_url }. Saved in localStorage
+ * (BYOK key never leaves the browser). The api_key is intentionally
+ * stored as plaintext — same trust level as cookies; we explicitly tell
+ * the user this in the settings drawer.
+ */
+export function saveModelConfig(cfg) {
+  try {
+    localStorage.setItem(
+      KEY_MODEL_CONFIG,
+      JSON.stringify(cfg || {}),
+    );
+  } catch {}
+}
+
+export function loadModelConfig() {
+  try {
+    const raw = localStorage.getItem(KEY_MODEL_CONFIG);
+    if (!raw) return { model_id: "", api_key: "", base_url: "" };
+    const parsed = JSON.parse(raw) || {};
+    return {
+      model_id: parsed.model_id || "",
+      api_key: parsed.api_key || "",
+      base_url: parsed.base_url || "",
+    };
+  } catch {
+    return { model_id: "", api_key: "", base_url: "" };
+  }
+}
+
+export function clearModelConfig() {
+  try {
+    localStorage.removeItem(KEY_MODEL_CONFIG);
+  } catch {}
+}
+
+/**
+ * Last-used onboarding preferences — drives the "returning user lands on
+ * Step 4 with everything pre-filled" experience.
+ *
+ * Shape: { sceneMode, personCount, qualityMode, styleKeywords }
+ */
+export function saveLastPrefs(p) {
+  try {
+    localStorage.setItem(
+      KEY_LAST_PREFS,
+      JSON.stringify({
+        sceneMode: p?.sceneMode || "portrait",
+        personCount: Number.isFinite(p?.personCount) ? p.personCount : 1,
+        qualityMode: p?.qualityMode || "fast",
+        styleKeywords: Array.isArray(p?.styleKeywords) ? p.styleKeywords : [],
+      }),
+    );
+  } catch {}
+}
+
+export function loadLastPrefs() {
+  try {
+    const raw = localStorage.getItem(KEY_LAST_PREFS);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return {
+      sceneMode: parsed?.sceneMode || "portrait",
+      personCount: Number.isFinite(parsed?.personCount) ? parsed.personCount : 1,
+      qualityMode: parsed?.qualityMode || "fast",
+      styleKeywords: Array.isArray(parsed?.styleKeywords) ? parsed.styleKeywords : [],
+    };
+  } catch {
+    return null;
+  }
 }

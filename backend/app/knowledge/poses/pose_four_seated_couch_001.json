@@ -3,7 +3,23 @@
   "person_count": 4,
   "layout": "line",
   "summary": "four people seated on couch / steps, varying postures (some leaning forward)",
-  "tags": ["family", "friends", "indoor"],
-  "best_for": ["indoor_warm", "centered", "frame_within_frame"],
-  "thumbnail": "pose_four_seated_couch_001.png"
+  "tags": [
+    "family",
+    "friends",
+    "indoor"
+  ],
+  "best_for": [
+    "indoor_warm",
+    "centered",
+    "frame_within_frame"
+  ],
+  "thumbnail": "pose_four_seated_couch_001.png",
+  "summary_zh": "四人坐在沙发上 紧密 家庭",
+  "tags_zh": [
+    "坐",
+    "沙发",
+    "家庭",
+    "couch",
+    "紧密"
+  ]
 }

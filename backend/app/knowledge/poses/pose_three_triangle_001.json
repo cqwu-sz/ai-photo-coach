@@ -3,7 +3,23 @@
   "person_count": 3,
   "layout": "triangle",
   "summary": "three people, A center front, B/C symmetric back, mild stagger",
-  "tags": ["family", "friends", "balanced"],
-  "best_for": ["overcast", "outdoor_park"],
-  "thumbnail": "pose_three_triangle_001.png"
+  "tags": [
+    "family",
+    "friends",
+    "balanced"
+  ],
+  "best_for": [
+    "overcast",
+    "outdoor_park"
+  ],
+  "thumbnail": "pose_three_triangle_001.png",
+  "summary_zh": "三角构图 主体居中 两侧对称 三人",
+  "tags_zh": [
+    "三角",
+    "三角形",
+    "居中",
+    "对称",
+    "构图",
+    "triangle"
+  ]
 }

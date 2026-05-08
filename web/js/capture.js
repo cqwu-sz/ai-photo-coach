@@ -8,7 +8,10 @@ import {
   saveRefInspiration,
   saveResult,
 } from "./store.js";
+import { saveCapturedFrames } from "./frames_db.js";
 import { getReferenceBlobs, listReferences } from "./reference_db.js";
+import { getActiveModelConfig } from "./model_settings.js";
+import { ensureGeoFix, sceneModeNeedsGeo } from "./geo.js";
 
 const settings = loadSettings();
 if (!settings) {
@@ -105,6 +108,19 @@ recordBtn.addEventListener("click", async () => {
       return;
     }
     lastSamples = samples;
+
+    // Client-side capture quality precheck — runs *before* we burn an
+    // /analyze call. Cheaper, faster, and tells the user *why* their
+    // env video might not work without waiting on Gemini.
+    const verdict = assessCaptureQuality(samples);
+    if (verdict.severity === "block") {
+      const proceed = await showCaptureSheet(verdict, /*allowProceed=*/ false);
+      if (!proceed) return; // user chose retake
+    } else if (verdict.severity === "warn") {
+      const proceed = await showCaptureSheet(verdict, /*allowProceed=*/ true);
+      if (!proceed) return;
+    }
+
     await runAnalyze(samples);
   }
 });
@@ -163,8 +179,10 @@ async function runAnalyze(samples) {
     setStage("extract", "done");
     setStage("upload", "active");
 
+    const sceneMode = settings.sceneMode || "portrait";
     const meta = {
       person_count: settings.personCount,
+      scene_mode: sceneMode,
       quality_mode: settings.qualityMode,
       style_keywords: settings.styleKeywords,
       frame_meta: keyframes.map((kf, i) => ({
@@ -173,8 +191,24 @@ async function runAnalyze(samples) {
         pitch_deg: kf.pitchDeg,
         roll_deg: kf.rollDeg,
         timestamp_ms: kf.timestampMs,
+        // Visual signals computed client-side during sampling (keyframe.js).
+        // Backend uses them as evidence in capture_quality (rule 13) and as
+        // a tiebreak for the keyframe scorer downstream.
+        mean_luma: kf.meanLuma,
+        blur_score: kf.blurScore,
       })),
     };
+
+    // Optional location fix — only requested for scene modes that actually
+    // benefit (today: light_shadow). Cached for 6h so we don't ask twice.
+    if (sceneModeNeedsGeo(sceneMode)) {
+      try {
+        const fix = await ensureGeoFix();
+        if (fix) meta.geo = fix;
+      } catch (e) {
+        console.warn("[capture] geo fix failed (non-fatal)", e);
+      }
+    }
     const frames = keyframes.map((kf) => dataUrlToBlob(kf.dataUrl));
 
     let references = [];
@@ -190,7 +224,15 @@ async function runAnalyze(samples) {
     setStage("upload", "done");
     setStage("ai", "active");
 
-    const response = await analyze({ meta, frames, references });
+    const modelCfg = getActiveModelConfig();
+    const response = await analyze({
+      meta,
+      frames,
+      references,
+      modelId: modelCfg.model_id,
+      modelApiKey: modelCfg.api_key,
+      modelBaseUrl: modelCfg.base_url,
+    });
 
     setStage("ai", "done");
     setStage("render", "active");
@@ -204,6 +246,16 @@ async function runAnalyze(samples) {
         src: kf.dataUrl,
       })),
     );
+
+    // Persist the raw blobs to IndexedDB so a returning user can change
+    // the scene mode (or other tone settings) and re-run /analyze without
+    // re-recording the environment. Best-effort only.
+    saveCapturedFrames({
+      frames,
+      meta: meta.frame_meta,
+      sceneMode: meta.scene_mode,
+      panoramaUrl: null,
+    }).catch((e) => console.warn("frames cache save failed (non-fatal)", e));
 
     // Build a panorama on the backend so the result page's 3D scene has
     // a real background. We do this best-effort, in the background.
@@ -254,6 +306,130 @@ window.addEventListener("beforeunload", () => {
   if (stream) stream.getTracks().forEach((t) => t.stop());
   heading.stop();
 });
+
+// ───────────────────────────────────────────────────────────────────────
+// Client-side capture quality precheck.
+//
+// Cheap, deterministic, runs in <2 ms over the sampled frames. Surfaces
+// the obvious issues *before* we hit the LLM:
+//
+//   - "block": mean_luma < 0.06 (essentially dark)
+//             OR azimuth span < 30° (user barely panned)
+//             OR sharpness median < 1.5 (camera was waving)
+//   - "warn":  mean_luma < 0.12 OR sharpness < 4 OR pitch ↑↓ > ±35°
+//             (probably ground / sky-only).
+//
+// Returning "warn" still lets the user proceed; "block" forces retake.
+// ───────────────────────────────────────────────────────────────────────
+function assessCaptureQuality(samples) {
+  if (!samples || samples.length === 0) {
+    return { severity: "block", issues: ["录制为空"] };
+  }
+  const lumas = samples.map((s) => s.meanLuma).filter((v) => v != null);
+  const blurs = samples.map((s) => s.blurScore).filter((v) => v != null);
+  const azs = samples.map((s) => s.azimuthDeg);
+  const pitches = samples.map((s) => s.pitchDeg);
+
+  const meanLuma = avg(lumas);
+  const medianBlur = median(blurs);
+  const azSpan = Math.max(...azs) - Math.min(...azs);
+  const pitchAbsAvg = avg(pitches.map((p) => Math.abs(p)));
+
+  const issues = [];
+  let severity = "ok";
+
+  if (meanLuma < 0.06) {
+    issues.push("环境太暗（亮度 < 6%）");
+    severity = "block";
+  } else if (meanLuma < 0.12) {
+    issues.push("环境偏暗（亮度 < 12%）");
+    severity = bump(severity, "warn");
+  }
+  if (azSpan < 30) {
+    issues.push(`环视范围太窄（仅转了 ${Math.round(azSpan)}°）`);
+    severity = "block";
+  } else if (azSpan < 90) {
+    issues.push(`环视范围偏窄（${Math.round(azSpan)}°，建议 > 180°）`);
+    severity = bump(severity, "warn");
+  }
+  if (medianBlur < 1.5) {
+    issues.push("画面偏糊，可能晃动太快或失焦");
+    severity = "block";
+  } else if (medianBlur < 4) {
+    issues.push("画面有些糊，建议慢一点");
+    severity = bump(severity, "warn");
+  }
+  if (pitchAbsAvg > 35) {
+    issues.push(`镜头倾角偏大（平均 ${Math.round(pitchAbsAvg)}°），可能怼着地面或天空`);
+    severity = bump(severity, "warn");
+  }
+
+  return { severity, issues, meanLuma, medianBlur, azSpan, pitchAbsAvg };
+}
+
+function avg(arr) { return arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0; }
+function median(arr) {
+  if (!arr.length) return 0;
+  const s = [...arr].sort((a, b) => a - b);
+  const m = Math.floor(s.length / 2);
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+function bump(current, next) {
+  const order = { ok: 0, warn: 1, block: 2 };
+  return order[next] > order[current] ? next : current;
+}
+
+async function showCaptureSheet(verdict, allowProceed) {
+  return new Promise((resolve) => {
+    const backdrop = document.createElement("div");
+    backdrop.className = "capture-sheet-backdrop";
+    const sheet = document.createElement("div");
+    sheet.className = `capture-sheet capture-sheet--${verdict.severity}`;
+    backdrop.appendChild(sheet);
+
+    const title = document.createElement("h3");
+    title.className = "capture-sheet-title";
+    title.textContent = verdict.severity === "block"
+      ? "这段环视看起来不太够 AI 出片"
+      : "环视有几个小问题，要继续吗？";
+    sheet.appendChild(title);
+
+    const list = document.createElement("ul");
+    list.className = "capture-sheet-issues";
+    verdict.issues.forEach((it) => {
+      const li = document.createElement("li");
+      li.textContent = "· " + it;
+      list.appendChild(li);
+    });
+    sheet.appendChild(list);
+
+    const btnRow = document.createElement("div");
+    btnRow.className = "capture-sheet-buttons";
+    const retake = document.createElement("button");
+    retake.type = "button";
+    retake.className = "capture-sheet-btn capture-sheet-btn-retake";
+    retake.textContent = "重新环视";
+    retake.addEventListener("click", () => {
+      document.body.removeChild(backdrop);
+      resolve(false);
+    });
+    btnRow.appendChild(retake);
+
+    if (allowProceed) {
+      const proceed = document.createElement("button");
+      proceed.type = "button";
+      proceed.className = "capture-sheet-btn capture-sheet-btn-proceed";
+      proceed.textContent = "知道了，继续分析";
+      proceed.addEventListener("click", () => {
+        document.body.removeChild(backdrop);
+        resolve(true);
+      });
+      btnRow.appendChild(proceed);
+    }
+    sheet.appendChild(btnRow);
+    document.body.appendChild(backdrop);
+  });
+}
 
 async function buildPanoramaInBackground(meta, frames) {
   const fd = new FormData();

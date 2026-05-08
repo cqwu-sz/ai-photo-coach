@@ -3,7 +3,24 @@
   "person_count": 1,
   "layout": "single",
   "summary": "single, mid-air jump with arms wide, mouth open laughing",
-  "tags": ["energy", "youthful", "candid"],
-  "best_for": ["overcast", "harsh_noon", "centered"],
-  "thumbnail": "pose_single_jumping_001.png"
+  "tags": [
+    "energy",
+    "youthful",
+    "candid"
+  ],
+  "best_for": [
+    "overcast",
+    "harsh_noon",
+    "centered"
+  ],
+  "thumbnail": "pose_single_jumping_001.png",
+  "summary_zh": "跳跃中 张开双臂 表情兴奋",
+  "tags_zh": [
+    "跳",
+    "跳跃",
+    "腾空",
+    "张开双臂",
+    "兴奋",
+    "动感"
+  ]
 }

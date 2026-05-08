@@ -3,7 +3,24 @@
   "person_count": 4,
   "layout": "cluster",
   "summary": "four people in a diamond layout, one front, two sides, one back",
-  "tags": ["friends", "team", "balanced"],
-  "best_for": ["centered", "overcast", "outdoor_park"],
-  "thumbnail": "pose_four_diamond_001.png"
+  "tags": [
+    "friends",
+    "team",
+    "balanced"
+  ],
+  "best_for": [
+    "centered",
+    "overcast",
+    "outdoor_park"
+  ],
+  "thumbnail": "pose_four_diamond_001.png",
+  "summary_zh": "四人簇拥 主体居中 V 角排列 钻石形",
+  "tags_zh": [
+    "簇拥",
+    "居中",
+    "v 角",
+    "钻石",
+    "四人",
+    "diamond"
+  ]
 }

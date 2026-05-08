@@ -56,6 +56,7 @@ const cardPerson = document.getElementById("hud-person");
 
 backBtn.addEventListener("click", () => (location.href = "/web/result.html"));
 
+const isScenery = !shot.poses || shot.poses.length === 0;
 const targetAz = shot.angle.azimuth_deg;
 const targetPitch = shot.angle.pitch_deg ?? 0;
 const targetDist = shot.angle.distance_m ?? 2.0;
@@ -66,7 +67,10 @@ guideTitle.textContent = `机位 #${idx + 1}${shot.title ? " · " + shot.title :
 setCardTarget(cardHeading, "目标 ", `${Math.round(targetAz)}°`);
 setCardTarget(cardPitch, "目标 ", `${Math.round(targetPitch)}°`);
 setCardTarget(cardDistance, "目标 ", `${targetDist.toFixed(1)} m`);
-setCardTarget(cardPerson, "需要 ", "1+ 人");
+setCardTarget(cardPerson, "需要 ", isScenery ? "无人" : "1+ 人");
+if (isScenery && cardPerson) {
+  cardPerson.style.display = "none";
+}
 
 function setCardTarget(card, prefix, val) {
   if (!card) return;
@@ -116,9 +120,13 @@ if (stepWalk) {
 }
 if (stepPose) {
   const p0 = shot.poses && shot.poses[0];
-  stepPose.textContent = p0
-    ? `${layoutCN(p0.layout)} · ${p0.persons?.length || 1} 人`
-    : "见下方姿势示意";
+  if (isScenery) {
+    stepPose.textContent = "构图：" + (shot.composition?.primary || "依方案对齐");
+  } else {
+    stepPose.textContent = p0
+      ? `${layoutCN(p0.layout)} · ${p0.persons?.length || 1} 人`
+      : "见下方姿势示意";
+  }
 }
 function describeBearing(deg) {
   const d = ((deg % 360) + 360) % 360;

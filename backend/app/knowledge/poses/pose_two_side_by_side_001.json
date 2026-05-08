@@ -3,7 +3,22 @@
   "person_count": 2,
   "layout": "side_by_side",
   "summary": "two people side by side, slight body lean towards each other",
-  "tags": ["family", "siblings", "casual"],
-  "best_for": ["overcast", "centered_composition"],
-  "thumbnail": "pose_two_side_by_side_001.png"
+  "tags": [
+    "family",
+    "siblings",
+    "casual"
+  ],
+  "best_for": [
+    "overcast",
+    "centered_composition"
+  ],
+  "thumbnail": "pose_two_side_by_side_001.png",
+  "summary_zh": "两人并肩站立 朝镜头微笑",
+  "tags_zh": [
+    "并肩",
+    "并排",
+    "微笑",
+    "朋友",
+    "side_by_side"
+  ]
 }

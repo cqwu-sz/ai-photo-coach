@@ -3,7 +3,25 @@
   "person_count": 2,
   "layout": "diagonal",
   "summary": "two people running across the frame, one slightly ahead, both looking at each other",
-  "tags": ["energy", "couple", "friends", "candid"],
-  "best_for": ["leading_line", "diagonal", "overcast", "harsh_noon"],
-  "thumbnail": "pose_two_running_001.png"
+  "tags": [
+    "energy",
+    "couple",
+    "friends",
+    "candid"
+  ],
+  "best_for": [
+    "leading_line",
+    "diagonal",
+    "overcast",
+    "harsh_noon"
+  ],
+  "thumbnail": "pose_two_running_001.png",
+  "summary_zh": "两人奔跑 笑得开心 动感",
+  "tags_zh": [
+    "奔跑",
+    "跑",
+    "动感",
+    "笑",
+    "开心"
+  ]
 }

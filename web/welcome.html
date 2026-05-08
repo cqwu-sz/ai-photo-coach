@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>拾光 · 你的随身 AI 摄影导演</title>
+    <meta
+      name="description"
+      content="拾光 · AI 摄影教练。环视一圈，AI 给你导演级出片方案：机位、构图、相机参数、人物姿势。1 到 N 人都行。"
+    />
+    <link rel="stylesheet" href="/web/css/style.css" />
+    <link rel="stylesheet" href="/web/css/welcome.css" />
+  </head>
+  <body class="welcome-body">
+    <div class="aurora-bg" aria-hidden="true">
+      <span class="aurora a1"></span>
+      <span class="aurora a2"></span>
+      <span class="aurora a3"></span>
+    </div>
+
+    <main class="welcome-shell">
+      <!-- ============== HEADER ============== -->
+      <header class="welcome-header">
+        <div class="welcome-brand" aria-label="拾光 · AI 摄影教练">
+          <span class="welcome-aperture" aria-hidden="true"></span>
+          <span class="welcome-brand-text">
+            <b>拾光</b>
+            <span>AI 摄影教练 · 拾起每一束光</span>
+          </span>
+        </div>
+      </header>
+
+      <!-- ============== HERO TITLE ============== -->
+      <section class="welcome-hero">
+        <span class="welcome-eyebrow">CINEMA HOUSE · AI · 2026</span>
+        <h1 class="welcome-title">
+          环视一圈，<br />
+          <span class="grad-text">AI 给你导演级出片方案</span>
+        </h1>
+        <p class="welcome-sub">
+          机位 · 构图 · 焦段 · 光圈 · 快门 · ISO · 人物姿势<br />
+          一键生成 2 到 3 套方案，1 到 4 人，含纯风景模式
+        </p>
+      </section>
+
+      <!-- ============== POSTER MARQUEE ============== -->
+      <section class="welcome-marquee" aria-label="作品集">
+        <div class="marquee-track marquee-track-a" data-direction="left">
+          <!-- Posters injected by welcome.js so we can duplicate the row
+               for a seamless infinite scroll. -->
+        </div>
+        <div class="marquee-track marquee-track-b" data-direction="right">
+          <!-- second row, opposite direction -->
+        </div>
+        <div class="marquee-fade marquee-fade-l" aria-hidden="true"></div>
+        <div class="marquee-fade marquee-fade-r" aria-hidden="true"></div>
+      </section>
+
+      <!-- ============== FEATURE LINE ============== -->
+      <section class="welcome-features" aria-label="3 个亮点">
+        <div class="welcome-feature">
+          <span class="welcome-feature-num">01</span>
+          <span class="welcome-feature-title">环视 10 秒</span>
+          <span class="welcome-feature-sub">陀螺仪 + 关键帧抽取，AI 看遍每个角度</span>
+        </div>
+        <div class="welcome-feature">
+          <span class="welcome-feature-num">02</span>
+          <span class="welcome-feature-title">虚拟模特</span>
+          <span class="welcome-feature-sub">7 个内置角色，每个机位都摆好姿势给你看</span>
+        </div>
+        <div class="welcome-feature">
+          <span class="welcome-feature-num">03</span>
+          <span class="welcome-feature-title">3 套方案</span>
+          <span class="welcome-feature-sub">焦段 · 光圈 · 快门 · ISO，连姿势都讲清楚</span>
+        </div>
+      </section>
+
+      <!-- ============== CTA ============== -->
+      <section class="welcome-actions">
+        <button id="welcome-start" class="btn btn-cta welcome-cta" type="button">
+          <span>开始拍片</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"></path><path d="m13 5 7 7-7 7"></path>
+          </svg>
+        </button>
+        <p class="welcome-note">
+          数据只在你这台设备 · 后续会加登录 / 收藏 / 作品同步
+        </p>
+      </section>
+
+      <!-- ============== FOOTER (mini links) ============== -->
+      <footer class="welcome-footer">
+        <span>v0.4 · cinema-house</span>
+        <span aria-hidden="true">·</span>
+        <a href="/web/preview" class="welcome-link">真机预览</a>
+        <span aria-hidden="true">·</span>
+        <a href="/docs" class="welcome-link">API</a>
+      </footer>
+    </main>
+
+    <script type="module" src="/web/js/welcome.js"></script>
+  </body>
+</html>

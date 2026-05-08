@@ -1,0 +1,195 @@
+[
+  {
+    "id": "light_window_softbox",
+    "category": "light",
+    "name_zh": "窗光当柔光箱",
+    "summary": "把人放在大面积北向或被云遮的窗前，让窗成为天然柔光箱，主光从一侧 45° 入射",
+    "axes": ["light", "subject_fit"],
+    "scene_modes": ["portrait", "closeup", "documentary"],
+    "person_count_range": [1, 2],
+    "priority": 5,
+    "when_to_use": ["室内人像", "雨天救场", "白天咖啡店写真"],
+    "evidence": "未直射的窗户提供 1-2 档曝光、低色温（5500-6500K）、巨大光面积（相当于 1m+ 柔光箱），眼神光自然出现",
+    "watch_out": "侧背光面会沉成纯黑，必要时用白墙或反光板补 1 档；不要正对窗（脸太平）",
+    "counter_example": "强光直射窗会变成硬光，要等云遮或拉一层薄窗帘",
+    "tags": ["柔光", "窗光", "室内"],
+    "citations": [
+      { "source": "宁思潇潇《新摄影笔记》", "chapter": "Ch.6 自然光" },
+      { "source": "Joe McNally《The Hot Shoe Diaries》", "chapter": "Window as Softbox" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_overcast_diffuse",
+    "category": "light",
+    "name_zh": "阴天巨型柔光",
+    "summary": "整片云层成为头顶柔光箱，光线均匀无方向；适合通透肤色与高细节",
+    "axes": ["light", "color"],
+    "scene_modes": ["portrait", "closeup", "documentary", "scenery"],
+    "person_count_range": [0, 4],
+    "priority": 4,
+    "when_to_use": ["阴天救场", "皮肤特写", "婚纱外景"],
+    "evidence": "阴天反差≈3 档，纹理与肤色细节最易保留；色温稳定 6000-7000K，白平衡好控制",
+    "watch_out": "光太平容易显闷，靠主体姿态/色彩/对比构图救场；天空死白时要减一档",
+    "counter_example": "戏剧性主题（光影、孤独、英雄）需要硬光；阴天会拍得软塌",
+    "tags": ["阴天", "柔光", "通透"],
+    "citations": [
+      { "source": "Michael Freeman《The Photographer's Mind》", "chapter": "Diffuse Light" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_mixed_warm_cool",
+    "category": "light",
+    "name_zh": "冷暖混合光",
+    "summary": "黄昏窗内开灯：室内暖（3000K）vs 室外蓝（5500K）形成天然冷暖对比",
+    "axes": ["light", "color"],
+    "scene_modes": ["portrait", "documentary", "light_shadow"],
+    "person_count_range": [1, 4],
+    "priority": 4,
+    "when_to_use": ["蓝调时刻室内", "夜景咖啡馆", "故事叙事"],
+    "evidence": "把白平衡校正到中间值（约 4200K），暖冷各占一半的画面冲击力最大；电影常用",
+    "watch_out": "色温过偏一边会让另一边变假；同时管控两侧曝光差不超过 2 档",
+    "counter_example": "肖像证件照不需要混色，会让肤色变怪",
+    "tags": ["冷暖对比", "电影感", "蓝调"],
+    "citations": [
+      { "source": "Roger Deakins《Cinematography Discussion》", "chapter": "Color Temperature Mixing" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_silhouette",
+    "category": "light",
+    "name_zh": "剪影法则",
+    "summary": "对天空高光测光让主体变纯黑剪影；剪影是『动作可读 + 轮廓干净』的双标准",
+    "axes": ["light", "subject_fit", "composition"],
+    "scene_modes": ["portrait", "scenery", "light_shadow"],
+    "person_count_range": [1, 3],
+    "priority": 4,
+    "when_to_use": ["日出日落", "海边山顶", "意境主题"],
+    "evidence": "强逆光下主体亮度差≥4 档时即可剪影化；轮廓清晰需要侧脸+张开手臂的姿态",
+    "watch_out": "脸正对镜头会糊成一坨黑，必须侧 30° 以上；多人剪影间留间隙避免黏合",
+    "counter_example": "想表达表情/眼神的肖像绝不能剪影",
+    "tags": ["剪影", "逆光", "极简"],
+    "citations": [
+      { "source": "Bryan Peterson《Understanding Exposure》", "chapter": "Silhouettes" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_rim_backlight",
+    "category": "light",
+    "name_zh": "轮廓发丝光",
+    "summary": "侧逆光（约 130°-160°）勾勒发丝与肩线轮廓，主体与背景立刻分层",
+    "axes": ["light", "subject_fit"],
+    "scene_modes": ["portrait", "closeup", "full_body", "light_shadow"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["黄金时刻人像", "长发模特", "暗背景"],
+    "evidence": "rim light 通过亮边把主体从背景剥离，是好莱坞肖像第一光位；逆光强度比环境光高 1-2 档即可成型",
+    "watch_out": "脸侧前光不足时面部死黑，需用反光板补 0.5-1 档；不要让阳光直射镜头形成大面积眩光",
+    "counter_example": "顺光下没有 rim light，立体感弱",
+    "tags": ["发丝光", "轮廓光", "好莱坞"],
+    "citations": [
+      { "source": "Roberto Valenzuela《Picture Perfect Lighting》", "chapter": "Rim Light" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_side_chiaroscuro",
+    "category": "light",
+    "name_zh": "侧光明暗法",
+    "summary": "约 90° 侧光把脸分成明暗两半，立体感与情绪强烈，是文艺电影/雕塑光基底",
+    "axes": ["light", "theme"],
+    "scene_modes": ["portrait", "closeup", "light_shadow", "documentary"],
+    "person_count_range": [1, 2],
+    "priority": 4,
+    "when_to_use": ["戏剧人像", "肖像作品", "黑白叙事"],
+    "evidence": "Chiaroscuro 自卡拉瓦乔起就是『光雕塑』；侧光制造高反差让面部体积感最强",
+    "watch_out": "暗侧不能完全黑死（除非追求剪影感），必要时反光板补 1 档保留眼神细节",
+    "counter_example": "证件照、商品图、需要全脸均匀的场景不适合",
+    "tags": ["侧光", "明暗法", "电影感", "Chiaroscuro"],
+    "citations": [
+      { "source": "Roy Stryker《On Photography》", "chapter": "Chiaroscuro" },
+      { "source": "Caravaggio Studies", "chapter": "Tenebrism" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_rembrandt",
+    "category": "light",
+    "name_zh": "伦勃朗光",
+    "summary": "约 45°+45°（横向×垂直）主光让暗侧脸颊出现倒三角光斑，经典油画肖像光",
+    "axes": ["light", "subject_fit"],
+    "scene_modes": ["portrait", "closeup"],
+    "person_count_range": [1, 1],
+    "priority": 4,
+    "when_to_use": ["正式肖像", "棚拍", "情绪人像"],
+    "evidence": "倒三角宽度≈眼睛宽，长度延至嘴角；让面部立体且不过分硬",
+    "watch_out": "光位不准时三角缺失或过满会显土；模特鼻梁高度不同需要微调主光高度",
+    "counter_example": "正面平光肖像（如证件照）不适用",
+    "tags": ["伦勃朗光", "肖像", "经典"],
+    "citations": [
+      { "source": "Rembrandt Lighting Techniques", "chapter": "Triangular Highlight" },
+      { "source": "Roberto Valenzuela《Picture Perfect Lighting》", "chapter": "Rembrandt" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_butterfly_paramount",
+    "category": "light",
+    "name_zh": "蝴蝶光",
+    "summary": "主光高于头顶 30°-45° 正前方，鼻下出现蝴蝶状阴影；时尚 + 美妆经典光位",
+    "axes": ["light", "subject_fit"],
+    "scene_modes": ["portrait", "closeup"],
+    "person_count_range": [1, 1],
+    "priority": 3,
+    "when_to_use": ["美妆", "时尚肖像", "封面"],
+    "evidence": "Paramount Lighting；显瘦脸，强调颧骨；高光均衡反差小",
+    "watch_out": "鼻影过长会显鼻子大；下颌线易显双下巴时要稍降光位",
+    "counter_example": "戏剧情绪人像反差不够",
+    "tags": ["蝴蝶光", "时尚", "美妆"],
+    "citations": [
+      { "source": "Roberto Valenzuela《Picture Perfect Lighting》", "chapter": "Butterfly / Paramount" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_god_rays_tyndall",
+    "category": "light",
+    "name_zh": "丁达尔光柱",
+    "summary": "尘埃/雾气中阳光形成可见光柱，戏剧性极强但只在短暂时间窗内出现",
+    "axes": ["light", "theme", "depth"],
+    "scene_modes": ["scenery", "documentary", "light_shadow"],
+    "person_count_range": [0, 3],
+    "priority": 3,
+    "when_to_use": ["森林晨雾", "教堂室内", "灰尘飞扬的工作室"],
+    "evidence": "光柱方向决定画面动势；逆光或侧逆角度 + 暗背景才显光柱",
+    "watch_out": "曝光偏向高光会让光柱炫目但环境黑死；用 -0.5 EV 平衡两边",
+    "counter_example": "晴空万里、空气通透时光柱看不见",
+    "tags": ["丁达尔", "光柱", "雾气"],
+    "citations": [
+      { "source": "国家地理 Photo Tips", "chapter": "God Rays" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "light_practical_neon",
+    "category": "light",
+    "name_zh": "实用光与霓虹",
+    "summary": "把场景里已有的灯（招牌、台灯、霓虹）当主光，让光源与画面叙事融为一体",
+    "axes": ["light", "theme", "color"],
+    "scene_modes": ["documentary", "light_shadow", "portrait"],
+    "person_count_range": [1, 3],
+    "priority": 4,
+    "when_to_use": ["夜街拍", "赛博朋克", "餐酒馆人像"],
+    "evidence": "实用光（practical light）让光源出现在画面中，给画面注入故事性；电影《银翼杀手 2049》示例",
+    "watch_out": "霓虹色温混乱时要锁色温在主灯，其余偏色当氛围；高 ISO 噪点用降噪救",
+    "counter_example": "只追求干净肤色的商业肖像不要这样混光",
+    "tags": ["实用光", "霓虹", "夜景"],
+    "citations": [
+      { "source": "Roger Deakins《Variations in Light》", "chapter": "Practical Lights" }
+    ],
+    "embedding": null
+  }
+]

@@ -1,0 +1,193 @@
+[
+  {
+    "id": "depth_three_layers_explicit",
+    "category": "depth",
+    "name_zh": "三层纵深",
+    "summary": "前景 / 中景（主体）/ 后景三段式分层，让画面从 2D 变 3D",
+    "axes": ["depth", "composition"],
+    "scene_modes": ["portrait", "scenery", "documentary", "light_shadow"],
+    "person_count_range": [0, 4],
+    "priority": 5,
+    "when_to_use": ["几乎所有非特写"],
+    "evidence": "Michael Freeman 提出的三层结构是构建空间的最简模型；常见做法是前景半透明（树枝/路灯/窗框）",
+    "watch_out": "前景不能压住主体面部；前景占画面≤20%；多层之间必须有景深差",
+    "counter_example": "极简主义抽象画面（一面纯墙 + 一个人）反而要单层",
+    "tags": ["三层", "纵深", "构图"],
+    "citations": [
+      { "source": "Michael Freeman《The Photographer's Eye》", "chapter": "Layers and Depth" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "depth_atmospheric_perspective",
+    "category": "depth",
+    "name_zh": "空气透视",
+    "summary": "远山远景因雾气、灰度、低饱和而显得『后退』，是风光片打造纵深的天然滤镜",
+    "axes": ["depth", "color"],
+    "scene_modes": ["scenery", "documentary"],
+    "person_count_range": [0, 3],
+    "priority": 4,
+    "when_to_use": ["山景", "晨雾", "日出日落远景"],
+    "evidence": "达·芬奇《绘画论》最早提出的空气透视：远处更冷、更淡、对比更低；摄影继承同样规律",
+    "watch_out": "雾太重会让远景全糊一片，找『还有可读形状的雾度』；后期不要把远景拉回高对比",
+    "counter_example": "通透晴空时空气透视弱，要靠其他纵深手段",
+    "tags": ["空气透视", "雾", "远景"],
+    "citations": [
+      { "source": "Leonardo da Vinci《Treatise on Painting》", "chapter": "Aerial Perspective" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "depth_compression_long_lens",
+    "category": "depth",
+    "name_zh": "长焦压缩感",
+    "summary": "85mm 以上长焦把多层背景拉近，营造『密集排列』的视觉重量",
+    "axes": ["depth", "composition"],
+    "scene_modes": ["portrait", "documentary", "scenery"],
+    "person_count_range": [1, 3],
+    "priority": 4,
+    "when_to_use": ["人在繁华街景", "山叠山", "城市天际线"],
+    "evidence": "焦段越长，远近物体的视角差越小，肉眼会觉得『近大远大』；铁路远山压缩是经典示例",
+    "watch_out": "长焦虚化深，要等主体停稳；手持需快门≥ 1/焦段",
+    "counter_example": "想表达环境关系/广角张力时不要用长焦",
+    "tags": ["长焦", "压缩", "重量感"],
+    "citations": [
+      { "source": "Bryan Peterson《Understanding Composition》", "chapter": "Lens Choice" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "depth_shallow_dof_subject_pop",
+    "category": "depth",
+    "name_zh": "浅景深主体跳出",
+    "summary": "大光圈（f/1.4-f/2.8）+ 长焦让主体清晰、前后景虚化，眼睛立刻被吸到主体",
+    "axes": ["depth", "subject_fit"],
+    "scene_modes": ["portrait", "closeup"],
+    "person_count_range": [1, 2],
+    "priority": 5,
+    "when_to_use": ["人像主打", "逆光人像", "杂背景救场"],
+    "evidence": "焦平面薄到只剩眼睛清晰；散景越多越能让眼睛回到主体",
+    "watch_out": "f/1.4 时焦平面太浅，多人合影易脱焦；建议 f/2.5-f/4 折衷",
+    "counter_example": "环境人像、纪实摄影需要前后都讲故事，不要无脑虚化",
+    "tags": ["浅景深", "散景", "主体跳出"],
+    "citations": [
+      { "source": "宁思潇潇《新摄影笔记》", "chapter": "Ch.4 焦距与光圈" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "depth_foreground_frame",
+    "category": "depth",
+    "name_zh": "前景框",
+    "summary": "用近处的窗框、树枝、人群剪影把主体『框』起来，瞬间出现纵深感",
+    "axes": ["depth", "composition", "subject_fit"],
+    "scene_modes": ["portrait", "documentary", "scenery"],
+    "person_count_range": [1, 3],
+    "priority": 4,
+    "when_to_use": ["杂乱街景", "建筑内景", "想增加私密感"],
+    "evidence": "natural framing 是构图老技；前景虚化让框成为『暗角』，主体被引导",
+    "watch_out": "前景遮挡不要超过 25% 画面；不要遮住关键叙事元素",
+    "counter_example": "全景风光 + 简洁背景不需要前景框",
+    "tags": ["前景框", "Framing", "纵深"],
+    "citations": [
+      { "source": "Michael Freeman《The Photographer's Eye》", "chapter": "Frames" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "depth_negative_space",
+    "category": "depth",
+    "name_zh": "负空间",
+    "summary": "主体周围留大块空白（天空 / 墙 / 水面），让主体呼吸；情绪与极简感的核心",
+    "axes": ["depth", "composition", "theme"],
+    "scene_modes": ["portrait", "scenery", "light_shadow"],
+    "person_count_range": [0, 3],
+    "priority": 4,
+    "when_to_use": ["孤独 / 等待 / 告别 主题", "极简风景", "禅意构图"],
+    "evidence": "负空间≥60% 时画面感强烈；东方水墨『计白当黑』同理",
+    "watch_out": "负空间不能是杂乱纹理（云乱、墙脏），要均匀；主体太小就完全消失",
+    "counter_example": "热闹叙事（合影、节日）反而要饱满",
+    "tags": ["负空间", "留白", "极简"],
+    "citations": [
+      { "source": "Bryan Peterson《Learning to See Creatively》", "chapter": "Negative Space" },
+      { "source": "中国画论", "chapter": "计白当黑" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "depth_leading_line_to_subject",
+    "category": "depth",
+    "name_zh": "引导线纵深",
+    "summary": "道路 / 河流 / 栏杆从画面边缘延伸到主体，把视线和空间一起带过去",
+    "axes": ["depth", "composition"],
+    "scene_modes": ["scenery", "documentary", "portrait"],
+    "person_count_range": [0, 3],
+    "priority": 4,
+    "when_to_use": ["乡间小路", "海堤", "走廊"],
+    "evidence": "引导线既建立视觉路径又制造透视纵深；S 形最自然，直线最强势",
+    "watch_out": "引导线不能从主体身上『穿』过去；线条要消失在画面外或主体身上",
+    "counter_example": "杂乱多线交叉的画面会变成混乱网格，反而失去引导",
+    "tags": ["引导线", "透视", "纵深"],
+    "citations": [
+      { "source": "Michael Freeman《The Photographer's Eye》", "chapter": "Leading Lines" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "depth_focal_plane_intent",
+    "category": "depth",
+    "name_zh": "对焦平面意图",
+    "summary": "明确告诉自己『焦点在哪只眼睛 / 哪片花瓣』；对焦平面是最强的指认权",
+    "axes": ["depth", "subject_fit"],
+    "scene_modes": ["portrait", "closeup", "documentary"],
+    "person_count_range": [1, 4],
+    "priority": 5,
+    "when_to_use": ["所有大光圈拍摄"],
+    "evidence": "对焦点等于『摄影师看见』；多人合影时焦点放最近一人的近眼",
+    "watch_out": "f/1.4 时对错眼整张报废；先单点对焦再构图重组",
+    "counter_example": "深景深风光照不需要纠结对焦平面",
+    "tags": ["对焦", "焦平面", "细节"],
+    "citations": [
+      { "source": "Bryan Peterson《Understanding Exposure》", "chapter": "Focus" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "depth_low_angle_volume",
+    "category": "depth",
+    "name_zh": "低角度纵深感",
+    "summary": "蹲低 30-50cm 拍摄，前景地面 / 草丛 / 砖路占大块，瞬间扩大空间",
+    "axes": ["depth", "composition"],
+    "scene_modes": ["portrait", "scenery", "documentary"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["儿童 / 宠物", "雪地 / 沙滩", "想拉伸气势"],
+    "evidence": "低视角放大近大远小，给主体腿部线条 + 天空感；广角更明显",
+    "watch_out": "脸近到≤50cm 时鼻子放大畸变明显；保留 1m 以上人像距离",
+    "counter_example": "正式肖像、官方合影不要低角度（显侵略）",
+    "tags": ["低角度", "广角", "纵深"],
+    "citations": [
+      { "source": "宁思潇潇《新摄影笔记》", "chapter": "Ch.5 视角" }
+    ],
+    "embedding": null
+  },
+  {
+    "id": "depth_high_angle_pattern",
+    "category": "depth",
+    "name_zh": "俯拍纹理感",
+    "summary": "从上方俯视让画面变成图案 / 平面纹理，纵深换成抽象构图",
+    "axes": ["depth", "composition"],
+    "scene_modes": ["scenery", "closeup", "documentary"],
+    "person_count_range": [0, 4],
+    "priority": 3,
+    "when_to_use": ["美食", "草原 / 海滩俯拍", "群体合影"],
+    "evidence": "俯拍把三维降维到二维平面，强调形 + 色 + 节奏；适合『故事性弱、视觉强』的场景",
+    "watch_out": "俯拍人像让脸『缩短』变婴儿脸；除非刻意可爱否则不用",
+    "counter_example": "讲气势 / 主角光环要低角度，俯拍会削弱",
+    "tags": ["俯拍", "图案", "二维"],
+    "citations": [
+      { "source": "Michael Freeman《The Photographer's Mind》", "chapter": "Aerial / Top Down" }
+    ],
+    "embedding": null
+  }
+]

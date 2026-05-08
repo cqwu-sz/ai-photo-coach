@@ -1,0 +1,367 @@
+/* =============================================================
+   Welcome / splash page styles. Layered on top of style.css so we
+   reuse design tokens (colors, fonts, gradients, spring curves).
+   ============================================================= */
+
+.welcome-body {
+  background: var(--bg-base);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.welcome-shell {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 32px) clamp(18px, 4vw, 28px) 28px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vw, 28px);
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Header ----------------------------------------------- */
+.welcome-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 4px;
+}
+.welcome-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.welcome-aperture {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #07070d 38%, transparent 40%),
+    conic-gradient(from 200deg, #f4b860, #ff7a6c, #7c8cff, #f4b860);
+  box-shadow: 0 0 22px rgba(244, 184, 96, 0.55);
+  animation: ch-aperture 14s linear infinite;
+}
+.welcome-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.welcome-brand-text b {
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  color: var(--ink-bright);
+}
+.welcome-brand-text span {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* ---------- Hero text -------------------------------------------- */
+.welcome-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 8px;
+}
+.welcome-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: var(--accent);
+  text-transform: uppercase;
+  align-self: flex-start;
+  padding: 6px 12px 5px;
+  border-radius: 999px;
+  background: rgba(244, 184, 96, 0.08);
+  border: 1px solid rgba(244, 184, 96, 0.32);
+}
+.welcome-eyebrow::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+.welcome-title {
+  margin: 0;
+  font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -0.030em;
+  font-weight: 800;
+  color: var(--ink-bright);
+  text-wrap: balance;
+}
+.welcome-sub {
+  margin: 0;
+  font-size: clamp(13.5px, 2.7vw, 15px);
+  line-height: 1.6;
+  color: var(--text-soft);
+  max-width: 560px;
+}
+
+/* ---------- Marquee (poster wall) -------------------------------- */
+.welcome-marquee {
+  position: relative;
+  width: calc(100% + clamp(32px, 8vw, 56px));
+  margin: 6px calc(-1 * clamp(16px, 4vw, 28px));
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
+  width: max-content;
+  animation: marquee-left 56s linear infinite;
+  will-change: transform;
+}
+.marquee-track-b {
+  animation-name: marquee-right;
+  animation-duration: 72s;
+}
+@keyframes marquee-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none !important; }
+}
+
+/* Poster card — film-strip top accent + soft glow */
+.poster-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(160px, 28vw, 220px);
+  aspect-ratio: 3 / 4;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 12px 30px -10px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+  isolation: isolate;
+  background: #0e0f1c;
+}
+.poster-card.size-wide {
+  width: clamp(220px, 36vw, 300px);
+  aspect-ratio: 4 / 3;
+}
+.poster-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.06) contrast(1.04);
+  transform: scale(1.02);
+}
+.poster-card::before {
+  /* film strip dotted line at the top */
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 8px;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0 4px,
+    transparent 4px 12px
+  );
+  opacity: 0.85;
+  z-index: 2;
+}
+.poster-card::after {
+  /* corner gloss */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 60% at 0% 0%, rgba(255, 255, 255, 0.18), transparent 60%),
+    linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.55) 100%);
+  z-index: 1;
+}
+.poster-tag {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  z-index: 3;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink-bright);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(7, 7, 13, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+}
+.poster-azimuth {
+  position: absolute;
+  right: 10px;
+  top: 18px;
+  z-index: 3;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.18em;
+}
+
+/* Edge fade so the marquee feels infinite */
+.marquee-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(40px, 9vw, 80px);
+  pointer-events: none;
+  z-index: 4;
+}
+.marquee-fade-l {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg-base) 0%, transparent 100%);
+}
+.marquee-fade-r {
+  right: 0;
+  background: linear-gradient(270deg, var(--bg-base) 0%, transparent 100%);
+}
+
+/* ---------- 3 numbered features --------------------------------- */
+.welcome-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  padding-top: 4px;
+}
+.welcome-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 14px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  position: relative;
+  overflow: hidden;
+}
+.welcome-feature::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(244, 184, 96, 0.55),
+    transparent);
+}
+.welcome-feature-num {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.20em;
+  color: var(--accent);
+}
+.welcome-feature-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--ink-bright);
+  letter-spacing: -0.005em;
+}
+.welcome-feature-sub {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ---------- CTA --------------------------------------------------- */
+.welcome-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+.welcome-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0;
+  padding: 17px 20px;
+  font-size: 16.5px;
+  border-radius: 18px;
+}
+.welcome-cta svg {
+  transition: transform var(--dur-base) var(--ease-spring);
+}
+.welcome-cta:hover svg {
+  transform: translateX(4px);
+}
+.welcome-note {
+  margin: 0;
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Footer ----------------------------------------------- */
+.welcome-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-top: 4px;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+.welcome-link {
+  color: var(--text-soft);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--dur-base) var(--ease-out);
+}
+.welcome-link:hover {
+  color: var(--accent);
+}
+
+/* ---------- Entrance choreography (auto, no JS toggling) -------- */
+.welcome-hero,
+.welcome-marquee,
+.welcome-features,
+.welcome-actions {
+  animation: welcome-rise 720ms var(--ease-spring) both;
+}
+.welcome-hero      { animation-delay: 80ms; }
+.welcome-marquee   { animation-delay: 200ms; }
+.welcome-features  { animation-delay: 320ms; }
+.welcome-actions   { animation-delay: 460ms; }
+
+@keyframes welcome-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .welcome-hero,
+  .welcome-marquee,
+  .welcome-features,
+  .welcome-actions { animation: none !important; }
+}

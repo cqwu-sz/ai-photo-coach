@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from .api import analyze, dev, panorama, pose_library
+from .api import analyze, avatars, dev, models as models_api, panorama, pose_library, sun as sun_api
 from .config import get_settings
 from .logging_setup import setup_logging
 
@@ -55,8 +55,11 @@ def healthz() -> JSONResponse:
 
 app.include_router(analyze.router)
 app.include_router(pose_library.router)
+app.include_router(avatars.router)
 app.include_router(dev.router)
 app.include_router(panorama.router)
+app.include_router(models_api.router)
+app.include_router(sun_api.router)
 
 
 # Mount the PWA web demo at /web. Same origin as the API, so no CORS pain
@@ -69,3 +72,16 @@ if _WEB_DIR.exists():
     @app.get("/")
     def _root_redirect() -> FileResponse:
         return FileResponse(_WEB_DIR / "index.html")
+
+    # Splash / welcome screen — also reachable as /welcome so we can deep
+    # link from elsewhere (and so iOS can mirror the URL).
+    @app.get("/welcome")
+    def _welcome() -> FileResponse:
+        return FileResponse(_WEB_DIR / "welcome.html")
+
+    # Convenience shortcut: http://localhost:8000/preview shows the PWA wrapped
+    # inside an iPhone 15 Pro mock-up. Lets users on Windows/Linux preview the
+    # app without a Mac/iPhone.
+    @app.get("/preview")
+    def _preview() -> FileResponse:
+        return FileResponse(_WEB_DIR / "preview.html")

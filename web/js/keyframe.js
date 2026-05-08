@@ -45,14 +45,88 @@ export class FrameSampler {
     ctx.drawImage(this.video, 0, 0, w, h);
     const dataUrl = this._canvas.toDataURL("image/jpeg", 0.7);
     const snap = this.heading.snapshot();
+
+    // Cheap client-side quality signals — we already have the pixels in
+    // canvas, so it's free to read them. Backed by a 96-px downscaled
+    // grab so we run < 0.5 ms per sample even on a slow phone.
+    const quality = computeFrameQuality(ctx, w, h);
+
     this.samples.push({
       dataUrl,
       azimuthDeg: snap.azimuthDeg,
       pitchDeg: snap.pitchDeg,
       rollDeg: snap.rollDeg,
       timestampMs: Math.round(performance.now() - this._startedAt),
+      meanLuma: quality.meanLuma,
+      blurScore: quality.blurScore,
     });
   }
+}
+
+// Returns lightweight quality signals computed inline during sampling.
+//
+//   meanLuma  : 0..1, average ITU-BT.601 luma over a 96-px-wide downscale
+//   blurScore : roughly proportional to sharpness — sum of |dI/dx| over
+//               the same downscale, normalised by pixel count. Higher =
+//               sharper. Calibrated so >= 8 is "in focus", < 3 is "blurry"
+//               for a 1280-px input video on a typical phone.
+//
+// The backend can consume both verbatim (FrameMeta.blur_score / mean_luma).
+// We use a sub-canvas so we don't allocate fresh ImageData every tick.
+const _qCanvas = (typeof document !== "undefined")
+  ? document.createElement("canvas")
+  : null;
+
+function computeFrameQuality(srcCtx, srcW, srcH) {
+  if (!_qCanvas) return { meanLuma: 0.5, blurScore: 0 };
+  const targetW = 96;
+  const targetH = Math.max(48, Math.round((srcH / srcW) * targetW));
+  _qCanvas.width = targetW;
+  _qCanvas.height = targetH;
+  const qctx = _qCanvas.getContext("2d", { willReadFrequently: true });
+  qctx.drawImage(srcCtx.canvas, 0, 0, targetW, targetH);
+  let img;
+  try {
+    img = qctx.getImageData(0, 0, targetW, targetH);
+  } catch (e) {
+    // Some browsers throw on tainted canvases — bail with neutral values.
+    return { meanLuma: 0.5, blurScore: 0 };
+  }
+  const data = img.data;
+  const px = targetW * targetH;
+
+  // Luma in one pass; cache per-pixel luma into a Uint8 buffer for blur.
+  const luma = new Uint8Array(px);
+  let sum = 0;
+  for (let i = 0, j = 0; i < data.length; i += 4, j++) {
+    // BT.601 luma — close enough; saves one mul vs BT.709.
+    const y = (data[i] * 299 + data[i + 1] * 587 + data[i + 2] * 114) / 1000;
+    luma[j] = y;
+    sum += y;
+  }
+  const meanLuma = (sum / px) / 255;
+
+  // Horizontal gradient as a cheap sharpness proxy. We skip the last
+  // column per row.
+  let grad = 0;
+  for (let y = 0; y < targetH; y++) {
+    const rowOff = y * targetW;
+    for (let x = 0; x < targetW - 1; x++) {
+      const i = rowOff + x;
+      const d = luma[i + 1] - luma[i];
+      grad += d < 0 ? -d : d;
+    }
+  }
+  const blurScore = grad / px;
+
+  return {
+    meanLuma: round3(meanLuma),
+    blurScore: round3(blurScore),
+  };
+}
+
+function round3(v) {
+  return Math.round(v * 1000) / 1000;
 }
 
 // Mirrors backend/ios algorithm: azimuth-bucket the samples; pick the median

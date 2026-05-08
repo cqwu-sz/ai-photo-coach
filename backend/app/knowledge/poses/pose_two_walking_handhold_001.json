@@ -3,7 +3,24 @@
   "person_count": 2,
   "layout": "diagonal",
   "summary": "couple walking diagonally away from camera, holding hands, one looking back",
-  "tags": ["couple", "story", "movement"],
-  "best_for": ["leading_line", "golden_hour", "park_path"],
-  "thumbnail": "pose_two_walking_handhold_001.png"
+  "tags": [
+    "couple",
+    "story",
+    "movement"
+  ],
+  "best_for": [
+    "leading_line",
+    "golden_hour",
+    "park_path"
+  ],
+  "thumbnail": "pose_two_walking_handhold_001.png",
+  "summary_zh": "两人手拉手散步 街头 情侣",
+  "tags_zh": [
+    "手拉手",
+    "牵手",
+    "散步",
+    "走",
+    "情侣",
+    "街头"
+  ]
 }

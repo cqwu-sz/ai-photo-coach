@@ -3,7 +3,23 @@
   "person_count": 3,
   "layout": "triangle",
   "summary": "two parents seated, child in front center, all looking at camera",
-  "tags": ["family", "formal", "warm"],
-  "best_for": ["centered", "indoor_warm", "shade"],
-  "thumbnail": "pose_three_family_seated_001.png"
+  "tags": [
+    "family",
+    "formal",
+    "warm"
+  ],
+  "best_for": [
+    "centered",
+    "indoor_warm",
+    "shade"
+  ],
+  "thumbnail": "pose_three_family_seated_001.png",
+  "summary_zh": "三人坐在沙发或长椅 家庭",
+  "tags_zh": [
+    "坐",
+    "沙发",
+    "长椅",
+    "家庭",
+    "亲子"
+  ]
 }
