@@ -94,6 +94,36 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
 
+      - name: Dump build errors to step summary (always)
+        if: always()
+        working-directory: ios
+        shell: bash
+        run: |
+          # Step summary is publicly visible on public repos without
+          # signing in, so this is the only way our Windows-side bot
+          # can read what xcodebuild said when archive fails. We strip
+          # the log down to the lines that actually explain the failure
+          # (errors, "error:", failed phases, last 80 lines as fallback).
+          {
+            echo "## xcodebuild diagnostics"
+            echo ""
+            if [ -f build/xcodebuild.log ]; then
+              echo "### Lines matching 'error:' / 'fatal' / 'FAILED'"
+              echo ""
+              echo '```'
+              grep -E -i 'error:|fatal|FAILED|undefined symbol|cannot find|no such (module|file)' build/xcodebuild.log | head -n 80 || echo "(no error lines matched)"
+              echo '```'
+              echo ""
+              echo "### Last 100 lines of xcodebuild.log"
+              echo ""
+              echo '```'
+              tail -n 100 build/xcodebuild.log
+              echo '```'
+            else
+              echo "_xcodebuild.log not found (build step probably never ran)._"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Package unsigned .ipa
         working-directory: ios
         run: |
