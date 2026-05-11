@@ -226,6 +226,19 @@
 
 ---
 
+## CI 修复（UX polish 之后的连锁）
+
+### CI-iOS / 修复 iOS build ✅ (commit 67b874a)
+UX polish 推到远程后，iOS Build (unsigned IPA) 一直 red。共 44 个 Swift 编译错误，其中：
+- 1 个是直接 blocker：`PostProcessSnapshotTests.swift` 被打进 app target，`import XCTest` 找不到模块 → 修 `ios/project.yml` 加 `excludes: "Tests/**"` + 把测试文件移到 `ios/AIPhotoCoachTests/`。
+- 43 个是预存在但被 XCTest 错误掩盖的 Swift 6 / Xcode 16 兼容性问题，三批 commit 修完：
+  1. `8f7e749`：iOS 18-only API gate (`Entity(named:in:)`, `OpacityComponent`)、`UIColor` 缺 import、`AlignmentMachine.Targets` 非 public 不能从 public 接口暴露、`PoseSuggestion.id` 不存在改用 `referenceThumbnailId`、`telemetry` setter 改 `var`、`ARView.preferredFramesPerSecond` 不存在直接删 throttle 逻辑、`shot/marker/viewportSize/viewportOrientation/lastDepthEstimateAt` 标 `nonisolated(unsafe)` 让 `ARSessionDelegate` callback 能访问。
+  2. `5ae6349`：`splitByLateralGap.first` 实际 Optional 要 unwrap、tuple keypath `\.u`/`\.v` Swift 6 推不出来改为闭包、`anchorBadge` ViewBuilder body 不允许 `let` + `switch` 改为自调用闭包、`AvatarPicker` if/else 后跟 `.padding()` 要包 `Group`。
+  3. `67b874a`：`FlowLayout` 加 `@available(iOS 16.0, *)` + `@MainActor` + 限定 `SwiftUI.Layout`（Xcode 16 在 nonisolated file scope 下解析不到非限定 `Layout` 协议，导致下游 `FlowLayout(spacing:){ }` 也报 "extra trailing closure"）。
+- 同时清理了一个 PowerShell 历史副作用：`.gitignore` 加上 `ios_errors.txt`、`.git-commit-msg.txt`，避免临时调试文件再被误 commit。
+
+---
+
 ## Tracking rules
 
 1. 每完成 sub-task：`☐` → `✅` + commit SHA + 一行验收结论。
