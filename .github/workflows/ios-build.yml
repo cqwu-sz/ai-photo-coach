@@ -61,6 +61,13 @@ jobs:
           # CODE_SIGNING_ALLOWED=NO is the canonical way to produce an
           # unsigned .app on GitHub Actions where no provisioning profile
           # is installed.
+          #
+          # Tee the full xcodebuild output to a file so we can upload it
+          # as an artifact even when the archive step fails. The previous
+          # workflow only surfaced "exit code 65" which is useless for
+          # diagnosing Swift compile errors from a Windows dev machine.
+          mkdir -p build
+          set -o pipefail
           xcodebuild \
             -project AIPhotoCoach.xcodeproj \
             -scheme AIPhotoCoach \
@@ -74,9 +81,18 @@ jobs:
             CODE_SIGN_IDENTITY= \
             DEVELOPMENT_TEAM= \
             PROVISIONING_PROFILE_SPECIFIER= \
-            ONLY_ACTIVE_ARCH=NO
+            ONLY_ACTIVE_ARCH=NO 2>&1 | tee build/xcodebuild.log
           # Fail loud if archive is missing.
           test -d build/AIPhotoCoach.xcarchive
+
+      - name: Upload xcodebuild log (always, for diagnostics)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcodebuild-log
+          path: ios/build/xcodebuild.log
+          retention-days: 7
+          if-no-files-found: warn
 
       - name: Package unsigned .ipa
         working-directory: ios
