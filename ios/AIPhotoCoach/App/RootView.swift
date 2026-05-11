@@ -1294,7 +1294,7 @@ private struct AvatarChooserView: View {
                                         .frame(width: 100, height: 130)
                                     Text(preset.nameZh).font(.caption.bold())
                                         .foregroundStyle(CinemaTheme.ink)
-                                    Text("\(preset.style) · \(preset.gender == \"female\" ? \"女\" : \"男\")")
+                                    Text("\(preset.style) · \(preset.gender == "female" ? "女" : "男")")
                                         .font(.caption2).foregroundStyle(CinemaTheme.inkMuted)
                                         .multilineTextAlignment(.center)
                                 }

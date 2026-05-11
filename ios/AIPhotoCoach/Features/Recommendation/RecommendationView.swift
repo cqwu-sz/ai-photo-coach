@@ -52,56 +52,10 @@ struct RecommendationView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Sticky header: every banner that applies to the whole
-            // analysis sits up here and never scrolls away when the
-            // user pages between shots.
-            VStack(alignment: .leading, spacing: 12) {
-                // Banner merge (v9 UX polish #21) — show at most ONE
-                // top banner so the user isn't punched in the face by
-                // two negative signals. Severity:
-                //   1. capture_quality.shouldRetake (score ≤ 2) wins
-                //   2. light_recapture_hint
-                //   3. capture_quality score == 3 (soft)
-                // Loser is degraded to an inline note inside the winner.
-                let hint = response.lightRecaptureHint?.enabled == true ? response.lightRecaptureHint : nil
-                let cq = response.scene.captureQuality
-                let cqCritical = cq?.shouldRetake == true
-                if cqCritical, let cq = cq {
-                    CaptureAdvisoryBanner(
-                        quality: cq,
-                        onRetake: handleAdvisoryRetake,
-                        degradedHint: hint,
-                    )
-                } else if let hint = hint {
-                    LightRecaptureBanner(
-                        hint: hint,
-                        onTap: handleRecapture,
-                        degradedAdvisory: (cq?.score ?? 5) <= 3 ? cq : nil,
-                    )
-                } else if let cq = cq, cq.score <= 3 {
-                    CaptureAdvisoryBanner(
-                        quality: cq,
-                        onRetake: handleAdvisoryRetake,
-                        degradedHint: nil,
-                    )
-                }
-                if let env = response.environment, hasEnvData(env) {
-                    EnvironmentStrip(env: env, shots: response.shots)
-                }
-                SceneCard(scene: response.scene, debug: response.debug)
-                if response.shots.count > 1 {
-                    ShotsPagerHeader(
-                        shots: orderedShots,
-                        currentIndex: $currentShot,
-                    )
-                }
-                if response.shots.count > 1 && hasOverallScore {
-                    RankingToolbar(mode: $rankingMode)
-                }
-            }
-            .padding(.horizontal)
-            .padding(.top)
-            .background(Color(.systemGroupedBackground))
+            stickyHeader
+                .padding(.horizontal)
+                .padding(.top)
+                .background(Color(.systemGroupedBackground))
 
             // The pager itself. SwiftUI's TabView with .page style gives
             // us native swipe + dot indicator on iOS, with smooth state
@@ -147,6 +101,62 @@ struct RecommendationView: View {
         return false
     }
 
+    // Split out so the top-level `body` doesn't blow past the
+    // SwiftUI type-checker timeout under WMO. Each subview returns
+    // a concrete type the compiler can resolve in isolation.
+    @ViewBuilder
+    private var stickyHeader: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            bannerArea
+            if let env = response.environment, hasEnvData(env) {
+                EnvironmentStrip(env: env, shots: response.shots)
+            }
+            RecScenecard(scene: response.scene, debug: response.debug)
+            if response.shots.count > 1 {
+                ShotsPagerHeader(
+                    shots: orderedShots,
+                    currentIndex: $currentShot,
+                )
+            }
+            if response.shots.count > 1 && hasOverallScore {
+                RankingToolbar(mode: $rankingMode)
+            }
+        }
+    }
+
+    // Banner merge (v9 UX polish #21) — show at most ONE top banner
+    // so the user isn't punched in the face by two negative signals.
+    // Severity ladder:
+    //   1. capture_quality.shouldRetake (score ≤ 2) wins
+    //   2. light_recapture_hint
+    //   3. capture_quality score == 3 (soft)
+    // Loser is degraded to an inline note inside the winner.
+    @ViewBuilder
+    private var bannerArea: some View {
+        let hint = response.lightRecaptureHint?.enabled == true ? response.lightRecaptureHint : nil
+        let cq = response.scene.captureQuality
+        let cqCritical = cq?.shouldRetake == true
+        if cqCritical, let cq = cq {
+            CaptureAdvisoryBanner(
+                quality: cq,
+                onRetake: handleAdvisoryRetake,
+                degradedHint: hint,
+            )
+        } else if let hint = hint {
+            LightRecaptureBanner(
+                hint: hint,
+                onTap: handleRecapture,
+                degradedAdvisory: (cq?.score ?? 5) <= 3 ? cq : nil,
+            )
+        } else if let cq = cq, cq.score <= 3 {
+            CaptureAdvisoryBanner(
+                quality: cq,
+                onRetake: handleAdvisoryRetake,
+                degradedHint: nil,
+            )
+        }
+    }
+
     private func handleRecapture() {
         // Persist the suggested azimuth so the next env-capture screen can
         // centre the new pass on it. We then pop back to the wizard root
@@ -180,7 +190,11 @@ struct RecommendationView: View {
     }
 }
 
-private struct SceneCard: View {
+// Renamed from SceneCard to RecScenecard to avoid clashing with the
+// RootView's user-facing SceneCard picker chip. They're both private/
+// internal scoped but Swift 6 emits 'invalid redeclaration' under the
+// archive-time whole-module check.
+private struct RecScenecard: View {
     let scene: SceneSummary
     let debug: AnalyzeDebug?
     var body: some View {
@@ -1105,81 +1119,15 @@ private struct CaptureAdvisoryBanner: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack(spacing: 10) {
-                Image(systemName: iconName)
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundStyle(tintColor)
-                    .frame(width: 28, height: 28)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .fill(tintColor.opacity(0.15))
-                    )
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack(spacing: 6) {
-                        Text(starsString)
-                            .font(.system(size: 13, weight: .heavy))
-                            .foregroundStyle(Color(red: 1.0, green: 0.72, blue: 0.30))
-                        Text("素材质量 \(quality.score)/5")
-                            .font(.caption2.weight(.semibold))
-                            .foregroundStyle(.secondary)
-                    }
-                    if let summary = quality.summaryZh, !summary.isEmpty {
-                        Text(summary)
-                            .font(.system(size: 13, weight: .medium))
-                            .foregroundStyle(.primary)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                }
-                Spacer(minLength: 0)
-                if quality.shouldRetake {
-                    Tag(text: "建议重拍", color: tintColor)
-                }
-            }
+            headerRow
             if !quality.issues.isEmpty {
-                FlowLayout(spacing: 6) {
-                    ForEach(quality.issues, id: \.self) { issue in
-                        Text("· " + issue.labelZh)
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
-                            .fixedSize()
-                    }
-                }
+                issuesRow
             }
             if quality.shouldRetake {
-                Button(action: onRetake) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "arrow.counterclockwise.circle")
-                        Text("重新环视一段")
-                    }
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .fill(LinearGradient(
-                                colors: [tintColor, tintColor.opacity(0.7)],
-                                startPoint: .leading, endPoint: .trailing))
-                    )
-                }
-                .buttonStyle(.plain)
+                retakeButton
             }
             if let h = degradedHint {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(h.title)
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundStyle(.primary)
-                    Text(h.detail)
-                        .font(.system(size: 11.5, weight: .medium))
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .padding(8)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(Color.primary.opacity(0.04))
-                )
+                degradedInline(h)
             }
         }
         .padding(14)
@@ -1197,15 +1145,106 @@ private struct CaptureAdvisoryBanner: View {
         let s = max(0, min(5, quality.score))
         return String(repeating: "★", count: s) + String(repeating: "☆", count: 5 - s)
     }
+
+    // Split bodies — Xcode 16 type-checker chokes on the previously
+    // inlined ~80-line VStack. Splitting keeps every helper under
+    // the WMO timeout while preserving the visual output.
+    @ViewBuilder
+    private var headerRow: some View {
+        HStack(spacing: 10) {
+            Image(systemName: iconName)
+                .font(.system(size: 16, weight: .bold))
+                .foregroundStyle(tintColor)
+                .frame(width: 28, height: 28)
+                .background(
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .fill(tintColor.opacity(0.15))
+                )
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(spacing: 6) {
+                    Text(starsString)
+                        .font(.system(size: 13, weight: .heavy))
+                        .foregroundStyle(Color(red: 1.0, green: 0.72, blue: 0.30))
+                    Text("素材质量 \(quality.score)/5")
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                }
+                if let summary = quality.summaryZh, !summary.isEmpty {
+                    Text(summary)
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundStyle(.primary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            Spacer(minLength: 0)
+            if quality.shouldRetake {
+                Tag(text: "建议重拍", color: tintColor)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var issuesRow: some View {
+        FlowLayout(spacing: 6) {
+            ForEach(quality.issues, id: \.self) { issue in
+                Text("· " + issue.labelZh)
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .fixedSize()
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var retakeButton: some View {
+        Button(action: onRetake) {
+            HStack(spacing: 6) {
+                Image(systemName: "arrow.counterclockwise.circle")
+                Text("重新环视一段")
+            }
+            .font(.system(size: 13, weight: .semibold))
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 10)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(LinearGradient(
+                        colors: [tintColor, tintColor.opacity(0.7)],
+                        startPoint: .leading, endPoint: .trailing))
+            )
+        }
+        .buttonStyle(.plain)
+    }
+
+    @ViewBuilder
+    private func degradedInline(_ h: LightRecaptureHint) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(h.title)
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(.primary)
+            Text(h.detail)
+                .font(.system(size: 11.5, weight: .medium))
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(8)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(Color.primary.opacity(0.04))
+        )
+    }
 }
 
 /// Tiny flow layout — wraps inline issue chips when they overflow the row.
-/// SwiftUI shipped FlowLayout in iOS 16; we use Layout protocol so it works
-/// on iOS 16+.
+/// SwiftUI's `Layout` protocol shipped in iOS 16 and our deployment target
+/// is 17.0, so no `@available` gate is needed. We spell `Subviews` with
+/// the qualified `LayoutSubviews` type alias because Xcode 16 occasionally
+/// fails to resolve the unqualified nested type during WMO.
 private struct FlowLayout: Layout {
     var spacing: CGFloat = 6
 
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+    func sizeThatFits(proposal: ProposedViewSize, subviews: LayoutSubviews, cache: inout ()) -> CGSize {
         let maxWidth = proposal.width ?? .infinity
         var x: CGFloat = 0
         var y: CGFloat = 0
@@ -1229,7 +1268,7 @@ private struct FlowLayout: Layout {
         return CGSize(width: totalWidth, height: totalHeight)
     }
 
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: LayoutSubviews, cache: inout ()) {
         let maxWidth = bounds.width
         var x: CGFloat = bounds.minX
         var y: CGFloat = bounds.minY

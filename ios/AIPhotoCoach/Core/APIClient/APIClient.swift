@@ -40,7 +40,8 @@ actor APIClient {
     /// `enable_legacy_device_id_auth` path will still pick us up.
     private func attachAuth(to request: inout URLRequest) async {
         let auth = await MainActor.run { AuthManager.shared }
-        request.setValue(auth.deviceId, forHTTPHeaderField: "X-Device-Id")
+        let deviceId = await MainActor.run { auth.deviceId }
+        request.setValue(deviceId, forHTTPHeaderField: "X-Device-Id")
         do {
             let token = try await auth.accessToken()
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

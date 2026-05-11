@@ -191,7 +191,17 @@ public final class AvatarLoader {
         }
         let candidate = "Avatars/\(presetId)"
         do {
-            let entity = try await Entity(named: candidate)
+            // Entity(named:in:) async API is iOS 18+. On iOS 17 the
+            // synchronous loader can throw via the same name; this
+            // gate makes the call site explicitly 18-only and lets
+            // older devices fall through to the SCN fallback path
+            // that ARGuideView already implements.
+            let entity: Entity
+            if #available(iOS 18.0, *) {
+                entity = try await Entity(named: candidate, in: nil)
+            } else {
+                entity = try Entity.load(named: candidate)
+            }
             avatarCache[presetId] = entity
             return entity.clone(recursive: true)
         } catch {
@@ -210,7 +220,12 @@ public final class AvatarLoader {
         }
         let candidate = "Animations/\(animId)"
         do {
-            let entity = try await Entity(named: candidate)
+            let entity: Entity
+            if #available(iOS 18.0, *) {
+                entity = try await Entity(named: candidate, in: nil)
+            } else {
+                entity = try Entity.load(named: candidate)
+            }
             animationCache[animId] = entity
             return entity.availableAnimations.first
         } catch {

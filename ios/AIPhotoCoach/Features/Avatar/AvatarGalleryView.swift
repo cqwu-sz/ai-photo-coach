@@ -130,6 +130,7 @@ struct AvatarGalleryView: View {
         .buttonStyle(.plain)
     }
 
+    @ViewBuilder
     private func avatarThumb(presetId: String) -> some View {
         if let preset = manifest.payload?.presets.first(where: { $0.id == presetId }) {
             AvatarPreset3DPreview(preset: preset, interactive: true)

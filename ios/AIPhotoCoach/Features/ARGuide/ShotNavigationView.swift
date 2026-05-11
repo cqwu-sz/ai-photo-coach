@@ -60,14 +60,19 @@ final class ShotNavigationModel: NSObject, ObservableObject {
     @Published var privacyMode: Bool = false
 
     let target: ShotPosition
-    let shot: ShotRecommendation
+    // nonisolated: ARSessionDelegate (nonisolated) needs the recommended
+    // distance to scale depth thresholds. Stored `let` of a Sendable type.
+    nonisolated let shot: ShotRecommendation
     let userStartLat: Double
     let userStartLon: Double
 
     private weak var arView: ARView?
     private var baseAnchor: AnchorEntity?
     private var tweakAnchor: AnchorEntity?
-    private var marker: ShotMarkerEntity?
+    // nonisolated(unsafe): read from the ARSessionDelegate queue when
+    // computing the compass arrow. Mutations only happen on the main
+    // actor (attachMarker) so there's no contention in practice.
+    nonisolated(unsafe) private var marker: ShotMarkerEntity?
     private var ghosts: [GhostAvatarEntity] = []
     private var arrivalHaloEntities: [ModelEntity] = []
     private let arrivalRadiusM: Float = 3.0
@@ -83,11 +88,16 @@ final class ShotNavigationModel: NSObject, ObservableObject {
 
     /// Captures every meaningful state change so we can ship a snapshot
     /// to /feedback after the photo is taken.
-    private(set) var telemetry = ARGuideTelemetry()
+    // Externally mutable so the SwiftUI view layer can mark handoff/
+    // arrival from outside the model (see triggerArrivalFlashAndMaybeHandoff).
+    var telemetry = ARGuideTelemetry()
 
     /// Throttle the depth-based human estimation to ~5 Hz; running it
     /// every frame is wasteful and arrival is a slow signal anyway.
-    private var lastDepthEstimateAt: TimeInterval = 0
+    /// Read/written from the nonisolated ARSessionDelegate callback —
+    /// the callback is ARKit's serial queue so concurrent access is
+    /// not actually possible.
+    nonisolated(unsafe) private var lastDepthEstimateAt: TimeInterval = 0
     /// Track arrival flips so we can report flicker count in feedback.
     private var arrivalFlipCount: Int = 0
     /// Records the XZ distance at every arrival flip so the backend
@@ -97,8 +107,11 @@ final class ShotNavigationModel: NSObject, ObservableObject {
     private var arrivalFlipMagnitudes: [Float] = []
     /// Tracks the last reported viewport size so depth back-projection
     /// can use the right `displayTransform`.
-    fileprivate var viewportSize: CGSize = .zero
-    fileprivate var viewportOrientation: UIInterfaceOrientation = .portrait
+    // nonisolated(unsafe): captured by ARSessionDelegate. Writes
+    // originate from the SwiftUI layer (MainActor) but the AR queue
+    // only reads — single-writer is safe without a lock.
+    nonisolated(unsafe) fileprivate var viewportSize: CGSize = .zero
+    nonisolated(unsafe) fileprivate var viewportOrientation: UIInterfaceOrientation = .portrait
 
     /// Pre-resolved Avatar preset id list — populated up front so the
     /// handoff to ARGuideView always has a real id to pass even when
@@ -572,9 +585,10 @@ final class ShotNavigationModel: NSObject, ObservableObject {
 
     private func registerInteraction() {
         lastInteractionAt = Date()
-        if let arView, arView.preferredFramesPerSecond != 0 {
-            arView.preferredFramesPerSecond = 0  // back to vsync
-        }
+        // RealityKit's ARView does not expose preferredFramesPerSecond
+        // the way SCNView does. The idle-throttle path is therefore a
+        // no-op on RK; we keep `lastInteractionAt` updated so we still
+        // know if/when the user is idle for telemetry purposes.
     }
 
     private func startIdleThrottleTimer() {
@@ -585,10 +599,13 @@ final class ShotNavigationModel: NSObject, ObservableObject {
     }
 
     private func checkIdle() {
-        guard let arView else { return }
+        guard arView != nil else { return }
         let idle = Date().timeIntervalSince(lastInteractionAt)
-        if idle > 90, arView.preferredFramesPerSecond != 30 {
-            arView.preferredFramesPerSecond = 30
+        // Same caveat as registerInteraction: RealityKit ARView has no
+        // preferredFramesPerSecond. We still surface the idle signal
+        // via telemetry so the dashboard can flag long, unintended
+        // sessions.
+        if idle > 90 {
             telemetry.throttledToLowFps = true
         }
     }
@@ -734,6 +751,7 @@ extension ShotNavigationModel: ARSessionDelegate {
                 maxDepth: dynamicMaxDepth,
                 viewportSize: viewportSize,
                 orientation: orientation,
+                recommendedDistanceM: Float(self.shot.angle.distanceM),
             )
             arrivalMethod = humanPos != nil ? "depth" : "none"
             self.lastDepthEstimateAt = now
@@ -793,6 +811,11 @@ extension ShotNavigationModel: ARSessionDelegate {
         maxDepth: Float = 8.0,
         viewportSize: CGSize = .zero,
         orientation: UIInterfaceOrientation = .portrait,
+        // Caller passes the shot's recommended distance so this static
+        // helper doesn't reach back into instance state. Previously the
+        // body referenced `self.shot.angle.distanceM` which the Swift
+        // 6 compiler (correctly) rejects on a static function.
+        recommendedDistanceM: Float = 3.0,
     ) -> SIMD3<Float>? {
         guard let matte = frame.segmentationBuffer,
               let depth = frame.sceneDepth?.depthMap ?? frame.smoothedSceneDepth?.depthMap
@@ -854,7 +877,7 @@ extension ShotNavigationModel: ARSessionDelegate {
         // gap" instead of a hard pixel ratio. At 3m subject distance
         // a 0.5m human-shoulder gap projects to ~ 0.5 * fx / 3 px.
         let medianFrontZ = frontGroup.isEmpty
-            ? Float(self.shot.angle.distanceM)
+            ? recommendedDistanceM
             : frontGroup.map(\.z).sorted()[frontGroup.count / 2]
         let fx = frame.camera.intrinsics[0, 0]
         // Half a human-width gap at the cluster's depth, scaled to
@@ -909,10 +932,12 @@ extension ShotNavigationModel: ARSessionDelegate {
         let px = cu / Float(width) * imgW
         let py = cv / Float(height) * imgH
         let K = frame.camera.intrinsics
-        let fx = K[0, 0], fy = K[1, 1]
+        // Renamed from fx/fy to avoid clashing with the earlier `fx`
+        // (gap-threshold scaling) further up in the same scope.
+        let intrFx = K[0, 0], intrFy = K[1, 1]
         let cx = K[2, 0], cy = K[2, 1]
-        let xCam = (px - cx) * medianZ / fx
-        let yCam = (py - cy) * medianZ / fy
+        let xCam = (px - cx) * medianZ / intrFx
+        let yCam = (py - cy) * medianZ / intrFy
         let camLocal = SIMD4<Float>(xCam, -yCam, -medianZ, 1)
         let world4 = frame.camera.transform * camLocal
         return SIMD3<Float>(world4.x, world4.y, world4.z)

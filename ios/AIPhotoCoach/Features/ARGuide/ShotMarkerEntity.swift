@@ -7,6 +7,7 @@
 import Foundation
 import RealityKit
 import simd
+import UIKit  // for UIColor (ARView entity tint defaults)
 
 @MainActor
 final class ShotMarkerEntity: Entity {

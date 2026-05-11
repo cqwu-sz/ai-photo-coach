@@ -44,7 +44,7 @@ struct ShotParameterHUD: View {
                 .foregroundStyle(.secondary)
             Text(current)
                 .font(.caption.weight(.semibold))
-                .foregroundStyle(ok ? .primary : .red)
+                .foregroundStyle(ok ? Color.primary : Color.red)
             if let t = target {
                 Text("→ \(t)")
                     .font(.caption2)

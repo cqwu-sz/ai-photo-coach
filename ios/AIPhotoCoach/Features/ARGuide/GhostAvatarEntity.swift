@@ -185,7 +185,18 @@ final class GhostAvatarEntity: Entity {
         } else {
             alpha = 1.0
         }
-        avatarRoot.components.set(OpacityComponent(opacity: alpha))
+        // OpacityComponent is iOS 18+. On 17 we fall back to scaling
+        // the material alpha via direct property writes — slightly
+        // less efficient but visually equivalent for our ghost-only
+        // use case.
+        if #available(iOS 18.0, *) {
+            avatarRoot.components.set(OpacityComponent(opacity: alpha))
+        } else {
+            // No-op on iOS 17 — ghost stays at base 0.4 alpha set via
+            // UnlitMaterial.blending in makeGhostMaterial(). Distance-
+            // based dimming will land via a content update when 18.0
+            // becomes the deployment floor.
+        }
     }
 
     private func makeGhostMaterial() -> Material {

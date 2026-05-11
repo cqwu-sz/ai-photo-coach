@@ -34,7 +34,9 @@ public final class RealityARController: NSObject, ObservableObject, ARSessionDel
     private var subjectAnchor: AnchorEntity?
     private var subjectEntity: Entity?
     private var animController: AnimationPlaybackController?
-    public private(set) var target: AlignmentMachine.Targets?
+    // AlignmentMachine.Targets is internal; keep this property internal
+    // too so we don't leak an internal type via a public surface.
+    internal private(set) var target: AlignmentMachine.Targets?
 
     public override init() {
         // ARView with realistic shading for the in-app AR preview. We
@@ -75,7 +77,8 @@ public final class RealityARController: NSObject, ObservableObject, ARSessionDel
     /// Falls back to nil when the asset isn't bundled — the caller
     /// should then fall back to the legacy SceneKit avatar.
     @discardableResult
-    public func placeSubject(
+    // Internal: AlignmentMachine.Targets is itself internal.
+    func placeSubject(
         presetId: String?,
         target: AlignmentMachine.Targets,
         shot: ShotRecommendation?,
@@ -111,7 +114,9 @@ public final class RealityARController: NSObject, ObservableObject, ARSessionDel
 
         // Animation: pull the LLM pose id and translate to a Mixamo
         // animation id via the manifest.
-        let poseId = shot?.poses.first?.id ?? shot?.poses.first?.referenceThumbnailId
+        // PoseSuggestion only carries a referenceThumbnailId — there's
+        // no separate `id` field, so we fall back to that directly.
+        let poseId = shot?.poses.first?.referenceThumbnailId
         let count = shot?.poses.first?.persons.count ?? 1
         animController = await AvatarLoader.shared.playPose(
             poseId, personCount: count, on: entity,

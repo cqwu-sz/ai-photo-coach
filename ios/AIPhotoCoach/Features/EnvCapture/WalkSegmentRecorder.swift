@@ -74,7 +74,12 @@ final class WalkSegmentRecorder: NSObject, ARSessionDelegate {
             source: .arkit,
             initialHeadingDeg: initialHeadingDeg,
             poses: poses,
-            sparsePoints: nil
+            sparsePoints: nil,
+            // P2-12 fields — iOS recorder doesn't yet capture GPS/
+            // keyframes alongside VIO. Pass nil so the backend treats
+            // it the same as a pre-P2-12 client.
+            gpsTrack: nil,
+            keyframesB64: nil
         )
     }
 
