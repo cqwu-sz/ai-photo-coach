@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Photo Coach — 隐私政策</title>
+  <style>
+    body { font: 16px/1.7 -apple-system, BlinkMacSystemFont, "PingFang SC", system-ui, sans-serif;
+           max-width: 720px; margin: 40px auto; padding: 0 20px; color: #1a1a1a; }
+    h1 { font-size: 28px; margin-bottom: 4px; }
+    h2 { font-size: 20px; margin-top: 32px; }
+    .muted { color: #666; font-size: 13px; }
+    code { background: #f6f6f6; padding: 1px 6px; border-radius: 4px; }
+    a { color: #0a64dd; }
+  </style>
+</head>
+<body>
+  <h1>隐私政策</h1>
+  <p class="muted">最近更新：2026-05-11</p>
+
+  <p>本政策解释 AI Photo Coach（"本应用"）在 iOS / Web 端会收集哪些信息、用途、以及你如何控制它们。如果你只想看一句话总结：<strong>我们只收完成功能必要的最少数据，本机能算的就不上传，能匿名就不实名。</strong></p>
+
+  <h2>1. 我们收集什么</h2>
+  <ul>
+    <li><strong>设备 ID（Keychain UUID）</strong>：在你首次启动时本机生成，用于把你产生的数据归到你名下。它不是 Apple IDFA，也不会跨 App 共享。</li>
+    <li><strong>粗略地理位置</strong>：仅在你主动触发分析时使用，并在写入数据库前 round 到 ~11 米精度。我们不持续追踪你的位置。</li>
+    <li><strong>照片 EXIF + 关键帧</strong>：分析阶段用于推荐机位与构图。原始视频不上传，仅提取 8-12 张关键帧（每张 ≤ 2 MB）。</li>
+    <li><strong>邮箱（可选）</strong>：仅当你选择 Sign in with Apple 且 Apple 提供时；用于账号恢复，不发营销邮件。</li>
+    <li><strong>订阅与购买记录</strong>：通过 Apple StoreKit 校验后保存订阅状态、产品 id、到期时间。我们不接触你的支付信息。</li>
+    <li><strong>诊断日志</strong>：API 调用错误码 / 响应延迟。已对 GPS、API key、token 做正则脱敏。</li>
+  </ul>
+
+  <h2>2. 我们 <em>不</em> 收集什么</h2>
+  <ul>
+    <li>IDFA / 跨 App 跟踪标识</li>
+    <li>通讯录、短信、健康数据</li>
+    <li>原始视频 / 完整相册</li>
+    <li>姓名、电话、身份证等强身份信息（除非你明确选择 Sign in with Apple 并授权姓名）</li>
+  </ul>
+
+  <h2>3. 第三方</h2>
+  <ul>
+    <li><strong>视觉模型供应商</strong>（Google Gemini / OpenAI 兼容协议）：分析时上传关键帧 + 元数据进行推理。如果你启用 BYOK（Bring Your Own Key），你的 API key 仅用于该次请求转发，永不持久化、永不日志。</li>
+    <li><strong>Apple StoreKit / App Store Server Notifications</strong>：用于订阅校验与续订事件。</li>
+    <li><strong>地图与天气</strong>（高德、Open-Meteo 等）：根据粗略经纬度查询附近 POI、太阳轨迹和天气。</li>
+  </ul>
+
+  <h2>4. 你的权利</h2>
+  <ul>
+    <li>查看你的数据：在 App 内 "账户与订阅" 查看 user id、登录方式、订阅状态。</li>
+    <li>导出与删除：点 "删除账户与所有数据"（对应后端 <code>DELETE /users/me</code>），我们立即清除反馈、3D 重建任务、订阅记录、用户机位 UGC。</li>
+    <li>取消订阅：在 iOS "设置 → Apple ID → 订阅" 取消。</li>
+  </ul>
+
+  <h2>5. 数据保留</h2>
+  <ul>
+    <li>主动账号：保留至你删除为止。</li>
+    <li>匿名账号：连续 30 天未使用后自动清理。</li>
+    <li>订阅记录：按 Apple 合规要求保留至订阅结束 + 6 个月，仅用于退款/续订对账。</li>
+    <li>诊断日志：滚动保留 30 天。</li>
+  </ul>
+
+  <h2>6. 联系我们</h2>
+  <p>对本政策或你数据有问题，请发邮件：<a href="mailto:privacy@example.com">privacy@example.com</a>。</p>
+
+  <p class="muted">本页面是默认模板，部署到生产前请把发邮件邮箱、公司主体名替换为真实信息。Apple 审核会检查。</p>
+</body>
+</html>
