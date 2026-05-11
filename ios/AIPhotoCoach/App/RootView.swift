@@ -1282,61 +1282,68 @@ private struct AvatarChooserView: View {
         ZStack {
             CinemaBackdrop()
             ScrollView {
-                if let presets = manifest.payload?.presets, !presets.isEmpty {
-                    LazyVGrid(columns: columns, spacing: 12) {
-                        ForEach(orderedAvatarPresets(presets), id: \.id) { preset in
-                            Button {
-                                onSelect(preset.id)
-                                dismiss()
-                            } label: {
-                                VStack {
-                                    RPMAvatarThumbView(preset: preset, interactive: true)
-                                        .frame(width: 100, height: 130)
-                                    Text(preset.nameZh).font(.caption.bold())
-                                        .foregroundStyle(CinemaTheme.ink)
-                                    Text("\(preset.style) · \(preset.gender == "female" ? "女" : "男")")
-                                        .font(.caption2).foregroundStyle(CinemaTheme.inkMuted)
-                                        .multilineTextAlignment(.center)
+                // Wrap if/else in a Group so the trailing .padding() has
+                // a single concrete View to attach to — without Group,
+                // Xcode 16 cannot resolve `.padding` against the implicit
+                // _ConditionalContent existential and reports
+                // "instance member 'padding' cannot be used on type 'View'".
+                Group {
+                    if let presets = manifest.payload?.presets, !presets.isEmpty {
+                        LazyVGrid(columns: columns, spacing: 12) {
+                            ForEach(orderedAvatarPresets(presets), id: \.id) { preset in
+                                Button {
+                                    onSelect(preset.id)
+                                    dismiss()
+                                } label: {
+                                    VStack {
+                                        RPMAvatarThumbView(preset: preset, interactive: true)
+                                            .frame(width: 100, height: 130)
+                                        Text(preset.nameZh).font(.caption.bold())
+                                            .foregroundStyle(CinemaTheme.ink)
+                                        Text("\(preset.style) · \(preset.gender == "female" ? "女" : "男")")
+                                            .font(.caption2).foregroundStyle(CinemaTheme.inkMuted)
+                                            .multilineTextAlignment(.center)
+                                    }
+                                    .padding(8)
+                                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 14)
+                                            .stroke(preset.id == currentId
+                                                    ? CinemaTheme.accentWarm
+                                                    : CinemaTheme.borderSoft,
+                                                    lineWidth: preset.id == currentId ? 2 : 1)
+                                    )
                                 }
-                                .padding(8)
-                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 14)
-                                        .stroke(preset.id == currentId
-                                                ? CinemaTheme.accentWarm
-                                                : CinemaTheme.borderSoft,
-                                                lineWidth: preset.id == currentId ? 2 : 1)
-                                )
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
-                    }
-                } else {
-                    LazyVGrid(columns: columns, spacing: 12) {
-                        ForEach(AvatarPresets.all) { style in
-                            Button {
-                                onSelect(style.id)
-                                dismiss()
-                            } label: {
-                                VStack {
-                                    AvatarThumbView(style: style)
-                                        .frame(width: 100, height: 130)
-                                    Text(style.name).font(.caption.bold())
-                                        .foregroundStyle(CinemaTheme.ink)
-                                    Text(style.summary).font(.caption2).foregroundStyle(CinemaTheme.inkMuted)
-                                        .multilineTextAlignment(.center)
+                    } else {
+                        LazyVGrid(columns: columns, spacing: 12) {
+                            ForEach(AvatarPresets.all) { style in
+                                Button {
+                                    onSelect(style.id)
+                                    dismiss()
+                                } label: {
+                                    VStack {
+                                        AvatarThumbView(style: style)
+                                            .frame(width: 100, height: 130)
+                                        Text(style.name).font(.caption.bold())
+                                            .foregroundStyle(CinemaTheme.ink)
+                                        Text(style.summary).font(.caption2).foregroundStyle(CinemaTheme.inkMuted)
+                                            .multilineTextAlignment(.center)
+                                    }
+                                    .padding(8)
+                                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 14)
+                                            .stroke(style.id == currentId
+                                                    ? CinemaTheme.accentWarm
+                                                    : CinemaTheme.borderSoft,
+                                                    lineWidth: style.id == currentId ? 2 : 1)
+                                    )
                                 }
-                                .padding(8)
-                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 14)
-                                        .stroke(style.id == currentId
-                                                ? CinemaTheme.accentWarm
-                                                : CinemaTheme.borderSoft,
-                                                lineWidth: style.id == currentId ? 2 : 1)
-                                )
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
                     }
                 }

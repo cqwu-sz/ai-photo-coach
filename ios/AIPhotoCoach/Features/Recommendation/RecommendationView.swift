@@ -1238,9 +1238,11 @@ private struct CaptureAdvisoryBanner: View {
 
 /// Tiny flow layout — wraps inline issue chips when they overflow the row.
 /// SwiftUI's `Layout` protocol shipped in iOS 16 and our deployment target
-/// is 17.0, so no `@available` gate is needed. We spell `Subviews` with
-/// the qualified `LayoutSubviews` type alias because Xcode 16 occasionally
-/// fails to resolve the unqualified nested type during WMO.
+/// is 17.0. Under Swift 6 the protocol is implicitly `@MainActor`, so
+/// the conforming type must opt into MainActor isolation too — without
+/// the attribute Xcode 16 reports "inheritance from non-protocol type 'Layout'"
+/// because it cannot resolve the protocol from a nonisolated context.
+@MainActor
 private struct FlowLayout: Layout {
     var spacing: CGFloat = 6
 

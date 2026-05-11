@@ -888,19 +888,30 @@ extension ShotNavigationModel: ARSessionDelegate {
             * (Float(width) / imgWidth)
         let lateralSplit = splitByLateralGap(frontGroup,
                                              gapPixels: max(8, gapPixels))
-        let cluster = lateralSplit.first.count >= 8
-            ? lateralSplit.first
-            : (frontGroup.count >= 8 ? frontGroup : samples)
+        // `splitByLateralGap` returns [[…]]; `.first` is Array.first
+        // and therefore optional. Unwrap explicitly + fall through to
+        // the front group or the raw samples if it's empty.
+        let firstLateral = lateralSplit.first ?? []
+        let cluster: [(u: Float, v: Float, z: Float)]
+        if firstLateral.count >= 8 {
+            cluster = firstLateral
+        } else if frontGroup.count >= 8 {
+            cluster = frontGroup
+        } else {
+            cluster = samples
+        }
 
         // Matte density check: a real human's pixels are densely
         // packed in (u,v); a wall noise cluster spreads thinly across
         // the matte. We compute fill ratio = #samples / (du * dv) and
         // reject anything below 0.0003 sample/px² (tuned empirically).
-        let uMin = cluster.map(\.u).min() ?? 0
-        let uMax = cluster.map(\.u).max() ?? 0
-        let vMin = cluster.map(\.v).min() ?? 0
-        let vMax = cluster.map(\.v).max() ?? 0
-        let bboxArea = max(1, (uMax - uMin) * (vMax - vMin))
+        // Swift 6 won't infer key paths into named tuple elements in
+        // some contexts, so we spell the projections out explicitly.
+        let uMin = cluster.map { $0.u }.min() ?? 0
+        let uMax = cluster.map { $0.u }.max() ?? 0
+        let vMin = cluster.map { $0.v }.min() ?? 0
+        let vMax = cluster.map { $0.v }.max() ?? 0
+        let bboxArea: Float = max(1, (uMax - uMin) * (vMax - vMin))
         let fillRatio = Float(cluster.count) / bboxArea
         if fillRatio < 0.0003 { return nil }
 
@@ -1181,15 +1192,19 @@ struct ShotNavigationView: View {
         .padding(.top, 8)
     }
 
-    @ViewBuilder
     private var anchorBadge: some View {
-        let label: String
-        switch model.anchorMode {
-        case .geo:    label = "GeoAnchor"
-        case .indoor: label = "Indoor"
-        case .world:  label = "WorldAnchor"
-        }
-        Text(label)
+        // Extract label as a plain helper so the @ViewBuilder body
+        // contains only View expressions. Free-standing `let` + switch
+        // statements at the top of a ViewBuilder closure are rejected
+        // under Swift 6 as "buildExpression is unavailable".
+        let label: String = {
+            switch model.anchorMode {
+            case .geo:    return "GeoAnchor"
+            case .indoor: return "Indoor"
+            case .world:  return "WorldAnchor"
+            }
+        }()
+        return Text(label)
             .font(.caption2)
             .foregroundStyle(.secondary)
             .padding(.horizontal, 8).padding(.vertical, 4)
