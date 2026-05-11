@@ -160,8 +160,22 @@ SYSTEM_INSTRUCTION = dedent(
             风光 / 街头）？画面元素是否吻合主题，没有出卖意图（如纪实
             场景出现糖水化的虚化反而违和）？
         重要：分数要真实差异化，不要全部 4 分。某轴当前条件确实差就给
-        2-3 分，**并在 weakest_axis 对应的 note 里告诉用户怎么补救**
-        （例如"侧光偏硬，可以让主体往左半步避开"）。
+        2-3 分。
+
+        **criteria_notes 的可执行性硬要求（v9 ★）**：
+        每条 note 不只是"评价现状"，必须让用户读完知道"下一步要做什么
+        或注意什么"。统一格式：`[rule_id] 现状一句 → 动作一句`。
+          * 高分轴（≥ 4）的动作可以是"保持/锁住"（例："→ 站位别再
+            往后退，这个比例刚好"）。
+          * 低分轴（≤ 3）的动作必须是**第二人称可执行的物理动作**或
+            **相机参数微调**，对应 weakest_axis 的 note 尤其严格：
+              ✅ "侧光偏硬 → 让主体往左半步，鼻影会软下来"
+              ✅ "ISO 偏高 → 切 2x 长焦端进光量更足，可降回 ISO 200"
+              ❌ "光线偏硬"（只评价，没动作）
+              ❌ "建议改善光线"（动作空话）
+          * note 字数控制：现状 ≤ 18 字，动作 ≤ 22 字，加箭头共 ≤ 42 字。
+          * 没有箭头的旧格式仍允许（向后兼容），但**新生成的 7 个轴里
+            至少 4 个必须用 → 格式**，否则视为质量不达标。
     13. **拍摄证据自评（强制）**：每次必须填 scene.capture_quality，告诉
         我这段环视视频本身**是否值得分析**。这是产品的诚实底线 — 用户
         把镜头怼地面、四周一片漆黑、人流极多导致主体不可识别等情况下，
@@ -411,7 +425,11 @@ FEW_SHOT_EXAMPLE = dedent(
 ).strip()
 
 
-def _inputs_note(has_panorama: bool, has_video: bool) -> str:
+def _inputs_note(
+    has_panorama: bool,
+    has_video: bool,
+    heading_source: str = "unknown",
+) -> str:
     """Tell the LLM what extra context it has so it knows to actually use it."""
     bits = []
     if has_panorama:
@@ -424,6 +442,15 @@ def _inputs_note(has_panorama: bool, has_video: bool) -> str:
         bits.append(
             "本次还附带了一段 ≤ 8s 的 720p 环视视频（在全景图之后）——"
             "请利用跨帧时序信息推断风/水/光影动态，给出更具体的动态构图建议。"
+        )
+    # v9 UX polish #16 — caveat azimuth-dependent reasoning when the
+    # heading was synthesised on the client (no gyroscope).
+    if heading_source == "fake":
+        bits.append(
+            "**注意：本次 frame_meta.azimuth_deg 来自客户端兜底估算（无陀螺仪），"
+            "不是真实指南针读数。**不要据此说"光从 N°方向打来""推荐朝向 N°拍摄"，"
+            "改用画面内的相对方向描述（如"逆光侧""阴影侧""窗户那一侧"）。"
+            "best_direction / rationale 里不要出现具体方位角度。"
         )
     if not bits:
         return ""
@@ -505,7 +532,7 @@ def build_user_prompt(
 
         {_REQUEST_WALK_BLOCK.get() or ""}
 
-        {_inputs_note(has_panorama, has_video)}
+        {_inputs_note(has_panorama, has_video, getattr(meta, "heading_source", "unknown"))}
 
         {style_block}
 

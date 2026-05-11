@@ -322,6 +322,61 @@
   letter-spacing: 0.02em;
 }
 
+/* ---------- Trust card (v9 UX polish #12) ------------------------ */
+.welcome-trust {
+  margin-top: 4px;
+  padding: 18px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.welcome-trust-title {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.welcome-trust-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 720px) {
+  .welcome-trust-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.welcome-trust-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+.welcome-trust-glyph {
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+.welcome-trust-cell b {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-bright, #f5f4ee);
+}
+.welcome-trust-cell span {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.welcome-trust-cell code {
+  background: rgba(244, 184, 96, 0.08);
+  color: rgba(244, 184, 96, 0.85);
+  font-size: 11px;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
 /* ---------- Footer ----------------------------------------------- */
 .welcome-footer {
   display: flex;
@@ -333,6 +388,12 @@
   color: var(--text-muted);
   letter-spacing: 0.02em;
 }
+.welcome-footer-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--dur-base) var(--ease-out);
+}
+.welcome-footer-link:hover { color: var(--accent); }
 .welcome-link {
   color: var(--text-soft);
   text-decoration: none;
@@ -347,13 +408,15 @@
 .welcome-hero,
 .welcome-marquee,
 .welcome-features,
+.welcome-trust,
 .welcome-actions {
   animation: welcome-rise 720ms var(--ease-spring) both;
 }
 .welcome-hero      { animation-delay: 80ms; }
 .welcome-marquee   { animation-delay: 200ms; }
 .welcome-features  { animation-delay: 320ms; }
-.welcome-actions   { animation-delay: 460ms; }
+.welcome-trust     { animation-delay: 400ms; }
+.welcome-actions   { animation-delay: 480ms; }
 
 @keyframes welcome-rise {
   from { opacity: 0; transform: translateY(16px); }
@@ -363,5 +426,6 @@
   .welcome-hero,
   .welcome-marquee,
   .welcome-features,
+  .welcome-trust,
   .welcome-actions { animation: none !important; }
 }

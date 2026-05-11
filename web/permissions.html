@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>拾光 · 准备一下</title>
+    <meta
+      name="description"
+      content="拾光需要摄像头、方向感应、位置三项授权来出方案。本页一次性说明每一项的用途，并引导你开启。"
+    />
+    <link rel="stylesheet" href="/web/css/style.css" />
+    <style>
+      .perms-shell {
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 28px 20px 40px;
+        color: var(--ink, #f5f4ee);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .perms-eyebrow {
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(245, 244, 238, 0.55);
+        font-weight: 600;
+      }
+      .perms-title {
+        font-size: 28px;
+        line-height: 1.25;
+        margin: 4px 0 0;
+        font-weight: 800;
+      }
+      .perms-title .grad-text {
+        background: linear-gradient(135deg, #f4b860 0%, #ff7a6c 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .perms-sub {
+        font-size: 13.5px;
+        line-height: 1.6;
+        color: rgba(245, 244, 238, 0.7);
+        margin: 0;
+      }
+      .perms-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 4px;
+      }
+      .perm-card {
+        display: grid;
+        grid-template-columns: 36px 1fr auto;
+        gap: 12px;
+        align-items: start;
+        padding: 14px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: border-color 0.2s, background 0.2s;
+      }
+      .perm-card[data-state="granted"] {
+        border-color: rgba(69, 200, 156, 0.55);
+        background: rgba(69, 200, 156, 0.08);
+      }
+      .perm-card[data-state="denied"] {
+        border-color: rgba(238, 102, 102, 0.5);
+        background: rgba(238, 102, 102, 0.08);
+      }
+      .perm-card[data-state="pending"] {
+        border-color: rgba(244, 184, 96, 0.55);
+        background: rgba(244, 184, 96, 0.08);
+      }
+      .perm-icon {
+        font-size: 20px;
+        line-height: 1;
+        width: 36px;
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 10px;
+      }
+      .perm-body { min-width: 0; }
+      .perm-name {
+        font-size: 14px;
+        font-weight: 700;
+        margin: 0 0 2px;
+        color: var(--ink, #f5f4ee);
+      }
+      .perm-desc {
+        font-size: 12px;
+        line-height: 1.5;
+        color: rgba(245, 244, 238, 0.6);
+        margin: 0;
+      }
+      .perm-recovery {
+        margin: 8px 0 0;
+        padding: 8px 10px;
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        font-size: 11.5px;
+        line-height: 1.5;
+        color: rgba(255, 195, 195, 0.85);
+        display: none;
+      }
+      .perm-card[data-state="denied"] .perm-recovery { display: block; }
+      .perm-status {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 999px;
+        white-space: nowrap;
+        align-self: center;
+        color: rgba(245, 244, 238, 0.55);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .perm-card[data-state="granted"] .perm-status {
+        color: #45c89c;
+        background: rgba(69, 200, 156, 0.15);
+      }
+      .perm-card[data-state="denied"] .perm-status {
+        color: #ff8e8e;
+        background: rgba(238, 102, 102, 0.15);
+      }
+      .perm-card[data-state="pending"] .perm-status {
+        color: #f4b860;
+        background: rgba(244, 184, 96, 0.18);
+      }
+      .perms-cta {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .perms-cta .btn {
+        width: 100%;
+        padding: 14px 18px;
+        border-radius: 14px;
+        border: 1px solid rgba(244, 184, 96, 0.65);
+        background: linear-gradient(135deg, rgba(244, 184, 96, 0.95) 0%, rgba(255, 122, 108, 0.95) 100%);
+        color: #1a1410;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+      .perms-cta .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(244, 184, 96, 0.3); }
+      .perms-cta .btn:active { transform: translateY(0); }
+      .perms-cta .btn:disabled { opacity: 0.55; cursor: progress; }
+      .perms-cta .btn-secondary {
+        background: transparent;
+        border-color: rgba(255, 255, 255, 0.15);
+        color: rgba(245, 244, 238, 0.85);
+        font-weight: 600;
+      }
+      .perms-note {
+        font-size: 11.5px;
+        line-height: 1.55;
+        color: rgba(245, 244, 238, 0.45);
+        text-align: center;
+        margin: 6px 0 0;
+      }
+      .perms-skip {
+        background: none;
+        border: none;
+        color: rgba(245, 244, 238, 0.45);
+        font-size: 12px;
+        cursor: pointer;
+        margin-top: 4px;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .perms-skip:hover { color: rgba(245, 244, 238, 0.75); }
+    </style>
+  </head>
+  <body>
+    <div class="aurora-bg" aria-hidden="true">
+      <span class="aurora a1"></span>
+      <span class="aurora a2"></span>
+      <span class="aurora a3"></span>
+    </div>
+
+    <main class="perms-shell">
+      <span class="perms-eyebrow">PERMISSIONS · 1 / 1</span>
+      <h1 class="perms-title">先开三个开关 <span class="grad-text">就能出方案</span></h1>
+      <p class="perms-sub">
+        拾光只在出方案那一刻用这些数据，**不会**上传到第三方、不会持续读取。
+        每一项任选都可以跳过——跳过的功能会自动降级。
+      </p>
+
+      <div class="perms-list" id="perms-list">
+        <!-- ── Camera ──────────────────────────────────────────────── -->
+        <div class="perm-card" id="perm-camera" data-state="idle">
+          <span class="perm-icon" aria-hidden="true">📷</span>
+          <div class="perm-body">
+            <p class="perm-name">摄像头</p>
+            <p class="perm-desc">用来录你眼前的现场（10 秒环视）。<b>必需</b>，否则没法出方案。</p>
+            <p class="perm-recovery">
+              已拒绝。在 <b>iOS</b>：设置 → Safari → 摄像头 → 选「询问」或「允许」；
+              <b>Android</b>：长按地址栏锁图标 → 网站设置 → 摄像头 → 允许。
+            </p>
+          </div>
+          <span class="perm-status">未请求</span>
+        </div>
+
+        <!-- ── Orientation / Heading ───────────────────────────────── -->
+        <div class="perm-card" id="perm-orientation" data-state="idle">
+          <span class="perm-icon" aria-hidden="true">🧭</span>
+          <div class="perm-body">
+            <p class="perm-name">方向感应</p>
+            <p class="perm-desc">让 AI 知道你环视到了哪些角度，<b>建议开</b>。拒绝时会用鼠标/触摸模拟，方向结果仅供参考。</p>
+            <p class="perm-recovery">
+              已拒绝。在 <b>iOS</b>：设置 → Safari → 动作与方向访问 → 打开；
+              <b>Android</b>：通常无需单独授权，刷新页面再试。
+            </p>
+          </div>
+          <span class="perm-status">未请求</span>
+        </div>
+
+        <!-- ── Geolocation ────────────────────────────────────────── -->
+        <div class="perm-card" id="perm-geo" data-state="idle">
+          <span class="perm-icon" aria-hidden="true">📍</span>
+          <div class="perm-body">
+            <p class="perm-name">位置（粗略）</p>
+            <p class="perm-desc">算太阳方位、黄金时刻倒计时和附近的机位推荐。<b>可选</b>，拒绝后方案仍可出，只是没有光线/POI 加成。位置存本地、四舍五入到 11m 网格。</p>
+            <p class="perm-recovery">
+              已拒绝。在 <b>iOS</b>：设置 → Safari → 位置 → 选「询问」或「允许」；
+              <b>Android</b>：长按地址栏锁图标 → 网站设置 → 位置 → 允许。
+            </p>
+          </div>
+          <span class="perm-status">未请求</span>
+        </div>
+      </div>
+
+      <div class="perms-cta">
+        <button id="perms-start" class="btn" type="button">
+          <span id="perms-start-label">一键全部开启</span>
+        </button>
+        <button id="perms-continue" class="btn btn-secondary" type="button" style="display:none">
+          继续 · 进入设置场景
+        </button>
+        <button id="perms-skip" class="perms-skip" type="button">现在不想开，先看看就好</button>
+      </div>
+
+      <p class="perms-note">
+        每项权限只在你启动「环视」时使用一次；不会后台运行。可在浏览器设置里随时撤销。
+      </p>
+    </main>
+
+    <script type="module" src="/web/js/permissions.js"></script>
+  </body>
+</html>

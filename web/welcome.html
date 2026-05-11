@@ -6,11 +6,16 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>拾光 · 你的随身 AI 摄影导演</title>
+    <title>拾光 · AI 摄影教练</title>
     <meta
       name="description"
-      content="拾光 · 随身的 AI 摄影导演。环视一圈，立刻得到一份出片方案：取景、构图、相机参数、人物姿势。1 到 4 人都能拍。"
+      content="拾光 · 随身的 AI 摄影教练。环视一圈，立刻得到一份出片方案：取景、构图、相机参数、人物姿势。1 到 4 人都能拍。"
     />
+    <link rel="manifest" href="/web/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/web/img/icon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/web/img/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/web/img/icon-180.png" />
+    <meta name="theme-color" content="#0a0c18" />
     <link rel="stylesheet" href="/web/css/style.css" />
     <link rel="stylesheet" href="/web/css/welcome.css" />
   </head>
@@ -78,6 +83,30 @@
         </div>
       </section>
 
+      <!-- ============== WHY TRUSTWORTHY ============== -->
+      <!-- v9 UX polish #12 — 不靠 buzzword，给一段"为什么相信它"的硬证据。
+           摆出 KB / NREL / 评分维度三件套，让用户在按 CTA 之前知道这不是黑盒。 -->
+      <section class="welcome-trust" aria-label="为什么靠谱">
+        <h2 class="welcome-trust-title">为什么它给的建议靠谱</h2>
+        <div class="welcome-trust-grid">
+          <div class="welcome-trust-cell">
+            <span class="welcome-trust-glyph" aria-hidden="true">📐</span>
+            <b>50+ 条专业摄影规则</b>
+            <span>构图 / 光线 / 色彩 / 景深 / 主体感等知识库，每条建议都标注规则来源（点开方案能看到 <code>[rule_id]</code>）</span>
+          </div>
+          <div class="welcome-trust-cell">
+            <span class="welcome-trust-glyph" aria-hidden="true">☀</span>
+            <b>太阳算法本地计算</b>
+            <span>用 NREL SPA 算法在你这台设备上算太阳方位 / 高度角 / 黄金时刻倒计时，不依赖外部 API</span>
+          </div>
+          <div class="welcome-trust-cell">
+            <span class="welcome-trust-glyph" aria-hidden="true">★</span>
+            <b>7 维评分 + 可执行建议</b>
+            <span>每个方案的构图 / 光线 / 色彩 / 景深等 7 个维度都打 1-5 分，弱项配一句"侧身半步往左"这种可执行动作</span>
+          </div>
+        </div>
+      </section>
+
       <!-- ============== CTA ============== -->
       <section class="welcome-actions">
         <button id="welcome-start" class="btn btn-cta welcome-cta" type="button">
@@ -86,14 +115,21 @@
             <path d="M5 12h14"></path><path d="m13 5 7 7-7 7"></path>
           </svg>
         </button>
+        <!-- v9 UX polish #3 — anchor anonymity expectations up-front:
+             ① no sign-up; ② anonymous account auto-clears in 30 days
+             of inactivity (matches privacy.html §5). -->
         <p class="welcome-note">
-          所有数据只保存在你这台设备
+          免注册即可使用 · 环视画面用于本次出片，关键数据脱敏后协助 AI 进步
+          · 30 天不来匿名账号自动清空，也可随时一键删除
+          · 详情见 <a href="/web/privacy.html">隐私政策</a>
         </p>
       </section>
 
       <!-- ============== FOOTER (mini links) ============== -->
       <footer class="welcome-footer">
-        <span>v0.4</span>
+        <a href="/web/history.html" class="welcome-footer-link">历史方案</a>
+        <span aria-hidden="true">·</span>
+        <a href="/web/privacy.html" class="welcome-footer-link">隐私政策</a>
       </footer>
     </main>
 

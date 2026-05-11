@@ -13,6 +13,7 @@ import { saveCapturedFrames } from "./frames_db.js";
 import { getReferenceBlobs, listReferences } from "./reference_db.js";
 import { getActiveModelConfig } from "./model_settings.js";
 import { ensureGeoFix, sceneModeNeedsGeo } from "./geo.js";
+import { normaliseError, buildErrorView } from "./error_messages.js";
 
 const settings = loadSettings();
 if (!settings) {
@@ -54,22 +55,192 @@ let isRecording = false;
 let stream = null;
 let lastSamples = null; // for retry
 let lastVideoBlob = null; // optional 720p clip captured in high quality mode
+// v9 UX polish #16 — record whether heading came from a real sensor
+// ("sensor") or our mouse-fake fallback ("fake"). The backend
+// reranks shots by azimuth; faked headings should be flagged so the
+// LLM can de-emphasise direction-dependent recommendations and the
+// UI can render a "未获取方向数据" caveat.
+let headingSource = "unknown";
 
-heading.on(({ azimuthDeg, coveredAngles, coverageProgress }) => {
+// v9 UX polish #2 — real-time coaching while recording. The heading
+// callback now only paints the ring + needle; the textual hint is
+// owned by `liveCoachLoop`, which fuses three signals every 500ms:
+//   - rolling mean luma over the latest samples (太暗?)
+//   - rolling blur median       (糊?)
+//   - heading angular speed     (转太快? 没动?)
+//   - coverage progress         (够了吗?)
+// One hint at a time, picked by severity ladder so we don't flicker.
+//
+// When not recording, the message is the static "ready" copy.
+
+heading.on(({ azimuthDeg, coveredAngles }) => {
   renderHeadingRing(ringSvg, coveredAngles);
   needle.style.transform = `rotate(${azimuthDeg}deg)`;
   if (!isRecording) {
     hint.textContent = "对准场景，点录制开始环视一圈";
-  } else if (coverageProgress >= 0.9) {
-    hint.textContent = "覆盖完成 ✓ 可以停止录制";
-  } else if (coverageProgress >= 0.5) {
-    hint.textContent = "继续顺时针转动手机...";
-  } else {
-    hint.textContent = `缓慢顺时针转动 (覆盖 ${Math.round(
-      coverageProgress * 100,
-    )}%)`;
   }
 });
+
+// Buffer of recent {tMs, az} for angular-velocity calc. We pop entries
+// older than 2s on every tick.
+const headingHistory = [];
+let coachTimer = null;
+
+// v9 UX polish #15 — capture-quality thresholds keyed by scene mode.
+// The previous defaults (`luma < 0.06` block, `0.12` warn) were tuned
+// for daytime portrait shoots and falsely blocked legitimate
+// light_shadow (silhouettes, dusk) and scenery (sky-only) captures.
+// Each entry overrides only the keys that differ from the default.
+const QUALITY_THRESHOLDS_DEFAULT = {
+  lumaBlock: 0.06,
+  lumaWarn:  0.12,
+  azBlock:   30,
+  azWarn:    90,
+  blurBlock: 1.5,
+  blurWarn:  4,
+  pitchWarn: 35,
+  // Live coach thresholds (these are softer because they nudge during
+  // recording rather than block the upload).
+  liveLumaWarn: 0.08,
+  liveSpeedWarn: 90,
+};
+
+const QUALITY_THRESHOLDS_BY_MODE = {
+  light_shadow: {
+    // Silhouettes / golden hour / blue hour intentionally underexpose
+    // the foreground; the LLM still has plenty to work with.
+    lumaBlock: 0.02,
+    lumaWarn:  0.05,
+    liveLumaWarn: 0.04,
+    // Slower hand pans expected (people savouring the light).
+    liveSpeedWarn: 75,
+  },
+  scenery: {
+    // No-people landscape mode — tilt up to skies or down to ground
+    // is normal. Loosen pitch tolerance.
+    pitchWarn: 50,
+    // The user may scan a 360° vista; require a wider span before
+    // we call it "narrow_pan".
+    azWarn: 120,
+  },
+  closeup: {
+    // Tight face / detail crops — pan can be very small (60°) and
+    // that's fine; the LLM is mostly looking at one angle anyway.
+    azBlock: 20,
+    azWarn:  60,
+  },
+};
+
+function qualityThresholds(sceneMode) {
+  const override = QUALITY_THRESHOLDS_BY_MODE[sceneMode] || {};
+  return { ...QUALITY_THRESHOLDS_DEFAULT, ...override };
+}
+
+function pushHeading(tMs, az) {
+  headingHistory.push({ tMs, az });
+  while (headingHistory.length && tMs - headingHistory[0].tMs > 2200) {
+    headingHistory.shift();
+  }
+}
+
+function angularSpeedDegPerSec() {
+  // Use last ~1s window so single jitter samples don't dominate.
+  const now = performance.now();
+  const recent = headingHistory.filter((h) => now - h.tMs <= 1000);
+  if (recent.length < 2) return 0;
+  let total = 0;
+  for (let i = 1; i < recent.length; i++) {
+    let d = recent[i].az - recent[i - 1].az;
+    // Unwrap across 360° boundary (e.g. 358° → 2° is +4°, not -356°)
+    if (d > 180) d -= 360;
+    if (d < -180) d += 360;
+    total += Math.abs(d);
+  }
+  const span = (recent[recent.length - 1].tMs - recent[0].tMs) / 1000;
+  return span > 0 ? total / span : 0;
+}
+
+function headingDeltaLast2s() {
+  if (headingHistory.length < 2) return 0;
+  const first = headingHistory[0].az;
+  const last = headingHistory[headingHistory.length - 1].az;
+  let d = last - first;
+  if (d > 180) d -= 360;
+  if (d < -180) d += 360;
+  return d;
+}
+
+function evaluateLiveHint() {
+  if (!sampler) return;
+  const samples = sampler.samples;
+  // Need at least ~5 samples (0.5s of recording) to say anything sensible.
+  if (samples.length < 5) {
+    hint.textContent = "开始环视，对准最想拍的方向…";
+    return;
+  }
+
+  // Track heading for angular velocity.
+  const snap = heading.snapshot();
+  pushHeading(performance.now(), snap.azimuthDeg);
+
+  // Rolling means over the most recent ~1.5s of samples.
+  const recent = samples.slice(-Math.min(samples.length, 12));
+  const lumaArr = recent.map((s) => s.meanLuma).filter((v) => v != null);
+  const blurArr = recent.map((s) => s.blurScore).filter((v) => v != null);
+  const meanLuma = lumaArr.length ? lumaArr.reduce((a, b) => a + b, 0) / lumaArr.length : null;
+  const medianBlur = blurArr.length ? median(blurArr) : null;
+
+  const speed = angularSpeedDegPerSec();
+  const last2sDelta = Math.abs(headingDeltaLast2s());
+  const coverage = snap.coveredAngles.size / 12;
+
+  // v9 UX polish #15 — scene-aware thresholds. light_shadow has a much
+  // looser luma floor (silhouettes are dark on purpose); scenery
+  // tolerates wider pitch (you're looking up at skies).
+  const T = qualityThresholds(settings.sceneMode);
+
+  // Severity ladder — pick the single most actionable hint. Lower
+  // priority hints still show via the ring colour later if needed.
+  if (meanLuma != null && meanLuma < T.liveLumaWarn) {
+    hint.textContent = "环境太暗 — 转向更亮的方向再试";
+    return;
+  }
+  if (speed > T.liveSpeedWarn) {
+    hint.textContent = "转得有点快 — 慢一点，让 AI 看清楚";
+    return;
+  }
+  if (medianBlur != null && medianBlur < 2.2 && speed > 40) {
+    hint.textContent = "画面有些糊 — 放慢手势 / 别让手抖";
+    return;
+  }
+  if (samples.length >= 12 && last2sDelta < 4) {
+    hint.textContent = "继续顺时针转一点，把没覆盖的角度补上";
+    return;
+  }
+  if (coverage >= 0.9) {
+    hint.textContent = "覆盖完成 ✓ 可以停止录制";
+    return;
+  }
+  if (coverage >= 0.5) {
+    hint.textContent = `继续顺时针转，已覆盖 ${Math.round(coverage * 100)}%`;
+    return;
+  }
+  hint.textContent = `缓慢顺时针转动 · 覆盖 ${Math.round(coverage * 100)}%`;
+}
+
+function startLiveCoach() {
+  stopLiveCoach();
+  headingHistory.length = 0;
+  coachTimer = setInterval(evaluateLiveHint, 500);
+  evaluateLiveHint();
+}
+
+function stopLiveCoach() {
+  if (coachTimer) {
+    clearInterval(coachTimer);
+    coachTimer = null;
+  }
+}
 
 renderHeadingRing(ringSvg, new Set());
 
@@ -82,12 +253,26 @@ renderHeadingRing(ringSvg, new Set());
     video.srcObject = stream;
     await video.play();
   } catch (err) {
-    showError(`摄像头授权失败：${err.message}`, false);
+    // Camera authorisation is a user-permission concern, not an API
+    // error — keep the explicit copy so the user knows what to do next.
+    const name = err && err.name ? err.name : "";
+    let copy;
+    if (/NotAllowedError|PermissionDenied/.test(name)) {
+      copy = "摄像头被拒绝授权。去手机系统「设置 → 隐私 → 相机」里打开 Safari 的权限再回来。";
+    } else if (/NotFoundError|DevicesNotFound/.test(name)) {
+      copy = "没找到可用的摄像头。换一台设备或检查浏览器是否支持。";
+    } else if (/NotReadableError/.test(name)) {
+      copy = "摄像头被另一个 App 占用了，关闭后重试。";
+    } else {
+      copy = `摄像头无法打开：${err && err.message ? err.message : err}`;
+    }
+    showError(copy, false);
     return;
   }
 
   const headingResult = await heading.start();
-  if (headingResult.mode === "fake") {
+  headingSource = headingResult && headingResult.mode === "sensor" ? "sensor" : "fake";
+  if (headingSource === "fake") {
     hint.textContent = "无陀螺仪 - 移动鼠标模拟方向";
   }
 })();
@@ -157,10 +342,12 @@ recordBtn.addEventListener("click", async () => {
       qualityMode: settings.qualityMode || "fast",
     });
     sampler.start();
+    startLiveCoach();
     startVideoRecording();
   } else {
     isRecording = false;
     recordBtn.classList.remove("recording");
+    stopLiveCoach();
     const samples = sampler.stop();
     sampler = null;
     const videoBlob = await stopVideoRecording();
@@ -211,29 +398,44 @@ function resetStages() {
   });
 }
 
-const FUNNY_TIPS = [
-  "正在数你现场里有多少棵树…",
-  "在纠结用 35mm 还是 50mm…",
-  "在脑子里给你模特排个位置…",
-  "盯着光线方向看了 10 秒…",
-];
+// v9 UX polish #5 — tips降噪。原来 4 条 funny tips 每 2.4s 循环一次，
+// 高质量模式 60s 会循环 25 圈，搞笑变烦人。
+// 改成"按真实阶段切文案 + 最后一段才出一句轻松话术"，配合 stage 链：
+//   - extract:    "正在挑选最好的几帧…"
+//   - upload:     "正在把现场上传给 AI…"
+//   - ai:         "AI 在为你出方案…"   (停留最久，加一句安抚)
+//   - render:     "整理完成，马上呈现"
+// 切换由 setStage(...) 驱动，不再用 setInterval 轮播。
+const STAGE_COPY = {
+  extract: { msg: "正在挑选最好的几帧…", sub: null },
+  upload:  { msg: "正在把现场上传给 AI…", sub: null },
+  ai:      { msg: "AI 在为你出方案…", sub: "高质量模式 ≈ 60 秒，留意构图与光线" },
+  render:  { msg: "整理完成，马上呈现", sub: null },
+};
 
-function rotateTip() {
-  if (!spinnerMsg) return null;
-  let i = 0;
-  spinnerMsg.textContent = FUNNY_TIPS[0];
-  return setInterval(() => {
-    i = (i + 1) % FUNNY_TIPS.length;
-    spinnerMsg.textContent = FUNNY_TIPS[i];
-  }, 2400);
+function setSpinnerCopy(stage) {
+  if (!spinnerMsg) return;
+  const entry = STAGE_COPY[stage];
+  if (!entry) return;
+  spinnerMsg.textContent = entry.msg;
+  // We render sub only when present, in a smaller line under the main
+  // message. Reuses the stage's span so we don't introduce extra DOM.
+  let subEl = spinnerMsg.querySelector(".spinner-sub");
+  if (!subEl) {
+    subEl = document.createElement("span");
+    subEl.className = "spinner-sub";
+    spinnerMsg.appendChild(subEl);
+  }
+  subEl.textContent = entry.sub || "";
+  subEl.style.display = entry.sub ? "block" : "none";
 }
 
 async function runAnalyze(samples) {
   hideError();
   spinner.style.display = "flex";
   resetStages();
-  const tipTimer = rotateTip();
   setStage("extract", "active");
+  setSpinnerCopy("extract");
   try {
     const keyframes = selectKeyframes(samples, 10);
     if (keyframes.length < 4) {
@@ -241,6 +443,7 @@ async function runAnalyze(samples) {
     }
     setStage("extract", "done");
     setStage("upload", "active");
+    setSpinnerCopy("upload");
 
     // Per-keyframe semantic signals (person box / saliency quadrant /
     // horizon tilt). Runs MediaPipe + canvas Sobel; total < ~1s for 10
@@ -254,6 +457,12 @@ async function runAnalyze(samples) {
       scene_mode: sceneMode,
       quality_mode: settings.qualityMode,
       style_keywords: settings.styleKeywords,
+      // v9 UX polish #16 — heading_source lets the backend know whether
+      // the azimuth values it sees are real sensor readings or our
+      // mouse-fake fallback (e.g. desktop demo). When "fake", azimuth-
+      // dependent reranking and the "AI 按光向重排方案" line should be
+      // suppressed or caveated.
+      heading_source: headingSource,
       frame_meta: keyframes.map((kf, i) => ({
         index: i,
         azimuth_deg: kf.azimuthDeg,
@@ -301,6 +510,7 @@ async function runAnalyze(samples) {
 
     setStage("upload", "done");
     setStage("ai", "active");
+    setSpinnerCopy("ai");
 
     const modelCfg = getActiveModelConfig();
     const response = await analyze({
@@ -318,6 +528,7 @@ async function runAnalyze(samples) {
 
     setStage("ai", "done");
     setStage("render", "active");
+    setSpinnerCopy("render");
     await new Promise((r) => setTimeout(r, 200));
     setStage("render", "done");
 
@@ -352,29 +563,29 @@ async function runAnalyze(samples) {
     saveResult(response);
     location.href = "/web/result.html";
   } catch (err) {
-    const msg = friendlyError(err.message || String(err));
-    showError(`分析失败：${msg}`, true);
+    const norm = normaliseError(err);
+    showError(norm, true);
   } finally {
-    if (tipTimer) clearInterval(tipTimer);
     spinner.style.display = "none";
   }
 }
 
-function friendlyError(raw) {
-  if (/503|UNAVAILABLE|high demand/i.test(raw)) {
-    return "服务当前繁忙，稍等几秒点重试。";
+// v9 UX polish #4 — showError now accepts either a plain string (legacy
+// camera-authorization message) or a normalised error object. Strings
+// still render as-is so existing call sites don't break.
+function showError(msgOrNorm, retryable) {
+  errorEl.innerHTML = "";
+  if (typeof msgOrNorm === "string") {
+    errorEl.textContent = msgOrNorm;
+  } else {
+    const view = buildErrorView(msgOrNorm);
+    const heading = document.createElement("strong");
+    heading.style.display = "block";
+    heading.style.marginBottom = "4px";
+    heading.textContent = "分析失败";
+    errorEl.appendChild(heading);
+    errorEl.appendChild(view);
   }
-  if (/quota|RESOURCE_EXHAUSTED/i.test(raw)) {
-    return "今天免费额度用完了，明天再试。";
-  }
-  if (/network|fetch|Failed to fetch/i.test(raw)) {
-    return "网络连接不上，检查网络后重试。";
-  }
-  return raw.length > 220 ? raw.slice(0, 220) + "…" : raw;
-}
-
-function showError(msg, retryable) {
-  errorEl.textContent = msg;
   errorEl.style.display = "block";
   retryBar.style.display = retryable && lastSamples ? "flex" : "none";
 }
@@ -387,6 +598,7 @@ function hideError() {
 window.addEventListener("beforeunload", () => {
   if (stream) stream.getTracks().forEach((t) => t.stop());
   heading.stop();
+  stopLiveCoach();
 });
 
 // ───────────────────────────────────────────────────────────────────────
@@ -407,41 +619,53 @@ function assessCaptureQuality(samples) {
   if (!samples || samples.length === 0) {
     return { severity: "block", issues: ["录制为空"] };
   }
+  // v9 UX polish #15 — scene-aware thresholds prevent light_shadow /
+  // scenery shoots from being false-blocked by daytime portrait
+  // defaults. light_shadow's silhouettes are *meant* to be dark.
+  const T = qualityThresholds(settings.sceneMode);
+
   const lumas = samples.map((s) => s.meanLuma).filter((v) => v != null);
   const blurs = samples.map((s) => s.blurScore).filter((v) => v != null);
   const azs = samples.map((s) => s.azimuthDeg);
   const pitches = samples.map((s) => s.pitchDeg);
 
-  const meanLuma = avg(lumas);
-  const medianBlur = median(blurs);
+  // v9 UX polish #17 — when Safari handed us null luma/blur for every
+  // sample we have no signal at all, so we shouldn't loudly say "too
+  // dark / blurry". Treat empty arrays as "no data".
+  const meanLuma   = lumas.length ? avg(lumas) : null;
+  const medianBlur = blurs.length ? median(blurs) : null;
   const azSpan = Math.max(...azs) - Math.min(...azs);
   const pitchAbsAvg = avg(pitches.map((p) => Math.abs(p)));
 
   const issues = [];
   let severity = "ok";
 
-  if (meanLuma < 0.06) {
-    issues.push("环境太暗（亮度 < 6%）");
-    severity = "block";
-  } else if (meanLuma < 0.12) {
-    issues.push("环境偏暗（亮度 < 12%）");
-    severity = bump(severity, "warn");
+  if (meanLuma != null) {
+    if (meanLuma < T.lumaBlock) {
+      issues.push(`环境太暗（亮度 ${Math.round(meanLuma * 100)}%）`);
+      severity = "block";
+    } else if (meanLuma < T.lumaWarn) {
+      issues.push(`环境偏暗（亮度 ${Math.round(meanLuma * 100)}%）`);
+      severity = bump(severity, "warn");
+    }
   }
-  if (azSpan < 30) {
+  if (azSpan < T.azBlock) {
     issues.push(`环视范围太窄（仅转了 ${Math.round(azSpan)}°）`);
     severity = "block";
-  } else if (azSpan < 90) {
+  } else if (azSpan < T.azWarn) {
     issues.push(`环视范围偏窄（${Math.round(azSpan)}°，建议 > 180°）`);
     severity = bump(severity, "warn");
   }
-  if (medianBlur < 1.5) {
-    issues.push("画面偏糊，可能晃动太快或失焦");
-    severity = "block";
-  } else if (medianBlur < 4) {
-    issues.push("画面有些糊，建议慢一点");
-    severity = bump(severity, "warn");
+  if (medianBlur != null) {
+    if (medianBlur < T.blurBlock) {
+      issues.push("画面偏糊，可能晃动太快或失焦");
+      severity = "block";
+    } else if (medianBlur < T.blurWarn) {
+      issues.push("画面有些糊，建议慢一点");
+      severity = bump(severity, "warn");
+    }
   }
-  if (pitchAbsAvg > 35) {
+  if (pitchAbsAvg > T.pitchWarn) {
     issues.push(`镜头倾角偏大（平均 ${Math.round(pitchAbsAvg)}°），可能怼着地面或天空`);
     severity = bump(severity, "warn");
   }

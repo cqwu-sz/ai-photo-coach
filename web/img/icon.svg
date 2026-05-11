@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- þI PWA app icon  v9 UX polish #O3.
+     Used as the manifest icon fallback until generated PNGs are baked.
+     Aperture motif + warm-cool gradient mirroring the brand palette. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#1a1a2e"/>
+      <stop offset="50%" stop-color="#0e1024"/>
+      <stop offset="100%" stop-color="#04050b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="35%" cy="30%" r="65%">
+      <stop offset="0%"  stop-color="#f4b860" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#ff7a6c" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#f4b860"/>
+      <stop offset="100%" stop-color="#ff7a6c"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded square background for non-maskable contexts -->
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#glow)"/>
+
+  <!-- Aperture: 6 blades arranged around centre -->
+  <g transform="translate(256 256)" fill="none" stroke="url(#ring)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <circle r="120" stroke-opacity="0.95"/>
+    <g stroke-opacity="0.7">
+      <line x1="0" y1="-120" x2="0" y2="-60"/>
+      <line x1="104" y1="-60" x2="52" y2="-30"/>
+      <line x1="104" y1="60" x2="52" y2="30"/>
+      <line x1="0" y1="120" x2="0" y2="60"/>
+      <line x1="-104" y1="60" x2="-52" y2="30"/>
+      <line x1="-104" y1="-60" x2="-52" y2="-30"/>
+    </g>
+    <circle r="36" fill="#f4b860" stroke="none"/>
+  </g>
+</svg>

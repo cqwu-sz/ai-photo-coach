@@ -27,6 +27,27 @@ if (!response) {
   content.innerHTML = `<div class="empty-state">没有结果数据，回到首页重新拍摄。</div>`;
 } else {
   modelBadge.textContent = `model: ${response.model || "?"}`;
+
+  // v9 UX polish #19 — demo / mock responses are *not* AI output. Pin a
+  // banner above the shots so a first-time visitor can never mistake
+  // the canned content for a real recommendation.
+  const isDemo =
+    params.get("demo") === "v7" ||
+    /^mock(-\d+)?$/i.test(String(response.model || "")) ||
+    response?.debug?.mode === "mock";
+  if (isDemo) {
+    const demoBanner = document.createElement("div");
+    demoBanner.className = "demo-banner";
+    demoBanner.innerHTML = `
+      <span class="demo-banner-dot" aria-hidden="true">●</span>
+      <span class="demo-banner-text">
+        这是 <b>示范数据</b>，用来体验交互——回首页录一段真实环境就能拿到 AI 真实方案。
+      </span>
+      <a class="demo-banner-cta" href="/web/welcome.html">回首页录一段</a>
+    `;
+    content.parentElement?.insertBefore(demoBanner, content);
+  }
+
   renderResult(content, response);
 }
 

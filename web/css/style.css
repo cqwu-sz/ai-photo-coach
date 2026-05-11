@@ -315,6 +315,58 @@ button {
   margin: 6px 0 0;
   line-height: 1.5;
 }
+.form-hint a {
+  color: var(--accent, #f4b860);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* v9 UX polish #7 — advanced BYOK section is collapsed by default. */
+.form-advanced {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+.form-advanced[open] { background: rgba(244, 184, 96, 0.03); }
+.form-advanced-summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-soft, #ddd);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.form-advanced-summary::-webkit-details-marker { display: none; }
+.form-advanced-summary::before {
+  content: "▸";
+  display: inline-block;
+  width: 14px;
+  color: var(--text-dim);
+  transition: transform 0.15s;
+}
+.form-advanced[open] .form-advanced-summary::before { transform: rotate(90deg); }
+.form-advanced-sub {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-dim);
+}
+.form-advanced .form-label { margin-top: 12px; }
+
+/* v9 UX polish #O5 — BYOK security caveat. */
+.form-warn {
+  margin: 12px 0 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255, 200, 100, 0.07);
+  border: 1px solid rgba(255, 200, 100, 0.18);
+  color: rgba(245, 230, 200, 0.85);
+  font-size: 11.5px;
+  line-height: 1.55;
+}
 
 .drawer-actions {
   display: flex;
@@ -593,6 +645,16 @@ button {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* v9 UX polish #5 — spinner sub-line lets the long "AI 出方案" stage
+   show a one-line reassurance without spamming rotating tips. */
+.spinner-sub {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
 }
 
 /* ===== Result page ===== */
@@ -3325,11 +3387,70 @@ body .chip-row .chip:nth-child(n+6) { animation-delay: 200ms; }
   transform: translateY(-3px);
 }
 .scene-card.is-active::before { opacity: 0.85; }
+/* v9 UX polish #19 — demo-mode pinned banner on result.html.
+   Mustn't compete visually with shot cards, but must be impossible
+   to overlook for a first-time visitor. */
+.demo-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 16px 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(244, 184, 96, 0.08);
+  border: 1px solid rgba(244, 184, 96, 0.30);
+  color: #f4b860;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.demo-banner-dot {
+  font-size: 8px;
+  line-height: 1;
+  color: #ff7a6c;
+  animation: demo-pulse 1.6s ease-in-out infinite;
+}
+.demo-banner-text { flex: 1; color: rgba(245, 244, 238, 0.85); }
+.demo-banner-text b { color: #f4b860; }
+.demo-banner-cta {
+  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(244, 184, 96, 0.16);
+  color: #f4b860;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.18s;
+}
+.demo-banner-cta:hover { background: rgba(244, 184, 96, 0.28); }
+@keyframes demo-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-banner-dot { animation: none; opacity: 0.8; }
+}
+
 .scene-card-glyph {
   font-size: 22px;
   line-height: 1;
   margin-bottom: 4px;
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+/* v9 UX polish #10 — SVG icon replaces emoji for cross-OS visual parity. */
+.scene-card-glyph svg {
+  width: 30px;
+  height: 30px;
+  color: var(--ink-bright, #f5f4ee);
+  opacity: 0.92;
+  transition: color 0.18s, opacity 0.18s;
+}
+.scene-card.is-active .scene-card-glyph svg,
+.scene-card[aria-pressed="true"] .scene-card-glyph svg {
+  color: var(--accent, #f4b860);
+  opacity: 1;
 }
 .scene-card-title {
   font-size: 15px;
@@ -4354,6 +4475,188 @@ body .chip-row .chip:nth-child(n+6) { animation-delay: 200ms; }
   box-shadow: 0 6px 18px rgba(238, 102, 102, 0.28);
 }
 .capture-advisory-cta:active { transform: translateY(0); }
+
+/* Primary CTA — v9 UX polish #6. Sits right under the coach bubble,
+   single biggest action on the result page. */
+.shot-primary-cta {
+  margin: 14px 0 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+.btn-primary-shot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid rgba(244, 184, 96, 0.65);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(244, 184, 96, 0.95) 0%, rgba(255, 122, 108, 0.95) 100%);
+  color: #1a1410;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 6px 22px rgba(244, 184, 96, 0.25);
+}
+.btn-primary-shot:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(244, 184, 96, 0.35);
+}
+.btn-primary-shot:active { transform: translateY(0); }
+.btn-primary-icon {
+  font-size: 18px;
+  font-weight: 900;
+}
+.shot-primary-cta-note {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Secondary CTA tweaks — when the primary CTA is the screenshot/share,
+   the AR rehearsal button drops in visual weight. */
+.shot-cta--secondary .btn-guide.btn--secondary {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--ink-bright);
+  font-weight: 600;
+}
+.shot-cta--secondary .btn-guide.btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* Long-tail details — collapsed by default on the result page so the
+   user gets a clean primary→secondary→action flow before any expert
+   analysis. */
+.shot-longtail {
+  margin-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 10px;
+}
+.shot-longtail > .shot-longtail-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-bright);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.15s;
+}
+.shot-longtail > .shot-longtail-summary::after {
+  content: "▾";
+  font-size: 12px;
+  color: var(--text-muted);
+  transition: transform 0.2s;
+}
+.shot-longtail[open] > .shot-longtail-summary::after { transform: rotate(180deg); }
+.shot-longtail[open] > .shot-longtail-summary { background: rgba(255, 255, 255, 0.06); }
+.shot-longtail > .shot-longtail-summary::-webkit-details-marker { display: none; }
+.shot-longtail > *:not(.shot-longtail-summary) {
+  margin-top: 12px;
+}
+.shot-tech {
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.shot-tech-title {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Error view — v9 UX polish #4. Calm, scannable error block with an
+   optional "copy code" affordance so users can paste into support
+   without ever seeing the raw stack. Debug mode (?debug=1) shows the
+   raw text inline. */
+.err-view {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.err-view-msg {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-bright);
+}
+.err-view-raw {
+  margin: 0;
+  padding: 8px 10px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  color: rgba(245, 244, 238, 0.7);
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 140px;
+  overflow: auto;
+}
+.err-view-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.err-view-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: rgba(245, 244, 238, 0.55);
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+}
+.err-view-copy {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.err-view-copy:hover { background: rgba(255, 255, 255, 0.10); color: var(--ink-bright); }
+
+/* Banner merge — v9 UX polish #21. When a top-level banner wins, the
+   loser is downgraded to this inline note so the user still sees both
+   signals but only sees ONE red/orange block. */
+.banner-inline-note {
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-soft);
+}
+.banner-inline-note b {
+  color: var(--ink-bright);
+  font-weight: 600;
+  margin-right: 4px;
+}
 
 /* Capture-sheet — modal that pops up on the capture page when the
    client-side precheck thinks the env video isn't usable. Severity

@@ -77,19 +77,25 @@ export function renderResult(container, response) {
   const frames = loadFrames();
   const refInsp = loadRefInspiration();
 
-  // Light-pass recapture banner takes the top slot when present — it's a
-  // call to action, so we want it the first thing the user sees.
-  if (response.light_recapture_hint && response.light_recapture_hint.enabled) {
-    container.appendChild(renderRecaptureBanner(response.light_recapture_hint));
-  }
-
-  // Capture-quality advisory: surfaced when the LLM judged the env video
-  // unfit (cluttered, too dark, ground-only, etc.). Banners ranks above
-  // environment strip & shots — the user must consciously decide whether
-  // to retake before scrolling on.
+  // Banner merge (v9 UX polish #21) — show at most ONE red banner at the
+  // top so the user isn't punched in the face by two negative messages
+  // and tempted to abandon. Severity ladder:
+  //   1. capture_quality.should_retake (score ≤ 2)  ← strongest negative
+  //   2. light_recapture_hint                       ← positive nudge
+  //   3. capture_quality with score == 3            ← soft advisory
+  // The non-winning banner is degraded to an inline note inside the
+  // winning banner so the user still sees it.
   const advisory = response.scene && response.scene.capture_quality;
-  if (advisory && advisory.score <= 3) {
-    container.appendChild(renderCaptureAdvisory(advisory));
+  const recapture = response.light_recapture_hint && response.light_recapture_hint.enabled
+    ? response.light_recapture_hint
+    : null;
+  const advisoryCritical = advisory && advisory.should_retake;
+  if (advisoryCritical) {
+    container.appendChild(renderCaptureAdvisory(advisory, { degradedHint: recapture }));
+  } else if (recapture) {
+    container.appendChild(renderRecaptureBanner(recapture, { degradedAdvisory: advisory && advisory.score <= 3 ? advisory : null }));
+  } else if (advisory && advisory.score <= 3) {
+    container.appendChild(renderCaptureAdvisory(advisory, { degradedHint: null }));
   }
 
   // Environment strip — show whenever we have *anything* useful: sun
@@ -491,10 +497,13 @@ function renderShot(shot, idx, frames) {
   card.appendChild(heroWrap);
 
   // ── camera dial row: focal / aperture / shutter / ISO at a glance ──
+  // v9 UX polish #6 — dial row sits right under the hero so the four
+  // most-asked numbers (焦段/光圈/快门/ISO) are visible BEFORE any
+  // scrolling. This is the literal answer to "我该怎么按快门".
   const dialRow = renderCameraDial(shot.camera);
   if (dialRow) card.appendChild(dialRow);
 
-  // ── coach bubble: first-person rationale ──
+  // ── coach bubble: first-person rationale (kept above the fold) ──
   if (shot.coach_brief || shot.rationale) {
     const bubble = el("div", { class: "coach-bubble" });
     bubble.appendChild(el("div", { class: "coach-avatar" }, "📷"));
@@ -509,44 +518,25 @@ function renderShot(shot, idx, frames) {
     card.appendChild(bubble);
   }
 
-  // ── style match badge ──
-  // Only present when user picked a style on Step 3. Shows which style
-  // this shot was tuned toward + ranges + ✓/⚠ depending on whether the
-  // backend had to clamp the LLM's output. This is the user-visible
-  // proof that "I chose 氛围感, AI actually delivered 氛围感 params".
-  if (shot.style_match) {
-    card.appendChild(renderStyleMatch(shot));
-  }
+  // ── PRIMARY CTA — v9 UX polish #6. The single biggest call-to-action
+  // sits right under the coach bubble so the user can act WITHOUT
+  // scrolling past evaluation panels. On the web side this means
+  // "保存方案截图" (the core deliverable when there's no iOS shoot
+  // screen at hand); the AR/guide button moves into the secondary row.
+  const primaryCta = renderPrimaryCta(shot, idx);
+  card.appendChild(primaryCta);
 
-  // ── 4-dimension quality breakdown (composition / light / color / depth) ──
-  if (shot.criteria_score) {
-    card.appendChild(renderCriteriaPanel(shot));
-  }
-
-  // ── iPhone-specific apply plan + tips ──
-  // Always shown when the backend computed an apply plan (which it does
-  // for every successful analyze). Communicates:
-  //   - iOS App will auto-apply zoom/ISO/shutter/EV/WB on the shoot screen
-  //   - iPhone's fixed aperture caveat
-  //   - 2-3 LLM-curated iPhone tips
-  if (
-    (shot.iphone_tips && shot.iphone_tips.length) ||
-    (shot.camera && shot.camera.iphone_apply_plan)
-  ) {
-    card.appendChild(renderIphoneTipsCard(shot));
-  }
-
-  // ── secondary visuals: minimap + AR CTA ──
+  // ── secondary visuals: minimap + AR rehearsal (de-emphasised) ──
   const visualRow = el("div", { class: "shot-visual-row" });
   const mapWrap = el("div", { class: "shot-minimap" });
   mapWrap.appendChild(renderShotMinimap(shot.angle, { label: shot.title }));
   visualRow.appendChild(mapWrap);
 
-  const ctaWrap = el("div", { class: "shot-cta" });
+  const ctaWrap = el("div", { class: "shot-cta shot-cta--secondary" });
   const guideBtn = el(
     "button",
-    { class: "btn btn-guide", type: "button" },
-    [el("span", {}, "按这个方案试拍"), el("span", { class: "cta-arrow" }, "→")],
+    { class: "btn btn-guide btn--secondary", type: "button" },
+    [el("span", {}, "AR 演练人物站位"), el("span", { class: "cta-arrow" }, "→")],
   );
   guideBtn.addEventListener("click", () => {
     saveCurrentShot({ shot, idx });
@@ -554,24 +544,17 @@ function renderShot(shot, idx, frames) {
   });
   ctaWrap.appendChild(guideBtn);
   ctaWrap.appendChild(
-    el("p", { class: "cta-note" }, "切换到摄像头视图，AR 提示你转向并站位"),
+    el("p", { class: "cta-note" }, "切到摄像头视图 · AR 提示你转向并站位"),
   );
   visualRow.appendChild(ctaWrap);
-
   card.appendChild(visualRow);
 
-  // ── collapsible technical details ──
-  const details = el("details", { class: "shot-details" });
-  details.appendChild(el("summary", {}, "查看相机参数 / 构图 / 角度详细"));
-  details.appendChild(renderAngle(shot.angle));
-  details.appendChild(renderComposition(shot.composition));
-  details.appendChild(renderCamera(shot.camera));
-  card.appendChild(details);
-
+  // ── POSES — kept visible (core deliverable). Scenery shots fall back
+  // to scenery tips. Everything below this is collapsed by default. ──
   if (scenery) {
     card.appendChild(el("div", { class: "divider" }));
     card.appendChild(renderSceneryTips(shot));
-  } else {
+  } else if ((shot.poses || []).length) {
     card.appendChild(el("div", { class: "divider" }));
     card.appendChild(
       el(
@@ -582,7 +565,76 @@ function renderShot(shot, idx, frames) {
     );
     (shot.poses || []).forEach((p) => card.appendChild(renderPose(p)));
   }
+
+  // ── COLLAPSED LONG TAIL — v9 UX polish #6.
+  // Quality scoring (7 dims), style match clamp report, iPhone tips,
+  // foreground doctrine, raw camera/angle/composition rows — all the
+  // "expert detail" goes here, behind a single click. Default closed
+  // so the user gets a clean primary→secondary→action flow first.
+  const longTail = el("details", { class: "shot-longtail" });
+  longTail.appendChild(
+    el("summary", { class: "shot-longtail-summary" }, "展开更多分析 · 评分 / 构图 / iPhone 适配"),
+  );
+
+  if (shot.criteria_score) {
+    longTail.appendChild(renderCriteriaPanel(shot));
+  }
+  if (shot.style_match) {
+    longTail.appendChild(renderStyleMatch(shot));
+  }
+  if (
+    (shot.iphone_tips && shot.iphone_tips.length) ||
+    (shot.camera && shot.camera.iphone_apply_plan)
+  ) {
+    longTail.appendChild(renderIphoneTipsCard(shot));
+  }
+
+  const techDetails = el("div", { class: "shot-tech" });
+  techDetails.appendChild(el("h4", { class: "shot-tech-title" }, "相机参数 / 构图 / 角度"));
+  techDetails.appendChild(renderAngle(shot.angle));
+  techDetails.appendChild(renderComposition(shot.composition));
+  techDetails.appendChild(renderCamera(shot.camera));
+  longTail.appendChild(techDetails);
+
+  card.appendChild(longTail);
   return card;
+}
+
+// v9 UX polish #6 — primary CTA. Single biggest action right under
+// the coach bubble. On web we steer to "保存方案截图" (the universally
+// available deliverable); the AR/guide button stays in the secondary
+// row below the minimap so power users can still reach it.
+function renderPrimaryCta(shot, idx) {
+  const wrap = el("div", { class: "shot-primary-cta" });
+  const btn = el(
+    "button",
+    { class: "btn btn-primary-shot", type: "button" },
+    [
+      el("span", { class: "btn-primary-icon", "aria-hidden": "true" }, "↓"),
+      el("span", { class: "btn-primary-label" }, "保存方案截图带去现场"),
+    ],
+  );
+  btn.addEventListener("click", () => {
+    saveCurrentShot({ shot, idx });
+    // Lazy-import the share helper to keep initial render light. The
+    // helper falls back to a download when Share API is unavailable
+    // (Chromium desktop / Firefox).
+    import("./share_plan.js")
+      .then((mod) => mod.shareOrDownloadPlan(shot, idx))
+      .catch((e) => {
+        console.warn("[render] plan share fallback failed", e);
+        alert("保存失败，截图工具未加载。请稍后再试或手动截屏。");
+      });
+  });
+  wrap.appendChild(btn);
+  wrap.appendChild(
+    el(
+      "p",
+      { class: "shot-primary-cta-note" },
+      "导出方案 #" + (idx + 1) + " 为一张可分享的卡片图",
+    ),
+  );
+  return wrap;
 }
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -725,7 +777,7 @@ function renderWeatherChip(weather) {
   ]);
 }
 
-function renderRecaptureBanner(hint) {
+function renderRecaptureBanner(hint, opts = {}) {
   const banner = el("section", { class: "recapture-banner" });
   const row = el("div", { class: "recapture-row" });
   row.appendChild(el("div", { class: "recapture-icon", "aria-hidden": "true" }, "✦"));
@@ -769,6 +821,19 @@ function renderRecaptureBanner(hint) {
   });
   row.appendChild(cta);
   banner.appendChild(row);
+
+  // Degraded advisory inline note — banner merge keeps secondary
+  // negative signal visible without a second red block.
+  const degraded = opts.degradedAdvisory;
+  if (degraded && degraded.summary_zh) {
+    banner.appendChild(
+      el(
+        "p",
+        { class: "banner-inline-note" },
+        `素材质量 ${degraded.score}/5 · ${degraded.summary_zh}`,
+      ),
+    );
+  }
   return banner;
 }
 
@@ -786,7 +851,7 @@ const CAPTURE_ISSUE_LABEL = {
   narrow_pan: "环视范围太窄",
 };
 
-function renderCaptureAdvisory(advisory) {
+function renderCaptureAdvisory(advisory, opts = {}) {
   const banner = el("section", {
     class: `capture-advisory capture-advisory-score-${advisory.score}`,
   });
@@ -841,6 +906,17 @@ function renderCaptureAdvisory(advisory) {
       if (typeof window !== "undefined") window.location.href = "/web/";
     });
     banner.appendChild(cta);
+  }
+
+  // Degraded light-recapture hint inline — banner merge keeps the
+  // secondary positive nudge visible without a competing red block.
+  const degraded = opts.degradedHint;
+  if (degraded && (degraded.title || degraded.detail)) {
+    const note = el("p", { class: "banner-inline-note" });
+    if (degraded.title) note.appendChild(el("b", {}, degraded.title));
+    if (degraded.title && degraded.detail) note.appendChild(document.createTextNode(" · "));
+    if (degraded.detail) note.appendChild(document.createTextNode(degraded.detail));
+    banner.appendChild(note);
   }
   return banner;
 }

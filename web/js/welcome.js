@@ -83,7 +83,13 @@ const startBtn = document.getElementById("welcome-start");
 if (startBtn) {
   startBtn.addEventListener("click", () => {
     try { localStorage.setItem(SEEN_KEY, "1"); } catch {}
-    location.href = "/web/";
+    // v9 UX polish #1 — route first-visit users to the unified
+    // permissions explainer before the wizard, so the three OS
+    // prompts (camera / orientation / geo) come with context. Users
+    // who've already seen it skip straight to the wizard.
+    let permsSeen = null;
+    try { permsSeen = localStorage.getItem("aphc.permsExplainerSeen"); } catch {}
+    location.href = permsSeen ? "/web/" : "/web/permissions.html";
   });
 }
 

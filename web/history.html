@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>历史方案 · 拾光</title>
+  <meta name="description" content="本机最近 10 条拍摄方案。" />
+  <meta name="theme-color" content="#0a0c18" />
+  <link rel="manifest" href="/web/manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="/web/img/icon.svg" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/web/img/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/web/img/icon-180.png" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <style>
+    body { background:#0a0c18; color:#f5f4ee; }
+    .history-shell { max-width: 760px; margin: 0 auto; padding: 16px; }
+    .history-head { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom: 14px; }
+    .history-head h1 { font-size: 20px; margin: 0; }
+    .history-head .muted { font-size: 12px; color: rgba(245,244,238,0.55); }
+    .history-list { display:flex; flex-direction:column; gap:10px; }
+    .history-card {
+      display:flex; align-items:center; gap:12px;
+      padding:12px 14px; border-radius:12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      cursor:pointer; transition: background 0.18s, transform 0.18s;
+    }
+    .history-card:hover { background: rgba(244,184,96,0.06); transform: translateY(-1px); }
+    .history-card-main { flex:1; min-width:0; }
+    .history-card-title { font-size:14px; font-weight:600; color:#f5f4ee; margin: 0 0 4px; }
+    .history-card-meta { font-size:11.5px; color:rgba(245,244,238,0.55); display:flex; gap:10px; flex-wrap:wrap; }
+    .history-card-meta b { color:rgba(245,244,238,0.75); font-weight:500; }
+    .history-card-arrow { color:rgba(244,184,96,0.7); font-size: 18px; }
+    .history-empty {
+      padding: 36px 16px; text-align:center;
+      color: rgba(245,244,238,0.55); font-size: 13.5px; line-height:1.7;
+      border-radius:12px; border:1px dashed rgba(255,255,255,0.10);
+    }
+    .history-actions { display:flex; gap:8px; }
+    .btn-text {
+      background:none; border:none; color: rgba(245,244,238,0.5);
+      font-size:12px; padding:4px 8px; cursor:pointer; border-radius:6px;
+    }
+    .btn-text:hover { color:#ff7a6c; background:rgba(255,122,108,0.08); }
+    .btn-back {
+      background: rgba(244,184,96,0.10); color:#f4b860;
+      border:1px solid rgba(244,184,96,0.25);
+      padding:6px 12px; border-radius:8px; font-size:12.5px;
+      text-decoration:none;
+    }
+  </style>
+</head>
+<body>
+  <main class="history-shell">
+    <header class="history-head">
+      <div>
+        <h1>历史方案</h1>
+        <div class="muted">本机保留最近 10 条 · 清空浏览器数据会同时清空历史</div>
+      </div>
+      <div class="history-actions">
+        <a class="btn-back" href="/web/welcome.html">新建一次</a>
+        <button class="btn-text" type="button" id="clear-btn">清空</button>
+      </div>
+    </header>
+    <div class="history-list" id="list"></div>
+  </main>
+
+  <script type="module">
+    import { listResultHistory, loadResultHistoryEntry, clearResultHistory, saveResult } from "./js/store.js";
+
+    const list = document.getElementById("list");
+    const clearBtn = document.getElementById("clear-btn");
+
+    function fmtTs(ts) {
+      const d = new Date(ts);
+      const now = new Date();
+      const sameDay = d.toDateString() === now.toDateString();
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mm = String(d.getMinutes()).padStart(2, "0");
+      if (sameDay) return `今天 ${hh}:${mm}`;
+      const mo = d.getMonth() + 1;
+      const dy = d.getDate();
+      return `${mo}/${dy} ${hh}:${mm}`;
+    }
+
+    const SCENE_LABELS = {
+      portrait: "人像", closeup: "特写", full_body: "全身",
+      documentary: "人文", scenery: "风景", light_shadow: "光影",
+    };
+
+    function render() {
+      const items = listResultHistory();
+      if (items.length === 0) {
+        list.innerHTML = `
+          <div class="history-empty">
+            还没有历史方案。<br />
+            完成一次环视分析后，方案会自动保存在这里。<br /><br />
+            <a class="btn-back" href="/web/welcome.html">现在拍一次 →</a>
+          </div>`;
+        clearBtn.style.display = "none";
+        return;
+      }
+      clearBtn.style.display = "";
+      list.innerHTML = "";
+      for (const e of items) {
+        const card = document.createElement("div");
+        card.className = "history-card";
+        const scene = SCENE_LABELS[e.scene_mode] || e.scene_mode || "未标场景";
+        card.innerHTML = `
+          <div class="history-card-main">
+            <p class="history-card-title">${escapeHtml(e.title)}</p>
+            <div class="history-card-meta">
+              <span>${fmtTs(e.ts)}</span>
+              <span><b>${escapeHtml(scene)}</b></span>
+              <span>${e.shot_count} 个方案</span>
+              ${e.model ? `<span>${escapeHtml(e.model)}</span>` : ""}
+            </div>
+          </div>
+          <span class="history-card-arrow" aria-hidden="true">→</span>
+        `;
+        card.addEventListener("click", async () => {
+          // Lock the card to avoid double clicks while we hit IDB.
+          card.style.pointerEvents = "none";
+          card.style.opacity = "0.6";
+          const full = await loadResultHistoryEntry(e.id);
+          if (!full) {
+            card.style.pointerEvents = "";
+            card.style.opacity = "";
+            alert("方案数据已丢失（可能清过浏览器数据）。");
+            return;
+          }
+          // Replay through saveResult so result.html picks it up.
+          // For replays we don't want to re-append to history (would
+          // bump this entry to the top and re-save the payload), so
+          // we drop straight into sessionStorage instead.
+          sessionStorage.setItem("apc.result", JSON.stringify(full.payload));
+          location.href = "/web/result.html";
+        });
+        list.appendChild(card);
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    clearBtn.addEventListener("click", () => {
+      if (!confirm("清空本机历史方案？此操作不可撤销。")) return;
+      clearResultHistory();
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

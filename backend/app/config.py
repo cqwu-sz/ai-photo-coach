@@ -106,7 +106,26 @@ class Settings(BaseSettings):
     enable_metrics: bool = True
     geo_round_decimals: int = 4
     """How many decimals to keep when persisting user coordinates.
-    4 ≈ 11 m grid — matches the "trade UGC pollution for privacy" stance."""
+    4 ≈ 11 m grid — used for POI dedupe where street-level precision
+    actually matters. Other use sites should pick from the tier consts
+    below or call ``round_geo_by_use`` so we never log raw GPS."""
+
+    # v9 UX polish #18 — tier the geo rounding by use case. Anything
+    # that leaves the request scope (persisted UGC, log lines, sent to
+    # third-party APIs) should round to a coarser grid than the
+    # transient values we use internally.
+    geo_round_decimals_log: int = 3
+    """~110 m grid. Use for diagnostic logs, analytics, anonymous UGC
+    aggregates — anywhere a row could later be exported."""
+
+    geo_round_decimals_third_party: int = 3
+    """~110 m grid. Use when forwarding lat/lon to weather, geocoding,
+    or any external API. Weather doesn't need < 100 m and POI
+    providers shouldn't see your exact coordinates."""
+
+    geo_round_decimals_poi: int = 4
+    """~11 m grid. Use only for POI lookup / dedupe where street-level
+    precision is the whole point."""
     enable_ddtrace: bool = False
     """When True (and ddtrace is installed) the analyze_service.run()
     spans are instrumented for Datadog APM."""
@@ -204,3 +223,31 @@ class Settings(BaseSettings):
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
     return Settings()
+
+
+# v9 UX polish #18 — single chokepoint for "round before this leaves the
+# process". Use ``"log"`` / ``"third_party"`` / ``"poi"`` to pick the
+# right tier without callers having to remember decimal counts.
+_GEO_TIERS = {
+    "log": "geo_round_decimals_log",
+    "third_party": "geo_round_decimals_third_party",
+    "poi": "geo_round_decimals_poi",
+    # Back-compat alias for old call sites still using the flat setting.
+    "default": "geo_round_decimals",
+}
+
+
+def round_geo_by_use(value: float | None, use: str = "log") -> float | None:
+    """Round a single lat/lon by intended use case.
+
+    >>> round_geo_by_use(31.230871, "log")        # ~110 m
+    31.231
+    >>> round_geo_by_use(31.230871, "poi")        # ~11 m
+    31.2309
+    """
+    if value is None:
+        return None
+    s = get_settings()
+    attr = _GEO_TIERS.get(use, _GEO_TIERS["log"])
+    decimals = int(getattr(s, attr))
+    return round(float(value), decimals)

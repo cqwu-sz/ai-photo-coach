@@ -56,11 +56,34 @@ struct RecommendationView: View {
             // analysis sits up here and never scrolls away when the
             // user pages between shots.
             VStack(alignment: .leading, spacing: 12) {
-                if let hint = response.lightRecaptureHint, hint.enabled {
-                    LightRecaptureBanner(hint: hint, onTap: handleRecapture)
-                }
-                if let cq = response.scene.captureQuality, cq.score <= 3 {
-                    CaptureAdvisoryBanner(quality: cq, onRetake: handleAdvisoryRetake)
+                // Banner merge (v9 UX polish #21) — show at most ONE
+                // top banner so the user isn't punched in the face by
+                // two negative signals. Severity:
+                //   1. capture_quality.shouldRetake (score ≤ 2) wins
+                //   2. light_recapture_hint
+                //   3. capture_quality score == 3 (soft)
+                // Loser is degraded to an inline note inside the winner.
+                let hint = response.lightRecaptureHint?.enabled == true ? response.lightRecaptureHint : nil
+                let cq = response.scene.captureQuality
+                let cqCritical = cq?.shouldRetake == true
+                if cqCritical, let cq = cq {
+                    CaptureAdvisoryBanner(
+                        quality: cq,
+                        onRetake: handleAdvisoryRetake,
+                        degradedHint: hint,
+                    )
+                } else if let hint = hint {
+                    LightRecaptureBanner(
+                        hint: hint,
+                        onTap: handleRecapture,
+                        degradedAdvisory: (cq?.score ?? 5) <= 3 ? cq : nil,
+                    )
+                } else if let cq = cq, cq.score <= 3 {
+                    CaptureAdvisoryBanner(
+                        quality: cq,
+                        onRetake: handleAdvisoryRetake,
+                        degradedHint: nil,
+                    )
                 }
                 if let env = response.environment, hasEnvData(env) {
                     EnvironmentStrip(env: env, shots: response.shots)
@@ -283,8 +306,15 @@ private struct ShotCard: View {
     let onTryShot: () -> Void
     let onShootForReal: () -> Void
 
+    /// v9 UX polish #6 — long-tail expert panels (7-dim score, style
+    /// clamp report, foreground doctrine, iPhone tips, raw rows) live
+    /// behind one disclosure so the primary→secondary→action flow on
+    /// first view is clean. The user opts in when they want depth.
+    @State private var showDetails: Bool = false
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
+            // ── Header: shot index + title + confidence
             HStack(alignment: .firstTextBaseline) {
                 Text("机位 #\(index + 1)")
                     .font(.title3.bold())
@@ -297,8 +327,9 @@ private struct ShotCard: View {
                 ConfidenceBadge(value: shot.confidence)
             }
 
-            AngleRow(angle: shot.angle)
-            CompositionRow(comp: shot.composition)
+            // ── HERO ANSWER — the four numbers everyone wants, right
+            // under the title. (v9 #6: zero-scroll access to the literal
+            // "怎么按快门".)
             CameraSettingsRow(camera: shot.camera)
 
             if let brief = shot.coachBrief, !brief.isEmpty {
@@ -313,15 +344,8 @@ private struct ShotCard: View {
                     .padding(.top, 4)
             }
 
-            if let score = shot.criteriaScore {
-                CriteriaPanel(score: score,
-                              notes: shot.criteriaNotes,
-                              strongestAxis: shot.strongestAxis,
-                              weakestAxis: shot.weakestAxis,
-                              overallScore: shot.overallScore)
-                    .padding(.top, 6)
-            }
-
+            // ── PRIMARY + SECONDARY CTA — kept above the fold. iOS users
+            // can act before scrolling past evaluation panels.
             VStack(spacing: 8) {
                 Button(action: onShootForReal) {
                     HStack(spacing: 8) {
@@ -343,25 +367,8 @@ private struct ShotCard: View {
                 .tint(.accentColor)
             }
 
-            // Three-layer composition (FOREGROUND DOCTRINE) panel —
-            // tells the user which kind of foreground to use, where to
-            // find it (azimuth + canvas quadrant), how to physically
-            // nudge themselves to bring it into frame.
-            if let fg = shot.foreground {
-                ForegroundCard(foreground: fg)
-            }
-
-            // iPhone-specific tips drawer — adapts the AI's universal
-            // advice to what an iPhone can actually do (zoom factor,
-            // fixed-aperture limits, ProRAW mode, etc.).
-            if !shot.iphoneTips.isEmpty || (shot.camera.iphoneApplyPlan?.apertureNote.isEmpty == false) {
-                IphoneTipsCard(
-                    tips: shot.iphoneTips,
-                    apertureNote: shot.camera.iphoneApplyPlan?.apertureNote ?? "",
-                    plan: shot.camera.iphoneApplyPlan,
-                )
-            }
-
+            // ── POSES — core deliverable, kept visible. Scenery shots
+            // fall back to scenery tips so the slot is never empty.
             Divider()
             if shot.poses.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
@@ -382,6 +389,51 @@ private struct ShotCard: View {
                     }
                 }
             }
+
+            // ── COLLAPSED LONG TAIL — v9 UX polish #6. Everything an
+            // expert wants to inspect (scoring, style match, foreground
+            // doctrine, iPhone tips, raw angle/composition rows) is
+            // here, default closed.
+            DisclosureGroup(isExpanded: $showDetails) {
+                VStack(alignment: .leading, spacing: 12) {
+                    AngleRow(angle: shot.angle)
+                    CompositionRow(comp: shot.composition)
+
+                    if let score = shot.criteriaScore {
+                        CriteriaPanel(score: score,
+                                      notes: shot.criteriaNotes,
+                                      strongestAxis: shot.strongestAxis,
+                                      weakestAxis: shot.weakestAxis,
+                                      overallScore: shot.overallScore)
+                    }
+
+                    // Three-layer composition (FOREGROUND DOCTRINE).
+                    if let fg = shot.foreground {
+                        ForegroundCard(foreground: fg)
+                    }
+
+                    // iPhone tips drawer — adapts to physical lens
+                    // constraints (fixed aperture, lens switching,
+                    // ProRAW, exposure lock).
+                    if !shot.iphoneTips.isEmpty || (shot.camera.iphoneApplyPlan?.apertureNote.isEmpty == false) {
+                        IphoneTipsCard(
+                            tips: shot.iphoneTips,
+                            apertureNote: shot.camera.iphoneApplyPlan?.apertureNote ?? "",
+                            plan: shot.camera.iphoneApplyPlan,
+                        )
+                    }
+                }
+                .padding(.top, 8)
+            } label: {
+                HStack {
+                    Image(systemName: "chart.bar.doc.horizontal")
+                        .foregroundStyle(.secondary)
+                    Text("展开更多分析 · 评分 / 构图 / iPhone 适配")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(.primary)
+                }
+            }
+            .padding(.top, 4)
         }
         .padding()
         .background(.background, in: RoundedRectangle(cornerRadius: 14))
@@ -943,6 +995,10 @@ private struct RankingToolbar: View {
 private struct LightRecaptureBanner: View {
     let hint: LightRecaptureHint
     let onTap: () -> Void
+    /// v9 UX polish #21 — when a soft capture-quality advisory (score==3,
+    /// not retake-worthy) also exists, surface it inline so the user
+    /// still sees the signal without a competing orange block.
+    var degradedAdvisory: CaptureQuality? = nil
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -973,6 +1029,13 @@ private struct LightRecaptureBanner: View {
                             .font(.system(size: 11.5, weight: .semibold))
                             .foregroundStyle(Color.accentColor)
                             .padding(.top, 2)
+                    }
+                    if let adv = degradedAdvisory, let s = adv.summaryZh, !s.isEmpty {
+                        Text("素材质量 \(adv.score)/5 · \(s)")
+                            .font(.system(size: 11.5, weight: .medium))
+                            .foregroundStyle(.secondary)
+                            .padding(.top, 4)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
                 Spacer(minLength: 0)
@@ -1025,6 +1088,10 @@ private struct LightRecaptureBanner: View {
 private struct CaptureAdvisoryBanner: View {
     let quality: CaptureQuality
     let onRetake: () -> Void
+    /// v9 UX polish #21 — when this advisory wins the top slot, surface
+    /// the light-recapture hint as an inline note inside the same card
+    /// so the user still sees both signals without two competing banners.
+    var degradedHint: LightRecaptureHint? = nil
 
     private var tintColor: Color {
         quality.isCritical ? Color(red: 0.93, green: 0.40, blue: 0.40)
@@ -1096,6 +1163,23 @@ private struct CaptureAdvisoryBanner: View {
                     )
                 }
                 .buttonStyle(.plain)
+            }
+            if let h = degradedHint {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(h.title)
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(.primary)
+                    Text(h.detail)
+                        .font(.system(size: 11.5, weight: .medium))
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(8)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(Color.primary.opacity(0.04))
+                )
             }
         }
         .padding(14)

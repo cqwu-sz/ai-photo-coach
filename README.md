@@ -68,11 +68,24 @@ pytest -q
 
 ## iOS quickstart
 
-The repo ships sources only. **No Mac?** Push to GitHub, the workflow at
-`.github/workflows/ios-build.yml` builds an unsigned `.ipa` on a free
-macOS runner; install it onto your iPhone from Windows with Sideloadly +
-your free Apple ID — full step-by-step in
-[docs/IOS_SIDELOAD.md](docs/IOS_SIDELOAD.md).
+**Recommended path — TestFlight (when available)**
+The maintained iOS build is distributed via TestFlight. Once invites are
+open the link will appear in the project's GitHub Releases page; this is
+the path Apple expects users to take and the only one we can guarantee
+keeps working as iOS updates land.
+
+**Web demo first**
+Don't have a TestFlight invite? The web PWA at
+`http://localhost:8000/web/` (Quickstart above) covers the full
+"环视 → 出方案 → 看 7 维评分" experience without any Apple account.
+
+**Geek path — sideload from sources (no Mac, no invite)**
+Push to GitHub, the workflow at `.github/workflows/ios-build.yml` builds
+an unsigned `.ipa` on a free macOS runner; install it onto your iPhone
+from Windows with Sideloadly + your free Apple ID — full step-by-step in
+[docs/IOS_SIDELOAD.md](docs/IOS_SIDELOAD.md). Note this expires every 7
+days with a free Apple ID; it's a development workflow, not a daily
+driver.
 
 On a Mac you can build natively:
 

@@ -160,13 +160,13 @@ def _shot_for(meta: CaptureMeta, idx: int, lighting: Lighting) -> ShotRecommenda
             subject_fit=4, background=3, theme=4,
         )
         notes = CriteriaNotes(
-            composition="[comp_rule_of_thirds] 主体压在右三分线，地面引导线把视线带向人物",
-            light="[light_side_back_rim] 侧光把发丝勾出来，脸的一半在亮区",
-            color="[color_60_30_10] 暖调主导，背景同色系不抢主体",
-            depth="[depth_focal_character] 35mm f/2.8 在 2.5m 距离背景柔化恰好",
-            subject_fit="[sub_eyeline_breathing] 视线方向左侧留 60% 呼吸",
-            background="[bg_subject_separation] 背景虚化够，但凉亭轮廓还在抢一点点视线",
-            theme="[theme_golden_warmth] 黄昏写真主题，整体暖调与发丝光呼应",
+            composition="[comp_rule_of_thirds] 主体已在右三分线 → 站位别再后退，保持这个比例",
+            light="[light_side_back_rim] 侧光勾出发丝 → 让模特再侧脸 15°，亮区更连贯",
+            color="[color_60_30_10] 暖调主导但点缀色弱 → 加一个红色道具入画做 10% 点缀",
+            depth="[depth_focal_character] 35mm f/2.8 距离 2.5m → 锁住焦段不变",
+            subject_fit="[sub_eyeline_breathing] 左侧留 60% 呼吸感 → 提醒主体视线略偏左",
+            background="[bg_subject_separation] 凉亭轮廓还抢一点视线 → 往左半步把它移出框",
+            theme="[theme_golden_warmth] 黄昏写真主题对了 → 等再低 5° 抢黄金尾光",
         )
         strong, weak = "composition", "background"
     elif idx == 1:
@@ -175,13 +175,13 @@ def _shot_for(meta: CaptureMeta, idx: int, lighting: Lighting) -> ShotRecommenda
             subject_fit=3, background=4, theme=3,
         )
         notes = CriteriaNotes(
-            composition="[comp_symmetry] 对称构图稳但稍显呆板，可让模特微侧身打破",
-            light="[light_top_avoid] 顶光偏硬，建议靠近左侧墙体借反射光",
-            color="[color_complementary] 蓝绿冷调和服装暖色形成补色",
-            depth="[depth_focal_character] 50mm 略压缩空间，可后退半步增加前景",
-            subject_fit="[freeform] 主体居中正对镜头，缺动势",
-            background="[bg_clean] 背景元素少，干净",
-            theme="[freeform] 主题表达较弱，建议加一个互动动作",
+            composition="[comp_symmetry] 对称稳但偏呆 → 让模特微侧身 30° 打破中线",
+            light="[light_top_avoid] 顶光偏硬 → 靠近左侧墙体半步借反射光",
+            color="[color_complementary] 蓝绿冷调与服装暖色对比强 → 保持这个色对",
+            depth="[depth_focal_character] 50mm 略压缩 → 后退半步让前景叶子入画",
+            subject_fit="[sub_motion_break] 居中正对缺动势 → 让模特把重心压到一条腿",
+            background="[bg_clean] 背景干净不抢戏 → 直接拍，不用调",
+            theme="[theme_interaction] 主题弱 → 让模特和环境互动（摸墙/扶帽檐）",
         )
         strong, weak = "color", "subject_fit"
     else:
@@ -190,13 +190,13 @@ def _shot_for(meta: CaptureMeta, idx: int, lighting: Lighting) -> ShotRecommenda
             subject_fit=3, background=4, theme=5,
         )
         notes = CriteriaNotes(
-            composition="[comp_negative_space] 留白偏多，主体重心偏低",
-            light="[light_silhouette] 逆光做剪影效果最强，曝光按高光保",
-            color="[color_tonal] 单色剪影，依赖天空渐变做层次",
-            depth="[depth_focal_character] 85mm 长焦压缩天际线",
-            subject_fit="[sub_silhouette_pose] 剪影下姿态可读性比表情重要",
-            background="[bg_clean] 背景纯天空无干扰",
-            theme="[theme_decisive_moment] 等他们牵手回头那一瞬按下，主题极强",
+            composition="[comp_negative_space] 留白多重心偏低 → 蹲一点把地平线压到下 1/4",
+            light="[light_silhouette] 逆光剪影强 → 曝光锁高光，EV -1.2 保住天空层次",
+            color="[color_tonal] 单色剪影依赖天空渐变 → 等再过 5 分钟天色更厚",
+            depth="[depth_focal_character] 85mm 压缩天际线 → 保持长焦不变",
+            subject_fit="[sub_silhouette_pose] 剪影看姿态 → 让模特张开手臂或抬头",
+            background="[bg_clean] 纯天空无干扰 → 直接拍",
+            theme="[theme_decisive_moment] 主题极强 → 等他们牵手回头那一瞬按下",
         )
         strong, weak = "theme", "composition"
 

@@ -35,8 +35,95 @@ export function loadSettings() {
   }
 }
 
+import {
+  saveResultPayload,
+  loadResultPayload,
+  deleteResultPayload,
+  clearAllResultPayloads,
+} from "./result_history_db.js";
+
 export function saveResult(r) {
   sessionStorage.setItem(KEY_RESULT, JSON.stringify(r));
+  // v9 UX polish O1 — append to local history so the user can revisit
+  // recent runs from /web/history.html. Skip mock / demo runs (those
+  // are already reachable via ?demo=v7).
+  try {
+    const model = String(r?.model || "");
+    const isMock = /^mock(-\d+)?$/i.test(model) || r?.debug?.mode === "mock";
+    if (isMock) return;
+    appendResultHistory(r);
+  } catch {}
+}
+
+const KEY_RESULT_HISTORY = "aphc.resultHistory.v1";
+const RESULT_HISTORY_MAX = 10;
+
+// v9 UX polish post-batch3 fix — split storage:
+//   * localStorage holds the SMALL summary list (id, ts, title, scene,
+//     shot_count, model). ~200 B/entry × 10 = ~2 KB total, well under
+//     the 5 MB quota even with other apps on the origin.
+//   * IndexedDB (result_history_db.js) holds the full response payload
+//     under the same id. GB-class quota everywhere; fire-and-forget so
+//     it never blocks UI.
+export function appendResultHistory(r) {
+  if (!r || !Array.isArray(r.shots) || r.shots.length === 0) return;
+  const id = r.request_id || `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+  const summary = {
+    id,
+    ts: Date.now(),
+    model: r.model || null,
+    scene_mode: r.scene_mode || r.meta?.scene_mode || null,
+    title: r.shots[0]?.title || "未命名方案",
+    shot_count: r.shots.length,
+  };
+  let list = [];
+  try {
+    const raw = localStorage.getItem(KEY_RESULT_HISTORY);
+    if (raw) list = JSON.parse(raw) || [];
+  } catch {}
+  list.unshift(summary);
+  const evicted = list.slice(RESULT_HISTORY_MAX);
+  list = list.slice(0, RESULT_HISTORY_MAX);
+  try {
+    localStorage.setItem(KEY_RESULT_HISTORY, JSON.stringify(list));
+  } catch (e) {
+    // Should be impossible (summaries are tiny) but if localStorage is
+    // really full, drop down to 3 entries and try again.
+    try {
+      list = list.slice(0, 3);
+      localStorage.setItem(KEY_RESULT_HISTORY, JSON.stringify(list));
+    } catch {}
+  }
+  // Stash the full payload in IDB. Fire-and-forget.
+  saveResultPayload(id, r);
+  // Drop evicted payloads so IDB doesn't grow unbounded.
+  for (const ev of evicted) {
+    deleteResultPayload(ev.id).catch(() => {});
+  }
+}
+
+export function listResultHistory() {
+  try {
+    const raw = localStorage.getItem(KEY_RESULT_HISTORY);
+    if (!raw) return [];
+    return JSON.parse(raw) || [];
+  } catch {
+    return [];
+  }
+}
+
+/** Async — reads the full payload from IndexedDB. */
+export async function loadResultHistoryEntry(id) {
+  const summary = listResultHistory().find((e) => e.id === id);
+  if (!summary) return null;
+  const payload = await loadResultPayload(id);
+  if (!payload) return null;
+  return { ...summary, payload };
+}
+
+export function clearResultHistory() {
+  try { localStorage.removeItem(KEY_RESULT_HISTORY); } catch {}
+  clearAllResultPayloads().catch(() => {});
 }
 
 export function loadResult() {

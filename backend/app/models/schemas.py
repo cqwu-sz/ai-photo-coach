@@ -410,6 +410,16 @@ class CaptureMeta(BaseModel):
     frame_meta: list[FrameMeta]
     geo: Optional[GeoFix] = None
     """Optional. When present, the prompt injects sun + time-of-day facts."""
+    heading_source: Literal["sensor", "fake", "unknown"] = "unknown"
+    """v9 UX polish #16 — Where azimuth values came from.
+
+    - ``sensor``: real device gyroscope / compass. Trust direction-based
+      reranking and the ``best_direction`` rationale.
+    - ``fake``: client fell back to mouse / synthetic input (desktop demo,
+      iOS without orientation permission). Direction-dependent reasoning
+      should be suppressed or caveated by the LLM.
+    - ``unknown``: pre-v9 clients that didn't send the field.
+    """
     walk_segment: Optional["WalkSegment"] = None
     """Optional opt-in 10-20 s walk after the standing pan. Enables the
     SfM/VIO branch of the shot-position fusion (see

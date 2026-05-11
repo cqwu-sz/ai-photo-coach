@@ -90,7 +90,13 @@ const _qCanvas = (typeof document !== "undefined")
   : null;
 
 function computeFrameQuality(srcCtx, srcW, srcH) {
-  if (!_qCanvas) return { meanLuma: 0.5, blurScore: 0 };
+  // v9 UX polish #17 — when we can't read pixels back (no document
+  // in worker context, tainted canvas in Safari, etc.) return null
+  // instead of neutral 0.5 values. The backend's capture_quality
+  // (rule 13) treats null as "no data" and skips luma/blur-based
+  // judgements; a fake 0.5 would have been silently scored as
+  // "medium light" on every Safari user.
+  if (!_qCanvas) return { meanLuma: null, blurScore: null };
   const targetW = 96;
   const targetH = Math.max(48, Math.round((srcH / srcW) * targetW));
   _qCanvas.width = targetW;
@@ -101,8 +107,9 @@ function computeFrameQuality(srcCtx, srcW, srcH) {
   try {
     img = qctx.getImageData(0, 0, targetW, targetH);
   } catch (e) {
-    // Some browsers throw on tainted canvases — bail with neutral values.
-    return { meanLuma: 0.5, blurScore: 0 };
+    // Tainted canvas — explicit "no signal" so backend doesn't think
+    // it has medium-light frames.
+    return { meanLuma: null, blurScore: null };
   }
   const data = img.data;
   const px = targetW * targetH;

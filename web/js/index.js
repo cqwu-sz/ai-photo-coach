@@ -516,15 +516,20 @@ if (settingsBtn) {
 
 (async () => {
   if (!modeBadge) return;
+  // v9 UX polish #O4 — badge is hidden by default; only surface it
+  // when there is something the user actually needs to know about
+  // (mock mode or offline). Live mode keeps the header clean.
   try {
     const h = await getHealth();
     if (h.mock_mode) {
-      modeBadge.textContent = "演示模式";
+      modeBadge.style.display = "";
+      modeBadge.textContent = "示范数据";
       modeBadge.classList.add("mock");
       if (modelNameEl) modelNameEl.textContent = "演示模式";
     } else {
+      // Live mode — keep badge hidden. Still call refreshModeBadge
+      // for callers that look at its data attrs.
       modeBadge.classList.add("live");
-      modeBadge.textContent = "已连接";
       refreshModeBadge(modeBadge).catch(() => {});
       if (modelNameEl) {
         const cfg = getActiveModelConfig();
@@ -532,6 +537,7 @@ if (settingsBtn) {
       }
     }
   } catch (e) {
+    modeBadge.style.display = "";
     modeBadge.textContent = "服务未连接";
     modeBadge.classList.add("mock");
     if (modelNameEl) modelNameEl.textContent = "离线";
@@ -749,13 +755,11 @@ if (demoBtn) {
       location.href = "/web/result.html";
     } catch (err) {
       console.error(err);
-      const raw = err && err.message ? err.message : String(err);
-      const friendly = /503|UNAVAILABLE|high demand/i.test(raw)
-        ? "服务当前繁忙，稍等几秒再点一次。"
-        : /quota|RESOURCE_EXHAUSTED/i.test(raw)
-        ? "今天的免费额度用完了，明天再试。"
-        : raw.slice(0, 220);
-      showDemoError(`运行失败：${friendly}`);
+      // v9 UX polish #4 — use the shared error normaliser so demo /
+      // capture / future pages give the user identical, calm copy.
+      const { normaliseError } = await import("./error_messages.js");
+      const norm = normaliseError(err);
+      showDemoError(`运行失败：${norm.message}`);
       demoMsg.textContent = "失败 — 点击外侧关闭，再试一次";
     }
   });

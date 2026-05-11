@@ -165,6 +165,21 @@ if settings.enable_metrics:
 # and no second process to run. http://localhost:8000/web/ -> index page.
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 _WEB_DIR = _REPO_ROOT / "web"
+
+
+# v9 UX polish #11 — `preview.html` is a dev-only device-frame tool.
+# In production it can confuse first-time visitors who Google it and
+# think it's the product. We hide it behind app_debug / mock_mode so
+# devs can still hit it locally.
+@app.get("/web/preview.html", include_in_schema=False)
+def _maybe_serve_preview():
+    from fastapi import HTTPException
+    dev = settings.mock_mode or (settings.app_env or "").lower() in ("local", "dev", "development")
+    if not dev:
+        raise HTTPException(status_code=404, detail="Not Found")
+    return FileResponse(_WEB_DIR / "preview.html")
+
+
 if _WEB_DIR.exists():
     app.mount("/web", StaticFiles(directory=_WEB_DIR, html=True), name="web")
 

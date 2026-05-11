@@ -261,9 +261,15 @@ async def fetch_osm(lat: float, lon: float, radius_m: int) -> list[POICandidate]
 async def _fetch_amap(lat: float, lon: float, radius_m: int, key: str) -> list[POICandidate]:
     """AMap Place Search around. Filters to scenic / cultural categories
     so we don't drown in restaurants and convenience stores."""
+    # v9 UX polish #18 — round before sending to third party. 110 m
+    # accuracy is plenty for nearby-POI search and we don't want
+    # AMap's logs to know your exact location.
+    from app.config import round_geo_by_use
+    tp_lat = round_geo_by_use(lat, "third_party")
+    tp_lon = round_geo_by_use(lon, "third_party")
     params = {
         "key": key,
-        "location": f"{lon},{lat}",   # AMap uses lon,lat
+        "location": f"{tp_lon},{tp_lat}",   # AMap uses lon,lat
         "radius": str(min(radius_m, 50000)),
         "types": AMAP_TYPES,
         "extensions": "base",
@@ -300,12 +306,16 @@ async def _fetch_amap(lat: float, lon: float, radius_m: int, key: str) -> list[P
 
 async def _fetch_osm(lat: float, lon: float, radius_m: int) -> list[POICandidate]:
     """OSM Overpass — viewpoints, attractions, monuments, museums."""
+    # v9 UX polish #18 — round before sending to third party.
+    from app.config import round_geo_by_use
+    tp_lat = round_geo_by_use(lat, "third_party")
+    tp_lon = round_geo_by_use(lon, "third_party")
     query = (
         "[out:json][timeout:1];("
-        f"node[tourism=viewpoint](around:{radius_m},{lat},{lon});"
-        f"node[tourism=attraction](around:{radius_m},{lat},{lon});"
-        f"node[historic](around:{radius_m},{lat},{lon});"
-        f"node[tourism=museum](around:{radius_m},{lat},{lon});"
+        f"node[tourism=viewpoint](around:{radius_m},{tp_lat},{tp_lon});"
+        f"node[tourism=attraction](around:{radius_m},{tp_lat},{tp_lon});"
+        f"node[historic](around:{radius_m},{tp_lat},{tp_lon});"
+        f"node[tourism=museum](around:{radius_m},{tp_lat},{tp_lon});"
         ");out body 20;"
     )
     async with httpx.AsyncClient(timeout=TIMEOUT_SEC) as client:
