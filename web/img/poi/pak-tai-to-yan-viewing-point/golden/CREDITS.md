@@ -1,0 +1,25 @@
+# Pak Tai To Yan Viewing Point — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-small-shrine-with-golden-statues-on-top-of-it-TGQhv3r3o1A)
+- [Khong Toi](https://unsplash.com/@khongtoichan) — [photo](https://unsplash.com/photos/green-hill-QG1jfpeBgds)
+- [Amjad rana](https://unsplash.com/@amjadrana) — [photo](https://unsplash.com/photos/woman-in-white-shirt-walking-on-pathway-near-green-trees-and-mountain-during-daytime-MrKPi-yajC0)
+- [Satish Dharmavarapu](https://unsplash.com/@satishdharmavarapu) — [photo](https://unsplash.com/photos/a-group-of-people-standing-on-top-of-a-lush-green-hillside-wsST_ry1oYE)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-on-top-of-a-table-amOAyowx_PQ)
+- [wilsan u](https://unsplash.com/@wilsanphotography) — [photo](https://unsplash.com/photos/hatchback-near-gazebo-5AKJ-X1vIYM)
+- [Dieny Portinanni](https://unsplash.com/@dienyportinanni) — [photo](https://unsplash.com/photos/a-tree-in-a-forest-m6qttua68UM)
+- [Subhadeep Saha](https://unsplash.com/@subhadeep003) — [photo](https://unsplash.com/photos/a-man-standing-on-top-of-a-lush-green-hillside-5VgkFSaMKRY)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-couple-of-buddha-statues-sitting-on-top-of-a-hill-g8YXh_eMDsY)
+- [N Hossain](https://unsplash.com/@nhossainea) — [photo](https://unsplash.com/photos/a-landscape-with-trees-and-hills-6DLc8DTikPo)
+- [Nghia Tran Tuan](https://unsplash.com/@trantuannghia) — [photo](https://unsplash.com/photos/green-grass-field-and-trees-under-blue-sky-during-daytime-OMoWo8yoJ0I)
+- [PhotoHound](https://unsplash.com/@photohoundco) — [photo](https://unsplash.com/photos/a-large-rock-with-a-gold-top-and-a-gold-dome-on-top-with-kyaiktiyo-pagoda-in-the-background-8ZEz3R2SZvU)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-large-golden-dome-on-top-of-a-building-GWeto31xD9k)
+- [abhi shek](https://unsplash.com/@pr_abhishek) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-hill-with-trees-wJw6hZnFZr4)
+- [Johirul islam Sujon](https://unsplash.com/@place2bangladesh) — [photo](https://unsplash.com/photos/aerial-view-of-trees-near-ocean-BPNVor8NRNs)
+- [Ashrafy Talukder](https://unsplash.com/@ashrafyt) — [photo](https://unsplash.com/photos/green-trees-on-mountain-during-daytime-5FwhC0wb9nw)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-person-sitting-on-a-pedestal-eGej326d6sg)
+- [Anas Anwar](https://unsplash.com/@anasanwarphotography) — [photo](https://unsplash.com/photos/a-red-bench-sitting-on-top-of-a-lush-green-hillside-ywQ6okl_MpA)
+- [Bangkit Prayogi](https://unsplash.com/@prayogi8) — [photo](https://unsplash.com/photos/two-gray-wooden-bridges-JrVS41PmtBs)
+- [Rijan Gurung](https://unsplash.com/@eyes_of_madman) — [photo](https://unsplash.com/photos/village-nestled-on-a-lush-green-mountainside-with-winding-road-KMPm2fBXNfw)

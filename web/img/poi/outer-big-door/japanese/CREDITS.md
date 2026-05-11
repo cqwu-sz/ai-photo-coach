@@ -1,0 +1,25 @@
+# Outer Big Door — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/japanese-room-51Zct6qgJ8E)
+- [Sergey Gladyshev](https://unsplash.com/@gladyshev) — [photo](https://unsplash.com/photos/japanese-shoji-screen-with-a-peek-through-hole-2rXH2fbhCfM)
+- [Tom Rumble](https://unsplash.com/@tomrumble) — [photo](https://unsplash.com/photos/brown-wooden-door-BjwlewlVKN8)
+- [Antonio Rull](https://unsplash.com/@antoniorull) — [photo](https://unsplash.com/photos/brown-wooden-door-with-white-wall--J7tDZsVLX0)
+- [Eduardo Ramos](https://unsplash.com/@eduardoramoss) — [photo](https://unsplash.com/photos/red-framed-window-with-many-glass-panes-M-nRlEZEOkI)
+- [Nellie Adamyan](https://unsplash.com/@nellie_adamyan) — [photo](https://unsplash.com/photos/person-stands-in-doorway-of-traditional-japanese-building-7EHpNYgFNxc)
+- [Korie Cull](https://unsplash.com/@korie) — [photo](https://unsplash.com/photos/brown-wooden-door-is-close-during-daytime-6uxGM_9LJFc)
+- [Jan Canty](https://unsplash.com/@jcanty123) — [photo](https://unsplash.com/photos/green-wooden-door-with-red-and-white-wooden-door-MFS3Qf9UZyU)
+- [Colin + Meg](https://unsplash.com/@colinandmeg) — [photo](https://unsplash.com/photos/a-person-standing-in-a-doorway-of-a-building-8AXdWCFFVE0)
+- [Jason Leung](https://unsplash.com/@ninjason) — [photo](https://unsplash.com/photos/a-blue-and-red-door-sitting-next-to-a-building-u-NZSeYShtg)
+- [enkuu smile](https://unsplash.com/@enkuu) — [photo](https://unsplash.com/photos/a-wooden-building-with-a-staircase-leading-up-to-it-Zpr1HUKK3tg)
+- [Sava Bobov](https://unsplash.com/@dandycolor) — [photo](https://unsplash.com/photos/brown-wooden-framed-glass-window-24c1mCPTa0E)
+- [Colin + Meg](https://unsplash.com/@colinandmeg) — [photo](https://unsplash.com/photos/a-couple-of-people-standing-outside-of-a-building-unFs7OXeX7o)
+- [Pourya Gohari](https://unsplash.com/@_pourya_) — [photo](https://unsplash.com/photos/traditional-japanese-temple-seen-through-open-red-doors-NFNKmhs4LP8)
+- [Naoki Suzuki](https://unsplash.com/@naopp) — [photo](https://unsplash.com/photos/a-room-with-a-wooden-door-and-a-window-1xsG-JfjW7E)
+- [Sung Jin Cho](https://unsplash.com/@mbuff) — [photo](https://unsplash.com/photos/a-partially-open-traditional-korean-wooden-door-LkQYa7nEN1w)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-wooden-bench-sitting-in-front-of-a-building-3JuGRalgaEE)
+- [Elina Sitnikova](https://unsplash.com/@elpan_19) — [photo](https://unsplash.com/photos/brown-wooden-signage-on-brown-wooden-post-iMOnigQn7KA)
+- [enkuu smile](https://unsplash.com/@enkuu) — [photo](https://unsplash.com/photos/a-building-with-a-window-in-a-dark-room-HrAPzs6fRAQ)
+- [Kouji Tsuru](https://unsplash.com/@pafuxu) — [photo](https://unsplash.com/photos/bright-red-wooden-doors-of-a-traditional-japanese-building-Lyn2piLDWec)

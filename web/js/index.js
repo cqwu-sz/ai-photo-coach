@@ -31,6 +31,8 @@ import {
   removeReference,
 } from "./reference_db.js";
 import { initAvatarGallery } from "./avatar_gallery.js";
+import { initStylePicker } from "./style_picker.js";
+import { readCache as readGeoCache } from "./geo.js";
 import {
   getActiveModelConfig,
   openModelSettings,
@@ -54,6 +56,9 @@ const personSection = document.querySelector(".person-section");
 const avatarSection = document.querySelector(".avatar-section");
 const styleInput = document.getElementById("style-input");
 const styleSuggest = document.getElementById("style-suggest");
+const styleGrid = document.getElementById("style-grid");
+const styleDrawer = document.getElementById("style-drawer");
+let stylePicker = null;
 
 const modeBadge = document.getElementById("mode-badge");
 const settingsBtn = document.getElementById("settings-btn");
@@ -93,7 +98,7 @@ const SCENE_LABELS = {
   light_shadow: "光影",
 };
 
-const QUALITY_LABELS = { fast: "快速 (Flash)", high: "高质量 (Pro)" };
+const QUALITY_LABELS = { fast: "快速出片", high: "精致出片" };
 
 // ---------------------------------------------------------------------------
 // Tiny chip-row helpers
@@ -177,7 +182,7 @@ function applySceneMode(mode) {
   if (sub) {
     sub.textContent = isScenery
       ? "你选了风景模式，可以不出人。这一步会自动跳过。"
-      : "告诉 AI 几个人参与，再选好对应的虚拟角色 — 结果页会让他们摆姿势给你看。";
+      : "先告诉我们这次有几个人入镜，然后为每位选一个角色 — 拍摄页会用这些角色为你示范站位。";
   }
 }
 
@@ -226,6 +231,25 @@ if (personRow) activate(personRow, initialPerson);
 if (qualityRow) activate(qualityRow, initialQuality);
 if (styleInput && initialStyle) styleInput.value = initialStyle;
 
+// Style picker (Step 3) — must init AFTER `styleInput.value` is pre-filled
+// so the picker can derive initial card selection from existing keywords.
+// Pull a previously-cached geo fix (set by capture.js after a prior
+// shoot, or by a previous Step-3 visit). We never trigger a fresh GPS
+// prompt from the wizard — the prompt belongs to the capture flow,
+// not the planning flow. Without a fix, the picker just shows cards
+// without feasibility badges.
+const cachedGeo = readGeoCache()?.fix || null;
+initStylePicker({
+  gridHost: styleGrid,
+  drawerHost: styleDrawer,
+  input: styleInput,
+  onChange: () => updateSummary(),
+  geoFix: cachedGeo,
+}).then((p) => {
+  stylePicker = p;
+  updateSummary();
+});
+
 avatarGallery?.onPersonCountChanged();
 
 // ---------------------------------------------------------------------------
@@ -262,9 +286,21 @@ function updateSummary() {
     sumCast.textContent = `${s.personCount} 人${namePart}`;
   }
 
-  const tonePart = s.styleKeywords.length
-    ? s.styleKeywords.join(" + ")
-    : "无指定关键词";
+  // Prefer human-readable Chinese labels when the user picked one of the
+  // 5 known style cards; fall back to the raw English keywords for users
+  // who typed something custom (or partial overlap).
+  const picked = stylePicker?.getSelected?.() || [];
+  const pickedKeywords = new Set(
+    picked.flatMap((p) => (p.keywords || []).map((k) => k.toLowerCase())),
+  );
+  const customExtras = s.styleKeywords.filter(
+    (k) => !pickedKeywords.has(k.toLowerCase()),
+  );
+  const toneParts = [
+    ...picked.map((p) => p.label_zh),
+    ...customExtras,
+  ];
+  const tonePart = toneParts.length ? toneParts.join(" + ") : "无指定基调";
   sumTone.textContent = `${QUALITY_LABELS[s.qualityMode] || s.qualityMode} · ${tonePart}`;
 }
 
@@ -483,9 +519,9 @@ if (settingsBtn) {
   try {
     const h = await getHealth();
     if (h.mock_mode) {
-      modeBadge.textContent = "MOCK 模式";
+      modeBadge.textContent = "演示模式";
       modeBadge.classList.add("mock");
-      if (modelNameEl) modelNameEl.textContent = "mock";
+      if (modelNameEl) modelNameEl.textContent = "演示模式";
     } else {
       modeBadge.classList.add("live");
       modeBadge.textContent = "已连接";
@@ -496,9 +532,9 @@ if (settingsBtn) {
       }
     }
   } catch (e) {
-    modeBadge.textContent = "后端未连接";
+    modeBadge.textContent = "服务未连接";
     modeBadge.classList.add("mock");
-    if (modelNameEl) modelNameEl.textContent = "offline";
+    if (modelNameEl) modelNameEl.textContent = "离线";
   }
 
   if (poseCountEl) {
@@ -633,7 +669,7 @@ if (demoBtn) {
     showDemoError("");
     resetDemoStages();
     demoOverlay.style.display = "flex";
-    demoMsg.textContent = "下载示例环视帧…";
+    demoMsg.textContent = "正在准备示范场景…";
     setDemoStage("fetch", "active");
 
     try {
@@ -648,7 +684,7 @@ if (demoBtn) {
       setDemoStage("fetch", "done");
 
       setDemoStage("refs", "active");
-      demoMsg.textContent = "下载示例参考图…";
+      demoMsg.textContent = "准备参考照片…";
       const referenceBlobs = [];
       for (const r of manifest.references || []) {
         const blob = await fetchAsBlob(r.url);
@@ -657,7 +693,7 @@ if (demoBtn) {
       setDemoStage("refs", "done");
 
       setDemoStage("ai", "active");
-      demoMsg.textContent = "AI 正在真分析这组示例环境…（30~60秒）";
+      demoMsg.textContent = "AI 正在为你设计出片方案…（30~60 秒）";
 
       const meta = {
         person_count: s.personCount,
@@ -701,7 +737,7 @@ if (demoBtn) {
       saveRefInspiration({
         count: (manifest.references || []).length,
         thumbs: (manifest.references || []).map((r) => r.url),
-        names: ["示例参考图 #1", "示例参考图 #2", "示例参考图 #3"].slice(
+        names: ["参考照 1", "参考照 2", "参考照 3"].slice(
           0,
           (manifest.references || []).length,
         ),
@@ -715,9 +751,9 @@ if (demoBtn) {
       console.error(err);
       const raw = err && err.message ? err.message : String(err);
       const friendly = /503|UNAVAILABLE|high demand/i.test(raw)
-        ? "Gemini 当前繁忙（503），稍等几秒再点一次。"
+        ? "服务当前繁忙，稍等几秒再点一次。"
         : /quota|RESOURCE_EXHAUSTED/i.test(raw)
-        ? "免费 Gemini 额度今天用完了，明天再来。"
+        ? "今天的免费额度用完了，明天再试。"
         : raw.slice(0, 220);
       showDemoError(`运行失败：${friendly}`);
       demoMsg.textContent = "失败 — 点击外侧关闭，再试一次";

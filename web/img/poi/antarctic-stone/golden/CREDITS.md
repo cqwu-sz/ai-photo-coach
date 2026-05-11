@@ -1,0 +1,25 @@
+# Antarctic stone — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Galina Nelyubova](https://unsplash.com/@galka_nz) — [photo](https://unsplash.com/photos/golden-colored-stone-walls-and-building-corners-are-shown-4XBMMLcfeRY)
+- [Niel de Villiers](https://unsplash.com/@speedxo) — [photo](https://unsplash.com/photos/a-close-up-of-a-rock-with-yellow-lichen-on-it-WslI5d2d33I)
+- [Stepan Ivanov](https://unsplash.com/@_gameta_) — [photo](https://unsplash.com/photos/a-rocky-outcropping-with-snow-on-the-ground-XwvkdNybt7o)
+- [Olga Gasheva](https://unsplash.com/@zlata003) — [photo](https://unsplash.com/photos/brown-deer-figurine-on-brown-wooden-table-GbeFioRRPUU)
+- [atiyeh fathi](https://unsplash.com/@atiyehfathi) — [photo](https://unsplash.com/photos/close-up-texture-of-a-rough-golden-brown-rock-surface-d7rgXL955gc)
+- [Andrés Dallimonti](https://unsplash.com/@dallimonti) — [photo](https://unsplash.com/photos/gray-rock-formation-on-body-of-water-during-daytime-woQt0_C7TBg)
+- [Leo_Visions](https://unsplash.com/@leo_visions_) — [photo](https://unsplash.com/photos/a-close-up-of-some-rocks-zBZ5AfJEoNg)
+- [Joseph Royer](https://unsplash.com/@joseph_royer) — [photo](https://unsplash.com/photos/a-close-up-of-a-brown-and-white-marble-0iRuaDf083M)
+- [atiyeh fathi](https://unsplash.com/@atiyehfathi) — [photo](https://unsplash.com/photos/close-up-of-textured-rock-with-brown-and-white-patterns-HkyRJEJQpDU)
+- [Askara Svarga](https://unsplash.com/@askarasvarga) — [photo](https://unsplash.com/photos/a-close-up-of-a-rock-with-a-bird-on-it-5Aj6Vgep15c)
+- [Serg Magpie](https://unsplash.com/@magpies) — [photo](https://unsplash.com/photos/a-rock-with-snow-on-it-and-a-mountain-in-the-background-ecquYMuX944)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/brown-and-gray-stone-lot-W0Qd-Tpc434)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/special-abstract-natural-marble-texture-with-combine-grey-orange-and-red-color-line-together-ny3vXGZu-ms)
+- [PAVAN J Mr. J](https://unsplash.com/@edggeo) — [photo](https://unsplash.com/photos/brown-and-white-stone-on-white-surface-dF3K6A56VXA)
+- [John Doyle](https://unsplash.com/@hyw1) — [photo](https://unsplash.com/photos/a-close-up-of-rocks-with-yellow-moss-growing-on-them-cwdqXJ1dvvY)
+- [Greg Rosenke](https://unsplash.com/@greg_rosenke) — [photo](https://unsplash.com/photos/a-person-climbing-up-a-mountain-with-a-snowboard-8zxJYcboYRE)
+- [Curated Lifestyle](https://unsplash.com/@curatedlifestyle) — [photo](https://unsplash.com/photos/close-up-of-a-marble-textured-wall-t1QSG76R2r8)
+- [Brandon Stoll](https://unsplash.com/@brandonstoll) — [photo](https://unsplash.com/photos/a-close-up-of-a-rock-face-with-yellow-paint-YSuZZ2RbKiU)
+- [Askara Svarga](https://unsplash.com/@askarasvarga) — [photo](https://unsplash.com/photos/a-close-up-of-a-rock-with-a-painting-on-it-FSlwgGca7oE)
+- [Elena Rabkina](https://unsplash.com/@rabkina) — [photo](https://unsplash.com/photos/a-close-up-of-a-rock-with-cracks-in-it-mS2ngiOqRsI)

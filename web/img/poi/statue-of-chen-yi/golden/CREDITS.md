@@ -1,0 +1,25 @@
+# Statue of Chen Yi — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-woman-holding-a-flower-tecpr2YFoYM)
+- [Mathew Schwartz](https://unsplash.com/@cadop) — [photo](https://unsplash.com/photos/gold-statue-of-man-sitting-on-throne-Ktxql22DyMk)
+- [Andy Wang](https://unsplash.com/@space_launch_system) — [photo](https://unsplash.com/photos/statue-of-a-warrior-on-a-bull-against-blue-sky-WgtQnXcbN5o)
+- [ASTERISK KWON](https://unsplash.com/@unknown_salad) — [photo](https://unsplash.com/photos/low-angle-photography-of-sitting-statue-rpFVnsi7PXw)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-mpj-Zp1NAhY)
+- [P. Bc](https://unsplash.com/@papuan) — [photo](https://unsplash.com/photos/brown-statue-1yduxj2d6R8)
+- [Лариса Янковская](https://unsplash.com/@lora3762) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-person-sitting-on-a-bench-gYENbjbqaOE)
+- [Ciprian Stoenescu](https://unsplash.com/@cipri77) — [photo](https://unsplash.com/photos/golden-statue-of-a-warrior-with-a-large-weapon-Exah6F4vkcc)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-man-holding-a-sword-fkCplXrwwm0)
+- [Jason Leung](https://unsplash.com/@ninjason) — [photo](https://unsplash.com/photos/statue-of-a-man-in-chinatown-UYccuaqnaak)
+- [Harrison Qi](https://unsplash.com/@harix) — [photo](https://unsplash.com/photos/gold-statue-of-man-holding-stick-z30fEwTmAnQ)
+- [Mathew Schwartz](https://unsplash.com/@cadop) — [photo](https://unsplash.com/photos/knight-statue-during-daytime-6JytDkYv584)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-AHkFdkLCGVo)
+- [Jan Ryszka](https://unsplash.com/@jryszka) — [photo](https://unsplash.com/photos/golden-equestrian-statue-against-a-cloudy-sky-Uzed9ATIpbI)
+- [Akkash Shah](https://unsplash.com/@im_sky) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-man-riding-a-horse-cksy7lpcRp0)
+- [Kim Ukill](https://unsplash.com/@ukill) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-torch-LbSRzQELK3A)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-vi59HkFt4dQ)
+- [KJ Brix](https://unsplash.com/@kjbroome) — [photo](https://unsplash.com/photos/a-statue-of-an-elephant-and-a-golden-statue-ljx0t-xkvjU)
+- [Kilian Murphy](https://unsplash.com/@excellentcx) — [photo](https://unsplash.com/photos/golden-statue-holding-cup-against-clear-blue-sky-LIaFXec7SaE)
+- [Rosario Fernandes](https://unsplash.com/@rioferns62) — [photo](https://unsplash.com/photos/a-large-golden-wall-with-a-group-of-people-on-it-wq-XbrsHf-o)

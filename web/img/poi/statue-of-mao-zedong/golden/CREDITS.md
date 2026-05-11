@@ -1,0 +1,25 @@
+# Statue of Mao Zedong — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-man-holding-a-sword-fkCplXrwwm0)
+- [Etienne Girardet](https://unsplash.com/@etiennegirardet) — [photo](https://unsplash.com/photos/a-man-standing-in-front-of-a-statue-of-a-man-holding-a-flag-k5ys-XVVmf0)
+- [LISK OBE](https://unsplash.com/@summerobelisk) — [photo](https://unsplash.com/photos/statue-of-a-man-in-uniform-holding-a-book-9WCIVl8zxDo)
+- [Zeki Binici](https://unsplash.com/@zekibnc) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-cane-in-front-of-flags-WR60Krpjljc)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-woman-holding-a-flower-tecpr2YFoYM)
+- [Oscar Schnell](https://unsplash.com/@oscar1319) — [photo](https://unsplash.com/photos/man-in-coat-statue-near-building-during-daytime-UDRG28JFcj8)
+- [Mathew Schwartz](https://unsplash.com/@cadop) — [photo](https://unsplash.com/photos/gold-statue-of-man-sitting-on-throne-Ktxql22DyMk)
+- [Александр Давыдов](https://unsplash.com/@kucheryavy) — [photo](https://unsplash.com/photos/golden-monument-of-two-figures-against-a-twilight-sky-VXC6H-FO2KM)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-gold-statue-of-a-person-holding-a-bird-xXPdvCGX-Dw)
+- [Bu Jeff](https://unsplash.com/@jeffbu) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-rainbow-in-the-background-cCdV8I1ES0s)
+- [Kim Ukill](https://unsplash.com/@ukill) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-torch-LbSRzQELK3A)
+- [Khanh Nguyen](https://unsplash.com/@thejourneyofframes) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-plant-in-his-hand-Fd4VYKevmCw)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-buddha-statues-sitting-next-to-each-other-EWbAEN4fYBQ)
+- [Александр Давыдов](https://unsplash.com/@kucheryavy) — [photo](https://unsplash.com/photos/golden-statue-of-two-figures-against-a-twilight-sky-fFjgtFknP_0)
+- [Sunil GC](https://unsplash.com/@sgc908) — [photo](https://unsplash.com/photos/gold-statue-of-a-man--8b6Bfjx6aQ)
+- [Imraan Haffegee](https://unsplash.com/@imohaf) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-his-fist-up-QyFSKM9koOY)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-mpj-Zp1NAhY)
+- [Subulu Salam](https://unsplash.com/@subulus_salam) — [photo](https://unsplash.com/photos/a-statue-of-a-man-DSH2BCfoSig)
+- [Alexander Awerin](https://unsplash.com/@awerin) — [photo](https://unsplash.com/photos/gold-statue-under-blue-sky-during-daytime-TsoeLYE4bPA)
+- [Abdur Rofi](https://unsplash.com/@mrofisr) — [photo](https://unsplash.com/photos/a-large-statue-of-a-man-in-a-park-Wr9vbfbz2dE)

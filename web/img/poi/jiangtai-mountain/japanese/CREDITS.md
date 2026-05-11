@@ -1,0 +1,25 @@
+# Jiangtai Mountain — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Taiki Ishikawa](https://unsplash.com/@fl__q) — [photo](https://unsplash.com/photos/a-foggy-mountain-with-trees-on-the-side-of-it-ScWI46eiAro)
+- [德文 陈](https://unsplash.com/@sggggy) — [photo](https://unsplash.com/photos/a-small-village-in-the-middle-of-a-mountain-range-1VJe7rTBFFQ)
+- [Zhang qc](https://unsplash.com/@hypocriteeeee) — [photo](https://unsplash.com/photos/traditional-pagoda-on-a-lush-green-mountain-peak-o2pp4v1l-IU)
+- [Happysurd Photography](https://unsplash.com/@happysurd) — [photo](https://unsplash.com/photos/snow-capped-mountains-rise-above-evergreen-forests-xE8F4uqr9Mc)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-rocky-mountain-with-trees-growing-on-it-fmMeXYQvJhA)
+- [JUNHØ](https://unsplash.com/@junhochak) — [photo](https://unsplash.com/photos/green-and-brown-mountain-under-blue-sky-during-daytime-lcy0ty8_zSQ)
+- [qi zhang](https://unsplash.com/@zhuanxinkeyan) — [photo](https://unsplash.com/photos/green-mountain-under-blue-sky-n-jgyAt4hGQ)
+- [Freddy Kearney](https://unsplash.com/@fredasem) — [photo](https://unsplash.com/photos/cloudy-mountain-bftqPwQpC4U)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-snow-covered-mountain-with-a-tower-on-top-of-it-INlfVftXeQk)
+- [Da-shika](https://unsplash.com/@da_shika_photo) — [photo](https://unsplash.com/photos/a-mountain-side-with-trees-and-clouds-in-the-background-Tc176SH8qxM)
+- [Nguyen Minh](https://unsplash.com/@ngminh8895) — [photo](https://unsplash.com/photos/a-house-sits-peacefully-in-a-foggy-mountain-CQnHN2HVESA)
+- [Andrew S](https://unsplash.com/@sita2) — [photo](https://unsplash.com/photos/green-and-gray-mountains-under-blue-sky-during-daytime-C4p4e1ZICOI)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-view-of-a-very-tall-mountain-in-the-middle-of-a-forest-Do_VSJroq2o)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-with-a-sky-background-sbwUUQRSc7Q)
+- [Michael Myers](https://unsplash.com/@myers2021) — [photo](https://unsplash.com/photos/a-view-of-a-valley-with-mountains-in-the-background-0CMTinwTS0Y)
+- [흐름 K8](https://unsplash.com/@integrit) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-range-from-a-high-point-of-view-TfwBNha4i90)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-range-with-pine-trees-on-top-of-it-o_vA2F_HGaE)
+- [Isis Pan](https://unsplash.com/@silkycotton) — [photo](https://unsplash.com/photos/a-house-on-a-beach-with-mountains-in-the-background-NdgyIJjtgyc)
+- [Scot Cris](https://unsplash.com/@scotcris) — [photo](https://unsplash.com/photos/green-mountain-during-daytime-LDCxMPSE7Ac)
+- [Michael Ahn](https://unsplash.com/@alohaboston) — [photo](https://unsplash.com/photos/a-mountain-range-with-a-boat-in-the-water-Ly96B5zuB7Q)

@@ -1,0 +1,25 @@
+# Light show (Dancing fountains) — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Cristina Gottardi](https://unsplash.com/@cristina_gottardi) — [photo](https://unsplash.com/photos/a-group-of-people-standing-in-front-of-a-water-fountain-8rFvkc4MDXc)
+- [MARIOLA GROBELSKA](https://unsplash.com/@mariolagr) — [photo](https://unsplash.com/photos/a-large-water-fountain-is-lit-up-at-night-XWmMcR5s7NI)
+- [MARIOLA GROBELSKA](https://unsplash.com/@mariolagr) — [photo](https://unsplash.com/photos/a-large-fountain-of-water-is-lit-up-at-night-DRSG1QeGPAk)
+- [Raimond Klavins](https://unsplash.com/@raimondklavins) — [photo](https://unsplash.com/photos/water-fountain-with-lights-turned-on-during-night-time-JL1mLVmtWlM)
+- [Dmitrii Shirnin](https://unsplash.com/@shirnind) — [photo](https://unsplash.com/photos/abstract-golden-sparkles-with-blurred-motion-effect-S6HRPaupCE0)
+- [Maxim Shklyaev](https://unsplash.com/@shklyaevmax) — [photo](https://unsplash.com/photos/water-fountain-with-lights-turned-on-during-night-time-I41B94fRDFk)
+- [Axel  Antas-Bergkvist](https://unsplash.com/@aabergkvist) — [photo](https://unsplash.com/photos/water-fountain-with-fire-during-night-time-NZfsRDdv-Ds)
+- [Anas Ahmed](https://unsplash.com/@1a8e) — [photo](https://unsplash.com/photos/a-group-of-fountains-in-the-water-at-night-D7es7XSYljc)
+- [Point Normal](https://unsplash.com/@normals) — [photo](https://unsplash.com/photos/abstract-shimmering-lines-and-particles-on-black-background-eTyqwmz0Rhw)
+- [Aditya Chinchure](https://unsplash.com/@adityachinchure) — [photo](https://unsplash.com/photos/fireworks-during-night-time-bh_LzPSbs-M)
+- [Janek Valdsalu](https://unsplash.com/@janekvaldsalu) — [photo](https://unsplash.com/photos/a-fountain-of-water-is-lit-up-at-night-92tQ5urYwCY)
+- [Fahad Salman](https://unsplash.com/@fsalman01) — [photo](https://unsplash.com/photos/fireworks-going-off-over-water-0s8SDdV0aBs)
+- [Andrej Lišakov](https://unsplash.com/@lishakov) — [photo](https://unsplash.com/photos/a-blurry-photo-of-chairs-in-front-of-a-black-background-F0Mhz4b7zDE)
+- [Axel  Antas-Bergkvist](https://unsplash.com/@aabergkvist) — [photo](https://unsplash.com/photos/water-fountain-with-lights-turned-on-during-night-time-5-tIThSiuD0)
+- [Tim  Dennert](https://unsplash.com/@tim_denn) — [photo](https://unsplash.com/photos/a-long-exposure-of-fireworks-in-the-night-sky-dWe99YkfLNQ)
+- [𝕡𝕒𝕨𝕤 𝕒𝕟𝕕 𝕡𝕣𝕚𝕟𝕥𝕤](https://unsplash.com/@paws_and_prints) — [photo](https://unsplash.com/photos/colorful-illuminated-fountains-at-night-NRKLnvwuFHM)
+- [Roberta Sant'Anna](https://unsplash.com/@roberta_sant_anna) — [photo](https://unsplash.com/photos/a-person-holding-a-piece-of-food-in-their-hand-q5cucOQeze0)
+- [Leo_Visions](https://unsplash.com/@leo_visions_) — [photo](https://unsplash.com/photos/burning-effigy-with-fireworks-at-night-7twHT4nf_qo)
+- [Brandi Alexandra](https://unsplash.com/@brandialxndra) — [photo](https://unsplash.com/photos/pink-and-blue-fountain-rtdMVtG3Ysk)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/brown-firework-during-night-time-f7LManU2igc)

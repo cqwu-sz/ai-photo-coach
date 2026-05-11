@@ -1,0 +1,25 @@
+# Monument of 100th Anniversary — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Vadim Sadovski](https://unsplash.com/@vadimsadovski) — [photo](https://unsplash.com/photos/tall-tower-illuminated-at-night-with-dark-sky-_kMcFs3QlVA)
+- [sabari nathan](https://unsplash.com/@dsnphotography) — [photo](https://unsplash.com/photos/a-monument-in-a-park-with-trees-in-the-background-xYXTP01ap_I)
+- [Roméo A.](https://unsplash.com/@gronemo) — [photo](https://unsplash.com/photos/a-large-stone-structure-with-flowers-in-front-of-it-with-hiroshima-peace-memorial-in-the-background-6kxJwJG-HPY)
+- [Oh Taeyeon](https://unsplash.com/@ohtaeyeon) — [photo](https://unsplash.com/photos/a-very-tall-building-with-a-lot-of-lights-on-it-dQgSx4YSDjE)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/this-striking-image-of-tokyos-iconic-red-tower-lit-up-against-the-blue-sky-is-perfect-for-your-next-stock-photo-project-7UbIrZsOb3M)
+- [Noor Sharma](https://unsplash.com/@noorsharma) — [photo](https://unsplash.com/photos/a-large-stone-with-writing-on-it-iUkCTI70t8s)
+- [Yu Chen Lin 育辰](https://unsplash.com/@wiimandy40) — [photo](https://unsplash.com/photos/stone-lantern-with-japanese-characters-and-torii-gate-IBalbVi8p78)
+- [Krzysztof](https://unsplash.com/@krzysztof_h) — [photo](https://unsplash.com/photos/peace-memorial-park-in-hiroshima-japan-10ikRdagUtc)
+- [Michael Moloney](https://unsplash.com/@mjmolo) — [photo](https://unsplash.com/photos/people-enjoy-a-park-with-a-skyscraper-in-the-distance-8DmZotTmIME)
+- [Daniel Ramos](https://unsplash.com/@danielcramos) — [photo](https://unsplash.com/photos/white-concrete-cross-on-brown-field-near-snow-covered-mountain-during-daytime-5mOPXiVwj9k)
+- [Luke Galloway](https://unsplash.com/@space_face_films) — [photo](https://unsplash.com/photos/a-stone-marker-in-a-field-with-mountains-in-the-background-h8tjb3134FM)
+- [Haberdoedas](https://unsplash.com/@haberdoedas) — [photo](https://unsplash.com/photos/a-stone-monument-with-japanese-writing-in-a-garden-xXTek1NWEf4)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/an-aerial-view-of-a-city-with-tall-buildings-E8ETn2pRBTQ)
+- [Steve Sharp](https://unsplash.com/@sharp3) — [photo](https://unsplash.com/photos/people-standing-near-gray-rock-formation-during-daytime-vvcudbs5P7o)
+- [Delvin Abdiel](https://unsplash.com/@daeldarom) — [photo](https://unsplash.com/photos/a-sign-that-is-sitting-on-the-side-of-a-road-WC_xgvka6ec)
+- [Kiko K](https://unsplash.com/@kskoo626) — [photo](https://unsplash.com/photos/a-very-tall-tower-with-a-sky-in-the-background-yIZ_hBEVkBw)
+- [RODOLFO BARRETTO](https://unsplash.com/@rodolfobarreto) — [photo](https://unsplash.com/photos/a-bridge-over-a-body-of-water-next-to-a-tall-building-KIj7Wx1Xz5g)
+- [Óscar Gutiérrez](https://unsplash.com/@oslegutiez) — [photo](https://unsplash.com/photos/a-monument-in-the-middle-of-a-park-surrounded-by-trees-4qqGLhGag_4)
+- [Vik Molina](https://unsplash.com/@asecasvik) — [photo](https://unsplash.com/photos/stone-monument-with-japanese-calligraphy-and-trees-jvU6GqlZg1c)
+- [Luke Galloway](https://unsplash.com/@space_face_films) — [photo](https://unsplash.com/photos/a-monument-with-writing-on-it-in-a-park-ID4I-y5DqIk)

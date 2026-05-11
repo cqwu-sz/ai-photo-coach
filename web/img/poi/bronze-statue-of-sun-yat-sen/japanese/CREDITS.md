@@ -1,0 +1,25 @@
+# Bronze Statue of Sun Yat-sen — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-sword-on-top-of-a-building-IYjfxrUikjs)
+- [Franck Ridel](https://unsplash.com/@cryptrz) — [photo](https://unsplash.com/photos/bronze-samurai-warrior-statue-holding-a-sword-P3ZvOjaSrT0)
+- [Jacky Watt](https://unsplash.com/@jackywatt) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-with-a-hat-on-her-head-JpMqwlyiCDw)
+- [yang jia](https://unsplash.com/@jyredrose) — [photo](https://unsplash.com/photos/a-bronze-statue-of-a-warrior-holding-a-fan-WBZ39YrqL-Y)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-with-a-ferris-wheel-on-top-of-it-5iCJEwKbBr4)
+- [Photos of Korea](https://unsplash.com/@photosofkorea) — [photo](https://unsplash.com/photos/a-statue-of-a-man-and-a-woman-joxin0Hh1JE)
+- [Jason Leung](https://unsplash.com/@ninjason) — [photo](https://unsplash.com/photos/a-serene-bronze-statue-of-a-deity-with-hands-clasped-0p94UzVRsTM)
+- [Michael Myers](https://unsplash.com/@myers2021) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-sword-uGbcejDCzso)
+- [martin bennie](https://unsplash.com/@martinbennie) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-staff-in-front-of-a-building-n-XFCbKqQQY)
+- [Jason Leung](https://unsplash.com/@ninjason) — [photo](https://unsplash.com/photos/tribal-totem-IdCBGviMDFA)
+- [Juan Lagunas](https://unsplash.com/@jlag_photos) — [photo](https://unsplash.com/photos/bronze-statue-of-a-figure-against-a-clear-blue-sky-8Jrgy_Cx4L0)
+- [Anna Mircea](https://unsplash.com/@annnnnnnna8) — [photo](https://unsplash.com/photos/a-statue-of-a-buddha-in-a-garden-UDDQjSht1NM)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-pole-Tyxb2EczUYo)
+- [Takashi TSUCHIDA](https://unsplash.com/@takatsuchida) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-holding-a-circular-object-QDZnOkhP4Zg)
+- [HOLO](https://unsplash.com/@iamholo) — [photo](https://unsplash.com/photos/a-bronze-statue-of-a-seated-figure-in-contemplation-8xOGl0aWab0)
+- [Leon Andov](https://unsplash.com/@lando2) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-hat-and-a-cane-dgE0Vgju8_c)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-buddha-statues-sitting-on-top-of-a-rock-F-4Q95NK5i0)
+- [Raymond Morland](https://unsplash.com/@raymorland) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-in-a-garden-surrounded-by-trees-Wokesi_6dvk)
+- [Evan Ambrose](https://unsplash.com/@evanambrose) — [photo](https://unsplash.com/photos/a-bronze-statue-stands-before-blooming-cherry-blossoms-o0RCGfi9ZT4)
+- [k J](https://unsplash.com/@kevin_jia) — [photo](https://unsplash.com/photos/a-group-of-people-sitting-around-a-statue-of-a-man-KyOV7qnfUWE)

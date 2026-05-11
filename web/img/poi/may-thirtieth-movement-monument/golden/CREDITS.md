@@ -1,0 +1,25 @@
+# May Thirtieth Movement Monument — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/low-angle-view-of-berlin-victory-column-VekFsKyJS3U)
+- [Carlos Felipe Ramírez Mesa](https://unsplash.com/@cafera13) — [photo](https://unsplash.com/photos/a-statue-of-a-person-on-a-horse-7pT2SMJ_NTY)
+- [Александр Давыдов](https://unsplash.com/@kucheryavy) — [photo](https://unsplash.com/photos/golden-monument-of-two-figures-against-a-twilight-sky-VXC6H-FO2KM)
+- [Alex Rizzardi](https://unsplash.com/@rizzardi_alex) — [photo](https://unsplash.com/photos/golden-statue-of-a-woman-holding-a-wreath-paB8AEBh4BM)
+- [Unsplash+ Community](https://unsplash.com/@plus) — [photo](https://unsplash.com/photos/a-statue-on-top-of-a-pillar-with-a-sky-background-qQf6xxE1eug)
+- [Tomas Eidsvold](https://unsplash.com/@eidsvold) — [photo](https://unsplash.com/photos/gold-statue-of-a-man-87TrHpYRsmI)
+- [Taylor Keeran](https://unsplash.com/@taylorkeeran) — [photo](https://unsplash.com/photos/a-monument-with-a-golden-statue-on-top-of-it-PnSUHv6AMhQ)
+- [Sergei Golubev](https://unsplash.com/@sgolubev) — [photo](https://unsplash.com/photos/a-golden-statue-on-top-of-a-tall-building-3fH-Lz5y-ow)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-large-building-with-a-dome-on-top-of-it-ztH-68Qvrz0)
+- [Ash Coronado](https://unsplash.com/@ashjcoronado) — [photo](https://unsplash.com/photos/a-gold-statue-of-an-angel-on-top-of-a-building-4uReWq7PQ4Q)
+- [Jimmy Woo](https://unsplash.com/@woomantsing) — [photo](https://unsplash.com/photos/a-golden-statue-on-top-of-a-tall-building-oRoPxpyV9O0)
+- [Alireza Gorji](https://unsplash.com/@bidaad) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-with-a-crown-on-top-of-it-Q4GM5XCt5BI)
+- [Mikita Chyrkun](https://unsplash.com/@mikitach) — [photo](https://unsplash.com/photos/a-statue-of-an-angel-on-top-of-a-pillar-fenakGcqyeM)
+- [Shalev Cohen](https://unsplash.com/@shalevcohen) — [photo](https://unsplash.com/photos/a-golden-statue-on-top-of-a-tall-monument-5KjLzVFuvB8)
+- [Gergana Ilieva](https://unsplash.com/@maistormani8) — [photo](https://unsplash.com/photos/golden-angel-atop-a-monument-against-blue-sky-X9S5_j2frGA)
+- [Arun Johny](https://unsplash.com/@johny_arun) — [photo](https://unsplash.com/photos/a-person-looking-at-a-statue-9zR7Ez1JO2Y)
+- [Tanya Barrow](https://unsplash.com/@tanyabarrow) — [photo](https://unsplash.com/photos/the-july-column-monument-in-paris-under-a-cloudy-sky-qpFHYmW6-Dk)
+- [Brandon Moyé](https://unsplash.com/@_moyevisuals) — [photo](https://unsplash.com/photos/gold-statue-of-man-on-park-during-daytime-Tpc3GG3LS5Q)
+- [Diego Marín](https://unsplash.com/@diegosmarines) — [photo](https://unsplash.com/photos/a-statue-in-front-of-a-building-with-a-sky-background-sg5lZfgNLCg)
+- [Vincenzo Godono](https://unsplash.com/@vinci1065) — [photo](https://unsplash.com/photos/a-golden-angel-statue-atop-a-white-building-0MuDDJ_lNSs)

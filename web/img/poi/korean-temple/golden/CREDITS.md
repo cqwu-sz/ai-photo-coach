@@ -1,0 +1,25 @@
+# Korean Temple — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/haedong-yonggungsa-temple-on-sea-shore-busan-south-korea-kO0w49YXfSY)
+- [martin bennie](https://unsplash.com/@martinbennie) — [photo](https://unsplash.com/photos/a-statue-of-a-person-7kAWmmSdke4)
+- [Seval Torun](https://unsplash.com/@sevaltorun) — [photo](https://unsplash.com/photos/golden-buddha-statue-sits-before-a-traditional-korean-building-kRoXfLRzSz0)
+- [LUHAN YANG](https://unsplash.com/@yangluhan091) — [photo](https://unsplash.com/photos/autumn-leaves-fall-near-a-traditional-korean-temple-_foZBvYZeDM)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/haedong-yonggungsa-temple-on-sea-shore-busan-south-korea-ieQjdgWm7SY)
+- [Jakub Tomasik](https://unsplash.com/@jakubeq) — [photo](https://unsplash.com/photos/traditional-korean-house-with-tiled-roof-and-trees-i789libx7R8)
+- [Toro Elmar](https://unsplash.com/@toroelmar) — [photo](https://unsplash.com/photos/pagoda-framed-by-autumn-trees-and-traditional-korean-roofs-Z0R40Fv2X-Y)
+- [DongHoo Kim](https://unsplash.com/@kimphodo) — [photo](https://unsplash.com/photos/traditional-korean-temple-buildings-with-lush-green-trees-_UP5illBtsA)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-red-building-with-a-green-door-and-window-7uGMtwFd5wU)
+- [Leo_Visions](https://unsplash.com/@leo_visions_) — [photo](https://unsplash.com/photos/brown-and-beige-concrete-building-66OMUJ6zbWM)
+- [Ignacio Plaza](https://unsplash.com/@iplaza) — [photo](https://unsplash.com/photos/traditional-korean-pagoda-structure-against-clear-blue-sky-f95hQnZEeik)
+- [Artan](https://unsplash.com/@a_sadiku) — [photo](https://unsplash.com/photos/traditional-korean-building-with-autumn-foliage-rmnzpmPOTLg)
+- [martin bennie](https://unsplash.com/@martinbennie) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-staff-in-front-of-a-building-n-XFCbKqQQY)
+- [Artan](https://unsplash.com/@a_sadiku) — [photo](https://unsplash.com/photos/traditional-korean-pagoda-with-ornate-green-roof-vyQYw9oJYYM)
+- [Albert Sidorov](https://unsplash.com/@aldiablos) — [photo](https://unsplash.com/photos/traditional-korean-pavilion-surrounded-by-trees-near-water-6EAP2J_Xisg)
+- [Frank](https://unsplash.com/@generein) — [photo](https://unsplash.com/photos/traditional-korean-pavilion-under-a-blue-sky-5-2TEK95eR0)
+- [insung yoon](https://unsplash.com/@insungpandora) — [photo](https://unsplash.com/photos/a-building-with-a-mountain-in-the-background--i4BJ6PVwFc)
+- [Jakub Tomasik](https://unsplash.com/@jakubeq) — [photo](https://unsplash.com/photos/traditional-korean-palace-building-with-tiered-roofs-and-trees-HjvZ4lqIf9U)
+- [Laszlo Oveges](https://unsplash.com/@laszlooveges) — [photo](https://unsplash.com/photos/traditional-korean-temple-architecture-with-ornate-details-D389D597UKE)
+- [Amy Chen](https://unsplash.com/@bliss1002) — [photo](https://unsplash.com/photos/grayscale-photography-of-temple-XmcqfvB4G1g)

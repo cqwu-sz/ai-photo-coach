@@ -60,6 +60,7 @@ export async function analyze({
   modelId = "",
   modelApiKey = "",
   modelBaseUrl = "",
+  video = null,
 }) {
   const fd = new FormData();
   fd.append("meta", JSON.stringify(meta));
@@ -72,6 +73,11 @@ export async function analyze({
   if (modelId) fd.append("model_id", modelId);
   if (modelApiKey) fd.append("model_api_key", modelApiKey);
   if (modelBaseUrl) fd.append("model_base_url", modelBaseUrl);
+  if (video instanceof Blob) {
+    // backend caps at ~12 MB; we trust the client-side check in capture.js.
+    const ext = (video.type.includes("mp4") ? "mp4" : "webm");
+    fd.append("video", video, `scan.${ext}`);
+  }
   const r = await fetch(`${BASE}/analyze`, { method: "POST", body: fd });
   if (!r.ok) {
     let msg = `${r.status}`;

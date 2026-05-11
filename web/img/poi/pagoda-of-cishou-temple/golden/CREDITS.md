@@ -1,0 +1,25 @@
+# Pagoda of Cishou Temple — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/the-global-vipassana-pagoda-is-a-meditation-hall-in-mumbai-india-2wE7xigXt5I)
+- [Raimond Klavins](https://unsplash.com/@raimondklavins) — [photo](https://unsplash.com/photos/gold-and-red-temple-under-white-clouds-and-blue-sky-during-daytime-mCVRBObqaLo)
+- [Yuxin An](https://unsplash.com/@zincnode) — [photo](https://unsplash.com/photos/a-large-building-with-a-sky-background-tHjqqOVprOc)
+- [Erik Eastman](https://unsplash.com/@erikeae) — [photo](https://unsplash.com/photos/gold-tower-8T9p4FDu590)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-small-shrine-with-golden-statues-on-top-of-it-TGQhv3r3o1A)
+- [Phannipa kattiyawong](https://unsplash.com/@panxmiez) — [photo](https://unsplash.com/photos/kyauk-taw-gyi-pagoda-nkeM142xIsE)
+- [Supasit Chantranon](https://unsplash.com/@supasitc) — [photo](https://unsplash.com/photos/gold-and-white-concrete-building-under-blue-sky-during-daytime-17DLTOYrxmI)
+- [MIGUEL BAIXAULI](https://unsplash.com/@miguelbaixauli) — [photo](https://unsplash.com/photos/a-group-of-birds-standing-in-front-of-a-building-8FdUFysDNes)
+- [Wesley Tingey](https://unsplash.com/@wesleyphotography) — [photo](https://unsplash.com/photos/the-top-of-a-golden-building-with-a-clock-on-it-iftIVl7NYZM)
+- [Sandip Roy](https://unsplash.com/@sandiproy_kolkata) — [photo](https://unsplash.com/photos/gold-and-white-concrete-building-under-white-clouds-during-daytime-03m2egKIVI8)
+- [Anjali Lokhande](https://unsplash.com/@anj4li) — [photo](https://unsplash.com/photos/a-building-with-a-gold-roof-epPaiYYophY)
+- [Raimond Klavins](https://unsplash.com/@raimondklavins) — [photo](https://unsplash.com/photos/gold-statue-of-a-man-oCr8fBgjlUo)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/wat-phra-that-hariphunchai-temple-in-lamphun-thailand-Z2dUMx3Ol-I)
+- [Marloes van der Veer](https://unsplash.com/@mvdv99) — [photo](https://unsplash.com/photos/a-large-golden-building-with-a-sky-background-cCgFOx6EHV0)
+- [JUNHYUNG PARK](https://unsplash.com/@nangmanist) — [photo](https://unsplash.com/photos/a-large-golden-statue-sitting-in-front-of-a-tall-building-sQttAywJcyY)
+- [Joe Chen](https://unsplash.com/@chenqiao) — [photo](https://unsplash.com/photos/a-large-golden-building-with-a-clock-on-its-side-fc1JKonZjtk)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-gold-and-black-building-with-a-black-roof-QcBHVxK0iRY)
+- [Monojit Dutta](https://unsplash.com/@kolkatarchobiwala) — [photo](https://unsplash.com/photos/a-building-with-a-gold-roof-cbjEdpy1GH4)
+- [Xinjun Ye](https://unsplash.com/@xinjunye) — [photo](https://unsplash.com/photos/gold-tower-under-white-clouds-U_B6RJRZR4E)
+- [Sushanta Rokka](https://unsplash.com/@sanoyatra) — [photo](https://unsplash.com/photos/golden-pagoda-roof-on-ancient-brick-building-3Hspw6HWdng)

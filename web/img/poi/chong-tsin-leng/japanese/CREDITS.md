@@ -1,0 +1,25 @@
+# Chong Tsin Leng — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Curated Lifestyle](https://unsplash.com/@curatedlifestyle) — [photo](https://unsplash.com/photos/sashimi-japanese-food-healthy-eating-A0bKo-dJalk)
+- [Damon Lam](https://unsplash.com/@dayday95) — [photo](https://unsplash.com/photos/text-RlkvOvu8-Yc)
+- [Leon Bublitz](https://unsplash.com/@leon_bublitz) — [photo](https://unsplash.com/photos/woman-in-blue-shirt-standing-inside-room-during-nighttime-fBeRt6DnhC8)
+- [Damon Lam](https://unsplash.com/@dayday95) — [photo](https://unsplash.com/photos/greyscale-photo-of-rod-pocket-curtain-pjkKDU9ab1I)
+- [Roberta Sant'Anna](https://unsplash.com/@roberta_sant_anna) — [photo](https://unsplash.com/photos/a-man-with-a-mustache-pointing-at-something-5Bsu8kMGzKo)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/text-eyNVq4wcZ3I)
+- [little plant](https://unsplash.com/@little_plant) — [photo](https://unsplash.com/photos/black-metal-rod-on-white-and-black-floor-tiles-sHcsEun6TSE)
+- [Jayanth Muppaneni](https://unsplash.com/@jay_5) — [photo](https://unsplash.com/photos/a-very-tall-building-with-a-lot-of-signs-on-it-_y7F7Bs3mms)
+- [RODOLFO BARRETTO](https://unsplash.com/@rodolfobarreto) — [photo](https://unsplash.com/photos/a-city-street-filled-with-lots-of-tall-buildings-sqDPuppP2K4)
+- [Natural Photos](https://unsplash.com/@naturalphotos08) — [photo](https://unsplash.com/photos/a-row-of-oriental-writing-on-a-wall-TuEcopzA8ro)
+- [Valorie Barela](https://unsplash.com/@valoriebarela) — [photo](https://unsplash.com/photos/tai-tung-chop-suey-restaurant-sign-uncWZsvIX_s)
+- [五玄土 ORIENTO](https://unsplash.com/@oriento) — [photo](https://unsplash.com/photos/brown-wooden-figurine-on-white-paper-l0R7b-OBLC0)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-man-in-a-blue-kimono-holding-a-cell-phone-kIx29x7nPt0)
+- [@felirbe](https://unsplash.com/@felirbe) — [photo](https://unsplash.com/photos/grayscale-photo-of-printer-papers-y6VMoH6921w)
+- [Danish Prakash](https://unsplash.com/@danishprakash) — [photo](https://unsplash.com/photos/person-with-umbrella-standing-in-front-of-building-with-shutter-door-7E6-_jCKjFI)
+- [Alex](https://unsplash.com/@alexlanting) — [photo](https://unsplash.com/photos/white-and-red-tarpaulin-gpCVmUr3ONc)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-person-writing-on-a-piece-of-paper-with-a-brush-j2awqBvyVs4)
+- [Lucrezia Carnelos](https://unsplash.com/@ciabattespugnose) — [photo](https://unsplash.com/photos/red-and-black-kanji-text-neon-light-signage-M8tm6jR7Drs)
+- [Lightman Qian](https://unsplash.com/@lightman0215) — [photo](https://unsplash.com/photos/people-working-in-a-japanese-ramen-restaurant-kitchen-htH9lUODnDk)
+- [Yeh Xintong](https://unsplash.com/@blsnki) — [photo](https://unsplash.com/photos/traditional-korean-temple-roof-with-ornate-details-xEzQLYOv924)

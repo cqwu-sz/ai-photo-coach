@@ -1,0 +1,25 @@
+# Giant Stone — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Lala Azizli](https://unsplash.com/@lazizli) — [photo](https://unsplash.com/photos/a-statue-of-a-person-surrounded-by-plants-t5Lwo3Y6UEw)
+- [Peter Thomas](https://unsplash.com/@lifeof_peter_) — [photo](https://unsplash.com/photos/a-large-stone-statue-of-a-seated-figure-outdoors-8GBamGYC1og)
+- [Vickee Poon](https://unsplash.com/@vickeekiwiwow) — [photo](https://unsplash.com/photos/a-person-sitting-on-a-rock-in-the-middle-of-a-forest-lIjJiqHsBUc)
+- [ün LIU](https://unsplash.com/@vixxer) — [photo](https://unsplash.com/photos/a-group-of-rocks-with-asian-writing-on-them-saOR12sKy9w)
+- [Lala Azizli](https://unsplash.com/@lazizli) — [photo](https://unsplash.com/photos/a-large-building-sitting-next-to-a-body-of-water-Vn6JA85LHy4)
+- [Steve Sharp](https://unsplash.com/@sharp3) — [photo](https://unsplash.com/photos/people-standing-near-gray-rock-formation-during-daytime-vvcudbs5P7o)
+- [Michael Vinel](https://unsplash.com/@master8_) — [photo](https://unsplash.com/photos/a-large-rock-sitting-in-the-middle-of-a-lush-green-park-wctDGq_NtBs)
+- [Louie Cepeda](https://unsplash.com/@louweecep) — [photo](https://unsplash.com/photos/a-large-rock-sitting-on-top-of-a-lush-green-field-bO08PjbPg1o)
+- [Raphael Lopes](https://unsplash.com/@raph_lopes) — [photo](https://unsplash.com/photos/a-path-made-of-stepping-stones-in-a-forest-Y_4E_iX4-ic)
+- [Walter O](https://unsplash.com/@holawalterlee) — [photo](https://unsplash.com/photos/stone-monument-with-japanese-calligraphy-TESb6PCpHmU)
+- [Naoki Suzuki](https://unsplash.com/@naopp) — [photo](https://unsplash.com/photos/a-large-stone-structure-sitting-in-the-middle-of-a-park-GC8bBDVXfrc)
+- [Naoki Suzuki](https://unsplash.com/@naopp) — [photo](https://unsplash.com/photos/a-large-rock-formation-in-the-middle-of-a-park-b34oeLXsMUE)
+- [Dario Brönnimann](https://unsplash.com/@dariobroe) — [photo](https://unsplash.com/photos/a-body-of-water-surrounded-by-trees-and-rocks-mKq_0q1V0fQ)
+- [Hudson McNamara](https://unsplash.com/@ziroau) — [photo](https://unsplash.com/photos/ancient-weathered-stone-monuments-with-japanese-characters-txGO-XbhEMY)
+- [Beth Macdonald](https://unsplash.com/@elsbethcat) — [photo](https://unsplash.com/photos/green-plant-beside-gray-rock-FUYN8DMcX5U)
+- [Kiko K](https://unsplash.com/@kskoo626) — [photo](https://unsplash.com/photos/a-large-rock-sitting-next-to-a-body-of-water-LufrPgwpbns)
+- [Lala Azizli](https://unsplash.com/@lazizli) — [photo](https://unsplash.com/photos/a-river-running-through-a-city-next-to-tall-buildings-F-oYW1ScHAI)
+- [Bagzhan Sadvakassov](https://unsplash.com/@smalltown_boy) — [photo](https://unsplash.com/photos/a-reflection-of-a-tree-in-a-rock-EthLJEdbwm0)
+- [Leongsan](https://unsplash.com/@leongsan) — [photo](https://unsplash.com/photos/rocks-in-a-zen-garden-covered-with-frost-NZBNLPQzVNo)
+- [Asai Hatomi](https://unsplash.com/@sainjati) — [photo](https://unsplash.com/photos/brown-rocks-near-green-field-qfeExtdcFU0)

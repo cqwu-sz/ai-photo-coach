@@ -1,0 +1,25 @@
+# Jade Emperor Mountain — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [atiyeh fathi](https://unsplash.com/@atiyehfathi) — [photo](https://unsplash.com/photos/rocky-mountains-with-white-and-brown-mineral-deposits-3Ot2AV9_ItU)
+- [boris misevic](https://unsplash.com/@borisview) — [photo](https://unsplash.com/photos/snow-covered-mountain-under-blue-sky-during-daytime-dwNi8w72Y3s)
+- [Marek Piwnicki](https://unsplash.com/@marekpiwnicki) — [photo](https://unsplash.com/photos/a-mountain-with-a-snow-capped-peak-in-the-distance-9Ga2m3RSLQE)
+- [Caleb Jack](https://unsplash.com/@hitthetrailjack) — [photo](https://unsplash.com/photos/a-snowy-mountain-with-trees-below-JjwQVy47q-0)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-snow-covered-mountain-with-a-tower-on-top-of-it-INlfVftXeQk)
+- [Wolfgang Hasselmann](https://unsplash.com/@wolfgang_hasselmann) — [photo](https://unsplash.com/photos/a-yellow-and-red-mountain-with-a-blue-sky-in-the-background-SvXfQ65BC_I)
+- [vinay manda](https://unsplash.com/@vinaymanda) — [photo](https://unsplash.com/photos/a-mountain-covered-in-clouds-with-a-blue-sky-q9JQCW44I2w)
+- [Lakerain Snake](https://unsplash.com/@rainbylake) — [photo](https://unsplash.com/photos/mountain-silhouette-silhouette-during-golden-hour-b-8CyzvGWM4)
+- [Daniel Mirlea](https://unsplash.com/@danielmirlea) — [photo](https://unsplash.com/photos/mountain-peak-with-trees-surrounded-by-clouds-at-sunset-I-73kWGEX9I)
+- [和 平](https://unsplash.com/@heping) — [photo](https://unsplash.com/photos/mountain-rage-view-under-blue-sky-uPl4Y0yh7aE)
+- [Johannes Plenio](https://unsplash.com/@jplenio) — [photo](https://unsplash.com/photos/a-mountain-covered-in-green-trees-under-a-cloudy-sky-jsOOWDyOKxo)
+- [boris misevic](https://unsplash.com/@borisview) — [photo](https://unsplash.com/photos/brown-rocky-mountain-under-white-sky-during-daytime-qePfToqP4r8)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-range-in-the-mountains-fAC6ulGJGBg)
+- [Caleb Jack](https://unsplash.com/@hitthetrailjack) — [photo](https://unsplash.com/photos/a-very-tall-mountain-covered-in-snow-under-a-cloudy-sky-MakXKUlu7NA)
+- [Rafael Jimenez](https://unsplash.com/@rafa_jimenez) — [photo](https://unsplash.com/photos/a-snowy-mountain-rises-against-a-blue-sky-jP4esZ5ojhs)
+- [Chirag Malik](https://unsplash.com/@chiragmalik7) — [photo](https://unsplash.com/photos/snow-covered-mountain-during-sunrise-Vp8EtGOSbH4)
+- [Zdeněk Macháček](https://unsplash.com/@zmachacek) — [photo](https://unsplash.com/photos/a-close-up-of-a-piece-of-yellow-and-white-material-L2Y43N68k4Y)
+- [Leo_Visions](https://unsplash.com/@leo_visions_) — [photo](https://unsplash.com/photos/a-close-up-of-some-rocks-zBZ5AfJEoNg)
+- [Bowen Chen](https://unsplash.com/@brown0394) — [photo](https://unsplash.com/photos/brown-rocky-mountain-under-white-sky-during-daytime-ofymjSxzCRE)
+- [Michael Ahn](https://unsplash.com/@alohaboston) — [photo](https://unsplash.com/photos/a-mountain-range-with-a-boat-in-the-water-Ly96B5zuB7Q)

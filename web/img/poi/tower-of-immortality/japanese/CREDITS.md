@@ -1,0 +1,25 @@
+# Tower of Immortality — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/the-pagoda-is-in-the-middle-of-chinatown-pik-pantjoran-pantai-indah-kapuk-it-is-a-new-landmark-in-the-chinese-area-in-the-northern-part-of-jakarta-s1nh9M-Xz7Q)
+- [Se. Tsuchiya](https://unsplash.com/@s_tsuchiya) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-cloudy-sky-BG0IzPmc-JE)
+- [Reinis Birznieks](https://unsplash.com/@reinis_birznieks) — [photo](https://unsplash.com/photos/orange-tower-under-white-and-blue-sky-t0mQSkfVCtM)
+- [Oswald](https://unsplash.com/@oswald1006) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-clock-on-top-of-it-nM3CEt64XCE)
+- [Vadim Sadovski](https://unsplash.com/@vadimsadovski) — [photo](https://unsplash.com/photos/tower-illuminated-at-night-with-moon-and-clouds-vdB9BsMGe_M)
+- [𝗔𝗹𝗲𝘅 𝘙𝘢𝘪𝘯𝘦𝘳](https://unsplash.com/@alex_rainer) — [photo](https://unsplash.com/photos/red-wooden-temple-MdkFJUTF2pw)
+- [Stone Hood](https://unsplash.com/@stonehood) — [photo](https://unsplash.com/photos/brown-wooden-house-on-top-of-mountain-cdZ33tlzths)
+- [ecmadao .](https://unsplash.com/@ecmadao) — [photo](https://unsplash.com/photos/grey-and-white-concrete-building-during-daytime-CaR06xIOYbw)
+- [Polina Kuzovkova](https://unsplash.com/@p_kuzovkova) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-lot-of-decorations-on-top-of-it-ptGrGOa_zEk)
+- [Jouwen Wang](https://unsplash.com/@sodacheese) — [photo](https://unsplash.com/photos/temple-at-night-198xREd4QaQ)
+- [Ryunosuke Kikuno](https://unsplash.com/@ryunosuke_kikuno) — [photo](https://unsplash.com/photos/gray-and-brown-concrete-building-under-white-clouds-during-daytime-YLMkwMATeFc)
+- [ayumi kubo](https://unsplash.com/@ayumikubo) — [photo](https://unsplash.com/photos/a-building-with-a-cloudy-sky-1pa0bjAcRzE)
+- [Giulia Squillace](https://unsplash.com/@giuliasq) — [photo](https://unsplash.com/photos/tsutenkaku-tower-amidst-a-street-with-utility-wires-1nZE31JpsHY)
+- [Ayumi Takemura](https://unsplash.com/@step_of_ayumi) — [photo](https://unsplash.com/photos/a-tall-ornate-pagoda-against-a-dark-sky-Zkx-V-HsYzw)
+- [Yang Plasticine](https://unsplash.com/@plasticine66) — [photo](https://unsplash.com/photos/traditional-japanese-pagoda-against-a-clear-blue-sky-vkNsVitGYrU)
+- [Ethan Lee](https://unsplash.com/@horserat) — [photo](https://unsplash.com/photos/a-black-and-white-photo-of-a-pagoda-jGv7J3FLnvM)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/dark-japanese-street-with-a-pagoda-at-twilight-ZjmTlhnfpWU)
+- [ibmoon Kim](https://unsplash.com/@kimibmoon) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-clock-on-its-side-mDN4mFFGVOk)
+- [Ralph XYZ](https://unsplash.com/@ralxyz) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-clock-on-the-top-of-it-4jJ60LRRvEY)
+- [Tim D](https://unsplash.com/@timdep) — [photo](https://unsplash.com/photos/a-tall-white-and-black-building-surrounded-by-trees-XL7BJV4zWhg)

@@ -1,0 +1,25 @@
+# Jade Emperor Mountain — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Vicky Ng](https://unsplash.com/@vickyng) — [photo](https://unsplash.com/photos/a-large-mountain-with-snow-on-top-of-it-nN5qdqQfd54)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-with-a-sky-background-sbwUUQRSc7Q)
+- [The Cleveland Museum of Art](https://unsplash.com/@clevelandart) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-and-a-body-of-water-oI4_3FYBuic)
+- [The Cleveland Museum of Art](https://unsplash.com/@clevelandart) — [photo](https://unsplash.com/photos/a-drawing-of-mountains-with-snow-on-them-jZnsVpFYos4)
+- [Taiki Ishikawa](https://unsplash.com/@fl__q) — [photo](https://unsplash.com/photos/a-mountain-covered-in-fog-with-trees-in-the-foreground-9aX7TdpZn24)
+- [The Walters Art Museum](https://unsplash.com/@thewalters) — [photo](https://unsplash.com/photos/misty-mountains-with-a-small-house-and-blooming-tree-0k0ttlNAjMI)
+- [Suyash Mahar](https://unsplash.com/@suyashmahar) — [photo](https://unsplash.com/photos/a-close-up-of-a-rock-with-moss-growing-on-it-G8T6zkaGbHY)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-waterfall-with-a-mountain-in-the-background-gRvSoDIWhoM)
+- [ZHENYU LUO](https://unsplash.com/@mrnuclear) — [photo](https://unsplash.com/photos/a-mountain-covered-in-fog-and-clouds-on-a-cloudy-day-km63C_BDQxQ)
+- [Lucius Hunter](https://unsplash.com/@lucius_x14) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-with-a-lot-of-trees-on-it-H_bAD6Ura7Y)
+- [Da Da](https://unsplash.com/@dakv) — [photo](https://unsplash.com/photos/a-bush-with-pink-flowers-in-front-of-a-mountain-W1uM4AoQpR8)
+- [Caspar Wai](https://unsplash.com/@casparwai) — [photo](https://unsplash.com/photos/a-clock-tower-with-a-mountain-in-the-background-edha4al2QbY)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/mount-fuji-is-seen-at-sunset-l4lMdEK-ZTk)
+- [Christopher Politano](https://unsplash.com/@poli_graphy) — [photo](https://unsplash.com/photos/a-black-and-white-photo-of-a-tree-and-a-mountain-ZnaD5stEBuM)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-house-on-top-of-a-mountain-YLKnNhYmfnc)
+- [Laszlo Oveges](https://unsplash.com/@laszlooveges) — [photo](https://unsplash.com/photos/small-pagoda-on-a-rocky-outcrop-overlooking-a-valley-0qIrJhFwN2g)
+- [Johannes Mändle](https://unsplash.com/@leonardo_64) — [photo](https://unsplash.com/photos/a-snow-covered-mountain-with-clouds-in-the-foreground-vSnXmS9PaDg)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-tree-with-mountains-in-the-background-HHcRjI91JHo)
+- [Daniel Ramos](https://unsplash.com/@danielcramos) — [photo](https://unsplash.com/photos/white-concrete-cross-on-brown-field-near-snow-covered-mountain-during-daytime-5mOPXiVwj9k)
+- [Junel Mujar](https://unsplash.com/@junelmujar) — [photo](https://unsplash.com/photos/a-snow-covered-mountain-surrounded-by-pine-trees-x263wpSBpEA)

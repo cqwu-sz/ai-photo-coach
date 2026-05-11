@@ -10,7 +10,8 @@ enum PosePresets {
 static let all: [String] = [
         "standing", "hands_clasped", "walking", "half_sit", "crouch",
         "looking_back", "holding_hands", "hand_on_hip", "v_sign",
-        "arms_crossed", "facing_partner", "leaning",
+    "arms_crossed", "facing_partner", "leaning", "pockets",
+    "shy_pose", "hands_back", "wave",
     ]
 
 static func apply(_ name: String, joints: [String: SCNNode], mirror: Bool = false) {
@@ -28,6 +29,10 @@ static func apply(_ name: String, joints: [String: SCNNode], mirror: Bool = fals
         case "arms_crossed": armsCrossed(joints)
         case "facing_partner": facingPartner(joints, mirror: mirror)
         case "leaning": leaning(joints, mirror: mirror)
+        case "pockets": pockets(joints, mirror: mirror)
+        case "shy_pose": shyPose(joints, mirror: mirror)
+        case "hands_back": handsBack(joints, mirror: mirror)
+        case "wave": wave(joints, mirror: mirror)
         default: break // standing already applied
         }
     }
@@ -43,6 +48,14 @@ static func pick(for person: PersonPose) -> String {
 
         if blob.range(of: #"v\s?字|v[-\s]?sign|比耶|比v|peace"#,
                       options: .regularExpression) != nil { return "v_sign" }
+    if blob.range(of: #"挥手|招手|wave|hello|打招呼"#,
+              options: .regularExpression) != nil { return "wave" }
+    if blob.range(of: #"插兜|口袋|pocket"#,
+              options: .regularExpression) != nil { return "pockets" }
+    if blob.range(of: #"背手|双手背后|手放身后|behind\s+back"#,
+              options: .regularExpression) != nil { return "hands_back" }
+    if blob.range(of: #"害羞|甜美|可爱|少女|提裙|轻提裙摆|shy|cute|sweet"#,
+              options: .regularExpression) != nil { return "shy_pose" }
         if blob.range(of: #"牵手|拉手|hold(?:ing)?\s+hand"#,
                       options: .regularExpression) != nil { return "holding_hands" }
         if blob.range(of: #"回头|看向|看着|gaze|over\s+shoulder"#,
@@ -85,14 +98,60 @@ static func classifyExpression(_ person: PersonPose) -> ExpressionRenderer.Expre
     }
 
     private static func standing(_ j: [String: SCNNode]) {
-        setEuler(j["leftShoulder"], z: -78)
-        setEuler(j["rightShoulder"], z: 78)
-        setEuler(j["leftElbow"], x: 5)
-        setEuler(j["rightElbow"], x: 5)
+        setEuler(j["leftShoulder"], x: 6, y: 4, z: -10)
+        setEuler(j["rightShoulder"], x: 6, y: -4, z: 10)
+        setEuler(j["leftElbow"], x: 12)
+        setEuler(j["rightElbow"], x: 12)
+        setEuler(j["leftForearm"], y: -4)
+        setEuler(j["rightForearm"], y: 4)
         setEuler(j["leftHip"]); setEuler(j["rightHip"])
         setEuler(j["leftKnee"]); setEuler(j["rightKnee"])
-        setEuler(j["head"], x: -2)
+        setEuler(j["head"], x: -1)
         setEuler(j["neck"])
+    }
+
+    private static func pockets(_ j: [String: SCNNode], mirror: Bool) {
+        let pocket = mirror ? "right" : "left"
+        let free = mirror ? "left" : "right"
+        setEuler(j["\(pocket)Shoulder"], x: 10, y: mirror ? -6 : 6, z: mirror ? 18 : -18)
+        setEuler(j["\(pocket)Elbow"], x: 38)
+        setEuler(j["\(pocket)Forearm"], y: mirror ? -14 : 14)
+        setEuler(j["\(free)Shoulder"], x: 4, y: mirror ? 2 : -2, z: mirror ? -8 : 8)
+        setEuler(j["\(free)Elbow"], x: 10)
+        setEuler(j["torso"], z: mirror ? 4 : -4)
+        setEuler(j["head"], x: -2, y: mirror ? -8 : 8)
+    }
+
+    private static func shyPose(_ j: [String: SCNNode], mirror: Bool) {
+        setEuler(j["leftShoulder"], x: 8, y: 8, z: -24)
+        setEuler(j["rightShoulder"], x: 8, y: -8, z: 24)
+        setEuler(j["leftElbow"], x: 72)
+        setEuler(j["rightElbow"], x: 72)
+        setEuler(j["leftForearm"], y: -12)
+        setEuler(j["rightForearm"], y: 12)
+        setEuler(j["torso"], x: 2, z: mirror ? 5 : -5)
+        setEuler(j["head"], x: 6, y: mirror ? -12 : 12)
+    }
+
+    private static func handsBack(_ j: [String: SCNNode], mirror: Bool) {
+        setEuler(j["leftShoulder"], x: -16, y: -10, z: mirror ? 8 : -8)
+        setEuler(j["rightShoulder"], x: -16, y: 10, z: mirror ? -8 : 8)
+        setEuler(j["leftElbow"], x: 28)
+        setEuler(j["rightElbow"], x: 28)
+        setEuler(j["leftForearm"], y: -18)
+        setEuler(j["rightForearm"], y: 18)
+        setEuler(j["head"], x: -2, y: mirror ? -6 : 6)
+    }
+
+    private static func wave(_ j: [String: SCNNode], mirror: Bool) {
+        let waving = mirror ? "left" : "right"
+        let free = mirror ? "right" : "left"
+        setEuler(j["\(waving)Shoulder"], x: -42, z: mirror ? -36 : 36)
+        setEuler(j["\(waving)Elbow"], x: 94)
+        setEuler(j["\(waving)Forearm"], y: mirror ? -10 : 10)
+        setEuler(j["\(free)Shoulder"], x: 4, z: mirror ? 10 : -10)
+        setEuler(j["\(free)Elbow"], x: 10)
+        setEuler(j["head"], x: -1, y: mirror ? -10 : 10)
     }
 
     private static func handsClasped(_ j: [String: SCNNode]) {

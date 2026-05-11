@@ -1,0 +1,25 @@
+# Bund Viewing Platform — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/photography-taken-in-dotonbori-in-osaka-city-japan-lWccT-79rDo)
+- [Shino Nakamura](https://unsplash.com/@shinonk) — [photo](https://unsplash.com/photos/people-walking-on-wooden-dock-during-daytime-CJKbiOBlgI0)
+- [YANGHONG YU](https://unsplash.com/@shellingfordyu) — [photo](https://unsplash.com/photos/a-wooden-deck-with-a-covered-area-_-iupYa3bgo)
+- [Marco Vockner](https://unsplash.com/@marcovockner) — [photo](https://unsplash.com/photos/japanese-temple-surrounded-by-lush-green-trees-cF8uuFSuYaA)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-large-body-of-water-with-a-city-in-the-background-oppo1IzFS78)
+- [Daniel Akselrod](https://unsplash.com/@daniel_akserlod) — [photo](https://unsplash.com/photos/a-window-offers-a-beautiful-view-of-nature-o3Ax4zA0Rwk)
+- [Jeremy Huang](https://unsplash.com/@plover37) — [photo](https://unsplash.com/photos/japanese-pagoda-nestled-among-green-trees-under-blue-sky-sNJRkAiD51g)
+- [LIM ENG](https://unsplash.com/@shadoweng93) — [photo](https://unsplash.com/photos/crowded-wooden-balcony-of-a-traditional-japanese-temple-kQk7IaTsiw0)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-red-bridge-crosses-a-river-amidst-lush-greenery-9bwS4-mxSi0)
+- [Nakaharu Line](https://unsplash.com/@rissun_line) — [photo](https://unsplash.com/photos/a-sign-on-a-railing-overlooking-a-city-_phBpZ1j4VU)
+- [Rico Reynaldi](https://unsplash.com/@ricoreynaldii) — [photo](https://unsplash.com/photos/a-gazebo-by-a-body-of-water-d0cxVdkHF0M)
+- [Yanhao Fang](https://unsplash.com/@alamanga) — [photo](https://unsplash.com/photos/two-people-standing-next-to-each-other-near-a-tree-2RxLSBXoDsk)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-rushing-river-flows-through-a-lush-green-valley-1ArZIUt6kiE)
+- [Syria Polidoro](https://unsplash.com/@syria_polidoro) — [photo](https://unsplash.com/photos/a-bridge-over-a-body-of-water-with-a-pavilion-in-the-background-KnPOqhnuj8o)
+- [wanderplans.com](https://unsplash.com/@wanderplans) — [photo](https://unsplash.com/photos/a-wooden-bridge-over-a-body-of-water-Os0KDQha28o)
+- [Ashton Christiansen](https://unsplash.com/@anatharax) — [photo](https://unsplash.com/photos/traditional-japanese-pavilion-against-a-blue-sky-eyOPp4XaX6c)
+- [Dario Brönnimann](https://unsplash.com/@dariobroe) — [photo](https://unsplash.com/photos/a-body-of-water-surrounded-by-trees-and-rocks-mKq_0q1V0fQ)
+- [Kiko K](https://unsplash.com/@kskoo626) — [photo](https://unsplash.com/photos/a-bridge-over-a-body-of-water-with-a-sky-background-ZXnMLP4ccBs)
+- [Bruna Santos](https://unsplash.com/@brunafisantos) — [photo](https://unsplash.com/photos/a-wooden-gazebo-sitting-next-to-a-body-of-water-VZUHm1y47m4)
+- [Antonio Araujo](https://unsplash.com/@antonioaaaraujo) — [photo](https://unsplash.com/photos/a-red-gazebo-in-the-middle-of-a-body-of-water-ycwxHOaeIi8)

@@ -1,53 +1,76 @@
-# Python
+# --- Editor / IDE / agent caches ---------------------------------------------
+.copilot/
+.cursor/rules/
+.cursor/plans/
+.playwright-mcp/
+.idea/
+.vscode/
+*.swp
+
+# --- Python ------------------------------------------------------------------
 __pycache__/
-*.pyc
-*.pyo
-.venv/
-.pytest_cache/
+*.py[cod]
 *.egg-info/
-
-# FastAPI / env
+.venv/
+venv/
 .env
-.env.local
+.env.*
+!.env.example
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+.coverage.*
 
-# iOS / Xcode
-*.xcodeproj/
-*.xcworkspace/
-DerivedData/
-xcuserdata/
-*.xcuserstate
-build/
-.swiftpm/
-*.mlmodelc/
+# --- Node / web tooling ------------------------------------------------------
+node_modules/
+npm-debug.log*
 
-# CoreML conversion artefacts
-*.mlpackage/
-
-# OS
+# --- macOS / Windows housekeeping --------------------------------------------
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# IDE
-.vscode/
-.idea/
+# --- App runtime data (sqlite + caches; never commit user data) --------------
+backend/data/*.db
+backend/data/*.db-journal
+backend/data/*.db-wal
+backend/data/*.db-shm
+backend/data/recon3d_models/
+backend/data/attested_devices.db
+backend/data/users.db
+backend/data/shot_results.db
+backend/data/recon3d_jobs.db
+backend/data/poi_kb.db
 
-# Node tooling (Playwright snapshots / scripts)
-node_modules/
-package-lock.json
+# --- Apple Root CAs ARE committed (small + reproducible) but secret keys are NOT
+backend/app/data/AuthKey_*.p8
+backend/secrets/
 
-# Local logs & transient debug
-*.log
-backend.err.log
-backend.out.log
-tmp_*
-*.tmp
+# --- Xcode / iOS -------------------------------------------------------------
+*.xcuserstate
+xcuserdata/
+DerivedData/
+build/
+*.ipa
+*.dSYM.zip
 
-# Local agent-only debug screenshots
-docs/preview/*_fullpage.png
+# --- Generated artefacts -----------------------------------------------------
+docs/preview/_generated/
+web/.tmp/
 
-# Cursor / agent transcript junk inside workspace
-agent-transcripts/
+# --- Large ML model weights (use Git LFS or fetch at deploy time) ------------
+# Both depth models are downloaded by web/models/README.md instructions.
+web/models/*.onnx
+web/models/*.pt
+web/models/*.bin
+web/models/*.safetensors
 
-# Tripo3D intermediate task artifacts (logs, raw glb/usdz/webp downloads)
+# --- 3D avatar / animation glb assets (host on CDN; see web/avatars/README) --
+web/avatars/preset/*.glb
+web/avatars/animations/*.glb
+web/avatars/base/*.glb
+
+# --- Tripo3D generation logs (intermediate artefacts) ------------------------
 scripts/_tripo_logs/

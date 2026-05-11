@@ -1,0 +1,25 @@
+# Wong Kong Shan — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-AHkFdkLCGVo)
+- [Jan Emir Co](https://unsplash.com/@lazy_bones) — [photo](https://unsplash.com/photos/golden-statue-of-a-monk-with-a-temple-behind-Ni75p4m6KSo)
+- [Cheung Yin](https://unsplash.com/@cheungyin) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-dragon-on-a-pedestal-CZ5xYz_MWQQ)
+- [Margo Evardson](https://unsplash.com/@stadinstudio) — [photo](https://unsplash.com/photos/row-of-golden-buddhist-statues-under-a-cloudy-sky-4NRts8HPQuo)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-of-buddhas-in-a-park-QOuiENY1QDE)
+- [PhotoHound](https://unsplash.com/@photohoundco) — [photo](https://unsplash.com/photos/a-large-rock-with-a-gold-top-and-a-gold-dome-on-top-with-kyaiktiyo-pagoda-in-the-background-8ZEz3R2SZvU)
+- [Yishen Ji](https://unsplash.com/@ethannn929) — [photo](https://unsplash.com/photos/a-child-sits-atop-a-large-golden-buddha-statue-wzVjdheFCVo)
+- [Donna Elliot](https://unsplash.com/@peakdancer) — [photo](https://unsplash.com/photos/golden-statue-of-a-laughing-buddha-with-red-chinese-character-jiZejYrKNLc)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-buddha-statue-with-a-blue-sky-in-the-background-Zj7BCZGGbpM)
+- [chris wang](https://unsplash.com/@chriswtr) — [photo](https://unsplash.com/photos/a-towering-golden-statue-inside-a-grand-building-b3V4CPMQyJs)
+- [Rama Krushna Behera](https://unsplash.com/@rkdotdesign) — [photo](https://unsplash.com/photos/golden-statue-against-a-bright-blue-sky-bJC10wqOYsA)
+- [Yi Zhang](https://unsplash.com/@zhangyi001) — [photo](https://unsplash.com/photos/a-golden-statue-on-a-building-dbm98hSXaWg)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-buddha-statues-sitting-next-to-each-other-EWbAEN4fYBQ)
+- [Zheng XUE](https://unsplash.com/@xue_zheng) — [photo](https://unsplash.com/photos/girl-posing-with-golden-pig-statue-by-the-water-KALLumVbOic)
+- [Margo Evardson](https://unsplash.com/@stadinstudio) — [photo](https://unsplash.com/photos/row-of-golden-buddha-statues-against-a-cloudy-sky-BHvnvxsKBX0)
+- [Ciprian Stoenescu](https://unsplash.com/@cipri77) — [photo](https://unsplash.com/photos/golden-statue-of-a-warrior-with-a-large-weapon-Exah6F4vkcc)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-buddha-statues-sitting-next-to-each-other-LFzqJ3DSTdY)
+- [Frank Eiffert](https://unsplash.com/@feiffert) — [photo](https://unsplash.com/photos/golden-buddha-statues-in-a-row-with-one-smiling-qYuv6DWkMSY)
+- [Gabor Kozmon](https://unsplash.com/@seasoulvisuals) — [photo](https://unsplash.com/photos/a-golden-building-with-many-spires-on-top-of-it-7kHCUZb-H90)
+- [YiChuan Li](https://unsplash.com/@liyichuan) — [photo](https://unsplash.com/photos/golden-spire-of-a-temple-against-a-blue-sky-REM_67Zj56k)

@@ -41,16 +41,66 @@ function maybeMirror(side, mirror) {
 const PRESETS = {
   /** Default standing, hands at side, feet shoulder-width. */
   standing(joints) {
-    setRot(joints.leftShoulder, 0, 0, -78);
-    setRot(joints.rightShoulder, 0, 0, 78);
-    setRot(joints.leftElbow, 5, 0, 0);
-    setRot(joints.rightElbow, 5, 0, 0);
+    setRot(joints.leftShoulder, 6, 4, -10);
+    setRot(joints.rightShoulder, 6, -4, 10);
+    setRot(joints.leftElbow, 12, 0, 0);
+    setRot(joints.rightElbow, 12, 0, 0);
+    setRot(joints.leftForearm, 0, -4, 0);
+    setRot(joints.rightForearm, 0, 4, 0);
     setRot(joints.leftHip, 0, 0, 0);
     setRot(joints.rightHip, 0, 0, 0);
     setRot(joints.leftKnee, 0, 0, 0);
     setRot(joints.rightKnee, 0, 0, 0);
-    setRot(joints.head, -2, 0, 0);
+    setRot(joints.head, -1, 0, 0);
     setRot(joints.neck, 0, 0, 0);
+  },
+
+  /** Relaxed fashion stance, one hand slipped near pocket line. */
+  pockets(joints, mirror) {
+    const pocket = mirror ? "right" : "left";
+    const free = mirror ? "left" : "right";
+    setRot(joints[`${pocket}Shoulder`], 10, mirror ? -6 : 6, mirror ? 18 : -18);
+    setRot(joints[`${pocket}Elbow`], 38, 0, 0);
+    setRot(joints[`${pocket}Forearm`], 0, mirror ? -14 : 14, 0);
+    setRot(joints[`${free}Shoulder`], 4, mirror ? 2 : -2, mirror ? -8 : 8);
+    setRot(joints[`${free}Elbow`], 10, 0, 0);
+    setRot(joints.torso, 0, 0, mirror ? 4 : -4);
+    setRot(joints.head, -2, mirror ? -8 : 8, 0);
+  },
+
+  /** Sweet / shy pose suited to dress shots. */
+  shy_pose(joints, mirror) {
+    setRot(joints.leftShoulder, 8, 8, -24);
+    setRot(joints.rightShoulder, 8, -8, 24);
+    setRot(joints.leftElbow, 72, 0, 0);
+    setRot(joints.rightElbow, 72, 0, 0);
+    setRot(joints.leftForearm, 0, -12, 0);
+    setRot(joints.rightForearm, 0, 12, 0);
+    setRot(joints.torso, 2, 0, mirror ? 5 : -5);
+    setRot(joints.head, 6, mirror ? -12 : 12, 0);
+  },
+
+  /** Both hands gently behind the back. */
+  hands_back(joints, mirror) {
+    setRot(joints.leftShoulder, -16, -10, mirror ? 8 : -8);
+    setRot(joints.rightShoulder, -16, 10, mirror ? -8 : 8);
+    setRot(joints.leftElbow, 28, 0, 0);
+    setRot(joints.rightElbow, 28, 0, 0);
+    setRot(joints.leftForearm, 0, -18, 0);
+    setRot(joints.rightForearm, 0, 18, 0);
+    setRot(joints.head, -2, mirror ? -6 : 6, 0);
+  },
+
+  /** Small greeting wave with the outer hand. */
+  wave(joints, mirror) {
+    const waving = mirror ? "left" : "right";
+    const free = mirror ? "right" : "left";
+    setRot(joints[`${waving}Shoulder`], -42, 0, mirror ? -36 : 36);
+    setRot(joints[`${waving}Elbow`], 94, 0, 0);
+    setRot(joints[`${waving}Forearm`], 0, mirror ? -10 : 10, 0);
+    setRot(joints[`${free}Shoulder`], 4, 0, mirror ? 10 : -10);
+    setRot(joints[`${free}Elbow`], 10, 0, 0);
+    setRot(joints.head, -1, mirror ? -10 : 10, 0);
   },
 
   /** Hands clasped in front, gentle smile. */
@@ -217,6 +267,10 @@ export function pickPosePreset(person) {
 
   // Order matters — most specific patterns first.
   if (/v\s?字|v[-\s]?sign|比耶|比v|peace/i.test(blob)) return "v_sign";
+  if (/挥手|招手|wave|hello|打招呼/i.test(blob)) return "wave";
+  if (/插兜|口袋|pocket/i.test(blob)) return "pockets";
+  if (/背手|双手背后|手放身后|behind\s+back/i.test(blob)) return "hands_back";
+  if (/害羞|甜美|可爱|少女|提裙|轻提裙摆|shy|cute|sweet/i.test(blob)) return "shy_pose";
   if (/牵手|拉手|hold(?:ing)?\s+hand/i.test(blob)) return "holding_hands";
   if (/回头|看向|看着|gaze|turn(?:ing)?\s+(?:back|head)|over\s+shoulder/i.test(blob)) return "looking_back";
   if (/抱臂|交叉|cross(?:ed)?\s+arms/i.test(blob)) return "arms_crossed";

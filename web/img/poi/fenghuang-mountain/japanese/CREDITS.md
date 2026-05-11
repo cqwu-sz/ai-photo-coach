@@ -1,0 +1,25 @@
+# Fenghuang Mountain — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Ibrahim Abazid](https://unsplash.com/@iabzd) — [photo](https://unsplash.com/photos/a-green-field-with-houses-and-mountains-in-the-background-sEkSwwx-yLw)
+- [Laszlo Oveges](https://unsplash.com/@laszlooveges) — [photo](https://unsplash.com/photos/small-pagoda-on-a-rocky-outcrop-overlooking-a-valley-0qIrJhFwN2g)
+- [Nguyen Minh](https://unsplash.com/@ngminh8895) — [photo](https://unsplash.com/photos/a-house-sits-peacefully-in-a-foggy-mountain-CQnHN2HVESA)
+- [The Cleveland Museum of Art](https://unsplash.com/@clevelandart) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-and-a-body-of-water-oI4_3FYBuic)
+- [Taiki Ishikawa](https://unsplash.com/@fl__q) — [photo](https://unsplash.com/photos/a-mountain-covered-in-fog-with-trees-in-the-foreground-9aX7TdpZn24)
+- [inspira studio](https://unsplash.com/@studioinspira) — [photo](https://unsplash.com/photos/people-walking-on-sidewalk-near-mountain-during-daytime-eROItXArKv4)
+- [The Walters Art Museum](https://unsplash.com/@thewalters) — [photo](https://unsplash.com/photos/misty-mountains-with-a-small-house-and-blooming-tree-0k0ttlNAjMI)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-with-a-sky-background-sbwUUQRSc7Q)
+- [Vadim Sadovski](https://unsplash.com/@vadimsadovski) — [photo](https://unsplash.com/photos/mount-fuji-peeks-through-clouds-above-a-quiet-street-McmZhMaSiAU)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-range-with-a-lake-in-the-foreground-IvCBa8hiCso)
+- [Andy Arbeit](https://unsplash.com/@izeberg) — [photo](https://unsplash.com/photos/winding-road-through-lush-green-mountains-under-cloudy-sky-lpR4fLvzDMU)
+- [Nguyen TP Hai](https://unsplash.com/@phonghai649) — [photo](https://unsplash.com/photos/a-building-on-top-of-a-hill-GtYtyN33uCU)
+- [Thomas Boxma](https://unsplash.com/@reispackers) — [photo](https://unsplash.com/photos/a-group-of-buildings-with-mountains-in-the-background-I-wGiHsGXz0)
+- [Kvnga](https://unsplash.com/@kvnga) — [photo](https://unsplash.com/photos/green-trees-near-body-of-water-during-daytime-UI5JpO5RH9Q)
+- [Christopher Politano](https://unsplash.com/@poli_graphy) — [photo](https://unsplash.com/photos/a-black-and-white-photo-of-a-tree-and-a-mountain-ZnaD5stEBuM)
+- [Luo Jin Hong](https://unsplash.com/@logichom) — [photo](https://unsplash.com/photos/people-hike-on-a-trail-near-a-mountain-Ej4OiyEY7iU)
+- [ZHENYU LUO](https://unsplash.com/@mrnuclear) — [photo](https://unsplash.com/photos/a-mountain-covered-in-fog-and-clouds-on-a-cloudy-day-km63C_BDQxQ)
+- [The Cleveland Museum of Art](https://unsplash.com/@clevelandart) — [photo](https://unsplash.com/photos/a-drawing-of-mountains-with-snow-on-them-jZnsVpFYos4)
+- [PJH](https://unsplash.com/@dokae) — [photo](https://unsplash.com/photos/calm-blue-lake-with-forested-mountains-and-a-small-town-4FTywWKXdWA)
+- [Iori Ikeda](https://unsplash.com/@iorin) — [photo](https://unsplash.com/photos/a-very-tall-mountain-with-a-very-steep-side-p50JbEdexu4)

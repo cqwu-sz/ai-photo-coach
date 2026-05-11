@@ -1,0 +1,25 @@
+# Diamond hill under the evening sunlight — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-with-a-body-of-water-in-front-of-it-CR4UhSHMw4E)
+- [PJH](https://unsplash.com/@dokae) — [photo](https://unsplash.com/photos/a-road-leads-toward-mount-fuji-at-sunset-Hitw4RtdzcM)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-with-a-river-running-through-it-eBjizmEo_8E)
+- [Paul Yong](https://unsplash.com/@paulysj) — [photo](https://unsplash.com/photos/silhouette-of-a-mountain-range-at-sunset-over-water-MUtOF3iTlOo)
+- [Vicky Ng](https://unsplash.com/@vickyng) — [photo](https://unsplash.com/photos/a-large-mountain-with-snow-on-top-of-it-nN5qdqQfd54)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-group-of-people-in-a-field-oOfKmaGYFRM)
+- [The Walters Art Museum](https://unsplash.com/@thewalters) — [photo](https://unsplash.com/photos/traditional-japanese-building-with-figures-in-a-field-K0LM79r2uGs)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-with-trees-and-a-body-of-water-olfpwLKbUbY)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-mountain-peaks-through-clouds-NCEtfO6Z7sg)
+- [Chinapat Saegang](https://unsplash.com/@88pae) — [photo](https://unsplash.com/photos/the-sun-shines-brightly-on-a-snowy-mountain-T2yRt-phAjs)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-landscape-with-mountains-and-trees-3bfcK5B9yN0)
+- [PJH](https://unsplash.com/@dokae) — [photo](https://unsplash.com/photos/mount-fuji-looms-over-a-quiet-street-at-dusk-hb8JSKWZSIs)
+- [Vicky Ng](https://unsplash.com/@vickyng) — [photo](https://unsplash.com/photos/a-large-snow-covered-mountain-towering-over-a-city-UVWJwEroPmo)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-and-a-body-of-water-B04ZFL_-2H4)
+- [The Cleveland Museum of Art](https://unsplash.com/@clevelandart) — [photo](https://unsplash.com/photos/a-painting-of-a-boat-on-a-river-with-a-mountain-in-the-background-TZWUlJhYvFI)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/people-crossing-a-bridge-with-mountains-in-the-background-RM_6LEv-Pyc)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/mount-fuji-peeks-out-from-the-soft-purple-sky-vLvGhZOUScM)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-with-a-lake-below-it-zTzynsvN1Fc)
+- [Johnny Guitar](https://unsplash.com/@johnnyguitar32) — [photo](https://unsplash.com/photos/a-city-skyline-with-a-mountain-in-the-background-bMsrYSepHnc)
+- [Birmingham Museums Trust](https://unsplash.com/@birminghammuseumstrust) — [photo](https://unsplash.com/photos/boats-and-people-by-a-scenic-bay-with-green-mountains-XCwqnL6n1Sg)

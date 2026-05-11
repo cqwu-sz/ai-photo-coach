@@ -1,0 +1,25 @@
+# Tower of Immortality — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Alex Shuper](https://unsplash.com/@alexshuperart) — [photo](https://unsplash.com/photos/a-close-up-of-a-wall-made-of-glass-blocks-aqBMaYVZ6Ig)
+- [Tim Ren](https://unsplash.com/@timren2023) — [photo](https://unsplash.com/photos/illuminated-pagoda-tower-at-night-with-trees-upk6VpoU2a8)
+- [Honney Artkongharn](https://unsplash.com/@honney) — [photo](https://unsplash.com/photos/golden-pagoda-with-red-accents-against-blue-sky-UevMODEWXnw)
+- [YiChuan Li](https://unsplash.com/@liyichuan) — [photo](https://unsplash.com/photos/golden-spire-of-a-temple-against-a-blue-sky-REM_67Zj56k)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/sunset-at-fo-guang-shan-buddha-temple-in-kaohsiung-taiwan-oXVR3UOwifE)
+- [Rowan Heuvel](https://unsplash.com/@insolitus) — [photo](https://unsplash.com/photos/golden-buddhist-stupa-against-a-cloudy-sky-b75BmaixguA)
+- [Laszlo Oveges](https://unsplash.com/@laszlooveges) — [photo](https://unsplash.com/photos/golden-pagoda-stands-tall-over-arched-bridge-at-sunset-L-YKiYiOg6Y)
+- [Konstantin Artyushkevich](https://unsplash.com/@profyan99) — [photo](https://unsplash.com/photos/a-tall-ornate-pagoda-under-a-cloudy-sky-qPHnkBcauRw)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-tall-clock-tower-with-a-sky-background-4uS5K9-rqhM)
+- [Kate Wells](https://unsplash.com/@katewells27) — [photo](https://unsplash.com/photos/golden-stupa-against-a-blue-sky-with-clouds-V3CDfIPCPcU)
+- [Nhi Ly](https://unsplash.com/@nnhilys) — [photo](https://unsplash.com/photos/a-tall-ornate-golden-pagoda-building-under-a-clear-sky-ZtL-wJcghAs)
+- [Rowan Heuvel](https://unsplash.com/@insolitus) — [photo](https://unsplash.com/photos/intricate-golden-temple-facade-with-ornate-window-pQbI1y04PtU)
+- [Rodion Kutsaiev](https://unsplash.com/@frostroomhead) — [photo](https://unsplash.com/photos/a-row-of-white-pillars-with-gold-balls-on-them-MmD1_XOABcI)
+- [maxine guo](https://unsplash.com/@maxinehuluwa) — [photo](https://unsplash.com/photos/a-tall-ornate-japanese-pagoda-against-a-clear-sky-FHBTzX3EhCA)
+- [Spencer Bergen](https://unsplash.com/@spencerbergen) — [photo](https://unsplash.com/photos/high-rise-building-near-body-of-water-during-daytime-CGTUoqI6t7A)
+- [Jeremy Huang](https://unsplash.com/@plover37) — [photo](https://unsplash.com/photos/traditional-pagoda-with-ornate-tiered-roof-against-sky-0fcozYTGhxY)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-clock-on-top-of-it-zWvnQ6NGwTM)
+- [Sacha Canivet](https://unsplash.com/@sachaaa_c) — [photo](https://unsplash.com/photos/golden-pagoda-nestled-between-modern-skyscrapers-and-trees-wlSPBmfzgB4)
+- [Anastasia Vikhareva](https://unsplash.com/@stasyabis) — [photo](https://unsplash.com/photos/tall-ornate-pagoda-structure-with-golden-accents-mZ1rKnX9zzQ)
+- [Pic Kaca](https://unsplash.com/@kacapic) — [photo](https://unsplash.com/photos/golden-traditional-chinese-building-on-a-wall-p55rOJYS3ko)

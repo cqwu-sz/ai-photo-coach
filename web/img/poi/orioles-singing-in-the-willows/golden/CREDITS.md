@@ -1,0 +1,25 @@
+# Orioles Singing in the Willows — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Curated Lifestyle](https://unsplash.com/@curatedlifestyle) — [photo](https://unsplash.com/photos/close-up-of-a-yellow-willow-leaf-c5w8U5IC_J8)
+- [Kaptured by Kasia](https://unsplash.com/@kasiade) — [photo](https://unsplash.com/photos/a-grassy-field-with-trees-in-the-distance-ETRHpEp4UtY)
+- [Lee Peterson](https://unsplash.com/@ljpuk) — [photo](https://unsplash.com/photos/willow-tree-branches-against-a-clear-blue-sky-pSyVOZ1WVec)
+- [Georg Eiermann](https://unsplash.com/@georgeiermann) — [photo](https://unsplash.com/photos/a-stream-running-through-a-lush-green-forest-NI9sgxc7biQ)
+- [Aakash Dhage](https://unsplash.com/@aakashdhage) — [photo](https://unsplash.com/photos/golden-light-filters-through-a-glowing-forest-Setu5u8zrfA)
+- [Arwen](https://unsplash.com/@arwen42) — [photo](https://unsplash.com/photos/bare-tree-branches-against-a-clear-blue-sky-JSc0W8jifNE)
+- [Eric Stoynov](https://unsplash.com/@ericstoynov) — [photo](https://unsplash.com/photos/three-birds-fly-over-a-wispy-green-plant--2OjIlMBVnA)
+- [Arwen](https://unsplash.com/@arwen42) — [photo](https://unsplash.com/photos/green-leaves-and-branches-against-a-blue-sky-seb_o_6bEwc)
+- [Wenzy Wong](https://unsplash.com/@wenzywong) — [photo](https://unsplash.com/photos/silhouetted-branches-against-a-hazy-sunset-sky-Vz7ppa-PXV0)
+- [Nareeta Martin](https://unsplash.com/@splashabout) — [photo](https://unsplash.com/photos/green-and-brown-trees-near-lake-during-daytime-flQjjzX-p6U)
+- [Nurkamol Vakhidov](https://unsplash.com/@nurkamol) — [photo](https://unsplash.com/photos/pine-and-willow-trees-in-a-park-at-sunset-htiedXHoYww)
+- [Georg Eiermann](https://unsplash.com/@georgeiermann) — [photo](https://unsplash.com/photos/a-river-running-through-a-lush-green-forest-k53s2pyjbNA)
+- [Iri Bu](https://unsplash.com/@iribuku) — [photo](https://unsplash.com/photos/a-branch-of-a-tree-with-green-leaves-PxV0x_9hiTI)
+- [Nareeta Martin](https://unsplash.com/@splashabout) — [photo](https://unsplash.com/photos/green-grass-field-with-trees-and-river-MKZDhT0FiRk)
+- [Kaptured by Kasia](https://unsplash.com/@kasiade) — [photo](https://unsplash.com/photos/a-couple-of-trees-that-are-standing-in-the-grass-vSlFWSjVanA)
+- [Ruth Gledhill](https://unsplash.com/@ruthiegledhill) — [photo](https://unsplash.com/photos/a-river-running-through-a-lush-green-forest-wlZb5jZPedM)
+- [Nourieh Ferdosian](https://unsplash.com/@nouriehferdosian) — [photo](https://unsplash.com/photos/autumn-trees-with-yellow-leaves-reflect-in-a-lake-9vtKDxJbjdo)
+- [Chris DUNN](https://unsplash.com/@dunn_chris) — [photo](https://unsplash.com/photos/a-large-tree-with-vibrant-orange-and-yellow-autumn-leaves-8hy0DBs-tD0)
+- [Austin](https://unsplash.com/@austin_7792) — [photo](https://unsplash.com/photos/willow-tree-branches-hang-over-a-grassy-field-with-buildings-sHHkq1T_XWg)
+- [Nareeta Martin](https://unsplash.com/@splashabout) — [photo](https://unsplash.com/photos/green-grass-field-near-mountain-under-white-clouds-during-daytime-SEsf7U_i0oA)

@@ -1,0 +1,25 @@
+# Lam Hang Shan — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-bell-is-hanging-on-a-railing-0CS-hsRxTYk)
+- [Margo Evardson](https://unsplash.com/@stadinstudio) — [photo](https://unsplash.com/photos/row-of-golden-buddhist-statues-under-a-cloudy-sky-4NRts8HPQuo)
+- [Margo Evardson](https://unsplash.com/@stadinstudio) — [photo](https://unsplash.com/photos/row-of-golden-buddha-statues-against-a-cloudy-sky-BHvnvxsKBX0)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/a-large-golden-statue-of-a-monk-in-a-temple-oxsQR1vR_8E)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-buddha-statue-sitting-in-a-cave-L-8j-mYYerA)
+- [Embla Voss](https://unsplash.com/@emblavoss) — [photo](https://unsplash.com/photos/a-snow-covered-mountain-is-seen-through-the-clouds-mS2Po_GWeY4)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/golden-statue-of-a-multi-armed-deity-in-temple-Mllb2tM-nik)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/golden-statue-of-a-buddhist-monk-in-temple-TNCUcHT9CAY)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-mpj-Zp1NAhY)
+- [Jan Emir Co](https://unsplash.com/@lazy_bones) — [photo](https://unsplash.com/photos/golden-statue-of-a-monk-with-a-temple-behind-Ni75p4m6KSo)
+- [Arisa Chattasa](https://unsplash.com/@golfarisa) — [photo](https://unsplash.com/photos/several-golden-buddha-figurines-lining-up-sDfM55NNQNo)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/a-large-golden-statue-of-a-buddhist-monk-F8btMgWjDBA)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-buddhas-sitting-in-front-of-a-tree-Tum-cI3OvLA)
+- [Eric Prouzet](https://unsplash.com/@eprouzet) — [photo](https://unsplash.com/photos/gold-statuettes-lot-6sYbqlx0dAY)
+- [Margo Evardson](https://unsplash.com/@stadinstudio) — [photo](https://unsplash.com/photos/golden-buddha-statues-lined-up-under-a-cloudy-sky-fdVfXYw_1X8)
+- [chris wang](https://unsplash.com/@chriswtr) — [photo](https://unsplash.com/photos/a-towering-golden-statue-inside-a-grand-building-b3V4CPMQyJs)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-buddha-statue-with-a-blue-sky-in-the-background-Zj7BCZGGbpM)
+- [Syed Ahmad](https://unsplash.com/@syedabsarahmad) — [photo](https://unsplash.com/photos/gold-statue-of-man-during-daytime-dGh8B0lr1qQ)
+- [Hoang Dang Khoa](https://unsplash.com/@khoahd7621) — [photo](https://unsplash.com/photos/golden-buddha-statue-surrounded-by-water-and-golden-rocks-px4wljPvJtI)
+- [Jéan Béller](https://unsplash.com/@worldtravelwithjean) — [photo](https://unsplash.com/photos/golden-buddha-statue-with-hands-pressed-together-OGRZ7XTywks)

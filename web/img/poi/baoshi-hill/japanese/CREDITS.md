@@ -1,0 +1,25 @@
+# Baoshi hill — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/the-tranquility-of-a-rural-landscape-with-green-rice-paddies-and-traditional-japanese-houses-the-distant-forested-hills-and-clear-skies-evoke-a-sense-of-harmony-peace-and-the-beauty-of-nature-E9oVkpHUuv4)
+- [WAIKHOM JAMES](https://unsplash.com/@waikhom) — [photo](https://unsplash.com/photos/red-and-white-pagoda-temple-surrounded-by-green-trees-during-daytime-tNDPVCs5sPg)
+- [Kenny Gaines](https://unsplash.com/@kgphoto87) — [photo](https://unsplash.com/photos/green-trees-on-mountain-under-cloudy-sky-during-daytime-d6-i0hrwNX0)
+- [Dave Weatherall](https://unsplash.com/@thattravelblog) — [photo](https://unsplash.com/photos/green-trees-during-daytime-F55KVYyS3Q0)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/an-aerial-view-of-a-city-with-a-soccer-field-l97zUG4KXfk)
+- [Shaoxu Li](https://unsplash.com/@shaoxu) — [photo](https://unsplash.com/photos/a-grassy-field-with-a-pond-and-a-hill-in-the-background-gOEVYUJ5FK4)
+- [Xuedi Liu](https://unsplash.com/@liuxuedi) — [photo](https://unsplash.com/photos/people-walk-up-a-grassy-hill-with-a-torii-gate-bxO4Iqz1aco)
+- [CreateTravel.tv](https://unsplash.com/@greenmarketing) — [photo](https://unsplash.com/photos/people-walking-on-park-during-daytime-FpkQ-KAAr5I)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-large-body-of-water-with-a-city-in-the-background-oppo1IzFS78)
+- [Matt Palmer](https://unsplash.com/@mattpalmer) — [photo](https://unsplash.com/photos/a-temple-sits-amidst-trees-and-town-6QxsqtZuRYE)
+- [Nakaharu Line](https://unsplash.com/@rissun_line) — [photo](https://unsplash.com/photos/a-sign-on-a-railing-overlooking-a-city-_phBpZ1j4VU)
+- [Christopher Politano](https://unsplash.com/@poli_graphy) — [photo](https://unsplash.com/photos/a-person-sitting-under-a-tori-tori-tori-tori-tori-tori-tori-tori-tori-tori-tori-57q6oyRswXk)
+- [JSB Co.](https://unsplash.com/@jsbco) — [photo](https://unsplash.com/photos/a-statue-of-a-buddha-sitting-on-top-of-a-hill-vVkqaYD3PPU)
+- [Mason Merry](https://unsplash.com/@mason_merry11) — [photo](https://unsplash.com/photos/a-lush-green-hillside-covered-in-lots-of-trees-kUGufhmeG6E)
+- [Jakub Tomasik](https://unsplash.com/@jakubeq) — [photo](https://unsplash.com/photos/torii-gates-overlook-a-sprawling-cityscape-with-distant-mountains-0cFTCBYzRyw)
+- [Marek Piwnicki](https://unsplash.com/@marekpiwnicki) — [photo](https://unsplash.com/photos/a-mountain-covered-in-lots-of-white-flowers-XfxDdIgj8Y4)
+- [Thomas Boxma](https://unsplash.com/@reispackers) — [photo](https://unsplash.com/photos/a-group-of-buildings-with-mountains-in-the-background-I-wGiHsGXz0)
+- [Felix](https://unsplash.com/@felifox) — [photo](https://unsplash.com/photos/city-skyline-under-blue-sky-during-daytime-ro-OD9bLXLw)
+- [Dmitry Voronov](https://unsplash.com/@onthecrow) — [photo](https://unsplash.com/photos/pink-field-overlooks-mountains-and-building-at-sunset-y5GM2u8cCiA)
+- [Ciya](https://unsplash.com/@ciya5) — [photo](https://unsplash.com/photos/a-person-walking-up-a-hill-with-a-red-umbrella-jUbZ3XD0Emw)

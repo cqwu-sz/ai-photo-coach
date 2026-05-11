@@ -1,0 +1,146 @@
+{
+  "poi": "Giant Stone",
+  "style": "golden",
+  "items": [
+    {
+      "id": "6ZOMrge1eps",
+      "url": "https://plus.unsplash.com/premium_photo-1697730342301-c55434fbc3c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8R2lhbnQlMjBTdG9uZSUyMGdvbGRlbnxlbnwwfHx8fDE3NzgzODkwNzF8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/gautama-buddha-statue-in-the-buddha-park-of-ravangla-in-south-sikkim-india-6ZOMrge1eps",
+      "author_name": "Getty Images",
+      "author_url": "https://unsplash.com/@gettyimages"
+    },
+    {
+      "id": "-kELR5uVmXE",
+      "url": "https://images.unsplash.com/photo-1758346974900-48de5df21dc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8R2lhbnQlMjBTdG9uZSUyMGdvbGRlbnxlbnwwfHx8fDE3NzgzODkwNzF8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/two-white-tiger-statues-at-a-vibrant-temple-entrance--kELR5uVmXE",
+      "author_name": "Kelvin Zyteng",
+      "author_url": "https://unsplash.com/@zyteng"
+    },
+    {
+      "id": "We7m31IqlRw",
+      "url": "https://images.unsplash.com/photo-1747903891097-08a998394119?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8M3x8R2lhbnQlMjBTdG9uZSUyMGdvbGRlbnxlbnwwfHx8fDE3NzgzODkwNzF8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-large-brown-rock-sits-outdoors-We7m31IqlRw",
+      "author_name": "Aleksi Partanen",
+      "author_url": "https://unsplash.com/@aleksi_p"
+    },
+    {
+      "id": "yT3k58JooIU",
+      "url": "https://images.unsplash.com/photo-1759150467267-9ca29e646f92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8NHx8R2lhbnQlMjBTdG9uZSUyMGdvbGRlbnxlbnwwfHx8fDE3NzgzODkwNzF8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/two-rough-golden-objects-on-a-golden-background-yT3k58JooIU",
+      "author_name": "Maria Lupan",
+      "author_url": "https://unsplash.com/@luandmario"
+    },
+    {
+      "id": "wRbOFbSysyc",
+      "url": "https://plus.unsplash.com/premium_photo-1751872019413-e2d8562b2500?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8NXx8R2lhbnQlMjBTdG9uZSUyMGdvbGRlbnxlbnwwfHx8fDE3NzgzODkwNzF8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/silver-and-gold-nuggets-float-in-the-sky-wRbOFbSysyc",
+      "author_name": "Reesmada",
+      "author_url": "https://unsplash.com/@reesmada7"
+    },
+    {
+      "id": "QxjEi8Fs9Hg",
+      "url": "https://images.unsplash.com/photo-1525857597365-5f6dbff2e36e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8R2lhbnQlMjBTdG9uZSUyMGdvbGRlbnxlbnwwfHx8fDE3NzgzODkwNzF8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/brown-rock-formation-surrounded-by-green-grass-QxjEi8Fs9Hg",
+      "author_name": "Zoltan Tasi",
+      "author_url": "https://unsplash.com/@zoltantasi"
+    },
+    {
+      "id": "8Xtv65QjMlA",
+      "url": "https://images.unsplash.com/photo-1731848690202-1e139fa6d0a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8N3x8R2lhbnQlMjBTdG9uZSUyMGdvbGRlbnxlbnwwfHx8fDE3NzgzODkwNzF8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-large-rock-in-the-middle-of-a-forest-8Xtv65QjMlA",
+      "author_name": "Jeffrey Eisen",
+      "author_url": "https://unsplash.com/@jeisen"
+    },
+    {
+      "id": "zBZ5AfJEoNg",
+      "url": "https://images.unsplash.com/photo-1668241282358-fd8454cc9785?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8OHx8R2lhbnQlMjBTdG9uZSUyMGdvbGRlbnxlbnwwfHx8fDE3NzgzODkwNzF8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-close-up-of-some-rocks-zBZ5AfJEoNg",
+      "author_name": "Leo_Visions",
+      "author_url": "https://unsplash.com/@leo_visions_"
+    },
+    {
+      "id": "FXR5Qtjc6Zs",
+      "url": "https://plus.unsplash.com/premium_photo-1764253266280-772b377810db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8OXx8R2lhbnQlMjBTdG9uZSUyMGdvbGRlbnxlbnwwfHx8fDE3NzgzODkwNzF8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/close-up-of-a-textured-reddish-brown-rock-formation-FXR5Qtjc6Zs",
+      "author_name": "atiyeh fathi",
+      "author_url": "https://unsplash.com/@atiyehfathi"
+    },
+    {
+      "id": "fIbtmCd0Vgk",
+      "url": "https://images.unsplash.com/photo-1651359728673-db62274cd109?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTB8fEdpYW50JTIwU3RvbmUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg5MDcxfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-close-up-of-some-rocks-fIbtmCd0Vgk",
+      "author_name": "Joshua Hoehne",
+      "author_url": "https://unsplash.com/@joshua_hoehne"
+    },
+    {
+      "id": "bwCu4k-uxVo",
+      "url": "https://images.unsplash.com/photo-1558431249-143dc91d9294?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fEdpYW50JTIwU3RvbmUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg5MDcxfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/brown-rock-in-middle-of-desert-bwCu4k-uxVo",
+      "author_name": "Adrien Milcent",
+      "author_url": "https://unsplash.com/@1100freeb"
+    },
+    {
+      "id": "gBvy6tIzkaE",
+      "url": "https://images.unsplash.com/photo-1696254933259-87362ee07572?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTJ8fEdpYW50JTIwU3RvbmUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg5MDcxfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-rock-with-a-plaque-on-it-sitting-on-the-ground-gBvy6tIzkaE",
+      "author_name": "Eugenia Pan'kiv",
+      "author_url": "https://unsplash.com/@eugenivy_now"
+    },
+    {
+      "id": "4XBMMLcfeRY",
+      "url": "https://plus.unsplash.com/premium_photo-1743477061973-587de852710f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTN8fEdpYW50JTIwU3RvbmUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg5MDcxfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/golden-colored-stone-walls-and-building-corners-are-shown-4XBMMLcfeRY",
+      "author_name": "Galina Nelyubova",
+      "author_url": "https://unsplash.com/@galka_nz"
+    },
+    {
+      "id": "D06mQNpzIdU",
+      "url": "https://images.unsplash.com/photo-1732692700032-1a4518e8e20a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTR8fEdpYW50JTIwU3RvbmUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg5MDcxfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-pile-of-rocks-with-a-tree-in-the-background-D06mQNpzIdU",
+      "author_name": "Georg Baumann",
+      "author_url": "https://unsplash.com/@georbaum"
+    },
+    {
+      "id": "BsTir5bGw84",
+      "url": "https://images.unsplash.com/photo-1759150467270-aa4496d4c61a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTV8fEdpYW50JTIwU3RvbmUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg5MDcxfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/three-metallic-nuggets-on-a-textured-background-BsTir5bGw84",
+      "author_name": "Maria Lupan",
+      "author_url": "https://unsplash.com/@luandmario"
+    },
+    {
+      "id": "9UYEuq0rlTc",
+      "url": "https://images.unsplash.com/photo-1737019714255-706bcded2106?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTZ8fEdpYW50JTIwU3RvbmUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg5MDcxfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-close-up-of-a-rock-with-a-mountain-in-the-background-9UYEuq0rlTc",
+      "author_name": "St\u00f6tzer Bal\u00e1zs",
+      "author_url": "https://unsplash.com/@stotzer"
+    },
+    {
+      "id": "HkyRJEJQpDU",
+      "url": "https://plus.unsplash.com/premium_photo-1764253266335-f2d90992be57?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTd8fEdpYW50JTIwU3RvbmUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg5MDcxfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/close-up-of-textured-rock-with-brown-and-white-patterns-HkyRJEJQpDU",
+      "author_name": "atiyeh fathi",
+      "author_url": "https://unsplash.com/@atiyehfathi"
+    },
+    {
+      "id": "6SOAAs7eH9M",
+      "url": "https://images.unsplash.com/photo-1745879488221-1269cdac4059?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTh8fEdpYW50JTIwU3RvbmUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg5MDcxfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-rock-rests-among-dark-mulch-6SOAAs7eH9M",
+      "author_name": "Jack Babcock",
+      "author_url": "https://unsplash.com/@jbabcock321"
+    },
+    {
+      "id": "Lnkgvqvzthw",
+      "url": "https://images.unsplash.com/photo-1598503868964-24b3a6d9d96b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTl8fEdpYW50JTIwU3RvbmUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg5MDcxfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/brown-concrete-statue-under-white-clouds-during-daytime-Lnkgvqvzthw",
+      "author_name": "Jesse Hammer",
+      "author_url": "https://unsplash.com/@jesseexplore"
+    },
+    {
+      "id": "fIWcDIHcJ3Q",
+      "url": "https://images.unsplash.com/photo-1616155652270-924c6f228239?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MjB8fEdpYW50JTIwU3RvbmUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg5MDcxfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/brown-and-green-rock-on-white-sand-fIWcDIHcJ3Q",
+      "author_name": "Wolfgang Hasselmann",
+      "author_url": "https://unsplash.com/@wolfgang_hasselmann"
+    }
+  ]
+}

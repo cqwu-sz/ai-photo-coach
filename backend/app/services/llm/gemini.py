@@ -71,11 +71,25 @@ class GeminiProvider:
         pose_summary: str,
         camera_summary: str,
         scene_mode: str,
+        panorama_jpeg: bytes | None = None,
+        video_mp4: bytes | None = None,
     ) -> dict[str, Any]:
         from google.genai import types  # type: ignore
 
         client = self._ensure()
         parts: list[Any] = []
+        # Panorama goes FIRST so the LLM sees the global layout before
+        # zooming into the per-direction keyframes.
+        if panorama_jpeg:
+            parts.append(types.Part.from_bytes(
+                data=panorama_jpeg, mime_type="image/jpeg",
+            ))
+        # Optional 720p H.264 (high quality mode). Gemini accepts video
+        # parts; we cap at one short clip (~8s) so token cost stays sane.
+        if video_mp4:
+            parts.append(types.Part.from_bytes(
+                data=video_mp4, mime_type="video/mp4",
+            ))
         for raw in frames:
             parts.append(types.Part.from_bytes(data=raw, mime_type="image/jpeg"))
         for raw in references:
@@ -87,6 +101,8 @@ class GeminiProvider:
             camera_kb_summary=camera_summary,
             has_references=bool(references),
             scene_mode=scene_mode,
+            has_panorama=panorama_jpeg is not None,
+            has_video=video_mp4 is not None,
         )
         parts.append(types.Part.from_text(text=user_prompt))
 

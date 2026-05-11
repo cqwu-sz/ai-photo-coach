@@ -1,0 +1,25 @@
+# Lung Tam Shan — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-view-of-the-mountains-from-a-high-point-of-view-eU1P78Rge-k)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/text-eyNVq4wcZ3I)
+- [Madeline Liu](https://unsplash.com/@madeline_sd) — [photo](https://unsplash.com/photos/traditional-building-with-blooming-cherry-tree-and-misty-mountains-YukNwbcDMVs)
+- [Nguyễn Hiệp](https://unsplash.com/@hieptltb97) — [photo](https://unsplash.com/photos/a-view-of-a-river-and-mountains-from-a-distance-5AsGxTrJB-0)
+- [Diana Light](https://unsplash.com/@dreamcatchlight) — [photo](https://unsplash.com/photos/a-wooden-table-topped-with-plates-of-food-to2ybdphVYE)
+- [Jake Weirick](https://unsplash.com/@weirick) — [photo](https://unsplash.com/photos/text-qV1MFVrjCjY)
+- [Jason Go](https://unsplash.com/@jason2002_2021) — [photo](https://unsplash.com/photos/a-clock-tower-in-front-of-a-colorful-building-tMVPt-ZN9Iw)
+- [wei yuan](https://unsplash.com/@chunbaihaitang) — [photo](https://unsplash.com/photos/a-black-and-white-photo-of-a-city-with-mountains-in-the-background-O2a7lmiKU_0)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-grassy-field-with-mountains-in-the-background-TPvWAcG5dXE)
+- [James Wheeler](https://unsplash.com/@souvenirpixels) — [photo](https://unsplash.com/photos/houses-aerial-photo-oOJexARc-dw)
+- [Pic Kaca](https://unsplash.com/@kacapic) — [photo](https://unsplash.com/photos/rooftops-of-a-town-nestled-below-mountains-yUEvLnBwE50)
+- [Daniel Höhe](https://unsplash.com/@beyondxphotography) — [photo](https://unsplash.com/photos/green-trees-near-cliff-aUth1_t03ac)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/chinese-noodles-on-wood-table-fFrXh0WRHOA)
+- [Huy Vo](https://unsplash.com/@dhuyntn) — [photo](https://unsplash.com/photos/green-leafed-trees-during-daytime-me6ZOl5Rci0)
+- [Jason Leung](https://unsplash.com/@ninjason) — [photo](https://unsplash.com/photos/a-store-front-with-a-red-door-and-a-green-sign-zhS4GIelYcY)
+- [Cristine Enero](https://unsplash.com/@cristineenero) — [photo](https://unsplash.com/photos/a-chinese-restaurant-with-a-pink-building-and-a-red-umbrella-w-Pk6frX9nk)
+- [Aditya Saxena](https://unsplash.com/@adityaries) — [photo](https://unsplash.com/photos/a-monk-standing-in-front-of-a-red-building-w4hJtLxbncQ)
+- [KIBOCK DO](https://unsplash.com/@domain) — [photo](https://unsplash.com/photos/a-building-with-a-bunch-of-plants-growing-on-it-AW-ftFrwuW0)
+- [Michael Myers](https://unsplash.com/@myers2021) — [photo](https://unsplash.com/photos/a-building-with-mountains-in-the-background-aFxSgOwRRXU)
+- [cal gao](https://unsplash.com/@ginnta) — [photo](https://unsplash.com/photos/a-valley-with-trees-and-mountains-in-the-background-UKKDT1od3uw)

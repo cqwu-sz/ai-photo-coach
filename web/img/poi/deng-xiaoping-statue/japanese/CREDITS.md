@@ -1,0 +1,25 @@
+# Deng Xiaoping Statue — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-sword-on-top-of-a-building-IYjfxrUikjs)
+- [Jacky Watt](https://unsplash.com/@jackywatt) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-with-a-hat-on-her-head-JpMqwlyiCDw)
+- [Dennis Rothermel](https://unsplash.com/@dennis_roth) — [photo](https://unsplash.com/photos/man-in-hat-statue-near-green-plants-during-daytime-68AdnbxfuKs)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/man-in-black-suit-statue-0KulY_22DZQ)
+- [martin bennie](https://unsplash.com/@martinbennie) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-staff-in-front-of-a-building-n-XFCbKqQQY)
+- [Photos of Korea](https://unsplash.com/@photosofkorea) — [photo](https://unsplash.com/photos/a-statue-of-a-man-and-a-woman-joxin0Hh1JE)
+- [Duc Van](https://unsplash.com/@duke91) — [photo](https://unsplash.com/photos/a-statue-of-a-man-stands-in-a-park-Flw1iyCeNj8)
+- [Neon Wang](https://unsplash.com/@neonwangphotography) — [photo](https://unsplash.com/photos/a-black-and-white-photo-of-a-statue-of-a-man-p5IC2TTgobw)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-banana-L6IyHeO4280)
+- [Franck Ridel](https://unsplash.com/@cryptrz) — [photo](https://unsplash.com/photos/bronze-samurai-warrior-statue-holding-a-sword-P3ZvOjaSrT0)
+- [k J](https://unsplash.com/@kevin_jia) — [photo](https://unsplash.com/photos/a-group-of-people-sitting-around-a-statue-of-a-man-KyOV7qnfUWE)
+- [Hongwei FAN](https://unsplash.com/@yokonoito0512) — [photo](https://unsplash.com/photos/bronze-statue-in-front-of-a-japanese-temple-fWMEFp82U40)
+- [Wesley Tingey](https://unsplash.com/@wesleyphotography) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-hat-on-his-head-O4-d8gFvvPo)
+- [April Vasquez](https://unsplash.com/@april_vasquez) — [photo](https://unsplash.com/photos/a-statue-of-a-person-yF3HRuffogk)
+- [Michael Myers](https://unsplash.com/@myers2021) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-sword-uGbcejDCzso)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/man-in-brown-robe-sitting-on-concrete-bench-STVTxcmiL_Q)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-beard-wearing-a-crown-6_j4xaJsOK0)
+- [Leon Andov](https://unsplash.com/@lando2) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-hat-and-a-cane-dgE0Vgju8_c)
+- [Sergio](https://unsplash.com/@littlecarnaval) — [photo](https://unsplash.com/photos/stone-statue-of-an-old-man-with-a-long-beard-PX6ejrHGoNk)
+- [Nerissa J](https://unsplash.com/@nerissa_j_photography) — [photo](https://unsplash.com/photos/statue-of-a-warrior-with-a-bow-stands-outdoors-f9mKdB83nWw)

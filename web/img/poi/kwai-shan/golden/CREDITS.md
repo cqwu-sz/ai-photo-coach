@@ -1,0 +1,25 @@
+# Kwai Shan — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-beaded-necklace-DHBAYoLaxoU)
+- [Kate Wells](https://unsplash.com/@katewells27) — [photo](https://unsplash.com/photos/golden-stupa-against-a-blue-sky-with-clouds-V3CDfIPCPcU)
+- [Jan Emir Co](https://unsplash.com/@lazy_bones) — [photo](https://unsplash.com/photos/golden-statue-of-a-monk-with-a-temple-behind-Ni75p4m6KSo)
+- [Sushanta Rokka](https://unsplash.com/@sanoyatra) — [photo](https://unsplash.com/photos/golden-stupa-against-a-bright-sky-tPRj3WrUSQk)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-mpj-Zp1NAhY)
+- [Marloes van der Veer](https://unsplash.com/@mvdv99) — [photo](https://unsplash.com/photos/a-large-golden-building-with-a-sky-background-cCgFOx6EHV0)
+- [YiChuan Li](https://unsplash.com/@liyichuan) — [photo](https://unsplash.com/photos/golden-spire-of-a-temple-against-a-blue-sky-REM_67Zj56k)
+- [Rowan Heuvel](https://unsplash.com/@insolitus) — [photo](https://unsplash.com/photos/golden-buddhist-stupa-against-a-cloudy-sky-b75BmaixguA)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-gold-statue-of-a-person-holding-a-bird-xXPdvCGX-Dw)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/golden-statue-of-a-buddhist-monk-in-temple-TNCUcHT9CAY)
+- [Hsu Mon](https://unsplash.com/@hsumon) — [photo](https://unsplash.com/photos/a-statue-of-a-person-OiqlmyqRN-s)
+- [Sushanta Rokka](https://unsplash.com/@sanoyatra) — [photo](https://unsplash.com/photos/ornate-architectural-details-on-a-building-d3ErQl6OPxo)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-buddha-statues-sitting-next-to-each-other-EWbAEN4fYBQ)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/a-large-golden-statue-of-a-monk-in-a-temple-oxsQR1vR_8E)
+- [Arisa Chattasa](https://unsplash.com/@golfarisa) — [photo](https://unsplash.com/photos/several-golden-buddha-figurines-lining-up-sDfM55NNQNo)
+- [James Jeremy Beckers](https://unsplash.com/@jerrografie) — [photo](https://unsplash.com/photos/a-bottle-of-golden-horn-qQO1Ib6Q9-A)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-of-buddhas-in-a-park-QOuiENY1QDE)
+- [PhotoHound](https://unsplash.com/@photohoundco) — [photo](https://unsplash.com/photos/a-large-rock-with-a-gold-top-and-a-gold-dome-on-top-with-kyaiktiyo-pagoda-in-the-background-8ZEz3R2SZvU)
+- [Margo Evardson](https://unsplash.com/@stadinstudio) — [photo](https://unsplash.com/photos/row-of-golden-buddhist-statues-under-a-cloudy-sky-4NRts8HPQuo)
+- [Gabor Kozmon](https://unsplash.com/@seasoulvisuals) — [photo](https://unsplash.com/photos/a-golden-building-with-many-spires-on-top-of-it-7kHCUZb-H90)

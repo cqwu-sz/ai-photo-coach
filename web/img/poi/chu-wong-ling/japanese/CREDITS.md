@@ -1,0 +1,25 @@
+# Chu Wong Ling — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/caucasian-female-leaning-to-the-right-while-thai-massage-professional-stretching-her-arm-on-bed-in-spa-salon-5V4j98-KN-k)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/text-eyNVq4wcZ3I)
+- [Damon Lam](https://unsplash.com/@dayday95) — [photo](https://unsplash.com/photos/text-RlkvOvu8-Yc)
+- [Leon Schotman](https://unsplash.com/@leonschotman) — [photo](https://unsplash.com/photos/a-room-filled-with-lots-of-decorations-and-lights-hPc4lx0CczY)
+- [Pablo Merchán Montes](https://unsplash.com/@pablomerchanm) — [photo](https://unsplash.com/photos/a-woman-with-a-tattoo-on-her-arm-making-a-peace-sign-V7xk_EwjaRE)
+- [John Morgan](https://unsplash.com/@iamfrancismorgan) — [photo](https://unsplash.com/photos/the-front-of-a-restaurant-at-night-with-lights-on-UIVr8DhRN_U)
+- [Slamet Pujiono](https://unsplash.com/@slametable) — [photo](https://unsplash.com/photos/a-group-of-people-standing-in-front-of-a-building-GGOBzAutJB8)
+- [Vida Huang](https://unsplash.com/@rebylulu) — [photo](https://unsplash.com/photos/traditional-lanterns-hang-in-a-shop-dimly-lit-store-RgDB_S1hLuM)
+- [Diana Light](https://unsplash.com/@dreamcatchlight) — [photo](https://unsplash.com/photos/a-table-topped-with-plates-of-food-and-chopsticks-7wc7kQuiJUM)
+- [Gervyn Louis](https://unsplash.com/@gervynlouis) — [photo](https://unsplash.com/photos/man-standing-indoors-dCFF8ikUyik)
+- [Cosmin Georgian](https://unsplash.com/@cosmingeorgian) — [photo](https://unsplash.com/photos/selective-focus-photography-of-people-under-chinese-lantern-nRZ0B_bd-6k)
+- [Cosmin Georgian](https://unsplash.com/@cosmingeorgian) — [photo](https://unsplash.com/photos/selective-focus-photography-of-people-under-chinese-lantern-kDvAftVQDVA)
+- [Polina Kuzovkova](https://unsplash.com/@p_kuzovkova) — [photo](https://unsplash.com/photos/a-neon-sign-that-says-chinese-on-it-MNUUPc45tAw)
+- [Vincent Camacho](https://unsplash.com/@officialmapps) — [photo](https://unsplash.com/photos/selective-focus-photography-of-kanji-script-lanterns-0PnQQ4hp_u8)
+- [Rui Hao Lim](https://unsplash.com/@ruii_hao) — [photo](https://unsplash.com/photos/a-red-star-on-a-wooden-surface-BEIcwaYvET8)
+- [Emile Guillemot](https://unsplash.com/@emilegt) — [photo](https://unsplash.com/photos/kanji-scrip-text-UzkCxqRcTjY)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-man-sitting-on-a-bench-in-a-room-3j5txogVR8k)
+- [Clay Banks](https://unsplash.com/@claybanks) — [photo](https://unsplash.com/photos/woman-in-black-coat-wearing-brown-woven-hat-standing-near-brown-wooden-wall-during-daytime-pVpBbIMoDBM)
+- [Matthieu Collin](https://unsplash.com/@piwang) — [photo](https://unsplash.com/photos/people-inside-restaurant-RCzBj55VOx4)
+- [蔡 世宏](https://unsplash.com/@cshong) — [photo](https://unsplash.com/photos/text-a22mU82HLOA)

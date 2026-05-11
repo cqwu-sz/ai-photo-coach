@@ -1,0 +1,146 @@
+{
+  "poi": "Giant Stone",
+  "style": "japanese",
+  "items": [
+    {
+      "id": "t5Lwo3Y6UEw",
+      "url": "https://plus.unsplash.com/premium_photo-1723669629711-3a812517c660?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8R2lhbnQlMjBTdG9uZSUyMGphcGFuZXNlfGVufDB8fHx8MTc3ODM4OTA2OXww&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-statue-of-a-person-surrounded-by-plants-t5Lwo3Y6UEw",
+      "author_name": "Lala Azizli",
+      "author_url": "https://unsplash.com/@lazizli"
+    },
+    {
+      "id": "8GBamGYC1og",
+      "url": "https://images.unsplash.com/photo-1771030669525-62e90af9e36f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8R2lhbnQlMjBTdG9uZSUyMGphcGFuZXNlfGVufDB8fHx8MTc3ODM4OTA2OXww&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-large-stone-statue-of-a-seated-figure-outdoors-8GBamGYC1og",
+      "author_name": "Peter Thomas",
+      "author_url": "https://unsplash.com/@lifeof_peter_"
+    },
+    {
+      "id": "lIjJiqHsBUc",
+      "url": "https://images.unsplash.com/photo-1729563051228-8d9eef24344e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8M3x8R2lhbnQlMjBTdG9uZSUyMGphcGFuZXNlfGVufDB8fHx8MTc3ODM4OTA2OXww&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-person-sitting-on-a-rock-in-the-middle-of-a-forest-lIjJiqHsBUc",
+      "author_name": "Vickee Poon",
+      "author_url": "https://unsplash.com/@vickeekiwiwow"
+    },
+    {
+      "id": "saOR12sKy9w",
+      "url": "https://images.unsplash.com/photo-1698823050925-a8992177258a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8NHx8R2lhbnQlMjBTdG9uZSUyMGphcGFuZXNlfGVufDB8fHx8MTc3ODM4OTA2OXww&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-group-of-rocks-with-asian-writing-on-them-saOR12sKy9w",
+      "author_name": "\u00fcn LIU",
+      "author_url": "https://unsplash.com/@vixxer"
+    },
+    {
+      "id": "Vn6JA85LHy4",
+      "url": "https://plus.unsplash.com/premium_photo-1723669629833-4e1473c7539b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8NXx8R2lhbnQlMjBTdG9uZSUyMGphcGFuZXNlfGVufDB8fHx8MTc3ODM4OTA2OXww&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-large-building-sitting-next-to-a-body-of-water-Vn6JA85LHy4",
+      "author_name": "Lala Azizli",
+      "author_url": "https://unsplash.com/@lazizli"
+    },
+    {
+      "id": "vvcudbs5P7o",
+      "url": "https://images.unsplash.com/photo-1631488408795-7138d263d7a8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8R2lhbnQlMjBTdG9uZSUyMGphcGFuZXNlfGVufDB8fHx8MTc3ODM4OTA2OXww&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/people-standing-near-gray-rock-formation-during-daytime-vvcudbs5P7o",
+      "author_name": "Steve Sharp",
+      "author_url": "https://unsplash.com/@sharp3"
+    },
+    {
+      "id": "wctDGq_NtBs",
+      "url": "https://images.unsplash.com/photo-1735151055135-264281da14a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8N3x8R2lhbnQlMjBTdG9uZSUyMGphcGFuZXNlfGVufDB8fHx8MTc3ODM4OTA2OXww&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-large-rock-sitting-in-the-middle-of-a-lush-green-park-wctDGq_NtBs",
+      "author_name": "Michael Vinel",
+      "author_url": "https://unsplash.com/@master8_"
+    },
+    {
+      "id": "bO08PjbPg1o",
+      "url": "https://images.unsplash.com/photo-1719458268906-822c6eec3660?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8OHx8R2lhbnQlMjBTdG9uZSUyMGphcGFuZXNlfGVufDB8fHx8MTc3ODM4OTA2OXww&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-large-rock-sitting-on-top-of-a-lush-green-field-bO08PjbPg1o",
+      "author_name": "Louie Cepeda",
+      "author_url": "https://unsplash.com/@louweecep"
+    },
+    {
+      "id": "Y_4E_iX4-ic",
+      "url": "https://plus.unsplash.com/premium_photo-1673285285994-6bfff235db97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8OXx8R2lhbnQlMjBTdG9uZSUyMGphcGFuZXNlfGVufDB8fHx8MTc3ODM4OTA2OXww&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-path-made-of-stepping-stones-in-a-forest-Y_4E_iX4-ic",
+      "author_name": "Raphael Lopes",
+      "author_url": "https://unsplash.com/@raph_lopes"
+    },
+    {
+      "id": "TESb6PCpHmU",
+      "url": "https://images.unsplash.com/photo-1764344516571-bf8fad9fc824?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTB8fEdpYW50JTIwU3RvbmUlMjBqYXBhbmVzZXxlbnwwfHx8fDE3NzgzODkwNjl8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/stone-monument-with-japanese-calligraphy-TESb6PCpHmU",
+      "author_name": "Walter O",
+      "author_url": "https://unsplash.com/@holawalterlee"
+    },
+    {
+      "id": "GC8bBDVXfrc",
+      "url": "https://images.unsplash.com/photo-1721474919138-8a308cc1cf6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fEdpYW50JTIwU3RvbmUlMjBqYXBhbmVzZXxlbnwwfHx8fDE3NzgzODkwNjl8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-large-stone-structure-sitting-in-the-middle-of-a-park-GC8bBDVXfrc",
+      "author_name": "Naoki Suzuki",
+      "author_url": "https://unsplash.com/@naopp"
+    },
+    {
+      "id": "b34oeLXsMUE",
+      "url": "https://images.unsplash.com/photo-1721051651659-9f7e3bbefa70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTJ8fEdpYW50JTIwU3RvbmUlMjBqYXBhbmVzZXxlbnwwfHx8fDE3NzgzODkwNjl8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-large-rock-formation-in-the-middle-of-a-park-b34oeLXsMUE",
+      "author_name": "Naoki Suzuki",
+      "author_url": "https://unsplash.com/@naopp"
+    },
+    {
+      "id": "mKq_0q1V0fQ",
+      "url": "https://plus.unsplash.com/premium_photo-1723983556942-d9caf930a16a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTN8fEdpYW50JTIwU3RvbmUlMjBqYXBhbmVzZXxlbnwwfHx8fDE3NzgzODkwNjl8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-body-of-water-surrounded-by-trees-and-rocks-mKq_0q1V0fQ",
+      "author_name": "Dario Br\u00f6nnimann",
+      "author_url": "https://unsplash.com/@dariobroe"
+    },
+    {
+      "id": "txGO-XbhEMY",
+      "url": "https://images.unsplash.com/photo-1744096366977-3e5d7f795914?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTR8fEdpYW50JTIwU3RvbmUlMjBqYXBhbmVzZXxlbnwwfHx8fDE3NzgzODkwNjl8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/ancient-weathered-stone-monuments-with-japanese-characters-txGO-XbhEMY",
+      "author_name": "Hudson McNamara",
+      "author_url": "https://unsplash.com/@ziroau"
+    },
+    {
+      "id": "FUYN8DMcX5U",
+      "url": "https://images.unsplash.com/photo-1609038405184-d250c545cbc2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTV8fEdpYW50JTIwU3RvbmUlMjBqYXBhbmVzZXxlbnwwfHx8fDE3NzgzODkwNjl8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/green-plant-beside-gray-rock-FUYN8DMcX5U",
+      "author_name": "Beth Macdonald",
+      "author_url": "https://unsplash.com/@elsbethcat"
+    },
+    {
+      "id": "LufrPgwpbns",
+      "url": "https://images.unsplash.com/photo-1715911877230-9447ac2b9401?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTZ8fEdpYW50JTIwU3RvbmUlMjBqYXBhbmVzZXxlbnwwfHx8fDE3NzgzODkwNjl8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-large-rock-sitting-next-to-a-body-of-water-LufrPgwpbns",
+      "author_name": "Kiko K",
+      "author_url": "https://unsplash.com/@kskoo626"
+    },
+    {
+      "id": "F-oYW1ScHAI",
+      "url": "https://plus.unsplash.com/premium_photo-1723669629859-c74ac8052808?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTd8fEdpYW50JTIwU3RvbmUlMjBqYXBhbmVzZXxlbnwwfHx8fDE3NzgzODkwNjl8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-river-running-through-a-city-next-to-tall-buildings-F-oYW1ScHAI",
+      "author_name": "Lala Azizli",
+      "author_url": "https://unsplash.com/@lazizli"
+    },
+    {
+      "id": "EthLJEdbwm0",
+      "url": "https://images.unsplash.com/photo-1732203977175-5daeb737e2da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTh8fEdpYW50JTIwU3RvbmUlMjBqYXBhbmVzZXxlbnwwfHx8fDE3NzgzODkwNjl8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-reflection-of-a-tree-in-a-rock-EthLJEdbwm0",
+      "author_name": "Bagzhan Sadvakassov",
+      "author_url": "https://unsplash.com/@smalltown_boy"
+    },
+    {
+      "id": "NZBNLPQzVNo",
+      "url": "https://images.unsplash.com/photo-1755443372396-629ea9454591?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTl8fEdpYW50JTIwU3RvbmUlMjBqYXBhbmVzZXxlbnwwfHx8fDE3NzgzODkwNjl8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/rocks-in-a-zen-garden-covered-with-frost-NZBNLPQzVNo",
+      "author_name": "Leongsan",
+      "author_url": "https://unsplash.com/@leongsan"
+    },
+    {
+      "id": "qfeExtdcFU0",
+      "url": "https://images.unsplash.com/photo-1565399607756-755b47e5a030?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MjB8fEdpYW50JTIwU3RvbmUlMjBqYXBhbmVzZXxlbnwwfHx8fDE3NzgzODkwNjl8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/brown-rocks-near-green-field-qfeExtdcFU0",
+      "author_name": "Asai Hatomi",
+      "author_url": "https://unsplash.com/@sainjati"
+    }
+  ]
+}

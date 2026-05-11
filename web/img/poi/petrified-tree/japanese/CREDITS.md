@@ -1,0 +1,25 @@
+# petrified tree — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/beautiful-black-and-white-marble-texture-background-tKj_5AveA-U)
+- [Rafael Otaki](https://unsplash.com/@otaki) — [photo](https://unsplash.com/photos/a-decaying-tree-branch-reveals-its-hollow-core-J5VXCMuDBGo)
+- [Chuck Eugene](https://unsplash.com/@chuckhifi) — [photo](https://unsplash.com/photos/a-wooden-structure-with-a-sign-on-top-of-it-KFKJiD66iJg)
+- [Vickee Poon](https://unsplash.com/@vickeekiwiwow) — [photo](https://unsplash.com/photos/a-person-sitting-on-a-rock-in-the-middle-of-a-forest-lIjJiqHsBUc)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/scenic-rocks-and-greenery-in-a-beautiful-forest-Ye2Xo5UgDwA)
+- [Walter O](https://unsplash.com/@holawalterlee) — [photo](https://unsplash.com/photos/stone-monument-with-japanese-calligraphy-TESb6PCpHmU)
+- [Gabriele Girelli](https://unsplash.com/@ggirelli) — [photo](https://unsplash.com/photos/mossy-tree-trunk-in-a-lush-green-forest-setting-eoLrOS6mVzs)
+- [Beth Macdonald](https://unsplash.com/@elsbethcat) — [photo](https://unsplash.com/photos/green-plant-beside-gray-rock-FUYN8DMcX5U)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-lone-tree-in-the-middle-of-a-grassy-field-lYrGYFZDxy8)
+- [realfish](https://unsplash.com/@realfish) — [photo](https://unsplash.com/photos/a-bamboo-stump-in-a-sun-dappled-forest-w0XO6tbEN8U)
+- [Se. Tsuchiya](https://unsplash.com/@s_tsuchiya) — [photo](https://unsplash.com/photos/a-close-up-of-a-wooden-sign-with-writing-on-it-wSAU4o1kGO4)
+- [Beans 4K](https://unsplash.com/@beans4k) — [photo](https://unsplash.com/photos/misty-japanese-garden-with-a-large-rock-and-pine-tree-uOkYBvUygS8)
+- [Casey Horner](https://unsplash.com/@mischievous_penguins) — [photo](https://unsplash.com/photos/a-painting-of-a-path-in-a-park-SY5Olb8oZKM)
+- [Patricia Haller-Anguela](https://unsplash.com/@halleranguela) — [photo](https://unsplash.com/photos/a-large-tree-with-a-large-trunk-NsA23oj4ck8)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/a-unique-tree-stands-tall-in-a-beautiful-garden--B7-mMbV83o)
+- [César_Tv](https://unsplash.com/@cesartv) — [photo](https://unsplash.com/photos/a-large-rock-sitting-in-the-middle-of-a-forest-pDyHaa4nbZY)
+- [Lala Azizli](https://unsplash.com/@lazizli) — [photo](https://unsplash.com/photos/a-red-stop-sign-sitting-on-the-side-of-a-set-of-stairs-75Ea1sChz6I)
+- [Yuya Murakami](https://unsplash.com/@yuyapics) — [photo](https://unsplash.com/photos/shallow-focus-photo-of-tree-VkcD1QxtY4A)
+- [Szymon Shields](https://unsplash.com/@shields_mcmxcix) — [photo](https://unsplash.com/photos/a-tree-with-a-sign-on-it-in-a-park-o8mzW3j-9XA)
+- [Micah Camper](https://unsplash.com/@m_camper) — [photo](https://unsplash.com/photos/a-tree-in-a-garden-Y7MgX-e1DWU)

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Optional
+from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
@@ -116,6 +116,274 @@ class FrameMeta(BaseModel):
         default=None,
         description="Did the client detect at least one face/subject in this frame?",
     )
+    # ---- v8 semantic signals (Phase 2 — A路线) ----------------------
+    # Three lightweight per-frame semantic features the client can fill
+    # in cheaply (iOS: Vision; Web: MediaPipe Tasks Vision + canvas).
+    # Each is independent & optional — backend treats missing values as
+    # "no information" and falls back to the LLM's own inspection.
+    person_box: Optional[list[float]] = Field(
+        default=None,
+        description=(
+            "Largest detected person rectangle as [x, y, w, h] in 0..1 frame "
+            "coordinates. None when no person detected (or detector unavailable)."
+        ),
+    )
+    saliency_quadrant: Optional[str] = Field(
+        default=None,
+        description=(
+            "Which quadrant of the frame holds the visual centre of mass: "
+            "'top_left'|'top_right'|'bottom_left'|'bottom_right'|'center'. "
+            "Lets the LLM reason about 'where is the busy part of this view'."
+        ),
+    )
+    horizon_tilt_deg: Optional[float] = Field(
+        default=None, ge=-90, le=90,
+        description=(
+            "Detected horizon tilt in degrees, positive = right side higher. "
+            "When the device's roll matches the visible horizon (small "
+            "magnitude), the frame is well-levelled."
+        ),
+    )
+    # ---- v10 lens / tilt signals (Phase 4 — 焦段+俯仰) -------------
+    # Two normalised y coordinates from the subject's pose keypoints
+    # (nose & midpoint of ankles). Combined with pitch_deg they let
+    # scene_aggregate decide whether the user should crouch / lift.
+    pose_nose_y: Optional[float] = Field(
+        default=None, ge=0, le=1,
+        description=(
+            "Detected y of subject's nose in [0,1] frame coords (top-left "
+            "origin). Lets the prompt builder reason about head placement "
+            "vs camera pitch. Source: MediaPipe Pose / Apple Vision."
+        ),
+    )
+    pose_ankle_y: Optional[float] = Field(
+        default=None, ge=0, le=1,
+        description=(
+            "Detected y of midpoint between left+right ankle keypoints. "
+            "pose_ankle_y - pose_nose_y is the on-screen body height "
+            "fraction → distance estimate (K/heightRatio model)."
+        ),
+    )
+    # ---- v10.1 face + horizon refinements ---------------------------
+    # face_height_ratio gives a much sharper distance estimate when the
+    # subject is framed tighter than half-body (the pose-based ratio
+    # collapses once ankles leave the frame). horizon_y cross-validates
+    # the pitch/pose-center based tilt advice.
+    face_height_ratio: Optional[float] = Field(
+        default=None, ge=0, le=1,
+        description=(
+            "Detected face bounding-box height / frame height in [0,1]. "
+            "When non-null, scene_aggregate prefers this over the body "
+            "height ratio for distance estimation (K_face ≈ 0.18 m)."
+        ),
+    )
+    horizon_y: Optional[float] = Field(
+        default=None, ge=0, le=1,
+        description=(
+            "Vertical position of the detected horizon midpoint in [0,1] "
+            "top-left frame coords. <0.45 ≈ camera looking down (a lot "
+            "of ground); >0.55 ≈ camera looking up (a lot of sky). "
+            "Used as a cross-check for the gyro pitch_deg signal."
+        ),
+    )
+    # ---- v10.2 multi-person disambiguation -------------------------
+    person_count: Optional[int] = Field(
+        default=None, ge=0,
+        description=(
+            "Number of people detected in this frame (face or body). "
+            "Used by scene_aggregate to decide whether to trust the "
+            "single-subject pose / face metrics blindly. >1 means the "
+            "client picked one as 'subject' via the consistency rule."
+        ),
+    )
+    subject_box: Optional[list[float]] = Field(
+        default=None,
+        description=(
+            "Chosen subject bounding box [x,y,w,h] in [0,1] top-left "
+            "coords. When multi-person, this is the box the client "
+            "voted as the most-likely intended subject (largest, "
+            "most central, and consistent across nearby frames). "
+            "person_box / pose_*_y / face_height_ratio above all refer "
+            "to this same subject."
+        ),
+    )
+    # ---- v11 color science / lighting --------------------------------
+    rgb_mean: Optional[list[float]] = Field(
+        default=None, min_length=3, max_length=3,
+        description=(
+            "Mean linear-ish R,G,B (0..255) of the frame, sampled by "
+            "the client. Feeds color_science.estimate_cct_k for "
+            "color-temperature estimation. May exclude saturated "
+            "highlights & deep shadows for accuracy."
+        ),
+    )
+    luma_p05: Optional[float] = Field(
+        default=None, ge=0, le=255,
+        description="5th percentile of luma (0..255) — shadow floor."
+    )
+    luma_p95: Optional[float] = Field(
+        default=None, ge=0, le=255,
+        description="95th percentile of luma — highlight ceiling."
+    )
+    highlight_clip_pct: Optional[float] = Field(
+        default=None, ge=0, le=1,
+        description="Fraction of pixels with luma >= 250 (clipped highlights)."
+    )
+    shadow_clip_pct: Optional[float] = Field(
+        default=None, ge=0, le=1,
+        description="Fraction of pixels with luma <= 5 (crushed shadows)."
+    )
+    saturation_mean: Optional[float] = Field(
+        default=None, ge=0, le=1,
+        description=(
+            "Mean HSV saturation across the frame in [0,1]. Used by "
+            "style_palette to compare to per-style targets."
+        ),
+    )
+    # ---- v12 EXIF / camera intrinsics --------------------------------
+    focal_length_mm: Optional[float] = Field(
+        default=None, ge=0,
+        description=(
+            "Physical focal length in millimetres from EXIF. Combined "
+            "with sensor_width_mm gives the true horizontal FOV which "
+            "calibrates K_face/K_body for distance estimation."
+        ),
+    )
+    focal_length_35mm_eq: Optional[float] = Field(
+        default=None, ge=0,
+        description="35mm-equivalent focal length from EXIF, when present."
+    )
+    sensor_width_mm: Optional[float] = Field(
+        default=None, ge=0,
+        description=(
+            "Physical sensor width in millimetres. iPhone main cameras "
+            "are typically 6-7mm; ultrawide ~3.5mm; tele ~5mm."
+        ),
+    )
+    # ---- v12 horizon triangulation -----------------------------------
+    horizon_y_vision: Optional[float] = Field(
+        default=None, ge=0, le=1,
+        description=(
+            "Horizon midpoint y from device-pose (Vision) inference. "
+            "Independent of horizon_y above which uses image gradients; "
+            "scene_aggregate triangulates the two."
+        ),
+    )
+    horizon_y_gravity: Optional[float] = Field(
+        default=None, ge=0, le=1,
+        description=(
+            "Horizon midpoint y derived purely from device gravity "
+            "(ARKit camera.transform). Acts as the third vote in "
+            "scene_aggregate._vote_horizon for a 2-of-3 majority."
+        ),
+    )
+    sky_mask_top_pct: Optional[float] = Field(
+        default=None, ge=0, le=1,
+        description=(
+            "Fraction of pixels in the top half of the frame classified "
+            "as sky (high luma + slightly blue). When this ratio is "
+            "high, horizon_y is trusted; when zero (indoor / no sky) "
+            "horizon facts are suppressed."
+        ),
+    )
+    # ---- v12 fine-grained pose ---------------------------------------
+    shoulder_tilt_deg: Optional[float] = Field(
+        default=None, ge=-90, le=90,
+        description="Subject's shoulder line tilt vs horizontal (+ = right shoulder higher)."
+    )
+    hip_offset_x: Optional[float] = Field(
+        default=None, ge=-1, le=1,
+        description="Hip-midpoint x offset from frame centre in [-1, +1] (- = left)."
+    )
+    chin_forward: Optional[float] = Field(
+        default=None, ge=-1, le=1,
+        description=(
+            "Chin protrusion vs neck axis in normalised units. > 0.10 "
+            "= 探头 / 下颌前伸 (camera-friendly but unflattering side-on)."
+        ),
+    )
+    spine_curve: Optional[float] = Field(
+        default=None, ge=-1, le=1,
+        description=(
+            "Spine curvature: triangle area of (head, mid-back, hip) "
+            "normalised by body height. > 0.05 = noticeably bent / "
+            "slouching."
+        ),
+    )
+    # ---- v9 foreground / depth signals (Phase 3 — 三层构图) ---------
+    # Per-frame inputs that feed FOREGROUND DOCTRINE in the prompt
+    # builder. All optional. Backends downstream:
+    #   - object detector (MediaPipe / Apple Vision) → foreground_candidates
+    #   - monocular depth (MiDaS) or LiDAR (AVDepthData) → depth_layers
+    foreground_candidates: Optional[list["ForegroundCandidate"]] = Field(
+        default=None,
+        description=(
+            "Detected objects in this frame that could plausibly serve as "
+            "a depth-layer foreground (plants, fences, doorways, leading "
+            "lines, etc.). Capped at the top 3 by area; nil when nothing "
+            "useful was found or detector unavailable."
+        ),
+    )
+    depth_layers: Optional["DepthLayers"] = Field(
+        default=None,
+        description=(
+            "What fraction of this frame's pixels fall into near (< ~1.5m, "
+            "true foreground territory), mid (~1.5-5m, subject zone), and "
+            "far (> ~5m, environment) buckets. Source: MiDaS monocular "
+            "depth on web/iOS, AVDepthData on iOS Pro. Used by the LLM "
+            "to decide whether the scene actually has a usable foreground "
+            "layer (need near_pct >= ~5% to virtualise into bokeh)."
+        ),
+    )
+
+
+class ForegroundCandidate(BaseModel):
+    """A single object detected in a keyframe that *could* be staged
+    as a near-foreground element (the FOREGROUND DOCTRINE rule in the
+    prompt builder picks from these instead of guessing)."""
+    label: str = Field(
+        description=(
+            "Object label — typically a normalised COCO/Vision class "
+            "('plant', 'tree', 'fence', 'doorway', 'bench', 'railing', "
+            "'flower', 'window', etc.). Coarse is fine — the LLM only "
+            "needs to know roughly what's there."
+        ),
+    )
+    box: list[float] = Field(
+        description=(
+            "[x, y, w, h] in 0..1 frame coords (top-left origin) — same "
+            "convention as person_box."
+        ),
+    )
+    confidence: Optional[float] = Field(default=None, ge=0, le=1)
+    estimated_distance_m: Optional[float] = Field(
+        default=None, ge=0.05, le=50,
+        description=(
+            "Optional depth estimate when ``DepthLayers`` is also "
+            "available — lets the prompt builder filter to '<1.5m, "
+            "actually virtualisable' candidates only."
+        ),
+    )
+
+
+class DepthLayers(BaseModel):
+    """Coarse 3-bucket histogram of monocular / sensor depth in a frame.
+
+    Numbers are area fractions in [0, 1] and should sum to ~1 (small
+    rounding tolerated). Used by the LLM to decide whether the scene
+    *physically supports* a foreground layer at all — if near_pct < 5%
+    the scene is open and rationale should say so honestly.
+    """
+    near_pct: float = Field(ge=0, le=1, description="< ~1.5m: true foreground territory")
+    mid_pct: float = Field(ge=0, le=1, description="~1.5-5m: subject zone")
+    far_pct: float = Field(ge=0, le=1, description="> ~5m: environment / sky")
+    source: str = Field(
+        description=(
+            "How the depth was computed: 'midas_web' | 'midas_ios' | "
+            "'avdepth_lidar' | 'avdepth_dual'. Lets the LLM weight the "
+            "evidence (LiDAR > monocular)."
+        ),
+    )
 
 
 class GeoFix(BaseModel):
@@ -142,6 +410,10 @@ class CaptureMeta(BaseModel):
     frame_meta: list[FrameMeta]
     geo: Optional[GeoFix] = None
     """Optional. When present, the prompt injects sun + time-of-day facts."""
+    walk_segment: Optional["WalkSegment"] = None
+    """Optional opt-in 10-20 s walk after the standing pan. Enables the
+    SfM/VIO branch of the shot-position fusion (see
+    ``services.walk_geometry``)."""
 
     @field_validator("frame_meta")
     @classmethod
@@ -209,6 +481,186 @@ class Angle(BaseModel):
     pitch_deg: float
     distance_m: float = Field(ge=0.3, le=20)
     height_hint: Optional[HeightHint] = None
+
+
+class ShotPositionKind(str, Enum):
+    """Two coordinate systems for a recommended shot position.
+
+    - ``relative``: the legacy / default — polar coordinates anchored at
+      the user's current standing point. Distance is bounded to 20 m.
+    - ``absolute``: world coordinates (lat/lon). Used by POI-derived and
+      SfM/VIO-derived candidates that may be 50-200 m from the user.
+    """
+    relative = "relative"
+    absolute = "absolute"
+    indoor = "indoor"
+
+
+PositionSource = Literal[
+    "llm_relative",   # synthesised from the LLM's relative angle
+    "poi_kb",         # POI from the local seeded knowledge base
+    "poi_online",     # POI fetched live from AMap / OSM (cached after)
+    "poi_ugc",        # user-confirmed spot from feedback (W2)
+    "poi_indoor",     # indoor POI from AMap Indoor / Mapbox Indoor (W1.2)
+    "sfm_ios",        # ARKit/VIO trajectory candidate (high precision)
+    "sfm_web",        # WebXR / DeviceMotion candidate (lower precision)
+    "triangulated",   # remote 3D point recovered via two-view triangulation (W4)
+    "recon3d",        # full SfM model output (W9)
+]
+
+
+class IndoorContext(BaseModel):
+    """Where in a building this shot lives (W1.2). Replaces the geo map
+    rendering with a floor-plan thumbnail + hotspot on the client."""
+    building_id: str
+    building_name_zh: Optional[str] = None
+    floor: Optional[str] = None
+    """Floor label, e.g. 'L2', 'B1', '一楼大堂'."""
+    hotspot_label_zh: Optional[str] = None
+    image_ref: Optional[str] = None
+    """URL or asset key for the floor-plan thumbnail."""
+    x_floor: Optional[float] = Field(default=None, ge=0, le=1)
+    y_floor: Optional[float] = Field(default=None, ge=0, le=1)
+    """Normalised position on the floor plan, top-left origin."""
+
+
+class WalkRouteStep(BaseModel):
+    """One leg of a walking-route narration (W3)."""
+    instruction_zh: str
+    distance_m: float = Field(ge=0)
+    duration_s: float = Field(ge=0)
+    polyline: Optional[str] = None
+
+
+class WalkRoute(BaseModel):
+    """Walking directions to an absolute shot position (W3)."""
+    distance_m: float = Field(ge=0)
+    duration_min: float = Field(ge=0)
+    polyline: str = ""
+    """Encoded polyline (AMap / Google polyline-style)."""
+    steps: list[WalkRouteStep] = Field(default_factory=list)
+    provider: str = "amap"
+
+
+class ShotPosition(BaseModel):
+    """Unified shot-position descriptor that supports both the legacy
+    relative polar form and the new absolute world-coords form.
+
+    The client renders compass arrows for ``relative`` and a map pin
+    with walking distance for ``absolute``. ``source`` and ``confidence``
+    drive ranking inside ``shot_fusion`` and let the UI badge each
+    recommendation honestly ("权威机位" vs "估算机位").
+    """
+    kind: ShotPositionKind
+    # ---- relative subset ----
+    azimuth_deg: Optional[float] = Field(default=None, ge=0, lt=360)
+    distance_m: Optional[float] = Field(default=None, ge=0.3, le=200)
+    pitch_deg: Optional[float] = None
+    height_hint: Optional[HeightHint] = None
+    # ---- absolute subset ----
+    lat: Optional[float] = Field(default=None, ge=-90, le=90)
+    lon: Optional[float] = Field(default=None, ge=-180, le=180)
+    height_above_ground_m: Optional[float] = Field(default=None, ge=-50, le=200)
+    facing_deg: Optional[float] = Field(default=None, ge=0, lt=360)
+    walk_distance_m: Optional[float] = Field(default=None, ge=0, le=2000)
+    bearing_from_user_deg: Optional[float] = Field(default=None, ge=0, lt=360)
+    est_walk_minutes: Optional[float] = Field(default=None, ge=0, le=60)
+    # ---- common ----
+    source: PositionSource = "llm_relative"
+    confidence: float = Field(ge=0, le=1, default=0.5)
+    walkability_note_zh: Optional[str] = None
+    name_zh: Optional[str] = None
+    """Human-readable label, e.g. POI name or '漫游机位 #2'."""
+    indoor: Optional["IndoorContext"] = None
+    """Populated when ``kind == indoor`` (W1.2)."""
+    walk_route: Optional["WalkRoute"] = None
+    """Populated by route_planner when distance > threshold (W3)."""
+
+    @model_validator(mode="after")
+    def _kind_subset(self) -> "ShotPosition":
+        if self.kind == ShotPositionKind.relative:
+            if self.azimuth_deg is None or self.distance_m is None:
+                raise ValueError("relative ShotPosition needs azimuth_deg and distance_m")
+            if self.distance_m > 20:
+                raise ValueError("relative ShotPosition.distance_m must be <= 20")
+        elif self.kind == ShotPositionKind.indoor:
+            if self.indoor is None:
+                raise ValueError("indoor ShotPosition needs indoor context")
+        else:
+            if self.lat is None or self.lon is None:
+                raise ValueError("absolute ShotPosition needs lat and lon")
+        return self
+
+
+class WalkPose(BaseModel):
+    """One sample from the optional walk-segment trajectory.
+
+    Origin is the user's initial GeoFix at the start of the walk.
+    Coordinates are in the local ENU frame (x=east, y=north, z=up,
+    metres). Quaternion is the device camera orientation.
+    """
+    t_ms: int = Field(ge=0, description="Milliseconds since walk segment start.")
+    x: float
+    y: float
+    z: float
+    qx: float = 0.0
+    qy: float = 0.0
+    qz: float = 0.0
+    qw: float = 1.0
+
+
+class WalkSegment(BaseModel):
+    """User-opt-in 10-20 s walk after the standing pan, used by the
+    backend to derive far-away ``absolute`` shot candidates.
+
+    iOS supplies this from ``ARFrame.camera.transform`` (true VIO,
+    centimetre-grade); Web supplies it from WebXR if available, else
+    from DeviceMotion double-integration plus keyframe matching
+    (lower precision, ``confidence`` is downgraded by walk_geometry).
+    """
+    source: Literal["arkit", "webxr", "devicemotion"]
+    initial_heading_deg: Optional[float] = Field(
+        default=None, ge=0, lt=360,
+        description=(
+            "Compass heading at walk start so the local ENU frame can be "
+            "rotated into true world coordinates. Required to convert "
+            "(x,y) into (lat,lon)."
+        ),
+    )
+    poses: list[WalkPose] = Field(default_factory=list)
+    sparse_points: Optional[list[list[float]]] = Field(
+        default=None,
+        description=(
+            "Optional SfM sparse point cloud as [[x,y,z], ...] in the "
+            "same ENU frame as poses. Currently only iOS / WebXR clients "
+            "provide this."
+        ),
+    )
+    gps_track: Optional[list["GpsSample"]] = Field(
+        default=None,
+        description=(
+            "Optional GPS samples taken during the walk (Web only — iOS "
+            "uses ARKit fused poses). Backend uses these to fit + nudge "
+            "the IMU-derived path. (W5.1)"
+        ),
+    )
+    keyframes_b64: Optional[list[dict]] = Field(
+        default=None,
+        description=(
+            "Optional small JPEGs sampled at 1 Hz during the walk for ORB "
+            "correction (W5.2). Each item is "
+            "``{t_ms: int, dataUrl: str}`` — the dataUrl is a "
+            "data:image/jpeg;base64,... payload kept tiny by the client."
+        ),
+    )
+
+
+class GpsSample(BaseModel):
+    """One GPS reading taken during a Web walk segment (W5)."""
+    t_ms: int = Field(ge=0)
+    lat: float = Field(ge=-90, le=90)
+    lon: float = Field(ge=-180, le=180)
+    accuracy_m: Optional[float] = Field(default=None, ge=0)
 
 
 class Composition(BaseModel):
@@ -360,6 +812,30 @@ class ShotRecommendation(BaseModel):
                     "formula: 0.5*avg(criteria) + 0.3*confidence*5 + 0.2*time_bonus.",
     )
 
+    # ----- Unified position (v13 — three-source fusion) ---------------
+    position: Optional["ShotPosition"] = None
+    """Unified shot-position descriptor. ``relative`` mirrors ``angle``
+    and is always set so old clients keep working; ``absolute`` is set
+    when the shot was sourced from POI knowledge or SfM/VIO. The result
+    UI uses ``position.kind`` to pick compass-vs-map rendering."""
+
+    # ----- Foreground / depth-layer strategy (v9) ---------------------
+    foreground: Optional["ShotForeground"] = None
+    """Three-layer composition strategy: which kind of foreground to
+    use, where to find it (cited by azimuth + canvas quadrant), how to
+    physically nudge the user to bring it into frame. Filled by the
+    LLM under FOREGROUND DOCTRINE. None = scene has no usable foreground
+    (e.g. open beach with nothing within 1.5m), in which case rationale
+    must explicitly say so."""
+
+    # ----- Style intent (filled by backend, not LLM) ------------------
+    style_match: Optional["ShotStyleMatch"] = None
+    """Which user-picked style this shot was tuned toward, plus the
+    recommended camera ranges for that style. Populated by
+    ``style_compliance_service`` after validate_and_clamp; lets the
+    result UI show a "风格 X · 推荐 Y · 实际 Z ✓" panel per shot.
+    Only present when the user actually picked a style on Step 3."""
+
     # ----- iPhone-specific photo tips ---------------------------------
     iphone_tips: list[str] = Field(default_factory=list)
     """2-3 short Chinese sentences specific to shooting this on an
@@ -369,6 +845,36 @@ class ShotRecommendation(BaseModel):
       - "ISO 800 噪点可见，可以靠近主体让 ISO 自然降到 200"
     Filled by the LLM (prompt-driven) so it stays scene-aware. Always
     rendered alongside the iphone_apply_plan in both Web and iOS UIs."""
+
+
+class ShotStyleMatch(BaseModel):
+    """Per-shot style intent + compliance result.
+
+    Surfaces three things to the result UI:
+      1. Which of the user's picked styles this shot was tuned for
+         (style_id + Chinese label).
+      2. The recommended numeric ranges that drove tuning.
+      3. Whether the LLM's original output was already in those ranges,
+         or whether the backend had to clamp values.
+
+    Empty (None on ShotRecommendation) when the user didn't pick any
+    recognised style on Step 3 — in that case there's nothing to compare
+    against and the UI should hide the badge.
+    """
+
+    style_id: str
+    label_zh: str
+    white_balance_k_range: tuple[int, int]
+    focal_length_mm_range: tuple[float, float]
+    ev_range: tuple[float, float]
+    in_range: bool
+    """True iff the LLM's original (pre-clamp) values were all already
+    inside the recommended ranges. False when at least one knob was
+    auto-corrected — the rationale will also have a ``（已按...风格自动
+    校准...）`` suffix in that case so the user understands the change."""
+    fixes: list[dict] = Field(default_factory=list)
+    """When ``in_range`` is False, list of ``{knob, from, to}`` records
+    describing each clamp. Empty otherwise."""
 
 
 class StyleInspiration(BaseModel):
@@ -460,6 +966,62 @@ class LightRecaptureHint(BaseModel):
     the user can use it as the centre of the new pass."""
 
 
+class ReferenceFingerprint(BaseModel):
+    """Style fingerprint extracted from a single user-provided reference
+    image (W6). Drives prompt injection + per-shot palette compliance."""
+    index: int = Field(ge=0, description="Position in the user's reference list, 0-based.")
+    palette: list[str] = Field(
+        default_factory=list,
+        description="Top 5 hex colours, e.g. ['#2a1f1a','#c08a55',...].",
+    )
+    palette_weights: list[float] = Field(
+        default_factory=list,
+        description="Per-colour weight in [0,1], same length as palette.",
+    )
+    contrast_band: str = "mid"
+    """One of low | mid | high — derived from luma p5/p95 spread."""
+    saturation_band: str = "mid"
+    """One of low | mid | high — derived from mean HSV saturation."""
+    mood_keywords: list[str] = Field(default_factory=list)
+    embedding_dims: Optional[int] = Field(
+        default=None, ge=0,
+        description="Dimensionality of the embedding stored server-side.",
+    )
+    thumbnail_ref: Optional[str] = None
+
+
+class FarPoint(BaseModel):
+    """A 3D point recovered from two-view triangulation (W4)."""
+    lat: float = Field(ge=-90, le=90)
+    lon: float = Field(ge=-180, le=180)
+    height_m: Optional[float] = Field(default=None, ge=-50, le=2000)
+    confidence: float = Field(ge=0, le=1, default=0.5)
+    observed_in_azimuth_deg: float = Field(ge=0, lt=360)
+    label_zh: Optional[str] = None
+
+
+class TimeRecommendation(BaseModel):
+    """Best historical time-of-day for shooting at a given location (W7)."""
+    best_hour_local: int = Field(ge=0, le=23)
+    score: float = Field(ge=0, le=5)
+    sample_n: int = Field(ge=0)
+    blurb_zh: str = ""
+    runner_up_hour_local: Optional[int] = Field(default=None, ge=0, le=23)
+    minutes_until_best: Optional[float] = Field(default=None, ge=-1440, le=1440)
+
+
+class SparseModel(BaseModel):
+    """Output of recon3d worker (W9). Lightweight summary suitable for
+    embedding in /analyze response or polled separately."""
+    job_id: str
+    points_count: int = Field(ge=0)
+    cameras_count: int = Field(ge=0)
+    scale_m_per_unit: float = 1.0
+    bbox_lat: Optional[list[float]] = None
+    bbox_lon: Optional[list[float]] = None
+    thumbnail_ref: Optional[str] = None
+
+
 class AnalyzeResponse(BaseModel):
     scene: SceneSummary
     shots: list[ShotRecommendation]
@@ -467,6 +1029,10 @@ class AnalyzeResponse(BaseModel):
     environment: Optional[EnvironmentSnapshot] = None
     """Echoed back so the result UI can draw a sun compass / golden-hour
     badge. Only populated when the request supplied a geo fix."""
+    time_recommendation: Optional[TimeRecommendation] = None
+    """Populated by services.time_optimal when geo + history available (W7)."""
+    reference_fingerprints: list[ReferenceFingerprint] = Field(default_factory=list)
+    """Populated by services.style_extract when user uploaded refs (W6)."""
     light_recapture_hint: Optional[LightRecaptureHint] = None
     """Optional banner asking the user to shoot a 10-second light-pass
     when we can't reliably reason about light. Populated in
@@ -485,3 +1051,64 @@ class ErrorBody(BaseModel):
 
 class ErrorResponse(BaseModel):
     error: ErrorBody
+
+
+# Resolve the forward reference inside ShotRecommendation.style_match —
+# ShotStyleMatch is defined after ShotRecommendation so Pydantic needs an
+# explicit rebuild to bind the string annotation to the actual class.
+class ShotForeground(BaseModel):
+    """Foreground / three-layer composition plan for a single shot.
+
+    Photographers stage three depth layers — close foreground (0.2-1.5m,
+    the "bokeh layer" or "framing"), midground (the subject), background
+    (environment / mood). Strong photos almost always have an intentional
+    foreground; weak amateur photos lack one. We make the LLM commit to
+    one of four strategies per shot, plus give the user a *physical*
+    nudge ("step left, lower the phone, place these branches in the
+    bottom-left quadrant") so it's actionable.
+    """
+    layer: Literal[
+        "bokeh_plant",     # 树叶 / 花 / 草 → 大光圈虚化成色块
+        "natural_frame",   # 门洞 / 树枝 / 栏杆 → 框住主体
+        "leading_line",    # 栏杆 / 台阶 / 地砖 → 引导视线到主体
+        "none",            # 场景没有可用前景；坦白告诉用户即可
+    ]
+    suggestion_zh: str = Field(
+        description=(
+            "1-2 sentence Chinese, second-person, physical nudge: "
+            "\"侧身半步，把这棵树的枝叶放到画面左下角，让前景虚成绿色色块\". "
+            "Must mention an actionable body/phone movement, not "
+            "abstract advice like '加点前景'."
+        ),
+    )
+    source_azimuth_deg: Optional[float] = Field(
+        default=None, ge=0, lt=360,
+        description=(
+            "Which azimuth's keyframe the LLM saw this foreground in. "
+            "The result UI uses this to highlight the right thumbnail."
+        ),
+    )
+    canvas_quadrant: Optional[str] = Field(
+        default=None,
+        description=(
+            "Where in the resulting frame the foreground should sit: "
+            "top_left | top_right | bottom_left | bottom_right | "
+            "left_edge | right_edge | bottom_edge | top_edge. Lets the "
+            "result card draw a hint overlay on the mock-up."
+        ),
+    )
+    estimated_distance_m: Optional[float] = Field(
+        default=None, ge=0.1, le=10,
+        description=(
+            "LLM's estimate of how far the foreground element is. "
+            "< 1.5m means it'll actually blur on a phone main lens; "
+            ">= 1.5m means it'll just be a sharp distraction — should "
+            "trigger a 'step closer to the foreground' nudge."
+        ),
+    )
+
+
+ShotRecommendation.model_rebuild()
+FrameMeta.model_rebuild()
+WalkSegment.model_rebuild()
+CaptureMeta.model_rebuild()

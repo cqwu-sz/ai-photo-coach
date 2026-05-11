@@ -1,0 +1,25 @@
+# Lok Ma Chau Lookout — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-small-shrine-with-golden-statues-on-top-of-it-TGQhv3r3o1A)
+- [Gene Taylor](https://unsplash.com/@genetaylor1) — [photo](https://unsplash.com/photos/brown-wooden-watchtower-overlooking-permafrost-mountains-31q0y2vtxfg)
+- [Raimond Klavins](https://unsplash.com/@raimondklavins) — [photo](https://unsplash.com/photos/brown-and-green-temple-on-top-of-mountain-during-daytime-JqT2Wp5S0Dk)
+- [Trieu Tran](https://unsplash.com/@trieu_tran) — [photo](https://unsplash.com/photos/a-statue-on-a-bridge-KJhPzOwIo5k)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-large-golden-dome-on-top-of-a-building-GWeto31xD9k)
+- [Walter Coppola](https://unsplash.com/@waltc) — [photo](https://unsplash.com/photos/a-golden-buddha-statue-sitting-on-top-of-a-building-KRJXsCRYDNo)
+- [Raimond Klavins](https://unsplash.com/@raimondklavins) — [photo](https://unsplash.com/photos/gold-statue-of-man-and-woman-nk12dIfLG30)
+- [Aditya Sethia](https://unsplash.com/@aditya_sethia_97) — [photo](https://unsplash.com/photos/a-woman-sitting-on-a-wooden-bench-overlooking-a-valley-B8QK9_Vy4i0)
+- [Aditya Saxena](https://unsplash.com/@adityaries) — [photo](https://unsplash.com/photos/a-building-that-has-a-lot-of-windows-on-it-hNZG0QYXo3w)
+- [Aditya Bikram Dash](https://unsplash.com/@adityabikram) — [photo](https://unsplash.com/photos/a-statue-on-a-platform-OWo3rXRbdOY)
+- [Surie Nguyen](https://unsplash.com/@xudien_23) — [photo](https://unsplash.com/photos/great-wall-of-china-during-daytime-Wlhmd4CZHCQ)
+- [Quang Nguyen Vinh](https://unsplash.com/@quangpraha) — [photo](https://unsplash.com/photos/a-house-on-a-hill-overlooking-a-valley-Hf41mlji6nQ)
+- [Spencer Backman](https://unsplash.com/@spencerbackman) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-range-with-trees-in-the-foreground-St7bxI9J9i4)
+- [Yi Zhang](https://unsplash.com/@zhangyi001) — [photo](https://unsplash.com/photos/a-golden-statue-on-a-building-dbm98hSXaWg)
+- [Anand Mahajan](https://unsplash.com/@anand_mahajan1997) — [photo](https://unsplash.com/photos/yellow-pavilion-on-a-rocky-hill-with-snowy-mountains-It2YmwLKraA)
+- [Aaron Kuo](https://unsplash.com/@outdoorka) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-range-with-clouds-in-the-sky-bowT1s5NpBc)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-couple-of-buddha-statues-sitting-on-top-of-a-hill-g8YXh_eMDsY)
+- [Khong Toi](https://unsplash.com/@khongtoichan) — [photo](https://unsplash.com/photos/green-hill-QG1jfpeBgds)
+- [Quan-You Zhang](https://unsplash.com/@cajeo) — [photo](https://unsplash.com/photos/a-house-on-a-cliff-with-a-gazebo-on-top-5RUTabdIszc)
+- [Raimond Klavins](https://unsplash.com/@raimondklavins) — [photo](https://unsplash.com/photos/a-view-of-a-building-with-mountains-in-the-background-iLHV2ZRiIlE)

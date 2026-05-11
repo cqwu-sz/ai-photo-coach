@@ -1,0 +1,25 @@
+# Autumn Moon over the Calm Lake — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Daniel J. Schwarz](https://unsplash.com/@danieljschwarz) — [photo](https://unsplash.com/photos/crescent-moon-over-mountains-at-dusk-BRl9OiVsq7Q)
+- [Colin Lloyd](https://unsplash.com/@onthesearchforpineapples) — [photo](https://unsplash.com/photos/brown-trees-beside-body-of-water-under-blue-sky-during-daytime-X79APoEATFs)
+- [Aleh Tsikhanau](https://unsplash.com/@ethnoza) — [photo](https://unsplash.com/photos/sunrise-over-a-calm-lake-with-docks-6STC80XiI3Q)
+- [Andy Wang](https://unsplash.com/@space_launch_system) — [photo](https://unsplash.com/photos/colorful-autumn-trees-reflected-in-calm-blue-water-z4Xc1On4GPk)
+- [Ales Krivec](https://unsplash.com/@aleskrivec) — [photo](https://unsplash.com/photos/a-body-of-water-with-a-mountain-in-the-background-cqBtqcQz8S0)
+- [Stephen Landicho](https://unsplash.com/@creativecapturepro) — [photo](https://unsplash.com/photos/sunset-over-a-calm-lake-with-trees-B3vtLBQOXzs)
+- [Aleh Tsikhanau](https://unsplash.com/@ethnoza) — [photo](https://unsplash.com/photos/misty-lake-at-sunrise-with-sun-reflecting-on-water-GZWRwYNtlfo)
+- [Aleh Tsikhanau](https://unsplash.com/@ethnoza) — [photo](https://unsplash.com/photos/sunset-over-a-calm-lake-with-a-single-buoy-7IhnXH_c6qQ)
+- [Ales Krivec](https://unsplash.com/@aleskrivec) — [photo](https://unsplash.com/photos/a-body-of-water-with-trees-in-the-background-ikTh6NHnhUg)
+- [Gennady Zakharin](https://unsplash.com/@gennady107) — [photo](https://unsplash.com/photos/calm-lake-reflecting-sunset-with-reeds-in-foreground-o7IXg5Frh3I)
+- [Akshat Sharma](https://unsplash.com/@asphotographypics) — [photo](https://unsplash.com/photos/autumn-forest-reflected-in-a-calm-blue-lake-oOdcfNRYOic)
+- [Martin Derksen](https://unsplash.com/@mderk) — [photo](https://unsplash.com/photos/sunset-over-a-dark-lake-and-hills-twpB7w57dSc)
+- [Zdeněk Macháček](https://unsplash.com/@zmachacek) — [photo](https://unsplash.com/photos/clouds-reflect-on-a-calm-lake-at-sunset-ksH31ma8Rxw)
+- [Jonathan Borba](https://unsplash.com/@jonathanborba) — [photo](https://unsplash.com/photos/golden-sunset-over-a-calm-body-of-water-5HKqxanWof0)
+- [Bernhard](https://unsplash.com/@bernhardbar) — [photo](https://unsplash.com/photos/autumn-trees-reflected-in-a-calm-lake-at-sunset-A5_pqg7V9dk)
+- [Daniel Bronevoy](https://unsplash.com/@instaheat) — [photo](https://unsplash.com/photos/calm-lake-reflecting-a-dramatic-cloud-formation-at-dawn-scKkLKn9Vao)
+- [Hans](https://unsplash.com/@hansphoto) — [photo](https://unsplash.com/photos/a-body-of-water-surrounded-by-trees-and-rocks-uZ2Xxy0-kT8)
+- [Michael Beier](https://unsplash.com/@the_world_according_to_mickey_) — [photo](https://unsplash.com/photos/sunset-over-a-calm-lake-with-silhouetted-trees-P_9cgaNSm6M)
+- [Michael Beier](https://unsplash.com/@the_world_according_to_mickey_) — [photo](https://unsplash.com/photos/calm-lake-at-dusk-with-dark-trees-on-shore-2WuQp3YmtQ4)
+- [Daniel Bronevoy](https://unsplash.com/@instaheat) — [photo](https://unsplash.com/photos/autumn-forest-reflected-in-a-calm-lake-under-blue-sky-hTiHX2HFZ88)

@@ -1,0 +1,48 @@
+{
+  "poi": "Sunrise Terrace",
+  "style": "golden",
+  "items": [
+    {
+      "id": "lE9WMJ1egL4",
+      "url": "https://plus.unsplash.com/premium_photo-1736338574438-4814af5a3726?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8U3VucmlzZSUyMFRlcnJhY2UlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg4OTYwfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-white-fire-hydrant-sitting-on-top-of-a-tiled-floor-lE9WMJ1egL4",
+      "author_name": "Roberta Sant'Anna",
+      "author_url": "https://unsplash.com/@roberta_sant_anna"
+    },
+    {
+      "id": "rpas_vvLvJA",
+      "url": "https://images.unsplash.com/photo-1764260664542-61117a514ba3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8U3VucmlzZSUyMFRlcnJhY2UlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg4OTYwfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/rustic-wooden-hut-nestled-in-lush-green-hillside-landscape-rpas_vvLvJA",
+      "author_name": "Rowan Heuvel",
+      "author_url": "https://unsplash.com/@insolitus"
+    },
+    {
+      "id": "g4EGFn02_VM",
+      "url": "https://images.unsplash.com/photo-1644871383003-2c1f3e499b00?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8M3x8U3VucmlzZSUyMFRlcnJhY2UlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg4OTYwfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-view-of-a-city-with-many-buildings-g4EGFn02_VM",
+      "author_name": "Benjamin Pazdernik",
+      "author_url": "https://unsplash.com/@benpazdernik"
+    },
+    {
+      "id": "jYEoMktvmck",
+      "url": "https://images.unsplash.com/photo-1762814740097-2b5fa0c76890?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8NHx8U3VucmlzZSUyMFRlcnJhY2UlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg4OTYwfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/sunset-over-a-coastal-village-with-rolling-hills-jYEoMktvmck",
+      "author_name": "L\u00e9a Poisson",
+      "author_url": "https://unsplash.com/@leapoisson"
+    },
+    {
+      "id": "ZA3tbwnvr5Y",
+      "url": "https://plus.unsplash.com/premium_photo-1729070677283-c16a03fe5287?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8NXx8U3VucmlzZSUyMFRlcnJhY2UlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg4OTYwfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/an-aerial-view-of-a-lush-green-field-ZA3tbwnvr5Y",
+      "author_name": "Nick Da Fonseca",
+      "author_url": "https://unsplash.com/@nickdafonseca"
+    },
+    {
+      "id": "2SHJHLVzzdE",
+      "url": "https://images.unsplash.com/photo-1764261322110-8b2caec5bd15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8U3VucmlzZSUyMFRlcnJhY2UlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg4OTYwfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/misty-mountains-and-rice-terraces-under-sunlight-2SHJHLVzzdE",
+      "author_name": "Rowan Heuvel",
+      "author_url": "https://unsplash.com/@insolitus"
+    }
+  ]
+}

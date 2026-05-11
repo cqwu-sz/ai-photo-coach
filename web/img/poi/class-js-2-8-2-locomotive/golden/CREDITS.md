@@ -1,0 +1,25 @@
+# Class JS 2-8-2 Locomotive — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/commercial-freight-train-transporting-goods-along-the-usa-mexico-border-photo-taken-in-new-mexico-usa-near-puerto-de-anapra-mexico-iQl7nTNCmvA)
+- [Steve & Barb Sande](https://unsplash.com/@steve_barb_sande) — [photo](https://unsplash.com/photos/a-colorful-train-is-sitting-on-the-tracks-zA0YZfEZplA)
+- [Steve & Barb Sande](https://unsplash.com/@steve_barb_sande) — [photo](https://unsplash.com/photos/an-old-fashioned-steam-engine-on-a-gravel-road-CgXwuXIdQic)
+- [Lloyd Kimball](https://unsplash.com/@n0nhj) — [photo](https://unsplash.com/photos/an-old-fashioned-train-is-parked-on-the-tracks-pofTqIN6vtM)
+- [Planet Volumes](https://unsplash.com/@planetvolumes) — [photo](https://unsplash.com/photos/a-gold-and-silver-ring-hhnQSjWyYAw)
+- [Lloyd Kimball](https://unsplash.com/@n0nhj) — [photo](https://unsplash.com/photos/a-blue-and-red-train-traveling-down-train-tracks-T9VsRmgpn7g)
+- [Chiara Guercio](https://unsplash.com/@chiara_01) — [photo](https://unsplash.com/photos/a-red-and-black-train-sitting-on-top-of-train-tracks-9mup7gSC004)
+- [Elias GB](https://unsplash.com/@eliasgb) — [photo](https://unsplash.com/photos/man-standing-by-a-vintage-yellow-train-IIBcvgUoui4)
+- [Alexander Mils](https://unsplash.com/@alexandermils) — [photo](https://unsplash.com/photos/a-gold-object-with-a-camera-on-top-of-it-G2MOTVYKlwo)
+- [Samuel Fyfe](https://unsplash.com/@sfyfe) — [photo](https://unsplash.com/photos/silhouette-photo-of-black-train-on-rail-Bt-h01XOQu4)
+- [Pic Kaca](https://unsplash.com/@kacapic) — [photo](https://unsplash.com/photos/golden-traditional-chinese-building-on-a-wall-p55rOJYS3ko)
+- [Rebekah Che](https://unsplash.com/@afterlightphoto) — [photo](https://unsplash.com/photos/a-train-traveling-down-train-tracks-next-to-a-forest-UVMNwL1dL0I)
+- [Alexander Mils](https://unsplash.com/@alexandermils) — [photo](https://unsplash.com/photos/a-golden-camera-sitting-on-top-of-a-stand-1QTFQMD23tE)
+- [Elias GB](https://unsplash.com/@eliasgb) — [photo](https://unsplash.com/photos/train-cars-with-gramps-text-on-black-tank-car-7UprSRoNU9I)
+- [Jahanzeb Ahsan](https://unsplash.com/@jahan_photobox) — [photo](https://unsplash.com/photos/yellow-illuminated-display-cases-with-numbers-P1LUsh1fFbs)
+- [Jonny Gios](https://unsplash.com/@supergios) — [photo](https://unsplash.com/photos/train-at-a-station-with-golden-hour-sunlight-kD3dKCGSVps)
+- [Md Samir Sayek](https://unsplash.com/@ryuzaki979) — [photo](https://unsplash.com/photos/a-modern-white-train-on-curved-tracks-at-sunset-oS6AiNbt2hc)
+- [Victoria Cyunczyk](https://unsplash.com/@victoria5475) — [photo](https://unsplash.com/photos/a-train-traveling-down-train-tracks-under-a-bridge-GhpynbnjVj0)
+- [Sam](https://unsplash.com/@omegamezle) — [photo](https://unsplash.com/photos/a-yellow-train-at-a-station-during-sunset-1fgMxMQnmyk)
+- [Elias GB](https://unsplash.com/@eliasgb) — [photo](https://unsplash.com/photos/a-black-and-yellow-rio-grande-train-engine-QmjIrRihQLo)

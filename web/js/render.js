@@ -404,8 +404,8 @@ function renderShot(shot, idx, frames) {
   const toggle = scenery
     ? null
     : el("div", { class: "hero-toggle" }, [
-        el("button", { class: "hero-toggle-btn active", "data-mode": "2d", type: "button" }, "2D 合成图"),
-        el("button", { class: "hero-toggle-btn", "data-mode": "3d", type: "button" }, "3D 场景 (含虚拟人物)"),
+        el("button", { class: "hero-toggle-btn active", "data-mode": "2d", type: "button" }, "平面预览"),
+        el("button", { class: "hero-toggle-btn", "data-mode": "3d", type: "button" }, "立体预览 (含虚拟角色)"),
       ]);
   if (toggle) heroWrap.appendChild(toggle);
   const heroStage = el("div", { class: "hero-stage" });
@@ -440,15 +440,21 @@ function renderShot(shot, idx, frames) {
         heroStage.innerHTML = "";
         const stage = el("div", { class: "hero-3d-stage" });
         heroStage.appendChild(stage);
-        const personCount = (shot.poses?.[0]?.persons || []).length || 1;
-        const picks = resolveAvatarPicks(loadAvatarPicks(), personCount);
+        // v7 — picks here MUST be the raw RPM preset ids the user
+        // saved (e.g. "female_casual_22"); scene_3d.js does its own
+        // legacy fallback via resolveAvatarPicks for the procedural
+        // placeholder mesh, but `picks` itself is the RPM upgrade
+        // path. The previous version pre-mapped these to legacy
+        // ids (akira/yuki/...) which always missed the RPM lookup
+        // and left every shot showing the procedural placeholder.
+        const rawPicks = loadAvatarPicks();
         // v7 — pass environment so the directional light can lock onto
         // the actual sun position the analyze step computed.
         const env = (window.__lastAnalyzeResponse && window.__lastAnalyzeResponse.environment) || null;
         scene3DInstance = sceneMod.createSceneView(stage, {
           panoramaUrl: loadPanoramaUrl(),
           shot,
-          picks,
+          picks: rawPicks,
           environment: env,
         });
         // v7 — overlay the composition guide + parameter HUD chip on
@@ -501,6 +507,15 @@ function renderShot(shot, idx, frames) {
     }
     bubble.appendChild(body);
     card.appendChild(bubble);
+  }
+
+  // ── style match badge ──
+  // Only present when user picked a style on Step 3. Shows which style
+  // this shot was tuned toward + ranges + ✓/⚠ depending on whether the
+  // backend had to clamp the LLM's output. This is the user-visible
+  // proof that "I chose 氛围感, AI actually delivered 氛围感 params".
+  if (shot.style_match) {
+    card.appendChild(renderStyleMatch(shot));
   }
 
   // ── 4-dimension quality breakdown (composition / light / color / depth) ──
@@ -1231,6 +1246,75 @@ function renderComposition(c) {
     row.appendChild(el("span", { class: "rationale" }, c.notes));
   }
   return row;
+}
+
+function renderStyleMatch(shot) {
+  const m = shot.style_match;
+  const cam = shot.camera || {};
+  const wrap = el("div", {
+    class: "style-match" + (m.in_range ? " in-range" : " clamped"),
+  });
+
+  // Header — which style + verdict pill.
+  const head = el("div", { class: "style-match-head" });
+  head.appendChild(el("strong", { class: "style-match-label" }, m.label_zh));
+  head.appendChild(
+    el(
+      "span",
+      { class: "style-match-pill" },
+      m.in_range ? "✓ AI 已按风格出图" : "△ 已校准至风格区间",
+    ),
+  );
+  wrap.appendChild(head);
+
+  // Three knob rows: WB / focal / EV. Show range vs actual.
+  const rows = [
+    {
+      label: "白平衡",
+      range: m.white_balance_k_range,
+      actual: cam.white_balance_k,
+      fmt: (v) => (v == null ? "—" : `${v}K`),
+    },
+    {
+      label: "焦段",
+      range: m.focal_length_mm_range,
+      actual: cam.focal_length_mm,
+      fmt: (v) => (v == null ? "—" : `${Math.round(v)}mm`),
+    },
+    {
+      label: "曝光补偿",
+      range: m.ev_range,
+      actual: cam.ev_compensation,
+      fmt: (v) =>
+        v == null ? "—" : `${v >= 0 ? "+" : ""}${Number(v).toFixed(1)} EV`,
+    },
+  ];
+  const list = el("div", { class: "style-match-rows" });
+  for (const r of rows) {
+    const inRange =
+      r.actual != null && r.actual >= r.range[0] && r.actual <= r.range[1];
+    const row = el("div", {
+      class: "style-match-row" + (inRange ? " ok" : " warn"),
+    });
+    row.appendChild(el("span", { class: "smr-label" }, r.label));
+    row.appendChild(
+      el(
+        "span",
+        { class: "smr-range" },
+        `推荐 ${r.fmt(r.range[0])}–${r.fmt(r.range[1])}`,
+      ),
+    );
+    row.appendChild(
+      el(
+        "span",
+        { class: "smr-actual" },
+        `实际 ${r.fmt(r.actual)} ${inRange ? "✓" : "⚠"}`,
+      ),
+    );
+    list.appendChild(row);
+  }
+  wrap.appendChild(list);
+  return wrap;
 }
 
 function renderCamera(cam) {

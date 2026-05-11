@@ -1,0 +1,25 @@
+# Top of Shanghai Observatory — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-view-of-a-city-at-night-from-across-the-water--kmjRZuyFN8)
+- [Rafael Banha](https://unsplash.com/@rafaelbanha) — [photo](https://unsplash.com/photos/pink-and-grey-tower-qxvXvrczptA)
+- [Adi Constantin](https://unsplash.com/@idoevolve) — [photo](https://unsplash.com/photos/oriental-pearl-tower-shanghai-china-5NxkNEfF-oY)
+- [Rafik Wahba](https://unsplash.com/@rafikwahba) — [photo](https://unsplash.com/photos/grayscale-photo-of-city-skyline-C9tXM2ntL6I)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-very-tall-building-with-a-sky-background-iClqz6_diyM)
+- [Sandip Roy](https://unsplash.com/@sandiproy_kolkata) — [photo](https://unsplash.com/photos/a-view-of-a-city-from-the-top-of-a-building-h8EK_FvaN8M)
+- [Bruna Santos](https://unsplash.com/@brunafisantos) — [photo](https://unsplash.com/photos/city-skyline-with-river-and-bridge-on-a-cloudy-day-BfJVYmTFpzA)
+- [Soyoung HAN](https://unsplash.com/@soflightsto) — [photo](https://unsplash.com/photos/city-building-scenery-ryMpXGsJM3M)
+- [Zhuojun Yu](https://unsplash.com/@heebase) — [photo](https://unsplash.com/photos/hand-makes-peace-sign-in-front-of-shanghais-skyline-u8k2xwF4JQE)
+- [Derek Lee](https://unsplash.com/@derekleej) — [photo](https://unsplash.com/photos/a-boat-on-a-river-with-a-bridge-and-a-city-in-the-background-0q253YdYOwA)
+- [Eric Wang](https://unsplash.com/@ericwang0115) — [photo](https://unsplash.com/photos/modern-skyscrapers-and-a-distinctive-tower-framed-by-trees-vVKTFZW1C24)
+- [Chengyu Wang](https://unsplash.com/@chenriew) — [photo](https://unsplash.com/photos/a-city-street-with-tall-buildings-and-a-clock-tower-CLvi6OMgkAk)
+- [ZHENYU LUO](https://unsplash.com/@mrnuclear) — [photo](https://unsplash.com/photos/a-city-skyline-with-skyscrapers-lit-up-at-night-XuMFb5DjVZU)
+- [Tobias Fischer](https://unsplash.com/@robbitobbi_16) — [photo](https://unsplash.com/photos/city-skyline-under-white-clouds-during-daytime-zwqpbo7raew)
+- [Green Liu](https://unsplash.com/@greenliustudio) — [photo](https://unsplash.com/photos/a-very-tall-building-with-a-very-tall-tower-t4ce0y1tZ6U)
+- [Vincent Y @USA](https://unsplash.com/@vincentyuan87) — [photo](https://unsplash.com/photos/modern-shanghai-skyline-across-the-huangpu-river-cCtZUZHTQfU)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-view-of-a-city-at-night-from-the-water-6UQuHTLJw4Q)
+- [Quan Jing](https://unsplash.com/@greedwolf97) — [photo](https://unsplash.com/photos/two-people-standing-on-a-bridge-with-a-city-in-the-background-y1qJxnTgHxc)
+- [Antonella Vilardo](https://unsplash.com/@antovilardo) — [photo](https://unsplash.com/photos/city-skyline-during-night-time-SPFjEqE2Axw)
+- [Chengyu Wang](https://unsplash.com/@chenriew) — [photo](https://unsplash.com/photos/a-tall-building-with-a-very-tall-tower-in-the-background--XI9uDgZ0wY)

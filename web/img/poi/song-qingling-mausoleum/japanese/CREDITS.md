@@ -1,0 +1,25 @@
+# Song Qingling Mausoleum — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-tall-wooden-building-with-stairs-leading-up-to-it-KQmt20GIn7A)
+- [Daniel Lincoln](https://unsplash.com/@danny_lincoln) — [photo](https://unsplash.com/photos/gray-and-red-concrete-temple-vxkDeYx97Dk)
+- [Tiane Couto](https://unsplash.com/@tianecouto) — [photo](https://unsplash.com/photos/a-pagoda-in-the-middle-of-a-lush-green-park-puuB7TSJS2Y)
+- [Kristin Wilson](https://unsplash.com/@kristinwilson) — [photo](https://unsplash.com/photos/brown-wooden-gate-near-green-trees-during-daytime-S4qKHk2kJu8)
+- [Thomas Boxma](https://unsplash.com/@reispackers) — [photo](https://unsplash.com/photos/a-small-building-with-a-gate-in-the-middle-of-it-HC1p5Frfodg)
+- [Kristin Wilson](https://unsplash.com/@kristinwilson) — [photo](https://unsplash.com/photos/brown-wooden-gate-near-green-trees-during-daytime-bf0scVNQ03g)
+- [Dan Begel](https://unsplash.com/@danbegel) — [photo](https://unsplash.com/photos/traditional-japanese-temple-surrounded-by-lush-green-trees-edA2OUpv9OU)
+- [Yanhao Fang](https://unsplash.com/@alamanga) — [photo](https://unsplash.com/photos/a-man-and-a-woman-walking-towards-a-building-xWCh6l9rkwY)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/an-aerial-view-of-a-city-with-a-soccer-field-l97zUG4KXfk)
+- [Gaku Suyama](https://unsplash.com/@gakusuyama) — [photo](https://unsplash.com/photos/a-group-of-people-walking-around-a-park-L_ud9kSiiz4)
+- [Talha Salih](https://unsplash.com/@talhasalih) — [photo](https://unsplash.com/photos/a-building-with-a-roof-qm8xhN6rv9I)
+- [Syria Polidoro](https://unsplash.com/@syria_polidoro) — [photo](https://unsplash.com/photos/a-tall-building-sitting-on-top-of-a-lush-green-field-KMqtm2fsFkA)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-wooden-bench-sitting-in-front-of-a-building-3JuGRalgaEE)
+- [Se. Tsuchiya](https://unsplash.com/@s_tsuchiya) — [photo](https://unsplash.com/photos/a-red-and-black-pagoda-with-steps-leading-up-to-it-hfS1Car5IX4)
+- [Sem S](https://unsplash.com/@semspam) — [photo](https://unsplash.com/photos/a-pagoda-in-the-middle-of-a-cemetery-VNCQq3mIXBQ)
+- [Syria Polidoro](https://unsplash.com/@syria_polidoro) — [photo](https://unsplash.com/photos/a-large-building-sitting-on-top-of-a-lush-green-field-einQC3zfHzc)
+- [A Chosen Soul](https://unsplash.com/@a_chosensoul) — [photo](https://unsplash.com/photos/ancient-torii-gate-in-a-field-of-wildflowers-WNpSZhS9Te4)
+- [David Emrich](https://unsplash.com/@davidemrich) — [photo](https://unsplash.com/photos/brown-wooden-house-g-2Gr_1uB1E)
+- [Austrian National Library](https://unsplash.com/@austriannationallibrary) — [photo](https://unsplash.com/photos/white-and-brown-concrete-building-AlzmRXJ_Eyc)
+- [Pourya Gohari](https://unsplash.com/@_pourya_) — [photo](https://unsplash.com/photos/a-traditional-red-japanese-shrine-building-with-stone-lanterns-owe6rEwdN58)

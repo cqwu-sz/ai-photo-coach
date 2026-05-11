@@ -1,0 +1,25 @@
+# Former Site of the Political Bureau of the CPC Central Committee — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/building-in-copenhagen-on--yPaVJ84)
+- [Shalev Cohen](https://unsplash.com/@shalevcohen) — [photo](https://unsplash.com/photos/golden-dome-of-a-grand-building-against-blue-sky-Hy4ll72Q-Ak)
+- [Mikael Padeiro](https://unsplash.com/@regard_urbain) — [photo](https://unsplash.com/photos/golden-dome-building-surrounded-by-city-skyline--1v5OV58dm0)
+- [Leandro Silva](https://unsplash.com/@leandro_gs) — [photo](https://unsplash.com/photos/a-building-with-a-dome-on-top-of-it-coD6XkHx1Bo)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-large-building-with-a-dome-on-top-of-it-bIg5pOR7VD8)
+- [Oksana Savinova](https://unsplash.com/@lonelyfox) — [photo](https://unsplash.com/photos/a-large-building-with-columns-and-a-flag-on-top-_OUJJvggRWI)
+- [Shalev Cohen](https://unsplash.com/@shalevcohen) — [photo](https://unsplash.com/photos/golden-domed-building-with-manicured-gardens-and-trees-7GE_Zqu0enQ)
+- [𝕡𝕒𝕨𝕤 𝕒𝕟𝕕 𝕡𝕣𝕚𝕟𝕥𝕤](https://unsplash.com/@paws_and_prints) — [photo](https://unsplash.com/photos/ornate-golden-crown-atop-a-historic-stone-structure-D3s0BEDXf6o)
+- [Woliul Hasan](https://unsplash.com/@shotbywoliul) — [photo](https://unsplash.com/photos/a-golden-letter-c-on-a-green-background-6wlw59k4mQs)
+- [Hongbin](https://unsplash.com/@hbsun2013) — [photo](https://unsplash.com/photos/a-clock-tower-with-statues-on-top-of-it--NBTxektlOI)
+- [Frecia Chirinos](https://unsplash.com/@freciab) — [photo](https://unsplash.com/photos/the-dome-of-a-building-with-a-clock-on-it-2oJl1Imqp54)
+- [Hoang Dang Khoa](https://unsplash.com/@khoahd7621) — [photo](https://unsplash.com/photos/golden-dome-against-a-blue-sky-with-clouds-DmOWzkOdaIY)
+- [Woliul Hasan](https://unsplash.com/@shotbywoliul) — [photo](https://unsplash.com/photos/a-golden-copyright-symbol-on-a-green-background-vFOiFHhQNao)
+- [Martti Salmi](https://unsplash.com/@marttisalmi) — [photo](https://unsplash.com/photos/a-tall-building-with-a-statue-on-top-of-it-jjRTkb6ZXpE)
+- [Aleksandr Isaev](https://unsplash.com/@goordoon) — [photo](https://unsplash.com/photos/tall-art-deco-skyscraper-against-a-blue-sky-w44ON0KdAlo)
+- [Tim Woodson](https://unsplash.com/@tim_woodson) — [photo](https://unsplash.com/photos/white-painted-concrete-tower-3X_1ClqaYAA)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/the-beautiful-st-isaacs-cathedral-in-saint-petersburg-russia-R2E0MRLOxyk)
+- [Tanmay Abhay Mahajan](https://unsplash.com/@mr_bond1999) — [photo](https://unsplash.com/photos/golden-inscription-on-a-grey-stone-wall-_KWp04ak_CE)
+- [Chuang XY](https://unsplash.com/@xinyu0421) — [photo](https://unsplash.com/photos/ornate-lamppost-in-front-of-classical-building-OgXU5tqpkIw)
+- [maks_d](https://unsplash.com/@maks_d) — [photo](https://unsplash.com/photos/ornate-historic-building-with-golden-domes-and-bell-tower-x4pp2K5A6_4)

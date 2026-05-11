@@ -110,15 +110,19 @@ const page = await ctx.newPage();
 page.on("pageerror", (err) => console.log("[pageerror]", err.message));
 page.on("console", (msg) => {
   const t = msg.type();
-  if (t === "warning" || t === "error") {
-    console.log(`[browser ${t}]`, msg.text().slice(0, 400));
+  // Bump info → log so we can see the [scene_3d] upgrade traces.
+  if (t === "warning" || t === "error" || t === "info" || t === "log") {
+    const txt = msg.text();
+    if (txt.includes("[scene_3d]") || txt.includes("[avatar_loader]") || t === "warning" || t === "error") {
+      console.log(`[browser ${t}]`, txt.slice(0, 400));
+    }
   }
 });
 await page.addInitScript((r) => {
   try {
     sessionStorage.setItem("apc.result", JSON.stringify(r));
     sessionStorage.setItem("apc.refInspiration", JSON.stringify({ count: 0, list: [] }));
-    localStorage.setItem("apc.avatarPicks", JSON.stringify(["female_casual_22"]));
+    localStorage.setItem("apc.avatarPicks", JSON.stringify(["female_youth_18"]));
   } catch {}
 }, fakeResponse);
 await page.goto(`${BASE}/web/result.html${bust()}`, { waitUntil: "networkidle" });
@@ -161,6 +165,13 @@ if (toggled.found) {
   // BokehPass + GLTFLoader compile shader programs lazily on first
   // paint; give a generous budget.
   await page.waitForTimeout(3500);
+  const stageLocator = page.locator(".hero-3d-stage").first();
+  await stageLocator.waitFor({ state: "visible", timeout: 5000 }).catch(() => {});
+  await page.waitForFunction(() => {
+    const stage = document.querySelector(".hero-3d-stage");
+    const canvas = stage?.querySelector("canvas");
+    return !!(stage && canvas && canvas.clientWidth > 80 && canvas.clientHeight > 80);
+  }, { timeout: 5000 }).catch(() => {});
   const dbg = await page.evaluate(() => {
     const stage = document.querySelector(".hero-3d-stage");
     const errEl = document.querySelector(".hero-3d-error");
@@ -170,26 +181,6 @@ if (toggled.found) {
     };
   });
   console.log("[3D dbg]", dbg);
-  // Crop the canvas region exactly so the user sees the 3D preview
-  // with composition guide + HUD chips, free of surrounding chrome.
-  // Use Playwright's elementHandle.scrollIntoViewIfNeeded — it reliably
-  // scrolls the page even when child containers have their own
-  // scroll context (the .shots-pager horizontal pager intercepts
-  // scrollIntoView in some browsers).
-  const stageHandle = await page.$(".hero-3d-stage");
-  if (stageHandle) {
-    await stageHandle.scrollIntoViewIfNeeded({ timeout: 3000 }).catch(() => {});
-  }
-  await page.waitForTimeout(400);
-  const stageBox = await page.evaluate(() => {
-    const stage = document.querySelector(".hero-3d-stage");
-    if (!stage) return null;
-    const r = stage.getBoundingClientRect();
-    return { x: r.left, y: r.top, width: r.width, height: r.height,
-             pageScrollY: window.scrollY };
-  });
-  await page.waitForTimeout(300);
-  console.log("[stageBox]", stageBox);
   // Inspect the canvas pixels — make sure something was actually painted.
   const canvasInfo = await page.evaluate(() => {
     const stage = document.querySelector(".hero-3d-stage");
@@ -206,12 +197,14 @@ if (toggled.found) {
     };
   });
   console.log("[canvas]", canvasInfo);
-  if (stageBox && stageBox.width > 100 && stageBox.height > 100) {
-    await page.screenshot({
+  const stageReady = await stageLocator.count().catch(() => 0);
+  if (stageReady) {
+    await stageLocator.scrollIntoViewIfNeeded().catch(() => {});
+    await page.waitForTimeout(250);
+    await stageLocator.screenshot({
       path: resolve(OUT, "wizard_20_shot_preview_3d.png"),
-      clip: stageBox,
     });
-    console.log("[shot] wizard_20_shot_preview_3d.png (clipped to stage)");
+    console.log("[shot] wizard_20_shot_preview_3d.png (element screenshot)");
   } else {
     await shoot(page, "wizard_20_shot_preview_3d.png");
   }

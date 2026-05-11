@@ -1,0 +1,25 @@
+# Former Site of the Political Bureau of the CPC Central Committee — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Tanya Barrow](https://unsplash.com/@tanyabarrow) — [photo](https://unsplash.com/photos/french-flags-fly-near-parisian-buildings-and-trees-pmNlnYbXSyI)
+- [Muhammad Irfan](https://unsplash.com/@matamatairfan) — [photo](https://unsplash.com/photos/a-large-building-sitting-next-to-a-body-of-water-XJzqSPl7bHs)
+- [Thirayuth Soonthonranan](https://unsplash.com/@maxzerkung) — [photo](https://unsplash.com/photos/a-city-street-with-a-tall-building-in-the-background-ZFIssySx1rk)
+- [Hongwei FAN](https://unsplash.com/@yokonoito0512) — [photo](https://unsplash.com/photos/ornate-japanese-parliament-chamber-with-red-carpet-and-seating-ce-deTtnSjI)
+- [laura adai](https://unsplash.com/@lauraadaiphoto) — [photo](https://unsplash.com/photos/a-blue-sign-hanging-from-the-side-of-a-building-CJfZ71i0g-M)
+- [Pourya Gohari](https://unsplash.com/@_pourya_) — [photo](https://unsplash.com/photos/a-large-building-with-flags-flying-in-front-of-it-S4oPhESUydI)
+- [tommao wang](https://unsplash.com/@tommaomaoer) — [photo](https://unsplash.com/photos/text-TEEY9FAhyeo)
+- [Joan](https://unsplash.com/@joanbam) — [photo](https://unsplash.com/photos/a-city-street-filled-with-lots-of-traffic-next-to-tall-buildings-rrK0ELUAcUo)
+- [Tanya Barrow](https://unsplash.com/@tanyabarrow) — [photo](https://unsplash.com/photos/french-flags-and-street-sign-outside-building-L-EQBDOF_ts)
+- [Ming Lv](https://unsplash.com/@ppop) — [photo](https://unsplash.com/photos/white-concrete-building-during-daytime-KxMTHMpqL0k)
+- [Arthur Tseng](https://unsplash.com/@arthur3607) — [photo](https://unsplash.com/photos/grand-building-with-a-tall-tower-under-a-clear-blue-sky-9DfBCG5uulo)
+- [MAK](https://unsplash.com/@mak_jp) — [photo](https://unsplash.com/photos/white-concrete-building-near-road-during-daytime-6GgvhnpaTuw)
+- [Levi Meir Clancy](https://unsplash.com/@levimeirclancy) — [photo](https://unsplash.com/photos/an-aerial-view-of-a-city-with-tall-buildings-q5ity347j-o)
+- [Nick Night](https://unsplash.com/@nicknight) — [photo](https://unsplash.com/photos/a-large-building-with-a-clock-on-the-top-of-it-jtuvk6ONLKQ)
+- [kiki](https://unsplash.com/@yungchi1104) — [photo](https://unsplash.com/photos/a-large-building-with-a-flag-on-top--RDLzeE-kUc)
+- [José Manuel Giga](https://unsplash.com/@josemgiga) — [photo](https://unsplash.com/photos/1948-no23-ponte-ia-tac-signage-vyggxvilvOk)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/a-building-seen-through-trees-captured-on-film-Qx209oNVvps)
+- [Brett Jordan](https://unsplash.com/@brett_jordan) — [photo](https://unsplash.com/photos/cars-parked-in-front-of-white-building-during-daytime-8vDySsPqCjA)
+- [MAK](https://unsplash.com/@mak_jp) — [photo](https://unsplash.com/photos/white-concrete-building-with-green-palm-trees-e-OSiumig1s)
+- [ALEJANDRO POHLENZ](https://unsplash.com/@apohlenz) — [photo](https://unsplash.com/photos/a-grand-building-with-a-dome-and-columns-SarzGWnYk8s)

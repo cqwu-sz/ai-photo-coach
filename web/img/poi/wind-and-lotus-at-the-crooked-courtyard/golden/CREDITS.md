@@ -1,0 +1,25 @@
+# Wind and Lotus at the Crooked Courtyard — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-buddha-statues-sitting-next-to-each-other-EWbAEN4fYBQ)
+- [The New York Public Library](https://unsplash.com/@nypl) — [photo](https://unsplash.com/photos/two-figures-in-traditional-japanese-attire-in-a-garden-HFAlrVYtscw)
+- [毛 祥](https://unsplash.com/@mw960367054) — [photo](https://unsplash.com/photos/a-building-that-has-a-bunch-of-flowers-in-front-of-it-YhT9dqmFmqU)
+- [Akira](https://unsplash.com/@akira_b) — [photo](https://unsplash.com/photos/a-snail-on-a-leaf-h-K6J1zsD5A)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/thai-style-buddhist-architecture-concept-XJRgNEq_lFE)
+- [The New York Public Library](https://unsplash.com/@nypl) — [photo](https://unsplash.com/photos/figures-in-traditional-japanese-attire-near-a-building-XjSCuYYOhzI)
+- [烧不酥在上海 老的](https://unsplash.com/@geraltyichen) — [photo](https://unsplash.com/photos/a-person-walking-down-a-walkway-in-a-courtyard-rPfuOu-GqWU)
+- [Joey Huang](https://unsplash.com/@onice) — [photo](https://unsplash.com/photos/a-large-group-of-plants-with-flowers-4C3A-KokWEo)
+- [A. C.](https://unsplash.com/@3tnik) — [photo](https://unsplash.com/photos/a-window-shows-a-yellow-curtain-and-outdoors-94vEW5OP5Oo)
+- [Huyền My](https://unsplash.com/@nghumy) — [photo](https://unsplash.com/photos/white-lotus-flowers-bloom-in-a-pond-with-traditional-architecture-rqIKhVcWa-8)
+- [Yosn Chen](https://unsplash.com/@antinow) — [photo](https://unsplash.com/photos/a-golden-statue-of-buddha-holding-a-balance-scale-yZg2LP-vEUw)
+- [高峰 高峰](https://unsplash.com/@gf200998) — [photo](https://unsplash.com/photos/gold-calligraphy-wall-decor-aMjoz7rAlc4)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-gold-statues-sitting-on-top-of-a-stone-floor-g5L8C7qnnBg)
+- [Ruben Sukatendel](https://unsplash.com/@rubensukatendel) — [photo](https://unsplash.com/photos/a-pond-with-lily-pads-in-front-of-a-building-s0Gp_swRWQg)
+- [MChe Lee](https://unsplash.com/@mclee) — [photo](https://unsplash.com/photos/tourists-visit-the-forbidden-city-in-beijing-china-vOha7wHa-oU)
+- [Ahmed Nishaath](https://unsplash.com/@nihthu) — [photo](https://unsplash.com/photos/lotus-pond-with-traditional-pavilion-and-trees-QNEqU1PtTds)
+- [Colin + Meg](https://unsplash.com/@colinandmeg) — [photo](https://unsplash.com/photos/an-open-door-leading-into-a-building-at-night-7Vuz8NZmPB0)
+- [The New York Public Library](https://unsplash.com/@nypl) — [photo](https://unsplash.com/photos/art-nouveau-wallpaper-with-dragonflies-and-water-lilies-OK-U7_zf1x0)
+- [J. Balla Photography](https://unsplash.com/@jballa) — [photo](https://unsplash.com/photos/a-group-of-flowers-Px9jGrvFd68)
+- [Pew Nguyen](https://unsplash.com/@nguyentrungnguyen) — [photo](https://unsplash.com/photos/a-large-building-with-a-lot-of-wooden-doors-an1zPDoU4ZE)

@@ -23,6 +23,8 @@ from textwrap import dedent
 from typing import Optional
 
 from ..models import CaptureMeta
+from . import scene_aggregate as scene_aggregate_service
+from . import style_feasibility as style_feasibility_service
 from . import sun as sun_service
 from . import weather as weather_service
 
@@ -39,6 +41,16 @@ _REQUEST_WEATHER: ContextVar[Optional["weather_service.WeatherSnapshot"]] = Cont
 # /analyze (cheap but not free) and threaded through to build_user_prompt.
 _REQUEST_COMP_KB: ContextVar[Optional[str]] = ContextVar(
     "_REQUEST_COMP_KB", default=None,
+)
+# v13 — extra context blocks pushed in by analyze_service before the
+# LLM call: nearby POIs (poi_lookup) and walk-segment coverage
+# (walk_geometry). Both are plain pre-rendered text snippets; empty
+# string disables them.
+_REQUEST_POI_BLOCK: ContextVar[str] = ContextVar(
+    "_REQUEST_POI_BLOCK", default="",
+)
+_REQUEST_WALK_BLOCK: ContextVar[str] = ContextVar(
+    "_REQUEST_WALK_BLOCK", default="",
 )
 
 
@@ -58,6 +70,14 @@ def set_request_composition_kb(summary: Optional[str]) -> None:
 
 def get_request_composition_kb() -> Optional[str]:
     return _REQUEST_COMP_KB.get()
+
+
+def set_request_poi_block(block: str) -> None:
+    _REQUEST_POI_BLOCK.set(block or "")
+
+
+def set_request_walk_block(block: str) -> None:
+    _REQUEST_WALK_BLOCK.set(block or "")
 
 
 SYSTEM_INSTRUCTION = dedent(
@@ -164,6 +184,114 @@ SYSTEM_INSTRUCTION = dedent(
         人物`。如果当前场景实在没有合适规则，可以用 `[freeform] ...`
         开头但不鼓励 — 它是用来告诉我们 KB 缺哪些规则的信号。**禁止**
         虚构 rule_id（不在字典里的 id）。
+    15. **FOREGROUND DOCTRINE — 三层构图（强制，每个 shot 必填
+        foreground 字段）**：业余 vs 专业的最大分水岭，是有没有"前景层
+        叠"。强照片 = 前景（0.2-1.5 m，常常糊成色块或当画框）+ 中景
+        （主体）+ 背景（环境）三层；弱照片只有中景 + 背景两层，画面
+        扁平。
+
+        每个 shot 都必须填 ``foreground`` 字段，layer 从下面 4 个里
+        选一个；不要全部默认 "none"，要主动找：
+          * **bokeh_plant**：树叶/花/草做近前景虚化成色块。最易得
+            （公园/街道/行道树到处都是），对应日系/糖水/写真。
+          * **natural_frame**：门洞/窗框/树枝/栏杆把主体框住。对应
+            人文/旅拍/电影感。
+          * **leading_line**：栏杆/台阶/地砖/铁轨把视线引向主体。
+            对应街拍/杂志大片/极简。
+          * **none**：当且仅当扫描的 10 张帧里**确实**没有 1.5 m 内
+            可用的前景元素时（开阔海滩、空旷广场、纯白室内等）。
+            这种情况下 rationale 必须主动说明"本场景缺前景层，画面
+            会偏扁平，建议蹲下让地面/植物入镜或换地方"。
+
+        suggestion_zh 必须是**第二人称、可执行的物理动作**：
+          ✅ "侧身半步往左，蹲低一点，把那棵榕树最低的枝叶放到画面
+            左下角，让前景虚成绿色色块"
+          ❌ "建议加一些前景"（空话）
+          ❌ "前景应该是植物"（不告诉用户怎么做）
+
+        其他字段：
+          * source_azimuth_deg：从哪个 azimuth 的关键帧看到的前景元素
+            （便于 UI 高亮对应缩略图）。
+          * canvas_quadrant：前景应该出现在画面的哪个位置
+            ∈ {top_left, top_right, bottom_left, bottom_right,
+              left_edge, right_edge, bottom_edge, top_edge}。
+            散景前景大多 bottom_edge / left_edge / right_edge；
+            自然画框常是 frame 四周；
+            引导线常从 bottom_edge 入画。
+          * estimated_distance_m：你判断这个前景元素离镜头多远（米）。
+            < 1.5 才能在手机主摄上虚化出散景；>= 1.5 时只能当中景
+            细节、不算真正"前景层"，这种情况 layer 必须改填 "none"
+            并在 suggestion_zh 里告诉用户"再靠近这棵树半步才能虚化"。
+
+        如果客户端在 ENVIRONMENT FACTS 里给了 ``foreground_candidates``
+        列表（按方位 + 物体类型 + 距离），**优先采纳**列表里的元素，
+        不要凭空捏造。
+    16. **LENS DOCTRINE — 镜头选择必须有距离依据（强制，每个 shot
+        必填 ``camera.device_hints.iphone_lens``）**：
+          * 取值 ∈ {ultrawide_0_5x, wide_1x, tele_2x, tele_3x, tele_5x}
+            （对应 iPhone 0.5× / 1× / 2× / 3× / 5× 镜头位）。
+          * 当 SCENE INSIGHTS 给了 LENS HINT 块（含 recommended_lens
+            + 距离 + 占比依据）时，**默认采纳推荐**；只有当本 shot
+            的叙事需要不同镜头时才允许改写，且必须在 rationale 解释
+            （例：「我用 ultrawide_0_5x 是想夸张拉伸前景台阶，把人放
+            到画面深处」）。
+          * 没有 LENS HINT 时，按"主体距离 × 期望景别"自行推：
+            脸特写 ≈ 0.5-0.8 m → tele_3x；半身 ≈ 1.5-2.5 m →
+            tele_2x；全身 ≈ 3-4 m → wide_1x；环境压扁人 ≥ 5 m →
+            ultrawide_0_5x 或 wide_1x。
+          * camera.focal_length_mm 要与 iphone_lens 一致：13mm /
+            26mm / 50mm（tele_2x 数字裁切等效） / 77mm / 120mm；
+            不一致视为错误。
+
+    18. **LIGHTING DOCTRINE — 色温/曝光/HDR 必须呼应 LIGHTING FACTS**：
+          * 当 LIGHTING FACTS 给出 cct_k：
+            - cct_k < 4500 K（暖光 / 黄昏 / 室内白炽）→ 默认
+              ``camera.white_balance = "shade"`` 或 ``"cloudy"``，
+              想让"暖"成为风格表达就保持，否则需要把 WB 调到 daylight。
+            - cct_k > 6500 K（冷光 / 阴天 / 蓝调）→ 默认
+              ``camera.white_balance = "daylight"`` 或 ``"cloudy"``。
+          * 当 highlight_clip_pct > 5% → ``camera.ev_bias`` 必须 ≤ -0.7，
+            或者改为 HDR / 重新选择主体在阴影侧的角度。
+          * 当 shadow_clip_pct > 10% → ``camera.ev_bias`` 必须 ≥ +0.5，
+            或者使用 ``camera.flash = "fill"`` 提示用户开补光。
+          * 当 dynamic_range = "high" 或 "extreme" → ``camera.hdr_mode``
+            必须为 "auto" 或 "on"，并在 coach_brief 中提醒用户保持 1 秒
+            稳定让多帧合成完成。
+          * 与 LIGHTING FACTS 冲突时，必须在 rationale 里写出为何（例如
+            "故意保留高光裁剪强化纯白氛围"），否则视为忽略事实。
+
+    20. **COMPOSITION DOCTRINE — 构图必须服从客户端度量**：
+          * 当 SCENE INSIGHTS 给出 COMPOSITION FACTS：
+            * rule_of_thirds_dist > 0.15：默认推荐 ``composition.primary``
+              选择 ``rule_of_thirds`` 而不是 ``centered``，除非环境有强
+              对称信号（建筑中轴、道路消失点）。
+            * symmetry_score > 0.92：可以选择 ``symmetry``，但必须在
+              rationale 写明对称依赖的具体环境元素。
+          * 不允许凭空选择 ``leading_lines`` 而 SCENE INSIGHTS 没有
+            支持证据。
+
+    19. **POSE DOCTRINE — 主体姿态修正必须出现在 coach_brief**：
+          * 当 SCENE INSIGHTS 给出 POSE FACTS 块（肩线/重心/下颌/脊柱）：
+            每条事实必须在对应 shot 的 ``coach_brief`` 中翻译成"请主体
+            做 X"的明确话术。例如「肩线右高 8°」→ "让对方放松右肩，
+            稍微沉一下"。
+          * 不允许沉默忽略；如果 facts 与你的构图叙事冲突，rationale
+            必须解释为何（例："故意保留歪肩呈现叛逆姿态"）。
+
+    17. **TILT DOCTRINE — 角度纵向（俯/仰/平）必须服从客户端事实**：
+          * SCENE INSIGHTS 的 TILT HINT 块基于 pitch_deg + 主体在画
+            面里的竖向位置算出的「应该蹲下 / 举高 / 维持平举」。
+          * 当 hint 说「下蹲」：本 shot 必须把 ``angle.height_hint``
+            设为 ``low``，``angle.pitch_deg`` 给 -3..-10（轻仰），
+            ``coach_brief`` 直接喊出"蹲下来"。
+          * 当 hint 说「举高」：``height_hint = high``，``pitch_deg``
+            给 +5..+15（俯），``coach_brief`` 喊"把手机举到头顶往
+            下拍 / 站到台阶上"。
+          * 当 hint 说「平举」或没说：默认 ``height_hint = eye_level``
+            + ``pitch_deg ≈ 0``。
+          * 想刻意做仰拍（拉腿长 / 拍纪念碑 / 仰望树冠）时仍可改写
+            ``height_hint = low + pitch_deg < -10``，但 rationale 要
+            明说"故意仰拍是为 X 叙事"。否则视为忽视客户端事实。
 
     ── 参考样片处理 ──
     如果用户附了参考样片（多模态附件中位于关键帧之后），**必须**填
@@ -260,7 +388,14 @@ FEW_SHOT_EXAMPLE = dedent(
             "切到 2x 长焦端拍 50mm 等效，避免主摄数码裁剪丢细节",
             "iPhone 物理光圈 f/1.78 已是最大，想加强发丝高光靠近主体半步",
             "长按 person_a 脸部锁定 AE/AF 后向下滑 -0.3 EV，保留高光"
-          ]
+          ],
+          "foreground": {
+            "layer": "bokeh_plant",
+            "suggestion_zh": "侧身半步往左，蹲低一点，把右后方那棵白桦最低的几片叶子放到画面左下角，让它在 f/2.0 下虚成柔和的暖绿色块，包住人物的小腿。",
+            "source_azimuth_deg": 100,
+            "canvas_quadrant": "bottom_left",
+            "estimated_distance_m": 0.6
+          }
         }
       ],
       "style_inspiration": {
@@ -276,6 +411,25 @@ FEW_SHOT_EXAMPLE = dedent(
 ).strip()
 
 
+def _inputs_note(has_panorama: bool, has_video: bool) -> str:
+    """Tell the LLM what extra context it has so it knows to actually use it."""
+    bits = []
+    if has_panorama:
+        bits.append(
+            "本次输入的**第 1 张图是后端拼接好的 360° 全景缩略图**——"
+            "请先看它形成全局空间感（光照分布 / 地标 / 人造结构 / 天空占比），"
+            "再去看后续 10 张方位关键帧补细节。"
+        )
+    if has_video:
+        bits.append(
+            "本次还附带了一段 ≤ 8s 的 720p 环视视频（在全景图之后）——"
+            "请利用跨帧时序信息推断风/水/光影动态，给出更具体的动态构图建议。"
+        )
+    if not bits:
+        return ""
+    return "── INPUT NOTE ──\n  · " + "\n  · ".join(bits)
+
+
 def build_user_prompt(
     meta: CaptureMeta,
     pose_library_summary: str,
@@ -284,6 +438,8 @@ def build_user_prompt(
     scene_mode: str = "portrait",
     weather_snapshot: "weather_service.WeatherSnapshot | None" = None,
     composition_kb_summary: str = "",
+    has_panorama: bool = False,
+    has_video: bool = False,
 ) -> str:
     """Build the user-side prompt.
 
@@ -308,6 +464,28 @@ def build_user_prompt(
     # ContextVar that AnalyzeService set before calling the provider.
     effective_weather = weather_snapshot or get_request_weather()
     env_facts = _environment_facts_branch(meta, effective_weather)
+    # Cross-frame aggregation of client-side semantic signals (luma /
+    # blur / person_box / saliency / horizon). Lets the LLM cite
+    # azimuth-precise facts ("rim-light from 245°") instead of
+    # re-deriving them from the JPEGs every call. Empty when fewer than
+    # 3 frames or no signals.
+    # Pass sun azimuth so scene_aggregate can label light direction
+    # (front/side/back) based on the camera-to-sun axis.
+    _sun_az = None
+    if meta.geo and meta.geo.lat is not None and meta.geo.lon is not None:
+        try:
+            _t = meta.geo.timestamp or datetime.now(timezone.utc)
+            if _t.tzinfo is None:
+                _t = _t.replace(tzinfo=timezone.utc)
+            _sun_az = sun_service.compute(meta.geo.lat, meta.geo.lon, _t).azimuth_deg
+        except Exception:
+            _sun_az = None
+    scene_insights = scene_aggregate_service.to_prompt_block(
+        scene_aggregate_service.aggregate(meta.frame_meta, sun_azimuth_deg=_sun_az)
+    )
+    # Style preset block — biases camera params toward what each picked
+    # style needs, plus annotates feasibility based on real env data.
+    style_block = _style_presets_branch(meta, effective_weather)
     # Composition KB summary likewise — caller can pass explicitly (tests),
     # otherwise fall back to the per-request ContextVar.
     composition_kb_summary = composition_kb_summary or (get_request_composition_kb() or "")
@@ -320,6 +498,16 @@ def build_user_prompt(
         ```
 
         {env_facts}
+
+        {scene_insights}
+
+        {_REQUEST_POI_BLOCK.get() or ""}
+
+        {_REQUEST_WALK_BLOCK.get() or ""}
+
+        {_inputs_note(has_panorama, has_video)}
+
+        {style_block}
 
         {scene_branch}
 
@@ -368,6 +556,66 @@ def build_user_prompt(
         AnalyzeResponse JSON。representative_frame_index 必填。
         """
     ).strip()
+
+
+def _style_presets_branch(
+    meta: CaptureMeta,
+    weather_snapshot: "weather_service.WeatherSnapshot | None",
+) -> str:
+    """Build the STYLE PRESETS block for the user prompt.
+
+    Maps the user's selected style_keywords (English tokens like
+    "cinematic moody") to picker style IDs, computes feasibility against
+    the real env (sun + weather) when geo is present, and asks the LLM
+    to bias camera params toward the recommended ranges.
+
+    Returns "" when the user picked no recognised style — in that case
+    the LLM keeps its freedom and we don't crowd the prompt.
+    """
+    selected_ids = _style_ids_from_keywords(meta.style_keywords or [])
+    if not selected_ids:
+        return ""
+
+    # Compute scores when we have geo; otherwise pass None and the
+    # block falls back to "no feasibility verdict, just preset hints".
+    sun_info = None
+    if meta.geo is not None:
+        t = meta.geo.timestamp or datetime.now(timezone.utc)
+        if t.tzinfo is None:
+            t = t.replace(tzinfo=timezone.utc)
+        sun_info = sun_service.compute(meta.geo.lat, meta.geo.lon, t)
+
+    scores = style_feasibility_service.score_styles(sun_info, weather_snapshot)
+    return style_feasibility_service.to_prompt_block(selected_ids, scores)
+
+
+# English keyword → style id (mirrors web/img/style/manifest.json keywords).
+# Either keyword in the pair must hit (e.g. user could type just "moody"
+# and we still recognise cinematic_moody).
+_STYLE_KEYWORD_MAP: dict[str, str] = {
+    "cinematic": "cinematic_moody",
+    "moody":     "cinematic_moody",
+    "clean":     "clean_bright",
+    "bright":    "clean_bright",
+    "film":      "film_warm",
+    "warm":      "film_warm",
+    "street":    "street_candid",
+    "candid":    "street_candid",
+    "editorial": "editorial_fashion",
+    "fashion":   "editorial_fashion",
+}
+
+
+def _style_ids_from_keywords(keywords: list[str]) -> list[str]:
+    """Resolve user-typed/picker keywords to a deduped list of style IDs,
+    preserving the order the user picked them in (the prompt rules use
+    that order to decide which style each shot should lean toward)."""
+    seen: list[str] = []
+    for kw in keywords:
+        sid = _STYLE_KEYWORD_MAP.get(kw.strip().lower())
+        if sid and sid not in seen:
+            seen.append(sid)
+    return seen
 
 
 def _environment_facts_branch(
@@ -422,6 +670,20 @@ def _environment_facts_branch(
         if w:
             weather_block = "\n· 实时天气（Open-Meteo）：\n" + w
 
+    # v12 — peer-shots block (Sprint 4 knowledge base). Empty when DB
+    # has no nearby POI, which is the default until operators seed it.
+    peer_shots_block = ""
+    try:
+        from . import poi_kb
+        poi = poi_kb.nearest_poi(geo.lat, geo.lon, radius_m=200)
+        if poi is not None:
+            exif = poi_kb.median_exif_for_poi(poi.id)
+            block = poi_kb.to_prompt_block(poi, exif, meta.style_keywords or [])
+            if block.strip():
+                peer_shots_block = "\n" + block
+    except Exception as e:                         # pragma: no cover
+        log.info("peer-shots lookup failed: %s", e)
+
     softness_note = ""
     if weather_snapshot is not None and weather_snapshot.softness != "unknown":
         if weather_snapshot.softness == "soft":
@@ -443,7 +705,7 @@ def _environment_facts_branch(
     return dedent(
         f"""
         ── ENVIRONMENT FACTS（真实天文/位置/天气数据，作为权威输入）──
-        {sun_block}{weather_block}
+        {sun_block}{weather_block}{peer_shots_block}
 
         把上面的 azimuth / altitude / 云量 当真理来用：
           - azimuth 决定"主光从哪边来"，rim-light / 剪影 / 光柱建议都基于这个方向；

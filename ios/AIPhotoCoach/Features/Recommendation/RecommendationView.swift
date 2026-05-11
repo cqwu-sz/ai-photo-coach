@@ -65,7 +65,7 @@ struct RecommendationView: View {
                 if let env = response.environment, hasEnvData(env) {
                     EnvironmentStrip(env: env, shots: response.shots)
                 }
-                SceneCard(scene: response.scene)
+                SceneCard(scene: response.scene, debug: response.debug)
                 if response.shots.count > 1 {
                     ShotsPagerHeader(
                         shots: orderedShots,
@@ -159,14 +159,19 @@ struct RecommendationView: View {
 
 private struct SceneCard: View {
     let scene: SceneSummary
+    let debug: AnalyzeDebug?
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label(scene.type, systemImage: "viewfinder")
                 .font(.headline)
-            HStack {
+            // Wrap chips so they flow even when many lighting facts.
+            FlowLayout(spacing: 6) {
                 Tag(text: lightingLabel)
                 if !scene.cautions.isEmpty {
                     Tag(text: "需注意 \(scene.cautions.count)", color: .orange)
+                }
+                ForEach(lightingChips(), id: \.text) { chip in
+                    Tag(text: chip.text, color: chip.color)
                 }
             }
             Text(scene.backgroundSummary)
@@ -177,9 +182,83 @@ private struct SceneCard: View {
                     .font(.caption)
                     .foregroundColor(.orange)
             }
+            // v12 — pose facts list (mirrors Web `ul.pose-facts`). One
+            // line per finding so the user can scan "fix shoulder, fix
+            // chin" without expanding a chip tooltip.
+            if let poseFacts = debug?.poseHorizon?.poseFacts, !poseFacts.isEmpty {
+                Divider().padding(.top, 4)
+                Text("姿态修正")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.secondary)
+                ForEach(poseFacts, id: \.self) { fact in
+                    Label(fact, systemImage: "figure.stand")
+                        .font(.caption)
+                        .foregroundStyle(.green)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            // Composition facts list — same treatment.
+            if let compFacts = debug?.composition?.facts, !compFacts.isEmpty {
+                Divider().padding(.top, 4)
+                Text("构图建议")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.secondary)
+                ForEach(compFacts, id: \.self) { fact in
+                    Label(fact, systemImage: "square.grid.3x3")
+                        .font(.caption)
+                        .foregroundStyle(.blue)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
         }
         .padding()
         .background(.background, in: RoundedRectangle(cornerRadius: 14))
+    }
+
+    private struct ChipDef { let text: String; let color: Color }
+    private func lightingChips() -> [ChipDef] {
+        var out: [ChipDef] = []
+        if let l = debug?.lighting {
+            if let k = l.cctK {
+                let warmth = k < 4500 ? "暖" : k < 6000 ? "中性" : "冷"
+                let color: Color = k < 4500 ? .orange : k < 6000 ? .gray : .blue
+                out.append(.init(text: "\(warmth) \(k)K", color: color))
+            }
+            if let d = l.lightDirection {
+                let lbl = ["front":"顺光","side":"侧光","back":"逆光"][d] ?? d
+                out.append(.init(text: lbl, color: .green))
+            }
+            if let h = l.highlightClipPct, h > 0.05 {
+                out.append(.init(text: "高光裁剪 \(Int(h*100))%", color: .red))
+            }
+            if let s = l.shadowClipPct, s > 0.10 {
+                out.append(.init(text: "暗部死黑 \(Int(s*100))%", color: .blue))
+            }
+            if l.dynamicRange == "extreme" {
+                out.append(.init(text: "动态超限 · HDR", color: .orange))
+            }
+        }
+        if let drift = debug?.styleCompliance?.paletteDrift {
+            for d in drift.prefix(2) {
+                if let axis = d.axis {
+                    out.append(.init(text: "风格偏离·\(axis)", color: .orange))
+                }
+            }
+        }
+        if let pf = debug?.poseHorizon?.poseFacts, !pf.isEmpty {
+            out.append(.init(text: "姿态修正 \(pf.count)", color: .green))
+        }
+        if let f = debug?.lightForecast {
+            if let g = f.goldenHourCountdownMin, g > 0, g <= 60 {
+                out.append(.init(text: "金光 \(g) 分钟后", color: .orange))
+            }
+            if let c = f.cloudIn30Min, c >= 0.5 {
+                out.append(.init(text: "30 分内云遮 \(Int(c*100))%", color: .blue))
+            }
+        }
+        return out
     }
 
     private var lightingLabel: String {
@@ -264,6 +343,14 @@ private struct ShotCard: View {
                 .tint(.accentColor)
             }
 
+            // Three-layer composition (FOREGROUND DOCTRINE) panel —
+            // tells the user which kind of foreground to use, where to
+            // find it (azimuth + canvas quadrant), how to physically
+            // nudge themselves to bring it into frame.
+            if let fg = shot.foreground {
+                ForegroundCard(foreground: fg)
+            }
+
             // iPhone-specific tips drawer — adapts the AI's universal
             // advice to what an iPhone can actually do (zoom factor,
             // fixed-aperture limits, ProRAW mode, etc.).
@@ -317,20 +404,48 @@ private struct ShotCard: View {
 private struct AngleRow: View {
     let angle: Angle
     var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: "compass.drawing")
-                .foregroundStyle(.tint)
-            Text(String(format: "方向 %.0f°", angle.azimuthDeg))
-            Text("·")
-            Text(String(format: "俯仰 %+.0f°", angle.pitchDeg))
-            Text("·")
-            Text(String(format: "距离 %.1fm", angle.distanceM))
-            Spacer()
-            if let h = angle.heightHint {
-                Tag(text: heightLabel(h))
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 12) {
+                Image(systemName: "compass.drawing")
+                    .foregroundStyle(.tint)
+                Text(String(format: "方向 %.0f°", angle.azimuthDeg))
+                Text("·")
+                Text(String(format: "俯仰 %+.0f°", angle.pitchDeg))
+                Text("·")
+                Text(String(format: "距离 %.1fm", angle.distanceM))
+                Spacer()
+                if let h = angle.heightHint {
+                    Tag(text: heightLabel(h))
+                }
+            }
+            .font(.subheadline)
+            // Actionable nudge derived from height_hint + pitch — tells
+            // the user *how* to physically achieve the recommended angle.
+            if let action = tiltAction(angle: angle) {
+                Text(action.text)
+                    .font(.system(size: 12, weight: .medium))
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 2)
+                    .background(action.color.opacity(0.12), in: Capsule())
+                    .overlay(Capsule().stroke(action.color.opacity(0.40), lineWidth: 1))
+                    .foregroundStyle(action.color)
             }
         }
-        .font(.subheadline)
+    }
+
+    private func tiltAction(angle: Angle) -> (text: String, color: Color)? {
+        let p = angle.pitchDeg
+        let h = angle.heightHint
+        if h == .low || p < -8 {
+            return ("蹲下来 / 举高镜头仰拍", .green)
+        }
+        if h == .high || p > 8 {
+            return ("举高手机 / 站到台阶俯拍", .orange)
+        }
+        if h == .overhead {
+            return ("正上方俯拍", .orange)
+        }
+        return ("平举即可", .gray)
     }
 
     private func heightLabel(_ h: HeightHint) -> String {
@@ -1395,6 +1510,90 @@ private struct FooterCaption: View {
 ///   - 2-3 LLM-curated tips ("切到 2x 长焦端 / 长按主体锁定 AE...")
 ///   - a compact apply-plan readout (zoom factor, ISO, shutter)
 /// Mirrors the web `.iphone-tips-card`.
+// Mirrors web .foreground-panel. Surfaces the LLM's three-layer
+// composition strategy: layer chip + 1-line blurb + actionable nudge
+// + provenance chips (azimuth, canvas quadrant, distance).
+private struct ForegroundCard: View {
+    let foreground: ShotForeground
+
+    private var layerColor: Color {
+        switch foreground.layer {
+        case "bokeh_plant":   return .green
+        case "natural_frame": return .orange
+        case "leading_line":  return .blue
+        default:              return .gray
+        }
+    }
+    private var blurbZh: String {
+        switch foreground.layer {
+        case "bokeh_plant":   return "用近距离的植物 / 花做模糊色块，包住主体"
+        case "natural_frame": return "用门洞 / 树枝 / 栏杆把主体框起来"
+        case "leading_line":  return "用栏杆 / 台阶 / 地砖把视线带到主体"
+        default:              return "本次场景缺少 1.5 m 内的前景元素"
+        }
+    }
+    private static let quadrantZh: [String: String] = [
+        "top_left": "左上", "top_right": "右上",
+        "bottom_left": "左下", "bottom_right": "右下",
+        "left_edge": "左侧贴边", "right_edge": "右侧贴边",
+        "top_edge": "顶部贴边", "bottom_edge": "底部贴边",
+    ]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                Text(foreground.layerLabelZh)
+                    .font(.system(size: 12, weight: .semibold))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 3)
+                    .background(layerColor.opacity(0.18), in: Capsule())
+                    .overlay(Capsule().stroke(layerColor.opacity(0.50), lineWidth: 1))
+                    .foregroundStyle(layerColor)
+                Text(blurbZh)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Spacer(minLength: 0)
+            }
+            if !foreground.suggestionZh.isEmpty {
+                Text(foreground.suggestionZh)
+                    .font(.callout)
+                    .foregroundStyle(.primary)
+            }
+            HStack(spacing: 6) {
+                if let az = foreground.sourceAzimuthDeg {
+                    metaChip("参考方位 \(Int(az))°", color: .secondary)
+                }
+                if let q = foreground.canvasQuadrant {
+                    metaChip("画面 \(Self.quadrantZh[q] ?? q)", color: .secondary)
+                }
+                if let d = foreground.estimatedDistanceM {
+                    let close = d < 1.5
+                    let text = String(format: "距离 %.1f m · %@", d,
+                                      close ? "适合虚化" : "偏远，需更靠近")
+                    metaChip(text, color: close ? .green : .orange)
+                }
+                Spacer(minLength: 0)
+            }
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(layerColor.opacity(0.08), in: RoundedRectangle(cornerRadius: 12))
+        .overlay(RoundedRectangle(cornerRadius: 12)
+            .stroke(layerColor.opacity(0.30), lineWidth: 1))
+    }
+
+    private func metaChip(_ text: String, color: Color) -> some View {
+        Text(text)
+            .font(.system(size: 11.5))
+            .padding(.horizontal, 8)
+            .padding(.vertical, 2)
+            .background(color.opacity(0.10), in: RoundedRectangle(cornerRadius: 6))
+            .overlay(RoundedRectangle(cornerRadius: 6)
+                .stroke(color.opacity(0.35), lineWidth: 1))
+            .foregroundStyle(color)
+    }
+}
+
 private struct IphoneTipsCard: View {
     let tips: [String]
     let apertureNote: String

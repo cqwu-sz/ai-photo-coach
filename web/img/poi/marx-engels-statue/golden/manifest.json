@@ -1,0 +1,20 @@
+{
+  "poi": "Marx-Engels Statue",
+  "style": "golden",
+  "items": [
+    {
+      "id": "59dcHbr9N9I",
+      "url": "https://images.unsplash.com/photo-1587154220984-378b822409b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8TWFyeC1FbmdlbHMlMjBTdGF0dWUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg4OTg0fDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/mans-face-concrete-statue-59dcHbr9N9I",
+      "author_name": "Maximilian Scheffler",
+      "author_url": "https://unsplash.com/@schefflermaximilian"
+    },
+    {
+      "id": "StV6G2GURA8",
+      "url": "https://images.unsplash.com/photo-1597238683341-26931c8d9a34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8TWFyeC1FbmdlbHMlMjBTdGF0dWUlMjBnb2xkZW58ZW58MHx8fHwxNzc4Mzg4OTg0fDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/gray-scale-photo-of-man-statue-StV6G2GURA8",
+      "author_name": "Hennie Stander",
+      "author_url": "https://unsplash.com/@henniestander"
+    }
+  ]
+}

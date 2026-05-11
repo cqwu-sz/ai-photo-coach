@@ -8,6 +8,16 @@
     />
     <title>按方案试拍 · 拾光</title>
     <link rel="stylesheet" href="/web/css/style.css" />
+    <!-- guide.js pulls avatar_preview.js, which in turn uses
+         three/examples modules with bare "three" imports. -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+        }
+      }
+    </script>
   </head>
   <body>
     <main class="app">
@@ -63,7 +73,7 @@
       </div>
 
       <section class="section guide-summary">
-        <h3 id="guide-title">机位详情</h3>
+        <h3 id="guide-title">这一张怎么拍</h3>
         <p id="coach-brief" class="coach-brief" style="display: none"></p>
         <div id="guide-meta" class="metric-row"></div>
         <p id="guide-rationale" class="rationale"></p>
@@ -91,7 +101,7 @@
           <li class="guide-step" data-step="pose">
             <span class="guide-step-num">3</span>
             <div class="guide-step-body">
-              <b>摆 pose</b>
+              <b>摆姿势</b>
               <span id="step-pose-detail">看屏幕下方的姿势示意</span>
             </div>
             <span class="guide-step-check">✓</span>
@@ -102,7 +112,7 @@
       <section class="section guide-summary">
         <h3>姿势示意</h3>
         <div class="pose-mode-toggle">
-          <button class="pose-mode-btn active" data-mode="3d" type="button">3D 角色</button>
+          <button class="pose-mode-btn active" data-mode="3d" type="button">立体</button>
           <button class="pose-mode-btn" data-mode="2d" type="button">线稿</button>
         </div>
         <div id="guide-pose-3d" class="guide-pose-3d"></div>
@@ -110,8 +120,7 @@
       </section>
 
       <p class="footer-note">
-        当前为浏览器侧 AR 引导（非原生 ARKit）：方位/仰角来自手机陀螺仪，距离来自摄像头 + MediaPipe Pose 估算，精度 ±20%。<br />
-        iOS 真 AR + LiDAR 测距规划在 ARKit 阶段实现。
+        方位与距离仅供参考，可能有 ± 20% 误差。
       </p>
     </main>
 

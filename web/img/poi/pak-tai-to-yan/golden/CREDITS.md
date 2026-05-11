@@ -1,0 +1,25 @@
+# Pak Tai To Yan — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Woliul Hasan](https://unsplash.com/@shotbywoliul) — [photo](https://unsplash.com/photos/a-golden-symbol-on-a-green-background-oJzQVX42syM)
+- [Pascal Bernardon](https://unsplash.com/@pbernardon) — [photo](https://unsplash.com/photos/woman-in-ornate-traditional-clothing-with-elaborate-hairstyle-5HBzNI8yckk)
+- [Angie J](https://unsplash.com/@angiejj) — [photo](https://unsplash.com/photos/a-row-of-gold-shoes-on-a-rack-mRKwbmn0syY)
+- [Vann](https://unsplash.com/@irenaeus) — [photo](https://unsplash.com/photos/a-man-holding-an-umbrella-QKxGS9s1CSg)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-gold-statue-of-a-person-holding-a-bird-xXPdvCGX-Dw)
+- [Patrick Pahlke](https://unsplash.com/@p_pixels_p) — [photo](https://unsplash.com/photos/a-group-of-trophies-Zu0Kdv5Aj-U)
+- [Syed Foyez Uddin](https://unsplash.com/@genetx) — [photo](https://unsplash.com/photos/a-man-standing-in-front-of-a-table-full-of-food-JE5sVMxLtKc)
+- [Vann](https://unsplash.com/@irenaeus) — [photo](https://unsplash.com/photos/a-man-with-a-mustache-YgwGmvQ03E4)
+- [Planet Volumes](https://unsplash.com/@planetvolumes) — [photo](https://unsplash.com/photos/a-pair-of-gold-statues-0AfY_rzY588)
+- [Zemos](https://unsplash.com/@zemos) — [photo](https://unsplash.com/photos/a-red-velvet-box-filled-with-lots-of-gold-jewelry-Uh9psm5qphw)
+- [Agung Setiawan](https://unsplash.com/@iitzblackcool) — [photo](https://unsplash.com/photos/woman-in-brown-tank-top-and-brown-denim-shorts-standing-near-green-leaf-tree-during-daytime-6wKzH_qm3ys)
+- [CHUTTERSNAP](https://unsplash.com/@chuttersnap) — [photo](https://unsplash.com/photos/a-close-up-of-a-tower-I1tTr31w3vM)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/tourist-asian-women-friends-enjoy-sightseeing-while-travel-in-temple-of-the-emerald-buddha-wat-phra-kaew-popular-tourist-place-in-bangkok-thailand-dKIyARgbtg4)
+- [Anjali Lokhande](https://unsplash.com/@anj4li) — [photo](https://unsplash.com/photos/a-building-with-a-gold-roof-epPaiYYophY)
+- [Quang Nguyen Vinh](https://unsplash.com/@quangpraha) — [photo](https://unsplash.com/photos/a-group-of-young-women-dancing-in-front-of-a-building-0f8J8HL6fR8)
+- [Phannipa kattiyawong](https://unsplash.com/@panxmiez) — [photo](https://unsplash.com/photos/kyauk-taw-gyi-pagoda-nkeM142xIsE)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-mpj-Zp1NAhY)
+- [kabita Darlami](https://unsplash.com/@itskabita) — [photo](https://unsplash.com/photos/gold-statue-of-a-man-4cHMBU_VEag)
+- [rishi](https://unsplash.com/@beingabstrac) — [photo](https://unsplash.com/photos/a-large-golden-building-with-a-sky-in-the-background-tJ1MW7R7dIA)
+- [Henry Lai](https://unsplash.com/@henrylaiphotography) — [photo](https://unsplash.com/photos/a-woman-in-a-pink-and-gold-dress-standing-in-front-of-a-sign-Z9NNpFtn8mw)

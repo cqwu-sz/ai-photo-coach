@@ -1,0 +1,25 @@
+# Wu Tip Shan — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-person-holding-a-paintbrush-and-a-paint-bottle-HmoVekYpBjI)
+- [Alexander Schimmeck](https://unsplash.com/@alschim) — [photo](https://unsplash.com/photos/text-H8wdFaEk3TQ)
+- [De an Sun](https://unsplash.com/@andyadcon) — [photo](https://unsplash.com/photos/silver-round-coin-on-gray-textile-SDVTBThcQ8M)
+- [Alireza heidarpour](https://unsplash.com/@ahcapture) — [photo](https://unsplash.com/photos/a-woman-with-a-hat-on-her-head-z_Jp7ewfduU)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-person-writing-on-a-piece-of-paper-with-a-brush-j2awqBvyVs4)
+- [Alireza heidarpour](https://unsplash.com/@ahcapture) — [photo](https://unsplash.com/photos/a-person-standing-in-a-room-with-a-hat-on-their-head-CsdTebUZmaQ)
+- [光术 山影](https://unsplash.com/@mrtiger) — [photo](https://unsplash.com/photos/a-person-holding-a-piece-of-paper-with-writing-on-it-UBUjWRc8-Po)
+- [五玄土 ORIENTO](https://unsplash.com/@oriento) — [photo](https://unsplash.com/photos/brown-wooden-figurine-on-white-paper-l0R7b-OBLC0)
+- [Andrej Lišakov](https://unsplash.com/@lishakov) — [photo](https://unsplash.com/photos/a-man-flying-through-the-air-while-holding-a-sword-gJNQ7xYW7fY)
+- [Tang Don](https://unsplash.com/@dontang) — [photo](https://unsplash.com/photos/a-woman-sitting-at-a-table-with-a-knife-in-her-hand-AfiitYAUhe8)
+- [Michael Myers](https://unsplash.com/@myers2021) — [photo](https://unsplash.com/photos/a-red-and-black-banner-with-chinese-writing-on-it-dj98qBcz1A8)
+- [Carlos Felipe Ramírez Mesa](https://unsplash.com/@cafera13) — [photo](https://unsplash.com/photos/a-close-up-of-a-gun-AGoVGzv5OSQ)
+- [Andrej Lišakov](https://unsplash.com/@lishakov) — [photo](https://unsplash.com/photos/a-woman-with-a-knife-in-her-hand-on-top-of-a-stool-bDAbEl3HruI)
+- [Lei Hwang](https://unsplash.com/@blackbird_ii) — [photo](https://unsplash.com/photos/small-piece-of-food-on-a-menu-ty_SocJti0A)
+- [Jérôme BEHUET](https://unsplash.com/@jbehuet) — [photo](https://unsplash.com/photos/a-pair-of-chopsticks-sitting-on-top-of-a-table-DiOd-8tibFI)
+- [Geoff Oliver](https://unsplash.com/@satsuma9) — [photo](https://unsplash.com/photos/a-red-and-white-cylindrical-object-with-a-white-label-on-it-cdm__7eQG_U)
+- [Andrej Lišakov](https://unsplash.com/@lishakov) — [photo](https://unsplash.com/photos/a-man-in-a-black-shirt-is-holding-a-sword-36EShcWEjmA)
+- [Kate Kasiutich](https://unsplash.com/@katekasiutich) — [photo](https://unsplash.com/photos/rows-of-japanese-lanterns-with-text-lehtToAAi8I)
+- [Fenghua](https://unsplash.com/@fenghua1975) — [photo](https://unsplash.com/photos/artist-writing-calligraphy-on-large-white-paper-5K4rcici0mw)
+- [Felix yu](https://unsplash.com/@qixna) — [photo](https://unsplash.com/photos/person-writing-on-white-paper-U5fVbJbZPLc)

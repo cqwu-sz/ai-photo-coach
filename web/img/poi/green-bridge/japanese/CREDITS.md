@@ -1,0 +1,25 @@
+# Green Bridge — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-rushing-river-flows-through-a-lush-green-valley-1ArZIUt6kiE)
+- [Seiya Maeda](https://unsplash.com/@seiya_maeda) — [photo](https://unsplash.com/photos/a-building-with-a-trampoline-bFIAdIvQimM)
+- [Antonio Araujo](https://unsplash.com/@antonioaaaraujo) — [photo](https://unsplash.com/photos/a-bridge-that-is-over-a-body-of-water-dK_4QEHxyak)
+- [Seiya Maeda](https://unsplash.com/@seiya_maeda) — [photo](https://unsplash.com/photos/a-sign-on-a-fence-k9e6UQ0Xbjc)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/panoramic-view-of-urban-city-to0wZDodUlg)
+- [kuu akura](https://unsplash.com/@akurakuu) — [photo](https://unsplash.com/photos/a-river-with-rocks-and-a-bridge-K1DRBYtMiBY)
+- [Richard Hedrick](https://unsplash.com/@fortuitousfoto) — [photo](https://unsplash.com/photos/a-japanese-garden-with-a-bridge-in-the-background-55VfrXrJrRI)
+- [Artem Shuba](https://unsplash.com/@ashuba) — [photo](https://unsplash.com/photos/a-red-bridge-over-a-small-pond-in-a-park-ysoGVjXNvsM)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-red-bridge-over-a-stream-in-a-lush-green-forest-CzFMo5Q4PS0)
+- [Dmirty Fisenko](https://unsplash.com/@fisenkodv) — [photo](https://unsplash.com/photos/gray-outdoor-decor-near-body-of-water-h-brS34xriI)
+- [Richard Hedrick](https://unsplash.com/@fortuitousfoto) — [photo](https://unsplash.com/photos/a-wooden-bridge-over-a-small-pond-surrounded-by-trees-DkbkObfh9SA)
+- [Vera Wijermars | Feathering](https://unsplash.com/@feathering) — [photo](https://unsplash.com/photos/a-close-up-of-a-tree-branch-with-leaves-IbSfbQMxrn0)
+- [Dario Brönnimann](https://unsplash.com/@dariobroe) — [photo](https://unsplash.com/photos/a-body-of-water-surrounded-by-trees-and-rocks-mKq_0q1V0fQ)
+- [Willian Justen de Vasconcellos](https://unsplash.com/@willianjusten) — [photo](https://unsplash.com/photos/village-near-river-mQ2EiiyjuDk)
+- [Jazmin Wong](https://unsplash.com/@jazziwong) — [photo](https://unsplash.com/photos/a-wooden-bridge-spans-calm-water-in-a-garden-PBX_vK6umWc)
+- [Bo Schoonejans](https://unsplash.com/@bo_schoonejans_photography) — [photo](https://unsplash.com/photos/a-peaceful-japanese-garden-with-a-bridge-T3bHNiNHUSo)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-red-bridge-crosses-a-river-amidst-lush-greenery-9bwS4-mxSi0)
+- [Robin Li](https://unsplash.com/@fallout766) — [photo](https://unsplash.com/photos/a-red-bridge-over-a-river-xkLVL0Ewu7Y)
+- [Zoshua Colah](https://unsplash.com/@zoshuacolah) — [photo](https://unsplash.com/photos/a-red-bridge-over-a-small-pond-in-a-garden-C6YK6v1goSA)
+- [Richard Hedrick](https://unsplash.com/@fortuitousfoto) — [photo](https://unsplash.com/photos/a-wooden-bridge-over-a-small-stream-in-a-forest-MTPKnd6P2Mg)

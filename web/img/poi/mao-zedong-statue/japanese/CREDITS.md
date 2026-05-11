@@ -1,0 +1,25 @@
+# Mao Zedong Statue — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [martin bennie](https://unsplash.com/@martinbennie) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-staff-in-front-of-a-building-n-XFCbKqQQY)
+- [LISK OBE](https://unsplash.com/@summerobelisk) — [photo](https://unsplash.com/photos/statue-of-a-man-in-uniform-holding-a-book-9WCIVl8zxDo)
+- [Peng Wei](https://unsplash.com/@ricear) — [photo](https://unsplash.com/photos/man-in-brown-suit-statue-lLjzSoA2FU8)
+- [Fenghua](https://unsplash.com/@fenghua1975) — [photo](https://unsplash.com/photos/bust-of-a-man-on-a-pedestal-in-a-park-guNaNIU_VMk)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-banana-L6IyHeO4280)
+- [Mr. Great Heart](https://unsplash.com/@mrgreatheart) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-his-hand-up-Ox2H-NGoeuc)
+- [Al Diaz](https://unsplash.com/@theunknownaldiaz) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-flower-04-7aUB0u9U)
+- [Valorie Barela](https://unsplash.com/@valoriebarela) — [photo](https://unsplash.com/photos/bronze-statue-of-a-man-in-a-suit-Qm9Mn2wpDxc)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-with-a-ferris-wheel-on-top-of-it-5iCJEwKbBr4)
+- [Jensil Brujan Nuñez](https://unsplash.com/@jbrujan) — [photo](https://unsplash.com/photos/a-statue-of-a-man-pointing-at-something-ow2s4Y3TPzU)
+- [Shino Nakamura](https://unsplash.com/@shinonk) — [photo](https://unsplash.com/photos/gray-concrete-statue-of-a-man-fGxNMIXXy0M)
+- [Kazuyuki AOKI](https://unsplash.com/@kazz_aoki) — [photo](https://unsplash.com/photos/a-statue-of-a-man-stands-outside-HCAy8kODFnM)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-sword-on-top-of-a-building-IYjfxrUikjs)
+- [Mathew Schwartz](https://unsplash.com/@cadop) — [photo](https://unsplash.com/photos/view-photography-of-three-human-floats-KYxveMJs7EY)
+- [Muthoni Ngatia](https://unsplash.com/@mngatia) — [photo](https://unsplash.com/photos/cherry-blossoms-frame-the-martin-luther-king-jr-memorial-8JiWIoA5GJM)
+- [Qeis Ismail](https://unsplash.com/@trileafu) — [photo](https://unsplash.com/photos/a-statue-of-a-man-in-a-suit-saluting-48O_BSw1lIc)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-pole-Tyxb2EczUYo)
+- [Dennis Rothermel](https://unsplash.com/@dennis_roth) — [photo](https://unsplash.com/photos/man-in-hat-statue-near-green-plants-during-daytime-68AdnbxfuKs)
+- [Yosuke Ota](https://unsplash.com/@yosuke_ota) — [photo](https://unsplash.com/photos/silhouette-of-a-statue-pointing-towards-the-sky-cGl1nQnb7G0)
+- [Yuta Koike](https://unsplash.com/@yuta129) — [photo](https://unsplash.com/photos/a-large-statue-of-a-man-standing-in-front-of-a-tall-building-zNl_aLpwOP4)

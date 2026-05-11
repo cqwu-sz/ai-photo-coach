@@ -1,0 +1,25 @@
+# Chung Leng — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Diana Light](https://unsplash.com/@dreamcatchlight) — [photo](https://unsplash.com/photos/a-wooden-table-topped-with-plates-of-food-to2ybdphVYE)
+- [Damon Lam](https://unsplash.com/@dayday95) — [photo](https://unsplash.com/photos/text-RlkvOvu8-Yc)
+- [chen zy](https://unsplash.com/@czy48) — [photo](https://unsplash.com/photos/brown-wooden-bench-near-store-KCkbfnXEFus)
+- [Yeh Xintong](https://unsplash.com/@blsnki) — [photo](https://unsplash.com/photos/traditional-korean-temple-roof-with-ornate-details-xEzQLYOv924)
+- [RODOLFO BARRETTO](https://unsplash.com/@rodolfobarreto) — [photo](https://unsplash.com/photos/a-city-street-filled-with-lots-of-tall-buildings-sqDPuppP2K4)
+- [Se. Tsuchiya](https://unsplash.com/@s_tsuchiya) — [photo](https://unsplash.com/photos/a-row-of-lanterns-with-asian-writing-on-them-lay-UltePHw)
+- [Sam](https://unsplash.com/@samtakespictures) — [photo](https://unsplash.com/photos/chinese-characters-on-a-sign-under-an-ornate-roof-2d35FO8n654)
+- [Antonio Araujo](https://unsplash.com/@antonioaaaraujo) — [photo](https://unsplash.com/photos/a-restaurant-filled-with-lots-of-tables-and-people-bDMHz8fTM74)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-men-practicing-martial-moves-in-a-courtyard-XPyBIEGP7KM)
+- [Vida Huang](https://unsplash.com/@rebylulu) — [photo](https://unsplash.com/photos/traditional-lanterns-hang-in-a-shop-dimly-lit-store-RgDB_S1hLuM)
+- [JIWON KANG](https://unsplash.com/@jiwon_kang) — [photo](https://unsplash.com/photos/street-vendor-selling-red-bean-cakes-in-asia-F38lHGEFEdg)
+- [Ginta Wang](https://unsplash.com/@19981024ginta) — [photo](https://unsplash.com/photos/traditional-chinese-characters-on-a-dark-sign-uF2enfr_CVM)
+- [Curated Lifestyle](https://unsplash.com/@curatedlifestyle) — [photo](https://unsplash.com/photos/japanese-food-set-on-the-table-kcPjFxsT6Xw)
+- [Valorie Barela](https://unsplash.com/@valoriebarela) — [photo](https://unsplash.com/photos/tai-tung-chop-suey-restaurant-sign-uncWZsvIX_s)
+- [Cosmin Georgian](https://unsplash.com/@cosmingeorgian) — [photo](https://unsplash.com/photos/selective-focus-photography-of-people-under-chinese-lantern-nRZ0B_bd-6k)
+- [Cosmin Georgian](https://unsplash.com/@cosmingeorgian) — [photo](https://unsplash.com/photos/selective-focus-photography-of-people-under-chinese-lantern-kDvAftVQDVA)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-bunch-of-lanterns-hanging-from-a-ceiling-QAKnydxL-ww)
+- [J F](https://unsplash.com/@shotbyjf) — [photo](https://unsplash.com/photos/an-entrance-to-a-building-with-a-lit-up-sign-above-it-h0R8iaIz6DY)
+- [Kevin Zhong](https://unsplash.com/@clck0622) — [photo](https://unsplash.com/photos/chinese-calligraphy-decorates-a-red-wall-GwO5Ga8vXIs)
+- [Michael Myers](https://unsplash.com/@myers2021) — [photo](https://unsplash.com/photos/a-sign-on-a-building-GTm3SM1SP1w)

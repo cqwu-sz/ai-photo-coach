@@ -1,0 +1,25 @@
+# Jiuhua Mountain — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Taiki Ishikawa](https://unsplash.com/@fl__q) — [photo](https://unsplash.com/photos/a-mountain-covered-in-fog-with-trees-in-the-foreground-9aX7TdpZn24)
+- [The Walters Art Museum](https://unsplash.com/@thewalters) — [photo](https://unsplash.com/photos/misty-mountains-with-a-small-house-and-blooming-tree-0k0ttlNAjMI)
+- [FloatFlower Huang](https://unsplash.com/@floatflower) — [photo](https://unsplash.com/photos/a-green-mountain-with-a-blue-sky-in-the-background-SU9IO8KoHlA)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-with-trees-in-the-foreground-vHTV1jTUjYA)
+- [Vicky Ng](https://unsplash.com/@vickyng) — [photo](https://unsplash.com/photos/a-large-snow-covered-mountain-towering-over-a-city-dvifDfIB3W0)
+- [The Cleveland Museum of Art](https://unsplash.com/@clevelandart) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-and-a-body-of-water-oI4_3FYBuic)
+- [Iori Ikeda](https://unsplash.com/@iorin) — [photo](https://unsplash.com/photos/a-very-tall-mountain-with-a-very-steep-side-p50JbEdexu4)
+- [The Cleveland Museum of Art](https://unsplash.com/@clevelandart) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-with-trees-in-the-foreground-cOLX6_6lTi4)
+- [Zdeněk Macháček](https://unsplash.com/@zmachacek) — [photo](https://unsplash.com/photos/a-snow-covered-mountain-range-under-a-cloudy-blue-sky-5tEIH1bVPn8)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-with-a-sky-background-sbwUUQRSc7Q)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-drawing-of-a-mountain-with-trees-in-the-foreground-hi4s9wvbMLU)
+- [Nguyen Minh](https://unsplash.com/@ngminh8895) — [photo](https://unsplash.com/photos/a-house-sits-peacefully-in-a-foggy-mountain-CQnHN2HVESA)
+- [Vicky Ng](https://unsplash.com/@vickyng) — [photo](https://unsplash.com/photos/a-large-snow-covered-mountain-towering-over-a-city-UVWJwEroPmo)
+- [Andy Arbeit](https://unsplash.com/@izeberg) — [photo](https://unsplash.com/photos/winding-road-through-lush-green-mountains-under-cloudy-sky-lpR4fLvzDMU)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-range-with-a-lake-in-the-foreground-IvCBa8hiCso)
+- [Christopher Politano](https://unsplash.com/@poli_graphy) — [photo](https://unsplash.com/photos/a-black-and-white-photo-of-a-tree-and-a-mountain-ZnaD5stEBuM)
+- [ZHENYU LUO](https://unsplash.com/@mrnuclear) — [photo](https://unsplash.com/photos/a-mountain-covered-in-fog-and-clouds-on-a-cloudy-day-km63C_BDQxQ)
+- [Kenny Gaines](https://unsplash.com/@kgphoto87) — [photo](https://unsplash.com/photos/green-trees-on-mountain-under-cloudy-sky-during-daytime-d6-i0hrwNX0)
+- [Finn](https://unsplash.com/@finn_staygold) — [photo](https://unsplash.com/photos/a-lush-green-forest-filled-with-lots-of-trees-d-gJdH7-fnc)
+- [茂 長谷](https://unsplash.com/@shige0003) — [photo](https://unsplash.com/photos/misty-mountains-overlook-a-serene-blue-lake-below-bTF3D36H-1w)

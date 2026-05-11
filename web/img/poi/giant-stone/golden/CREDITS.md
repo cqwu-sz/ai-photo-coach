@@ -1,0 +1,25 @@
+# Giant Stone — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/gautama-buddha-statue-in-the-buddha-park-of-ravangla-in-south-sikkim-india-6ZOMrge1eps)
+- [Kelvin Zyteng](https://unsplash.com/@zyteng) — [photo](https://unsplash.com/photos/two-white-tiger-statues-at-a-vibrant-temple-entrance--kELR5uVmXE)
+- [Aleksi Partanen](https://unsplash.com/@aleksi_p) — [photo](https://unsplash.com/photos/a-large-brown-rock-sits-outdoors-We7m31IqlRw)
+- [Maria Lupan](https://unsplash.com/@luandmario) — [photo](https://unsplash.com/photos/two-rough-golden-objects-on-a-golden-background-yT3k58JooIU)
+- [Reesmada](https://unsplash.com/@reesmada7) — [photo](https://unsplash.com/photos/silver-and-gold-nuggets-float-in-the-sky-wRbOFbSysyc)
+- [Zoltan Tasi](https://unsplash.com/@zoltantasi) — [photo](https://unsplash.com/photos/brown-rock-formation-surrounded-by-green-grass-QxjEi8Fs9Hg)
+- [Jeffrey Eisen](https://unsplash.com/@jeisen) — [photo](https://unsplash.com/photos/a-large-rock-in-the-middle-of-a-forest-8Xtv65QjMlA)
+- [Leo_Visions](https://unsplash.com/@leo_visions_) — [photo](https://unsplash.com/photos/a-close-up-of-some-rocks-zBZ5AfJEoNg)
+- [atiyeh fathi](https://unsplash.com/@atiyehfathi) — [photo](https://unsplash.com/photos/close-up-of-a-textured-reddish-brown-rock-formation-FXR5Qtjc6Zs)
+- [Joshua Hoehne](https://unsplash.com/@joshua_hoehne) — [photo](https://unsplash.com/photos/a-close-up-of-some-rocks-fIbtmCd0Vgk)
+- [Adrien Milcent](https://unsplash.com/@1100freeb) — [photo](https://unsplash.com/photos/brown-rock-in-middle-of-desert-bwCu4k-uxVo)
+- [Eugenia Pan'kiv](https://unsplash.com/@eugenivy_now) — [photo](https://unsplash.com/photos/a-rock-with-a-plaque-on-it-sitting-on-the-ground-gBvy6tIzkaE)
+- [Galina Nelyubova](https://unsplash.com/@galka_nz) — [photo](https://unsplash.com/photos/golden-colored-stone-walls-and-building-corners-are-shown-4XBMMLcfeRY)
+- [Georg Baumann](https://unsplash.com/@georbaum) — [photo](https://unsplash.com/photos/a-pile-of-rocks-with-a-tree-in-the-background-D06mQNpzIdU)
+- [Maria Lupan](https://unsplash.com/@luandmario) — [photo](https://unsplash.com/photos/three-metallic-nuggets-on-a-textured-background-BsTir5bGw84)
+- [Stötzer Balázs](https://unsplash.com/@stotzer) — [photo](https://unsplash.com/photos/a-close-up-of-a-rock-with-a-mountain-in-the-background-9UYEuq0rlTc)
+- [atiyeh fathi](https://unsplash.com/@atiyehfathi) — [photo](https://unsplash.com/photos/close-up-of-textured-rock-with-brown-and-white-patterns-HkyRJEJQpDU)
+- [Jack Babcock](https://unsplash.com/@jbabcock321) — [photo](https://unsplash.com/photos/a-rock-rests-among-dark-mulch-6SOAAs7eH9M)
+- [Jesse Hammer](https://unsplash.com/@jesseexplore) — [photo](https://unsplash.com/photos/brown-concrete-statue-under-white-clouds-during-daytime-Lnkgvqvzthw)
+- [Wolfgang Hasselmann](https://unsplash.com/@wolfgang_hasselmann) — [photo](https://unsplash.com/photos/brown-and-green-rock-on-white-sand-fIWcDIHcJ3Q)

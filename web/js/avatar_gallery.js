@@ -17,19 +17,33 @@
  * Persistence: selection is saved as `apc.avatarPicks` in sessionStorage
  * (see store.js). Result page + scene_3d.js read it to render avatars.
  */
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
-
-import { buildAvatar } from "./avatar_builder.js";
 import {
   AVATAR_PRESETS,
-  DEFAULT_AVATAR_PICK,
   resolveAvatarPicks,
 } from "./avatar_styles.js";
-import { applyPosePreset } from "./pose_presets.js";
+import { mountAvatarCardPreview } from "./avatar_card_preview.js";
 import { loadAvatarPicks, saveAvatarPicks } from "./store.js";
 import { loadAvatarManifest } from "./avatar_loader.js";
+const RPM_DEFAULT_PICKS = [
+  "female_youth_18",
+  "male_casual_25",
+  "female_casual_22",
+  "female_elegant_30",
+];
 
-const THUMB_CACHE_KEY = "apc.avatarThumbs.v1";
+function resolveRpmPicks(stored, n, presetIds) {
+  const valid = new Set(presetIds);
+  const defaults = RPM_DEFAULT_PICKS.filter((id) => valid.has(id));
+  for (const id of presetIds) {
+    if (!defaults.includes(id)) defaults.push(id);
+  }
+  const fallback = defaults[0] || presetIds[0] || "";
+  return Array.from({ length: n }, (_, i) => {
+    const fromStored = Array.isArray(stored) ? stored[i] : null;
+    if (fromStored && valid.has(fromStored)) return fromStored;
+    return defaults[i % defaults.length] || fallback;
+  });
+}
 
 /**
  * v7 — when the backend manifest is reachable AND every preset has a
@@ -81,77 +95,150 @@ function imageHeadOk(url) {
  */
 export function initAvatarGallery({ slotsHost, gridHost, personCount }) {
   let activeSlot = 0;
-  let picks = resolveAvatarPicks(loadAvatarPicks(), personCount());
+  let picks = loadAvatarPicks();
+  // Per-slot bookkeeping so we never tear down a slot's WebGL context
+  // unless its avatar id actually changed. Re-creating a renderer on
+  // every click was the visible jank.
+  const slotEntries = [];   // [{ button, disposer, avatarId }]
+  let gridPreviewDisposers = [];
+  let gridBuildSeq = 0;
+  let slotRenderSeq = 0;
+  let gridBuildPromise = null;
+  let activeFilter = "female"; // 女生 / 男生 / 小孩
+  // Tabs live in the page; bind once, drive the grid via CSS only so
+  // switching a tab is O(N) class toggles, not a 3D rebuild.
+  const tabsHost = document.getElementById("avatar-tabs");
+  if (tabsHost) {
+    tabsHost.addEventListener("click", (ev) => {
+      const btn = ev.target.closest(".avatar-tab");
+      if (!btn) return;
+      activeFilter = btn.dataset.filter || "female";
+      tabsHost.querySelectorAll(".avatar-tab").forEach((b) => {
+        b.classList.toggle("is-active", b === btn);
+      });
+      applyGridFilter();
+    });
+  }
 
   // v7 — race the RPM-manifest probe against the procedural fallback.
   // When RPM is available we use real preset pngs; otherwise we
   // render the legacy procedural set offscreen.
   const sourcePromise = chooseAvatarSource();
-  const thumbsPromise = sourcePromise.then((src) => {
-    if (src.kind === "rpm") {
-      const map = {};
-      for (const p of src.presets) map[p.id] = p.thumbnail;
-      return map;
-    }
-    return renderAllThumbnails();
-  });
   // The catalog used by the grid: RPM presets when available, legacy
   // procedural otherwise.
   const catalogPromise = sourcePromise.then((src) => {
     if (src.kind === "rpm") {
-      return src.presets.map((p) => ({
+      return orderCatalog(src.presets.map((p) => ({
         id: p.id,
-        name: p.nameZh,
-        summary: `${p.style} · ${p.gender}`,
-      }));
+        name: p.nameZh || p.name_zh || p.id,
+        gender: p.gender || (p.id?.startsWith("female") ? "female" : p.id?.startsWith("male") ? "male" : ""),
+        age: typeof p.age === "number" ? p.age : 99,
+      })));
     }
-    return AVATAR_PRESETS.map((s) => ({ id: s.id, name: s.name, summary: s.summary }));
+    return AVATAR_PRESETS.map((s) => ({
+      id: s.id,
+      name: s.name,
+      gender: s.gender || "",
+      age: 99,
+    }));
   });
 
   function setActiveSlot(i) {
     activeSlot = i;
-    refreshSlots();
+    // Highlight only — do NOT rebuild slot WebGL contexts. The previous
+    // implementation called refreshSlots() here, which disposed all
+    // 4 renderers and re-cloned every glb just to move the ring color.
+    slotEntries.forEach((e, idx) => {
+      e?.button?.classList?.toggle("active", idx === i);
+    });
     refreshGridSelection();
   }
 
   function setPick(i, avatarId) {
+    if (picks[i] === avatarId) {
+      // Same avatar: nothing to rebuild, but still advance focus.
+      const n = personCount();
+      if (i < n - 1) setActiveSlot(i + 1);
+      return;
+    }
     picks[i] = avatarId;
     saveAvatarPicks(picks);
-    refreshSlots();
+    updateSlotAvatar(i, avatarId);
     refreshGridSelection();
   }
 
+  function updateSlotAvatar(i, avatarId) {
+    const entry = slotEntries[i];
+    if (!entry) return;
+    if (entry.avatarId === avatarId && entry.disposer) return;
+    // Rebuild only this one slot's preview.
+    entry.disposer?.dispose?.();
+    const previewEl = entry.button.querySelector(".avatar-slot-preview");
+    if (!previewEl) return;
+    entry.avatarId = avatarId;
+    entry.disposer = mountAvatarCardPreview(previewEl, {
+      avatarId,
+      compact: true,
+      interactive: true,
+    });
+  }
+
   function refreshSlots() {
+    const renderSeq = ++slotRenderSeq;
     const n = personCount();
-    // Scenery (or any 0-person mode) has no avatar slots; just clear.
     if (n <= 0) {
+      disposeSlotPreviews();
+      disposeGridPreviews();
       slotsHost.innerHTML = "";
       gridHost.innerHTML = "";
+      gridBuildSeq += 1;
+      gridBuildPromise = null;
       return;
-    }
-    if (picks.length !== n) {
-      picks = resolveAvatarPicks(picks, n);
-      saveAvatarPicks(picks);
     }
     if (activeSlot >= n) activeSlot = n - 1;
     if (activeSlot < 0) activeSlot = 0;
-    slotsHost.innerHTML = "";
-    if (gridHost.children.length === 0) buildGrid();
-    Promise.all([thumbsPromise, catalogPromise]).then(([thumbs, catalog]) => {
+    ensureGridBuilt();
+    Promise.all([catalogPromise, sourcePromise]).then(([catalog, src]) => {
+      if (renderSeq !== slotRenderSeq) return;
+      const normalized = src.kind === "rpm"
+        ? resolveRpmPicks(picks, n, catalog.map((x) => x.id))
+        : resolveAvatarPicks(picks, n);
+      if (JSON.stringify(normalized) !== JSON.stringify(picks)) {
+        picks = normalized;
+        saveAvatarPicks(picks);
+      } else {
+        picks = normalized;
+      }
+      // Trim slots that no longer fit.
+      while (slotEntries.length > n) {
+        const e = slotEntries.pop();
+        e?.disposer?.dispose?.();
+        e?.button?.remove();
+      }
+      // Add or update the rest.
       for (let i = 0; i < n; i++) {
-        const slot = document.createElement("button");
-        slot.type = "button";
-        slot.className = "avatar-slot" + (i === activeSlot ? " active" : "");
-        slot.dataset.slot = String(i);
-        const style = catalog.find((p) => p.id === picks[i]) || catalog[0];
-        const tn = thumbs[picks[i]] || thumbs[catalog[0]?.id];
-        slot.innerHTML = `
-          <img src="${tn || ""}" alt="${style?.name || ""}" />
-          <span class="avatar-slot-num">${i + 1}</span>
-          <span class="avatar-slot-name">${style?.name || ""}</span>
-        `;
-        slot.addEventListener("click", () => setActiveSlot(i));
-        slotsHost.appendChild(slot);
+        let entry = slotEntries[i];
+        if (!entry) {
+          const slot = document.createElement("button");
+          slot.type = "button";
+          slot.className = "avatar-slot" + (i === activeSlot ? " active" : "");
+          slot.dataset.slot = String(i);
+          // Labels removed per design — the 3D thumb itself communicates
+          // who's in this slot. Keeps the row compact and noise-free.
+          slot.innerHTML = `
+            <div class="avatar-slot-preview" aria-hidden="true"></div>
+            <span class="avatar-slot-num">${i + 1}</span>
+          `;
+          slot.addEventListener("click", () => setActiveSlot(i));
+          slotsHost.appendChild(slot);
+          entry = { button: slot, disposer: null, avatarId: null };
+          slotEntries[i] = entry;
+        } else {
+          entry.button.classList.toggle("active", i === activeSlot);
+        }
+        if (entry.avatarId !== picks[i]) {
+          updateSlotAvatar(i, picks[i]);
+        }
       }
     });
   }
@@ -164,106 +251,93 @@ export function initAvatarGallery({ slotsHost, gridHost, personCount }) {
   }
 
   function buildGrid() {
+    const buildSeq = ++gridBuildSeq;
+    disposeGridPreviews();
     gridHost.innerHTML = "";
-    Promise.all([thumbsPromise, catalogPromise]).then(([thumbs, catalog]) => {
+    return Promise.all([catalogPromise]).then(([catalog]) => {
+      if (buildSeq !== gridBuildSeq) return;
       for (const style of catalog) {
         const cell = document.createElement("button");
         cell.type = "button";
         cell.className = "avatar-cell";
         cell.dataset.avatarId = style.id;
-        cell.innerHTML = `
-          <img src="${thumbs[style.id] || ""}" alt="${style.name}" />
-          <div class="avatar-cell-meta">
-            <b>${style.name}</b>
-            <span>${style.summary}</span>
-          </div>
-        `;
+        cell.dataset.gender = style.gender || "";
+        cell.dataset.age = String(style.age ?? 99);
+        // Title attribute keeps the (optional) Chinese name accessible
+        // on hover without crowding the visual grid.
+        if (style.name) cell.title = style.name;
+        cell.innerHTML = `<div class="avatar-cell-preview" aria-hidden="true"></div>`;
         cell.addEventListener("click", () => {
           setPick(activeSlot, style.id);
           const n = personCount();
           if (activeSlot < n - 1) setActiveSlot(activeSlot + 1);
         });
         gridHost.appendChild(cell);
+        gridPreviewDisposers.push(
+          mountAvatarCardPreview(cell.querySelector(".avatar-cell-preview"), {
+            avatarId: style.id,
+            compact: false,
+            interactive: true,
+          }),
+        );
       }
+      applyGridFilter();
       refreshGridSelection();
     });
   }
 
-  buildGrid();
+  function applyGridFilter() {
+    const cells = gridHost.querySelectorAll(".avatar-cell");
+    cells.forEach((c) => {
+      const age = Number(c.dataset.age || 99);
+      const gender = c.dataset.gender || "";
+      let show;
+      if (activeFilter === "child") show = age < 14;
+      else show = gender === activeFilter && age >= 14;
+      c.classList.toggle("is-hidden", !show);
+    });
+  }
+
+  function ensureGridBuilt() {
+    if (!gridBuildPromise) {
+      gridBuildPromise = buildGrid().finally(() => {
+        gridBuildPromise = null;
+      });
+    }
+  }
+
+  function disposeSlotPreviews() {
+    slotEntries.forEach((e) => {
+      e?.disposer?.dispose?.();
+      e?.button?.remove();
+    });
+    slotEntries.length = 0;
+  }
+
+  function disposeGridPreviews() {
+    gridPreviewDisposers.forEach((view) => view?.dispose?.());
+    gridPreviewDisposers = [];
+  }
+
+  ensureGridBuilt();
   refreshSlots();
 
   return {
     onPersonCountChanged: refreshSlots,
     getPicks: () => [...picks],
+    dispose() {
+      disposeSlotPreviews();
+      disposeGridPreviews();
+    },
   };
 }
 
-// ---------------------------------------------------------------------------
-// Thumbnail renderer (Three.js, offscreen)
-// ---------------------------------------------------------------------------
-
-async function renderAllThumbnails() {
-  // Try cache first
-  try {
-    const cached = JSON.parse(sessionStorage.getItem(THUMB_CACHE_KEY) || "null");
-    if (cached && AVATAR_PRESETS.every((p) => cached[p.id])) return cached;
-  } catch {}
-
-  const out = {};
-  // Single hidden renderer reused for all 7 — avoids 7 WebGL contexts
-  const W = 256;
-  const H = 320;
-  const renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    alpha: true,
-    preserveDrawingBuffer: true,
+function orderCatalog(catalog) {
+  const rank = new Map(RPM_DEFAULT_PICKS.map((id, i) => [id, i]));
+  return [...catalog].sort((a, b) => {
+    const ar = rank.has(a.id) ? rank.get(a.id) : 999;
+    const br = rank.has(b.id) ? rank.get(b.id) : 999;
+    if (ar !== br) return ar - br;
+    return String(a.name).localeCompare(String(b.name), "zh-Hans-CN");
   });
-  renderer.setSize(W, H, false);
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
-
-  for (const style of AVATAR_PRESETS) {
-    const scene = new THREE.Scene();
-    const cam = new THREE.PerspectiveCamera(28, W / H, 0.05, 50);
-    cam.position.set(0, 1.05, 3.6);
-    cam.lookAt(0, 0.95, 0);
-
-    scene.add(new THREE.HemisphereLight(0xddeeff, 0xffd9b8, 0.85));
-    const key = new THREE.DirectionalLight(0xfff1d6, 1.0);
-    key.position.set(2, 4, 3);
-    scene.add(key);
-
-    const ground = new THREE.Mesh(
-      new THREE.CircleGeometry(0.8, 24),
-      new THREE.MeshStandardMaterial({
-        color: 0x000000,
-        roughness: 0.9,
-        transparent: true,
-        opacity: 0.4,
-      }),
-    );
-    ground.rotation.x = -Math.PI / 2;
-    scene.add(ground);
-
-    const av = buildAvatar(style);
-    av.setExpression("joy");
-    // Apply a friendly default pose
-    applyPosePreset("hands_clasped", av.joints);
-    scene.add(av.root);
-
-    renderer.render(scene, cam);
-    out[style.id] = renderer.domElement.toDataURL("image/webp", 0.85);
-
-    av.dispose();
-    scene.clear();
-  }
-  renderer.dispose();
-
-  try {
-    sessionStorage.setItem(THUMB_CACHE_KEY, JSON.stringify(out));
-  } catch {
-    // Quota exceeded → ignore, we'll re-render next page load.
-  }
-  return out;
 }

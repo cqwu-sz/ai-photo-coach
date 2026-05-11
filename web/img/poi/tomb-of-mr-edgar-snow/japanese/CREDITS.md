@@ -1,0 +1,25 @@
+# Tomb of Mr. Edgar Snow — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Andrej Lišakov](https://unsplash.com/@lishakov) — [photo](https://unsplash.com/photos/a-white-clock-sitting-on-the-side-of-a-building-XBQgDKlQhTM)
+- [hey emmby](https://unsplash.com/@heyemmby) — [photo](https://unsplash.com/photos/a-snow-covered-cemetery-with-a-statue-in-the-foreground-cB0qHcqSIzk)
+- [Husien Bisky](https://unsplash.com/@husien_bisky1) — [photo](https://unsplash.com/photos/snowmen-sit-on-benches-in-a-park-with-palm-tree-LqoP58bNobY)
+- [Jerry Zhang](https://unsplash.com/@z734923105) — [photo](https://unsplash.com/photos/white-frosted-landscape-gBvTBAFasUg)
+- [Fellipe Ditadi](https://unsplash.com/@ditadi) — [photo](https://unsplash.com/photos/a-woman-kneels-at-a-tomb-in-a-cemetery-rNDjG8chDC8)
+- [Seiya Maeda](https://unsplash.com/@seiya_maeda) — [photo](https://unsplash.com/photos/a-statue-of-a-man-sitting-on-top-of-a-cement-block-h_p70kCvHEM)
+- [Anne Laure P](https://unsplash.com/@byannel) — [photo](https://unsplash.com/photos/a-bird-is-standing-in-the-snow-near-a-statue-9vFeWehlTvs)
+- [Leongsan](https://unsplash.com/@leongsan) — [photo](https://unsplash.com/photos/zen-garden-with-rocks-and-raked-sand-in-snow-0bVWDgFx_FA)
+- [Andrej Lišakov](https://unsplash.com/@lishakov) — [photo](https://unsplash.com/photos/two-people-stand-before-a-massive-ice-formation-taSptO6L0z0)
+- [Samuel Berner](https://unsplash.com/@reduxxphotography) — [photo](https://unsplash.com/photos/woman-in-black-jacket-standing-on-snow-covered-ground-during-daytime-jRutmk1oivs)
+- [Leongsan](https://unsplash.com/@leongsan) — [photo](https://unsplash.com/photos/zen-garden-with-large-rock-and-raked-gravel--241iFHSfd8)
+- [Cuvii](https://unsplash.com/@cuvii) — [photo](https://unsplash.com/photos/orange-torii-gate-with-snow-falling-ibMNwoPz2Cc)
+- [Rohit Choudhari](https://unsplash.com/@iamrohitchoudhari) — [photo](https://unsplash.com/photos/small-stone-markers-scattered-on-a-snowy-field-xRF0kQ0aScQ)
+- [Maximilian Brand](https://unsplash.com/@maximilian_brand) — [photo](https://unsplash.com/photos/a-snow-covered-cemetery-in-the-middle-of-a-forest-5vOJyhRtE14)
+- [Da-shika](https://unsplash.com/@da_shika_photo) — [photo](https://unsplash.com/photos/a-temple-stands-in-the-snowfall-at-night-JqPuWzp4SgI)
+- [Weichao Deng](https://unsplash.com/@juniperphoton) — [photo](https://unsplash.com/photos/stone-lanterns-and-altar-covered-in-snow-ZyA-dz2Hjcs)
+- [YASA Design Studio](https://unsplash.com/@yasadesign_studio) — [photo](https://unsplash.com/photos/an-aerial-view-of-a-sculpture-made-of-glass-blocks-resgUFXv1NE)
+- [ayumi kubo](https://unsplash.com/@ayumikubo) — [photo](https://unsplash.com/photos/a-bird-house-in-the-snow-next-to-a-pond-OL0lbC9mChk)
+- [Jéan Béller](https://unsplash.com/@worldtravelwithjean) — [photo](https://unsplash.com/photos/japanese-torii-gate-in-a-snowy-scene-BlVFkE6IRvw)
+- [Hoyoun Lee](https://unsplash.com/@icedcocoa) — [photo](https://unsplash.com/photos/a-group-of-people-with-umbrellas-standing-in-the-snow--h6fln9DxeQ)

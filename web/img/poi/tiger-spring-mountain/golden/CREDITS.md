@@ -1,0 +1,25 @@
+# Tiger Spring Mountain — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [YASA Design Studio](https://unsplash.com/@yasadesign_studio) — [photo](https://unsplash.com/photos/a-painting-of-a-tiger-and-a-tiger-cub-in-a-mountain-landscape-y0MOA4By-MU)
+- [Sarah Sheedy](https://unsplash.com/@cestmoisheedy) — [photo](https://unsplash.com/photos/a-mountain-covered-in-snow-and-trees-under-a-blue-sky-0rrZ8xaYniE)
+- [Adrián Valverde](https://unsplash.com/@adrianvalverdem) — [photo](https://unsplash.com/photos/a-mountain-with-trees-in-the-foreground-and-a-cloudy-sky-in-the-background-3TOYzEJR15I)
+- [Victor Baro](https://unsplash.com/@victorbaro) — [photo](https://unsplash.com/photos/brown-and-green-trees-near-mountain-under-blue-sky-during-daytime-Qqj_x4tr9t4)
+- [YASA Design Studio](https://unsplash.com/@yasadesign_studio) — [photo](https://unsplash.com/photos/a-painting-of-a-tiger-and-a-dog-on-a-log--oXNLt1MsV8)
+- [Petra Andrews](https://unsplash.com/@framesofdiscovery) — [photo](https://unsplash.com/photos/a-dog-sitting-in-the-grass-with-a-mountain-in-the-background-kmZx65bceQg)
+- [Bronson Valley](https://unsplash.com/@bronsonvalley) — [photo](https://unsplash.com/photos/a-field-with-a-mountain-range-in-the-background-xJ8Bj6epUsg)
+- [yan nanfei](https://unsplash.com/@yannanfei) — [photo](https://unsplash.com/photos/a-grassy-hill-with-a-snow-capped-mountain-in-the-background-1C_KCO6PUi4)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/siberian-amur-tiger-lying-on-a-snow-covered-hill-portrait-against-the-winter-forest-china-harbin-mudanjiang-province-hengdaohezi-park-siberian-tiger-park-winter-hard-frost-panthera-tgris-altaica-8xH3ums5Xdw)
+- [Laura Nyhuis](https://unsplash.com/@lauraintacoma) — [photo](https://unsplash.com/photos/brown-and-black-tiger-on-gray-rock-MgV3oQJPt0U)
+- [Bronson Valley](https://unsplash.com/@bronsonvalley) — [photo](https://unsplash.com/photos/a-grassy-field-with-trees-and-mountains-in-the-background-y5nmHd3P4C8)
+- [Cy Lindberg](https://unsplash.com/@cy_stillman) — [photo](https://unsplash.com/photos/brown-rock-formation-under-blue-sky-during-daytime-F4tXT610aLs)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-tiger-running-through-the-snow-in-the-wild-vYjnktz4Pyc)
+- [Vishal Biswa](https://unsplash.com/@vishal667) — [photo](https://unsplash.com/photos/a-brown-dog-standing-on-top-of-a-rocky-hillside-GFK8zwY-Gcw)
+- [Jason Leung](https://unsplash.com/@ninjason) — [photo](https://unsplash.com/photos/a-brown-dog-sitting-on-top-of-a-rocky-hillside-mD5Rfq32sR0)
+- [Filippo Andolfatto](https://unsplash.com/@pinkstratdesign_italy) — [photo](https://unsplash.com/photos/adult-golden-retriever-on-brown-soil-d5HDquqSnRE)
+- [Paris Bilal](https://unsplash.com/@parisbilal) — [photo](https://unsplash.com/photos/a-tiger-jumping-off-a-hill-into-the-air-Y0AREyNoD3E)
+- [Patrick Hodskins](https://unsplash.com/@phodskins) — [photo](https://unsplash.com/photos/brown-trees-on-snow-covered-mountain-during-daytime-74DjdvgZMfQ)
+- [Peter Hulce](https://unsplash.com/@phd) — [photo](https://unsplash.com/photos/a-mountain-covered-in-snow-and-trees-under-a-blue-sky-kmJHw7jKxkE)
+- [Macarena Ollarzú](https://unsplash.com/@macaollarzu) — [photo](https://unsplash.com/photos/a-mountain-with-snow-on-the-top-of-it-jOZEIgh_ofI)

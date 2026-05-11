@@ -61,7 +61,11 @@ class OpenAICompatProvider:
         pose_summary: str,
         camera_summary: str,
         scene_mode: str,
+        panorama_jpeg: bytes | None = None,
+        video_mp4: bytes | None = None,
     ) -> dict[str, Any]:
+        # OpenAI-compatible providers don't take video; ignore. Panorama
+        # is sent as the first image block when present.
         sampled = _subsample(frames, self.config.max_images)
         ref_sampled = _subsample(references, max(0, self.config.max_images // 2))
 
@@ -71,9 +75,13 @@ class OpenAICompatProvider:
             camera_kb_summary=camera_summary,
             has_references=bool(references),
             scene_mode=scene_mode,
+            has_panorama=panorama_jpeg is not None,
+            has_video=False,
         )
 
         content: list[dict[str, Any]] = []
+        if panorama_jpeg:
+            content.extend(_image_blocks([panorama_jpeg]))
         content.extend(_image_blocks(sampled))
         if ref_sampled:
             content.append(

@@ -1,0 +1,25 @@
+# May Thirtieth Movement Monument — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Lala Azizli](https://unsplash.com/@lazizli) — [photo](https://unsplash.com/photos/a-group-of-people-walking-around-a-park-pSarFESjg30)
+- [sabari nathan](https://unsplash.com/@dsnphotography) — [photo](https://unsplash.com/photos/a-monument-in-a-park-with-trees-in-the-background-xYXTP01ap_I)
+- [Noor Sharma](https://unsplash.com/@noorsharma) — [photo](https://unsplash.com/photos/a-large-stone-with-writing-on-it-iUkCTI70t8s)
+- [Haberdoedas](https://unsplash.com/@haberdoedas) — [photo](https://unsplash.com/photos/stone-monument-with-japanese-inscriptions-in-a-garden-5G-8el8LNww)
+- [Michael Moloney](https://unsplash.com/@mjmolo) — [photo](https://unsplash.com/photos/people-enjoy-a-park-with-a-skyscraper-in-the-distance-8DmZotTmIME)
+- [Yosuke Ota](https://unsplash.com/@yosuke_ota) — [photo](https://unsplash.com/photos/a-statue-in-the-middle-of-a-body-of-water-hl-v8eDgkZg)
+- [Haberdoedas](https://unsplash.com/@haberdoedas) — [photo](https://unsplash.com/photos/a-stone-monument-with-japanese-writing-in-a-garden-xXTek1NWEf4)
+- [Krzysztof](https://unsplash.com/@krzysztof_h) — [photo](https://unsplash.com/photos/peace-memorial-park-in-hiroshima-japan-10ikRdagUtc)
+- [Lala Azizli](https://unsplash.com/@lazizli) — [photo](https://unsplash.com/photos/a-red-stop-sign-sitting-on-the-side-of-a-set-of-stairs-75Ea1sChz6I)
+- [Roméo A.](https://unsplash.com/@gronemo) — [photo](https://unsplash.com/photos/a-large-stone-structure-with-flowers-in-front-of-it-with-hiroshima-peace-memorial-in-the-background-6kxJwJG-HPY)
+- [E R](https://unsplash.com/@100picrats) — [photo](https://unsplash.com/photos/a-japanese-monument-stands-under-a-bright-blue-sky-QExmzth7wZ4)
+- [Trac Vu](https://unsplash.com/@tracminhvu) — [photo](https://unsplash.com/photos/equestrian-statue-in-front-of-modern-buildings-and-trees-NDvm_Fk5APc)
+- [Giulia Squillace](https://unsplash.com/@giuliasq) — [photo](https://unsplash.com/photos/colorful-flowers-bloom-along-a-canal-in-a-city-dNbrp0u74Yg)
+- [Armand Mckenzie](https://unsplash.com/@armandmckenzie) — [photo](https://unsplash.com/photos/two-bronze-statues-of-children-sitting-on-stone-IHX4EYxD84E)
+- [Ryo Harianto](https://unsplash.com/@ryohariantoo) — [photo](https://unsplash.com/photos/two-bronze-statues-of-men-stand-before-a-stone-monument-upMWh3TdikA)
+- [Walter O](https://unsplash.com/@holawalterlee) — [photo](https://unsplash.com/photos/stone-monument-with-japanese-inscriptions-in-green-foliage-odNfoEI-iSE)
+- [A Chosen Soul](https://unsplash.com/@a_chosensoul) — [photo](https://unsplash.com/photos/ancient-torii-gate-in-a-field-of-wildflowers-WNpSZhS9Te4)
+- [Krisna Yuda](https://unsplash.com/@krisnayuda) — [photo](https://unsplash.com/photos/a-large-stone-obelisk-sitting-in-the-middle-of-a-park-KsvywR990Mk)
+- [Daniel Ramos](https://unsplash.com/@danielcramos) — [photo](https://unsplash.com/photos/white-concrete-cross-on-brown-field-near-snow-covered-mountain-during-daytime-5mOPXiVwj9k)
+- [Luke Galloway](https://unsplash.com/@space_face_films) — [photo](https://unsplash.com/photos/a-monument-with-writing-on-it-in-a-park-ID4I-y5DqIk)

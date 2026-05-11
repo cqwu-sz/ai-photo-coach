@@ -1,0 +1,25 @@
+# Tomb of Mr. Edgar Snow — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Wesley Tingey](https://unsplash.com/@wesleyphotography) — [photo](https://unsplash.com/photos/a-marble-statue-with-a-gold-design-on-it-PEUop_xWNyU)
+- [Husien Bisky](https://unsplash.com/@husien_bisky1) — [photo](https://unsplash.com/photos/snowmen-sit-on-benches-in-a-park-with-palm-tree-LqoP58bNobY)
+- [Jakob Rosen](https://unsplash.com/@jakobnoahrosen) — [photo](https://unsplash.com/photos/gold-round-coin-on-white-table-RejVa9QHGaw)
+- [Vladimir Vishnyakov](https://unsplash.com/@henrikson) — [photo](https://unsplash.com/photos/a-gold-statue-with-a-white-hat-on-top-of-it-_250ag1ovWk)
+- [Ales Krivec](https://unsplash.com/@aleskrivec) — [photo](https://unsplash.com/photos/snowy-mountain-ridge-illuminated-by-golden-sunset-light-HmV6N9y0Q0w)
+- [Barnabas Davoti](https://unsplash.com/@davotibarna) — [photo](https://unsplash.com/photos/a-dog-lying-in-the-snow-umPzfMIgkq4)
+- [Anand Mahajan](https://unsplash.com/@anand_mahajan1997) — [photo](https://unsplash.com/photos/yellow-sign-in-snowy-landscape-with-text-IUNqWyiO-n8)
+- [Iain](https://unsplash.com/@photoken123) — [photo](https://unsplash.com/photos/a-large-rock-sitting-in-a-dry-grass-field-b3l39hvUrkk)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/view-from-drone-of-unusual-white-mountain-in-podmoskovye-russia-large-open-air-slagheap-of-lopatinsky-phosphate-mine-rrRxqpuKAAA)
+- [Dylan LaPierre](https://unsplash.com/@drench777) — [photo](https://unsplash.com/photos/white-and-brown-concrete-building-near-bare-trees-during-daytime-RSiLywZYEd0)
+- [Rebecca Johnsen](https://unsplash.com/@uberzeught) — [photo](https://unsplash.com/photos/a-golden-retriever-is-walking-through-the-snow-p8vz7jy4zV4)
+- [Nixon Flores](https://unsplash.com/@nixonflores) — [photo](https://unsplash.com/photos/brown-concrete-house-jTU9YlxtRzY)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-snow-covered-mountain-with-a-tower-on-top-of-it-INlfVftXeQk)
+- [Harri P](https://unsplash.com/@haraldip) — [photo](https://unsplash.com/photos/a-grave-in-the-snow-with-a-mountain-in-the-background-lBCj6pp0RNQ)
+- [Barnabas Davoti](https://unsplash.com/@davotibarna) — [photo](https://unsplash.com/photos/a-golden-retriever-dog-laying-in-the-snow-ztKrcImzNvQ)
+- [Maciej Cisowski](https://unsplash.com/@mcisowski) — [photo](https://unsplash.com/photos/a-church-in-the-middle-of-a-snowy-field-js6gtdyMaRM)
+- [Diyar Shahbaz](https://unsplash.com/@diyarshahbaz) — [photo](https://unsplash.com/photos/a-snow-covered-mountain-under-a-cloudy-sky-p-Zh9tlKgtw)
+- [Rebecca Johnsen](https://unsplash.com/@uberzeught) — [photo](https://unsplash.com/photos/a-dog-running-in-the-snow-in-a-fenced-in-area-DwPm7tG_Ni0)
+- [Suma Nanjappa](https://unsplash.com/@suma_17hn) — [photo](https://unsplash.com/photos/a-courtyard-with-a-fountain-and-trees-cdyiOetufVk)
+- [Hugo Zlotowski](https://unsplash.com/@hgoz) — [photo](https://unsplash.com/photos/aerial-photo-of-grass-field-during-daytime-PAfRPKvPBns)

@@ -9,7 +9,7 @@
     <title>拾光 · 环视一圈给你出片方案</title>
     <meta
       name="description"
-      content="用手机环拍 10 秒，AI 帮你识别场景、规划机位、调整相机参数、安排人物姿势。1 到 N 人都行。"
+      content="用手机环拍 10 秒，立刻得到一份完整的出片方案：取景、构图、相机参数、站位姿势，1 到 4 人都能拍。"
     />
     <!-- First-visit redirect to /web/welcome. Must run inline + before any
          layout paint to avoid a flash of the wizard. -->
@@ -25,6 +25,17 @@
       })();
     </script>
     <link rel="stylesheet" href="/web/css/style.css" />
+    <!-- Three.js examples/jsm modules use bare "three" imports.
+         Keep the home wizard aligned with result.html so avatar_gallery
+         and avatar_loader can resolve GLTFLoader / SkeletonUtils. -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="aurora-bg" aria-hidden="true">
@@ -80,7 +91,7 @@
         <section class="step-view" data-step="1">
           <span class="step-eyebrow">第 1 步 / 共 4 步</span>
           <h2 class="step-title">想出什么样的<span class="grad-text">片</span>？</h2>
-          <p class="step-sub">挑一个出片场景，AI 会按这个意图来选机位、构图和相机参数。</p>
+          <p class="step-sub">选一个想要的画面感觉，我们会按你的意图配好取景、构图和相机参数。</p>
 
           <div class="step-body">
             <div id="scene-mode" class="scene-grid" role="radiogroup" aria-label="出片场景">
@@ -128,7 +139,7 @@
         <section class="step-view" data-step="2">
           <span class="step-eyebrow">第 2 步 / 共 4 步</span>
           <h2 class="step-title">谁来<span class="grad-text">出镜</span>？</h2>
-          <p class="step-sub" id="step-2-sub">告诉 AI 几个人参与，再选好对应的虚拟角色 — 结果页会让他们摆姿势给你看。</p>
+          <p class="step-sub" id="step-2-sub">先告诉我们这次有几个人入镜，然后为每位选一个角色 — 拍摄页会用这些角色为你示范站位。</p>
 
           <div class="step-body">
             <div class="section person-section">
@@ -144,10 +155,15 @@
 
             <div class="section avatar-section">
               <div class="avatar-head">
-                <h3>选你的虚拟角色</h3>
-                <span class="avatar-hint">每个机位会用这些角色摆 pose 在 3D 场景里给你看</span>
+                <h3>选这次出镜的角色</h3>
+                <span class="avatar-hint">点头像选择，长按可拖动预览角度</span>
               </div>
               <div id="avatar-slots" class="avatar-slots"></div>
+              <div id="avatar-tabs" class="avatar-tabs" role="tablist" aria-label="角色筛选">
+                <button type="button" class="avatar-tab is-active" data-filter="female">女生</button>
+                <button type="button" class="avatar-tab" data-filter="male">男生</button>
+                <button type="button" class="avatar-tab" data-filter="child">小孩</button>
+              </div>
               <div id="avatar-grid" class="avatar-grid"></div>
             </div>
           </div>
@@ -157,35 +173,36 @@
         <section class="step-view" data-step="3">
           <span class="step-eyebrow">第 3 步 / 共 4 步</span>
           <h2 class="step-title">想要怎样的<span class="grad-text">基调</span>？</h2>
-          <p class="step-sub">关键词决定色调和氛围；质量档决定 AI 想得多深。都可跳过用默认。</p>
+          <p class="step-sub">关键词决定色调和氛围，速度决定花多少时间想得更细。都可以跳过用默认。</p>
 
           <div class="step-body">
             <div class="section">
-              <h3>风格关键词（可选）</h3>
-              <input
-                id="style-input"
-                class="input"
-                placeholder="例如：cinematic, moody, clean"
-              />
-              <div class="style-suggest" id="style-suggest">
-                <button type="button" data-suggest="cinematic, moody">cinematic moody</button>
-                <button type="button" data-suggest="clean, bright">clean bright</button>
-                <button type="button" data-suggest="film, warm">film warm</button>
-                <button type="button" data-suggest="street, candid">street candid</button>
-                <button type="button" data-suggest="editorial, fashion">editorial fashion</button>
+              <div class="style-section-header">
+                <h3>风格基调（可选）</h3>
+                <span class="style-section-hint">点卡片选风格 · 最多 2 个</span>
               </div>
+              <div id="style-grid" class="style-grid" role="listbox" aria-label="风格基调"></div>
+              <div id="style-drawer" class="style-drawer" hidden></div>
+              <details class="style-custom">
+                <summary>我想自己输入关键词</summary>
+                <input
+                  id="style-input"
+                  class="input"
+                  placeholder="例如：cinematic, moody — 多个用逗号分隔；与上方卡片自动同步"
+                />
+              </details>
             </div>
 
             <div class="section">
-              <h3>质量档</h3>
-              <div id="quality-mode" class="quality-grid" role="radiogroup" aria-label="质量档">
+              <h3>出片速度</h3>
+              <div id="quality-mode" class="quality-grid" role="radiogroup" aria-label="出片速度">
                 <button type="button" class="quality-card is-active" data-value="fast">
-                  <span class="quality-card-name">快速</span>
-                  <span class="quality-card-meta">Flash · ~30s · 免费额度大</span>
+                  <span class="quality-card-name">快速出片</span>
+                  <span class="quality-card-meta">约 30 秒 · 适合日常</span>
                 </button>
                 <button type="button" class="quality-card" data-value="high">
-                  <span class="quality-card-name">高质量</span>
-                  <span class="quality-card-meta">Pro · ~60s · 推理更稳</span>
+                  <span class="quality-card-name">精致出片</span>
+                  <span class="quality-card-meta">约 60 秒 · 更细致的方案</span>
                 </button>
               </div>
             </div>
@@ -196,7 +213,7 @@
         <section class="step-view" data-step="4">
           <span class="step-eyebrow">第 4 步 / 共 4 步</span>
           <h2 class="step-title">准备好<span class="grad-text">开拍</span>了吗？</h2>
-          <p class="step-sub" id="review-sub">下面是 AI 收到的全部上下文。任意一条不对都可以点回去改。</p>
+          <p class="step-sub" id="review-sub">确认一下这次的设定，任意一项都可以点回去修改。</p>
 
           <div class="step-body">
             <p class="review-welcome" id="review-welcome" hidden>
@@ -206,7 +223,7 @@
             <button class="reuse-chip" id="reuse-chip" type="button" hidden>
               <span class="reuse-chip-glyph" aria-hidden="true">♻️</span>
               <span class="reuse-chip-body">
-                <b id="reuse-chip-title">上次环境帧还在 · 直接出方案</b>
+                <b id="reuse-chip-title">上次的现场还记得 · 直接出方案</b>
                 <span id="reuse-chip-meta">8 张 · 5 分钟前 · 人像</span>
               </span>
               <span class="reuse-chip-arrow">→</span>
@@ -215,8 +232,8 @@
             <div class="light-recapture-card" id="light-recapture-card" hidden>
               <span class="light-recapture-glyph" aria-hidden="true">✦</span>
               <div class="light-recapture-body">
-                <b id="light-recapture-title">上次 AI 说光线证据不足</b>
-                <span id="light-recapture-meta">对着最亮的方向慢转 10 秒，建议会更稳</span>
+                <b id="light-recapture-title">上次光线信息不太够</b>
+                <span id="light-recapture-meta">对着最亮的方向慢转 10 秒，建议会更准</span>
               </div>
             </div>
 
@@ -241,7 +258,7 @@
             <details class="ref-collapse">
               <summary>
                 参考图库 <span id="ref-count" class="ref-count">0/8</span>
-                <span style="font-weight: 500; color: var(--text-muted); font-size: 11.5px; margin-left: 6px;">AI 会模仿你喜欢的风格</span>
+                <span style="font-weight: 500; color: var(--text-muted); font-size: 11.5px; margin-left: 6px;">参考你喜欢的风格出片</span>
               </summary>
               <div class="ref-collapse-body">
                 <div id="ref-grid" class="ref-grid"></div>
@@ -262,8 +279,8 @@
                 <div id="ref-learn-card" class="ref-learn-card" style="display: none">
                   <span class="ref-learn-icon">✨</span>
                   <div class="ref-learn-body">
-                    <b>AI 会从这 <span id="ref-learn-count">0</span> 张里学</b>
-                    <span>色调 · 光线 · 站位 · 构图。结果页会显示借鉴了哪几张。</span>
+                    <b>会参考这 <span id="ref-learn-count">0</span> 张的感觉</b>
+                    <span>色调 · 光线 · 站位 · 构图，并标注借鉴来源。</span>
                   </div>
                 </div>
               </div>
@@ -274,15 +291,10 @@
                 <span>没摄像头？</span>
               </div>
               <div class="demo-card-body">
-                后端会送上 8 张预制环视场景帧 + 3 张参考样片，直接走真 AI 出方案。
+                用一组示范场景体验完整的出片流程，三十秒就能看到结果。
               </div>
-              <button id="demo-btn" class="btn" type="button">用示例数据跑一次</button>
+              <button id="demo-btn" class="btn" type="button">试拍示范场景</button>
             </div>
-
-            <p class="footer-note">
-              当前为 PWA 演示版 · 后端 <code id="api-url"></code> · 姿势库
-              <span id="pose-count">…</span> 条 · 模型 <span id="model-name">…</span>
-            </p>
           </div>
         </section>
       </div>
@@ -299,19 +311,19 @@
       <!-- ============== DEMO OVERLAY (unchanged) ============== -->
       <div id="demo-overlay" class="spinner-overlay" style="display: none">
         <div class="spinner"></div>
-        <div id="demo-msg">准备示例数据…</div>
+        <div id="demo-msg">正在为你准备…</div>
         <div class="progress-stages" id="demo-stages">
           <div class="stage" data-stage="fetch">
             <span class="stage-icon"></span>
-            <span>下载示例环视帧</span>
+            <span>准备示范场景</span>
           </div>
           <div class="stage" data-stage="refs">
             <span class="stage-icon"></span>
-            <span>下载示例参考图</span>
+            <span>准备参考照片</span>
           </div>
           <div class="stage" data-stage="ai">
             <span class="stage-icon"></span>
-            <span>Gemini 真分析</span>
+            <span>AI 设计出片方案</span>
           </div>
           <div class="stage" data-stage="render">
             <span class="stage-icon"></span>

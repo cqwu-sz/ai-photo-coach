@@ -1,0 +1,25 @@
+# Lingering Snow on Broken Bridge — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/wooden-bridge-over-frozen-stream-in-foggy-forest-KlwqYH5x9DI)
+- [Anastase Maragos](https://unsplash.com/@visualsbyroyalz) — [photo](https://unsplash.com/photos/a-wooden-fence-with-snow-on-the-ground-and-trees-in-the-background-AVmBGqC4Hf0)
+- [Shleby Vincent](https://unsplash.com/@daynoodle) — [photo](https://unsplash.com/photos/a-wooden-bridge-over-a-river-iWSk_LBdGKM)
+- [Vlad Matsko](https://unsplash.com/@zeitfall) — [photo](https://unsplash.com/photos/brown-wooden-bridge-in-forest-during-daytime-ynQYUR2oulw)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/wooden-bridge-over-a-stream-in-a-frosty-landscape-BemebcwdIbY)
+- [Manny Becerra](https://unsplash.com/@mannyb) — [photo](https://unsplash.com/photos/brown-wooden-bridge-over-snow-covered-ground-during-daytime-0QainMCkwqI)
+- [Gennady Zakharin](https://unsplash.com/@gennady107) — [photo](https://unsplash.com/photos/a-snow-covered-field-with-mountains-in-the-distance-xk6v2Mh-klk)
+- [Lucia Miloro](https://unsplash.com/@lucimilor) — [photo](https://unsplash.com/photos/brown-wooden-bridge-over-snow-covered-mountain-_P9SZBeAZV0)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/wooden-bridge-covered-in-frost-on-a-foggy-day--xy_orgowa4)
+- [Terézia Paňková](https://unsplash.com/@terez_panko) — [photo](https://unsplash.com/photos/a-person-walking-across-a-snow-covered-bridge-iqnALgI3JF0)
+- [Marcus S](https://unsplash.com/@marsalsa) — [photo](https://unsplash.com/photos/a-train-traveling-through-a-snow-covered-forest-_OyMcrMY8OM)
+- [alok kumar](https://unsplash.com/@heyyalok) — [photo](https://unsplash.com/photos/brown-wooden-bridge-over-snow-covered-ground-under-blue-sky-during-daytime-sOC_3QTB74c)
+- [Daniel J. Schwarz](https://unsplash.com/@danieljschwarz) — [photo](https://unsplash.com/photos/wooden-bridge-over-a-snowy-stream-in-a-forest-ettnvO6VsyI)
+- [Jasper Malchuk Rasmussen](https://unsplash.com/@alysthecat) — [photo](https://unsplash.com/photos/a-bridge-that-is-covered-in-snow-on-a-cloudy-day-6hkw8UA7bKw)
+- [Andy Carne](https://unsplash.com/@fourdw) — [photo](https://unsplash.com/photos/snow-covered-trees-during-daytime-6OrFlZlUpVw)
+- [Kouji Tsuru](https://unsplash.com/@pafuxu) — [photo](https://unsplash.com/photos/a-snow-covered-bench-with-a-bridge-in-the-background-d3-5SHnKa-w)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/wooden-bridge-over-a-stream-in-foggy-forest-hDLsbHVX6Ns)
+- [Anastase Maragos](https://unsplash.com/@visualsbyroyalz) — [photo](https://unsplash.com/photos/a-long-wooden-pier-covered-in-snow-with-mountains-in-the-background-CkGPdYBL5T0)
+- [Anastase Maragos](https://unsplash.com/@visualsbyroyalz) — [photo](https://unsplash.com/photos/a-pier-covered-in-snow-next-to-a-body-of-water-ocd6yEG_bxY)
+- [Giorgio Trovato](https://unsplash.com/@giorgiotrovato) — [photo](https://unsplash.com/photos/river-between-trees-during-daytime-oxjgpeFvsPE)

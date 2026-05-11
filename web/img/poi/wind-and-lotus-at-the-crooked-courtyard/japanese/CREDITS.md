@@ -1,0 +1,25 @@
+# Wind and Lotus at the Crooked Courtyard — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-couple-of-men-standing-next-to-each-other-4fd0Fqq4zPA)
+- [Raiday Zhang](https://unsplash.com/@raidayzhang) — [photo](https://unsplash.com/photos/a-garden-filled-with-lots-of-different-types-of-flowers-jBWgkH6HQso)
+- [烧不酥在上海 老的](https://unsplash.com/@geraltyichen) — [photo](https://unsplash.com/photos/a-woman-holding-an-umbrella-in-front-of-a-garden-b3_g-4rEF3E)
+- [Ivy Dao](https://unsplash.com/@peachlatte) — [photo](https://unsplash.com/photos/a-courtyard-with-a-lot-of-plants-and-trees--LEjJepIoF4)
+- [Colin + Meg](https://unsplash.com/@colinandmeg) — [photo](https://unsplash.com/photos/an-open-door-leading-into-a-building-at-night-7Vuz8NZmPB0)
+- [毛 祥](https://unsplash.com/@mw960367054) — [photo](https://unsplash.com/photos/a-building-that-has-a-bunch-of-flowers-in-front-of-it-YhT9dqmFmqU)
+- [Akira](https://unsplash.com/@akira_b) — [photo](https://unsplash.com/photos/a-snail-on-a-leaf-h-K6J1zsD5A)
+- [Leongsan](https://unsplash.com/@leongsan) — [photo](https://unsplash.com/photos/an-intimate-japanese-garden-is-quietly-nestled-69lK2DDUHHE)
+- [ZHENYU LUO](https://unsplash.com/@mrnuclear) — [photo](https://unsplash.com/photos/a-group-of-umbrellas-sitting-on-top-of-a-roof-EZQN1n4mvGA)
+- [Anne Laure P](https://unsplash.com/@byannel) — [photo](https://unsplash.com/photos/a-view-of-a-garden-from-inside-a-building-4ZBGwst-fCU)
+- [Leongsan](https://unsplash.com/@leongsan) — [photo](https://unsplash.com/photos/traditional-japanese-temple-entrance-with-trees-and-foliage--wwY8UDzjWs)
+- [Beatriz Martinez](https://unsplash.com/@ameyallie) — [photo](https://unsplash.com/photos/wind-chimes-hang-above-a-lotus-pond-Hfsfqa--msE)
+- [Colin + Meg](https://unsplash.com/@colinandmeg) — [photo](https://unsplash.com/photos/a-couple-of-people-standing-outside-of-a-building-unFs7OXeX7o)
+- [Nguyễn Hiệp](https://unsplash.com/@hieptltb97) — [photo](https://unsplash.com/photos/a-man-standing-in-a-garden-next-to-a-building-6POP58XOz38)
+- [Kouji Tsuru](https://unsplash.com/@pafuxu) — [photo](https://unsplash.com/photos/a-pink-flower-in-a-garden-86rTBFs31SI)
+- [Anatoly Maltsev](https://unsplash.com/@maltsev_) — [photo](https://unsplash.com/photos/red-umbrellas-shade-a-staircase-surrounded-by-plants-kiqKmMzbBn4)
+- [Colin + Meg](https://unsplash.com/@colinandmeg) — [photo](https://unsplash.com/photos/a-woman-standing-in-front-of-a-window-in-a-room-hJQF6g0luUs)
+- [Ivy Dao](https://unsplash.com/@peachlatte) — [photo](https://unsplash.com/photos/a-woman-standing-in-front-of-a-building-with-lots-of-plants-NdvekdBe89M)
+- [Rex Li](https://unsplash.com/@rsl777) — [photo](https://unsplash.com/photos/a-fire-hydrant-sitting-on-top-of-a-wooden-deck-mmy0h-GeLJE)
+- [Jouwen Wang](https://unsplash.com/@sodacheese) — [photo](https://unsplash.com/photos/green-plant-on-black-concrete-floor-STsydiJX1yg)

@@ -1,0 +1,25 @@
+# Pagoda of Cishou Temple — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-tall-wooden-building-with-stairs-leading-up-to-it-KQmt20GIn7A)
+- [Shirley Wang](https://unsplash.com/@shirley_ff) — [photo](https://unsplash.com/photos/brown-and-gray-temple-under-white-clouds-during-daytime-oosNeLnpH-U)
+- [Young Kane](https://unsplash.com/@kaneyoung) — [photo](https://unsplash.com/photos/a-tall-red-pagoda-sitting-next-to-a-tall-building-U6cMMmciHqw)
+- [Daulet Rakhymzhan](https://unsplash.com/@dauletrk) — [photo](https://unsplash.com/photos/a-traditional-japanese-temple-rises-in-the-garden--0T4ynyDJfs)
+- [Polina Kuzovkova](https://unsplash.com/@p_kuzovkova) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-lot-of-decorations-on-top-of-it-ptGrGOa_zEk)
+- [Dana Andreea Gheorghe](https://unsplash.com/@dana_andreea) — [photo](https://unsplash.com/photos/a-tall-building-with-red-lights-in-front-of-it-dJtuB0V6Qtc)
+- [Peter Rong](https://unsplash.com/@longmao) — [photo](https://unsplash.com/photos/a-red-building-with-a-green-roof-_X-GTBQd-Nc)
+- [Harman Tatla](https://unsplash.com/@harmant) — [photo](https://unsplash.com/photos/a-tall-multi-tiered-pagoda-stands-beside-a-temple-SwmAkO2WQ6c)
+- [Curated Lifestyle](https://unsplash.com/@curatedlifestyle) — [photo](https://unsplash.com/photos/beautiful-view-of-buddha-tooth-relic-temple-in-singapore-NBBx7CVdQaE)
+- [Jiwoo Cha](https://unsplash.com/@aurum29) — [photo](https://unsplash.com/photos/a-bright-red-pagoda-stands-proudly-under-a-cloudy-sky-CppsWdQea68)
+- [Yuri Medeiros](https://unsplash.com/@yuri_medeiros) — [photo](https://unsplash.com/photos/a-large-white-building-with-a-red-balcony-GErd_c74ygk)
+- [Jakub Tomasik](https://unsplash.com/@jakubeq) — [photo](https://unsplash.com/photos/traditional-japanese-pagoda-and-temple-buildings-under-blue-sky-VpDJgkSsEhQ)
+- [JSB Co.](https://unsplash.com/@jsbco) — [photo](https://unsplash.com/photos/a-white-building-with-a-red-fence-around-it-oJxUdvW2cwQ)
+- [JUNHØ](https://unsplash.com/@junhochak) — [photo](https://unsplash.com/photos/a-tall-building-with-a-lot-of-trees-in-front-of-it-FlOVSG0xWnE)
+- [Taiki Ishikawa](https://unsplash.com/@fl__q) — [photo](https://unsplash.com/photos/a-tall-building-sitting-on-top-of-a-lush-green-hillside-9ljhK9vPPB0)
+- [Ryuno](https://unsplash.com/@ryuno_2574) — [photo](https://unsplash.com/photos/the-roof-of-a-building-with-a-sky-in-the-background--SPzTYttNl0)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/the-buddhist-temple-of-hohhot-five-pagoda-temple-in-inner-mongolia-hohhot-china-42eyOHoYULI)
+- [enkuu smile](https://unsplash.com/@enkuu) — [photo](https://unsplash.com/photos/brown-and-black-pagoda-temple-LzMW_-v2OfY)
+- [Ramon Kagie](https://unsplash.com/@ramonkagie) — [photo](https://unsplash.com/photos/red-and-white-wooden-house-Q9yNNTPniJ8)
+- [Taraqur Rahman](https://unsplash.com/@tqrahman) — [photo](https://unsplash.com/photos/vibrant-japanese-temple-stands-tall-under-blue-sky-74PAddTeOVs)

@@ -1,0 +1,25 @@
+# Site Where Forty-three Revolutionaries Had Martyred — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [A Chosen Soul](https://unsplash.com/@a_chosensoul) — [photo](https://unsplash.com/photos/a-satellite-image-of-a-large-body-of-water-f14lggUbytE)
+- [Lucas Santos](https://unsplash.com/@_staticvoid) — [photo](https://unsplash.com/photos/grayscale-photo-of-man-in-black-and-white-shirt-Xx1OQBR3mns)
+- [David Clode](https://unsplash.com/@davidclode) — [photo](https://unsplash.com/photos/a-piece-of-paper-with-writing-on-it-OS9da6MlDQA)
+- [Antonio Fadel](https://unsplash.com/@fi_fa) — [photo](https://unsplash.com/photos/a-brick-building-with-a-sign-on-the-side-of-it-ktiLxnR3Pfs)
+- [Planet Volumes](https://unsplash.com/@planetvolumes) — [photo](https://unsplash.com/photos/a-japanese-flag-flying-in-the-wind-on-a-cloudy-day-8NBNOg_dqfQ)
+- [TJ Bruder](https://unsplash.com/@tokyowildcat) — [photo](https://unsplash.com/photos/people-walking-in-a-plaza-ZC-u_Lu2sGQ)
+- [The New York Public Library](https://unsplash.com/@nypl) — [photo](https://unsplash.com/photos/figures-in-traditional-japanese-attire-near-a-building-XjSCuYYOhzI)
+- [Ryo Harianto](https://unsplash.com/@ryohariantoo) — [photo](https://unsplash.com/photos/two-bronze-statues-of-men-stand-before-a-stone-monument-upMWh3TdikA)
+- [Michael Moloney](https://unsplash.com/@mjmolo) — [photo](https://unsplash.com/photos/a-quiet-street-with-buildings-and-a-person-bm1QxomvTbs)
+- [David Clode](https://unsplash.com/@davidclode) — [photo](https://unsplash.com/photos/a-piece-of-paper-with-writing-on-it-DuZVWJq9L0U)
+- [Walter O](https://unsplash.com/@holawalterlee) — [photo](https://unsplash.com/photos/stone-monument-with-japanese-inscriptions-in-green-foliage-odNfoEI-iSE)
+- [Christopher Stites](https://unsplash.com/@christopherstites) — [photo](https://unsplash.com/photos/pedestrians-only-sign-in-japanese-_lNeNrkJwcQ)
+- [Curated Lifestyle](https://unsplash.com/@curatedlifestyle) — [photo](https://unsplash.com/photos/hand-holding-variation-of-object-IW6ghwA361g)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-landscape-with-people-and-animals-ueWnHtoaplI)
+- [MAO YUQING](https://unsplash.com/@mussaoimao) — [photo](https://unsplash.com/photos/three-kanji-script-signs-oMU79ne5z_Q)
+- [Maxim Makarov](https://unsplash.com/@makarovio) — [photo](https://unsplash.com/photos/a-statue-of-a-man-standing-in-front-of-a-building-bjp6ksTI2w0)
+- [Levi Meir Clancy](https://unsplash.com/@levimeirclancy) — [photo](https://unsplash.com/photos/an-aerial-view-of-a-city-with-a-river-running-through-it-nd61VCG-KlM)
+- [Haberdoedas](https://unsplash.com/@haberdoedas) — [photo](https://unsplash.com/photos/stone-monument-with-japanese-inscriptions-in-a-garden-5G-8el8LNww)
+- [Cuvii](https://unsplash.com/@cuvii) — [photo](https://unsplash.com/photos/people-at-a-japanese-shrine-with-white-prayer-charms-gN3kKvgtU5g)
+- [Krisna Yuda](https://unsplash.com/@krisnayuda) — [photo](https://unsplash.com/photos/a-large-stone-obelisk-sitting-in-the-middle-of-a-park-KsvywR990Mk)

@@ -39,9 +39,11 @@ enum SceneMode: String, Codable, CaseIterable, Sendable, Hashable {
 
     var allowsZeroPeople: Bool { self == .scenery }
 
-    /// Light-shadow mode wants real-world sun data so we can plan rim-light /
-    /// silhouette shots. UI uses this to ask for location permission upfront.
-    var needsSunInfo: Bool { self == .lightShadow }
+    /// Real-world sun + weather data powers the style feasibility check
+    /// (e.g. "clean bright" needs >5000K + ev>=0; warn user up front if
+    /// their environment can't pull off the chosen style). All scene modes
+    /// benefit, so this is `true` everywhere now. Permission stays opt-in.
+    var needsSunInfo: Bool { true }
 }
 
 enum Lighting: String, Codable, Sendable, Hashable {
@@ -110,6 +112,53 @@ struct FrameMeta: Codable, Sendable, Hashable {
     let meanLuma: Double?
     let faceHit: Bool?
 
+    /// v8 semantic signals (Phase 2 — A 路线). All optional. iOS fills
+    /// these from Vision (`VNDetectHumanRectangles` / `VNGenerateAttention
+    /// BasedSaliency` / `VNDetectHorizon`); web from MediaPipe Tasks +
+    /// canvas. Backend treats nil as "no signal" not "negative signal".
+    let personBox: [Double]?           // [x, y, w, h] in 0..1
+    let saliencyQuadrant: String?      // top_left | top_right | bottom_left | bottom_right | center
+    let horizonTiltDeg: Double?        // -90..90, + = right side higher
+    /// v9 Phase 3 — three-layer composition signals. Drive
+    /// FOREGROUND DOCTRINE in the prompt builder. Both nullable per
+    /// frame; backend treats absence as "no client signal".
+    let foregroundCandidates: [ForegroundCandidate]?
+    let depthLayers: DepthLayers?
+    /// v10 — subject pose anchor points used by scene_aggregate to
+    /// recommend lens (distance-based) and tilt (crouch/lift hints).
+    let poseNoseY: Double?
+    let poseAnkleY: Double?
+    /// v10.1 — face bbox height / frame height. Sharper distance
+    /// estimate than body ratio for tight portraits.
+    let faceHeightRatio: Double?
+    /// v10.1 — horizon midpoint y in [0,1] top-left coords.
+    let horizonY: Double?
+    /// v10.2 — multi-person disambiguation: how many people detected
+    /// in this frame, and which one the client chose as the subject.
+    let personCount: Int?
+    let subjectBox: [Double]?
+    /// v11 — color science / lighting stats per frame.
+    let rgbMean: [Double]?
+    let lumaP05: Double?
+    let lumaP95: Double?
+    let highlightClipPct: Double?
+    let shadowClipPct: Double?
+    let saturationMean: Double?
+    /// v12 — EXIF-derived camera intrinsics for accurate distance/lens
+    /// reasoning. Read from the captured CGImage's metadata when
+    /// available; nil on Web (no EXIF for canvas captures).
+    let focalLengthMm: Double?
+    let focalLength35mmEq: Double?
+    let sensorWidthMm: Double?
+    /// v12 — horizon triangulation + fine-grained pose.
+    let horizonYVision: Double?
+    let horizonYGravity: Double?
+    let skyMaskTopPct: Double?
+    let shoulderTiltDeg: Double?
+    let hipOffsetX: Double?
+    let chinForward: Double?
+    let spineCurve: Double?
+
     init(
         index: Int,
         azimuthDeg: Double,
@@ -119,7 +168,34 @@ struct FrameMeta: Codable, Sendable, Hashable {
         ambientLux: Double? = nil,
         blurScore: Double? = nil,
         meanLuma: Double? = nil,
-        faceHit: Bool? = nil
+        faceHit: Bool? = nil,
+        personBox: [Double]? = nil,
+        saliencyQuadrant: String? = nil,
+        horizonTiltDeg: Double? = nil,
+        foregroundCandidates: [ForegroundCandidate]? = nil,
+        depthLayers: DepthLayers? = nil,
+        poseNoseY: Double? = nil,
+        poseAnkleY: Double? = nil,
+        faceHeightRatio: Double? = nil,
+        horizonY: Double? = nil,
+        personCount: Int? = nil,
+        subjectBox: [Double]? = nil,
+        rgbMean: [Double]? = nil,
+        lumaP05: Double? = nil,
+        lumaP95: Double? = nil,
+        highlightClipPct: Double? = nil,
+        shadowClipPct: Double? = nil,
+        saturationMean: Double? = nil,
+        focalLengthMm: Double? = nil,
+        focalLength35mmEq: Double? = nil,
+        sensorWidthMm: Double? = nil,
+        horizonYVision: Double? = nil,
+        horizonYGravity: Double? = nil,
+        skyMaskTopPct: Double? = nil,
+        shoulderTiltDeg: Double? = nil,
+        hipOffsetX: Double? = nil,
+        chinForward: Double? = nil,
+        spineCurve: Double? = nil
     ) {
         self.index = index
         self.azimuthDeg = azimuthDeg
@@ -130,6 +206,33 @@ struct FrameMeta: Codable, Sendable, Hashable {
         self.blurScore = blurScore
         self.meanLuma = meanLuma
         self.faceHit = faceHit
+        self.personBox = personBox
+        self.saliencyQuadrant = saliencyQuadrant
+        self.horizonTiltDeg = horizonTiltDeg
+        self.foregroundCandidates = foregroundCandidates
+        self.depthLayers = depthLayers
+        self.poseNoseY = poseNoseY
+        self.poseAnkleY = poseAnkleY
+        self.faceHeightRatio = faceHeightRatio
+        self.horizonY = horizonY
+        self.personCount = personCount
+        self.subjectBox = subjectBox
+        self.rgbMean = rgbMean
+        self.lumaP05 = lumaP05
+        self.lumaP95 = lumaP95
+        self.highlightClipPct = highlightClipPct
+        self.shadowClipPct = shadowClipPct
+        self.saturationMean = saturationMean
+        self.focalLengthMm = focalLengthMm
+        self.focalLength35mmEq = focalLength35mmEq
+        self.sensorWidthMm = sensorWidthMm
+        self.horizonYVision = horizonYVision
+        self.horizonYGravity = horizonYGravity
+        self.skyMaskTopPct = skyMaskTopPct
+        self.shoulderTiltDeg = shoulderTiltDeg
+        self.hipOffsetX = hipOffsetX
+        self.chinForward = chinForward
+        self.spineCurve = spineCurve
     }
 
     enum CodingKeys: String, CodingKey {
@@ -142,6 +245,65 @@ struct FrameMeta: Codable, Sendable, Hashable {
         case blurScore = "blur_score"
         case meanLuma = "mean_luma"
         case faceHit = "face_hit"
+        case personBox = "person_box"
+        case saliencyQuadrant = "saliency_quadrant"
+        case horizonTiltDeg = "horizon_tilt_deg"
+        case foregroundCandidates = "foreground_candidates"
+        case depthLayers = "depth_layers"
+        case poseNoseY  = "pose_nose_y"
+        case poseAnkleY = "pose_ankle_y"
+        case faceHeightRatio = "face_height_ratio"
+        case horizonY = "horizon_y"
+        case personCount = "person_count"
+        case subjectBox  = "subject_box"
+        case rgbMean = "rgb_mean"
+        case lumaP05 = "luma_p05"
+        case lumaP95 = "luma_p95"
+        case highlightClipPct = "highlight_clip_pct"
+        case shadowClipPct    = "shadow_clip_pct"
+        case saturationMean   = "saturation_mean"
+        case focalLengthMm    = "focal_length_mm"
+        case focalLength35mmEq = "focal_length_35mm_eq"
+        case sensorWidthMm    = "sensor_width_mm"
+        case horizonYVision   = "horizon_y_vision"
+        case horizonYGravity  = "horizon_y_gravity"
+        case skyMaskTopPct    = "sky_mask_top_pct"
+        case shoulderTiltDeg  = "shoulder_tilt_deg"
+        case hipOffsetX       = "hip_offset_x"
+        case chinForward      = "chin_forward"
+        case spineCurve       = "spine_curve"
+    }
+}
+
+/// Mirrors backend ``ForegroundCandidate``. iOS clients fill from
+/// VNGenerateObjectnessBasedSaliency + VNClassifyImage (or LiDAR-aware
+/// AVDepthData → see ``DepthFusion``).
+struct ForegroundCandidate: Codable, Sendable, Hashable {
+    let label: String                 // potted_plant / tree / fence / ...
+    let box: [Double]                 // [x, y, w, h] in 0..1, top-left origin
+    let confidence: Double?
+    let estimatedDistanceM: Double?
+
+    enum CodingKeys: String, CodingKey {
+        case label, box, confidence
+        case estimatedDistanceM = "estimated_distance_m"
+    }
+}
+
+/// Mirrors backend ``DepthLayers``. iOS clients fill from MiDaS CoreML
+/// (``midas_ios``) or ``AVCaptureDepthDataOutput`` (``avdepth_lidar`` /
+/// ``avdepth_dual``).
+struct DepthLayers: Codable, Sendable, Hashable {
+    let nearPct: Double               // < ~1.5m: true foreground territory
+    let midPct: Double                // ~1.5-5m: subject zone
+    let farPct: Double                // > ~5m: environment / sky
+    let source: String                // midas_ios | avdepth_lidar | avdepth_dual
+
+    enum CodingKeys: String, CodingKey {
+        case nearPct = "near_pct"
+        case midPct  = "mid_pct"
+        case farPct  = "far_pct"
+        case source
     }
 }
 
@@ -163,6 +325,81 @@ struct GeoFix: Codable, Sendable, Hashable {
     }
 }
 
+/// Mirrors backend ``WalkPose``. One sample from the optional walk
+/// segment, in local ENU metres relative to the user's initial GeoFix.
+struct WalkPose: Codable, Sendable, Hashable {
+    let tMs: Int
+    let x: Double
+    let y: Double
+    let z: Double
+    let qx: Double
+    let qy: Double
+    let qz: Double
+    let qw: Double
+
+    enum CodingKeys: String, CodingKey {
+        case tMs = "t_ms"
+        case x, y, z, qx, qy, qz, qw
+    }
+
+    init(tMs: Int, x: Double, y: Double, z: Double,
+         qx: Double = 0, qy: Double = 0, qz: Double = 0, qw: Double = 1) {
+        self.tMs = tMs; self.x = x; self.y = y; self.z = z
+        self.qx = qx; self.qy = qy; self.qz = qz; self.qw = qw
+    }
+}
+
+/// Mirrors backend ``WalkSegment``. Filled when the user opts into the
+/// 10-20 s walk after the standing pan; iOS uses ARKit ``ARFrame.camera.transform``
+/// for true VIO, so ``source`` is always ``.arkit`` here.
+struct WalkSegment: Codable, Sendable, Hashable {
+    enum Source: String, Codable, Sendable, Hashable {
+        case arkit, webxr, devicemotion
+    }
+    let source: Source
+    let initialHeadingDeg: Double?
+    let poses: [WalkPose]
+    let sparsePoints: [[Double]]?
+    /// P2-12 — symmetric with the Web client: even on iOS we can
+    /// optionally ship an extra GPS-track + 1Hz keyframes that the
+    /// backend uses to rectify VIO drift over very long walks.
+    let gpsTrack: [GpsSample]?
+    let keyframesB64: [WalkKeyframe]?
+
+    enum CodingKeys: String, CodingKey {
+        case source
+        case initialHeadingDeg = "initial_heading_deg"
+        case poses
+        case sparsePoints = "sparse_points"
+        case gpsTrack = "gps_track"
+        case keyframesB64 = "keyframes_b64"
+    }
+}
+
+struct GpsSample: Codable, Sendable, Hashable {
+    let tMs: Int
+    let lat: Double
+    let lon: Double
+    let accuracyM: Double?
+
+    enum CodingKeys: String, CodingKey {
+        case tMs = "t_ms"
+        case lat, lon
+        case accuracyM = "accuracy_m"
+    }
+}
+
+struct WalkKeyframe: Codable, Sendable, Hashable {
+    let tMs: Int
+    /// data:image/jpeg;base64,... payload kept tiny by sampling at 1 Hz.
+    let dataUrl: String
+
+    enum CodingKeys: String, CodingKey {
+        case tMs = "t_ms"
+        case dataUrl
+    }
+}
+
 struct CaptureMeta: Codable, Sendable, Hashable {
     let personCount: Int
     let qualityMode: QualityMode
@@ -170,6 +407,7 @@ struct CaptureMeta: Codable, Sendable, Hashable {
     let styleKeywords: [String]
     let frameMeta: [FrameMeta]
     let geo: GeoFix?
+    let walkSegment: WalkSegment?
 
     init(
         personCount: Int,
@@ -177,7 +415,8 @@ struct CaptureMeta: Codable, Sendable, Hashable {
         sceneMode: SceneMode = .portrait,
         styleKeywords: [String],
         frameMeta: [FrameMeta],
-        geo: GeoFix? = nil
+        geo: GeoFix? = nil,
+        walkSegment: WalkSegment? = nil
     ) {
         self.personCount = personCount
         self.qualityMode = qualityMode
@@ -185,6 +424,7 @@ struct CaptureMeta: Codable, Sendable, Hashable {
         self.styleKeywords = styleKeywords
         self.frameMeta = frameMeta
         self.geo = geo
+        self.walkSegment = walkSegment
     }
 
     enum CodingKeys: String, CodingKey {
@@ -194,6 +434,7 @@ struct CaptureMeta: Codable, Sendable, Hashable {
         case styleKeywords = "style_keywords"
         case frameMeta = "frame_meta"
         case geo
+        case walkSegment = "walk_segment"
     }
 
     init(from decoder: Decoder) throws {
@@ -204,6 +445,7 @@ struct CaptureMeta: Codable, Sendable, Hashable {
         self.styleKeywords = try c.decodeIfPresent([String].self, forKey: .styleKeywords) ?? []
         self.frameMeta = try c.decode([FrameMeta].self, forKey: .frameMeta)
         self.geo = try c.decodeIfPresent(GeoFix.self, forKey: .geo)
+        self.walkSegment = try c.decodeIfPresent(WalkSegment.self, forKey: .walkSegment)
     }
 }
 
@@ -340,6 +582,111 @@ struct Angle: Codable, Sendable, Hashable {
         case pitchDeg = "pitch_deg"
         case distanceM = "distance_m"
         case heightHint = "height_hint"
+    }
+}
+
+/// Mirrors backend ``ShotPosition``. ``kind == .relative`` carries the
+/// legacy polar fields (azimuth + distance) anchored at the user; the
+/// shot card renders a compass arrow. ``kind == .absolute`` carries
+/// world coordinates plus walk distance — the card renders a MapKit
+/// pin instead.
+struct ShotPosition: Codable, Sendable, Hashable {
+    enum Kind: String, Codable, Sendable, Hashable {
+        case relative, absolute, indoor
+    }
+    enum Source: String, Codable, Sendable, Hashable {
+        case llmRelative = "llm_relative"
+        case poiKb       = "poi_kb"
+        case poiOnline   = "poi_online"
+        case poiUgc      = "poi_ugc"
+        case poiIndoor   = "poi_indoor"
+        case sfmIos      = "sfm_ios"
+        case sfmWeb      = "sfm_web"
+        case triangulated = "triangulated"
+        case recon3d     = "recon3d"
+    }
+    let kind: Kind
+    // relative
+    let azimuthDeg: Double?
+    let distanceM: Double?
+    let pitchDeg: Double?
+    let heightHint: HeightHint?
+    // absolute
+    let lat: Double?
+    let lon: Double?
+    let heightAboveGroundM: Double?
+    let facingDeg: Double?
+    let walkDistanceM: Double?
+    let bearingFromUserDeg: Double?
+    let estWalkMinutes: Double?
+    // common
+    let source: Source
+    let confidence: Double
+    let walkabilityNoteZh: String?
+    let nameZh: String?
+    let indoor: IndoorContext?
+    let walkRoute: WalkRoute?
+
+    enum CodingKeys: String, CodingKey {
+        case kind
+        case azimuthDeg            = "azimuth_deg"
+        case distanceM             = "distance_m"
+        case pitchDeg              = "pitch_deg"
+        case heightHint            = "height_hint"
+        case lat, lon
+        case heightAboveGroundM    = "height_above_ground_m"
+        case facingDeg             = "facing_deg"
+        case walkDistanceM         = "walk_distance_m"
+        case bearingFromUserDeg    = "bearing_from_user_deg"
+        case estWalkMinutes        = "est_walk_minutes"
+        case source, confidence
+        case walkabilityNoteZh     = "walkability_note_zh"
+        case nameZh                = "name_zh"
+        case indoor
+        case walkRoute             = "walk_route"
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.kind                = try c.decode(Kind.self, forKey: .kind)
+        self.azimuthDeg          = try c.decodeIfPresent(Double.self, forKey: .azimuthDeg)
+        self.distanceM           = try c.decodeIfPresent(Double.self, forKey: .distanceM)
+        self.pitchDeg            = try c.decodeIfPresent(Double.self, forKey: .pitchDeg)
+        self.heightHint          = try c.decodeIfPresent(HeightHint.self, forKey: .heightHint)
+        self.lat                 = try c.decodeIfPresent(Double.self, forKey: .lat)
+        self.lon                 = try c.decodeIfPresent(Double.self, forKey: .lon)
+        self.heightAboveGroundM  = try c.decodeIfPresent(Double.self, forKey: .heightAboveGroundM)
+        self.facingDeg           = try c.decodeIfPresent(Double.self, forKey: .facingDeg)
+        self.walkDistanceM       = try c.decodeIfPresent(Double.self, forKey: .walkDistanceM)
+        self.bearingFromUserDeg  = try c.decodeIfPresent(Double.self, forKey: .bearingFromUserDeg)
+        self.estWalkMinutes      = try c.decodeIfPresent(Double.self, forKey: .estWalkMinutes)
+        self.source              = (try? c.decode(Source.self, forKey: .source)) ?? .llmRelative
+        self.confidence          = try c.decodeIfPresent(Double.self, forKey: .confidence) ?? 0.5
+        self.walkabilityNoteZh   = try c.decodeIfPresent(String.self, forKey: .walkabilityNoteZh)
+        self.nameZh              = try c.decodeIfPresent(String.self, forKey: .nameZh)
+        self.indoor              = try c.decodeIfPresent(IndoorContext.self, forKey: .indoor)
+        self.walkRoute           = try c.decodeIfPresent(WalkRoute.self, forKey: .walkRoute)
+    }
+
+    /// Convenience: a one-line label for the shot card.
+    var summaryZh: String {
+        switch kind {
+        case .relative:
+            let d = distanceM.map { String(format: "%.1f m", $0) } ?? "—"
+            return "原地附近 · \(d)"
+        case .absolute:
+            if let walk = walkDistanceM {
+                let mins = estWalkMinutes ?? (walk / 80.0)
+                return "走 \(Int(walk.rounded())) m · ≈ \(Int(mins.rounded())) 分钟"
+            }
+            return nameZh ?? "外部机位"
+        case .indoor:
+            if let s = indoor {
+                let parts = [s.buildingNameZh, s.floor, s.hotspotLabelZh].compactMap { $0 }
+                return parts.joined(separator: " · ")
+            }
+            return nameZh ?? "室内热点"
+        }
     }
 }
 
@@ -595,6 +942,21 @@ struct ShotRecommendation: Codable, Sendable, Identifiable, Hashable {
     /// ranking when the user toggles "按综合分排序".
     let overallScore: Double?
     let iphoneTips: [String]
+    /// Per-shot style intent + compliance summary (filled by backend
+    /// after the LLM returns). Nil when user didn't pick a style on
+    /// Step 3. UI renders a "风格 X · 推荐 Y · 实际 Z" badge when set.
+    let styleMatch: ShotStyleMatch?
+    /// Three-layer composition strategy (前景/中景/背景). Tells the user
+    /// what kind of foreground to use, where to find it (azimuth +
+    /// quadrant), how to physically nudge themselves to bring it into
+    /// frame. Mirrors backend ``ShotForeground``. Nil when the scene
+    /// has no usable foreground (e.g. open beach with nothing within
+    /// 1.5m); rationale must explicitly say so in that case.
+    let foreground: ShotForeground?
+    /// v13 — unified shot-position descriptor. ``relative`` keeps parity
+    /// with ``angle``; ``absolute`` carries POI / SfM derived world coords
+    /// so the result UI can render a map pin + walk distance.
+    let position: ShotPosition?
 
     enum CodingKeys: String, CodingKey {
         case id, title, angle, composition, camera, poses, rationale, confidence
@@ -606,6 +968,9 @@ struct ShotRecommendation: Codable, Sendable, Identifiable, Hashable {
         case weakestAxis   = "weakest_axis"
         case overallScore  = "overall_score"
         case iphoneTips    = "iphone_tips"
+        case styleMatch    = "style_match"
+        case foreground
+        case position
     }
 
     init(from decoder: Decoder) throws {
@@ -626,6 +991,102 @@ struct ShotRecommendation: Codable, Sendable, Identifiable, Hashable {
         self.weakestAxis   = try c.decodeIfPresent(String.self, forKey: .weakestAxis)
         self.overallScore  = try c.decodeIfPresent(Double.self, forKey: .overallScore)
         self.iphoneTips    = try c.decodeIfPresent([String].self, forKey: .iphoneTips) ?? []
+        self.styleMatch    = try c.decodeIfPresent(ShotStyleMatch.self, forKey: .styleMatch)
+        self.foreground    = try c.decodeIfPresent(ShotForeground.self, forKey: .foreground)
+        self.position      = try c.decodeIfPresent(ShotPosition.self, forKey: .position)
+    }
+}
+
+/// Mirrors backend ``ShotForeground``. The result UI uses ``layer`` as
+/// a localized chip ("散景前景"/"自然画框"/"引导线"/"无可用前景") and
+/// ``suggestionZh`` as a 1-2 line actionable nudge. ``sourceAzimuthDeg``
+/// can be used to highlight the matching keyframe thumbnail.
+struct ShotForeground: Codable, Sendable, Hashable {
+    let layer: String
+    let suggestionZh: String
+    let sourceAzimuthDeg: Double?
+    let canvasQuadrant: String?
+    let estimatedDistanceM: Double?
+
+    enum CodingKeys: String, CodingKey {
+        case layer
+        case suggestionZh       = "suggestion_zh"
+        case sourceAzimuthDeg   = "source_azimuth_deg"
+        case canvasQuadrant     = "canvas_quadrant"
+        case estimatedDistanceM = "estimated_distance_m"
+    }
+
+    /// Localized chip label for the result card.
+    var layerLabelZh: String {
+        switch layer {
+        case "bokeh_plant":    return "散景前景"
+        case "natural_frame":  return "自然画框"
+        case "leading_line":   return "引导线"
+        case "none":           return "无可用前景"
+        default:               return layer
+        }
+    }
+}
+
+/// Mirrors backend ``ShotStyleMatch``. Surfaces in the result UI as a
+/// "风格 X · 推荐 Y · 实际 Z ✓/⚠" panel so the user can verify the AI
+/// actually tuned each shot toward their chosen style.
+struct ShotStyleMatch: Codable, Sendable, Hashable {
+    let styleId: String
+    let labelZh: String
+    let whiteBalanceKRange: [Int]            // [lo, hi]
+    let focalLengthMmRange: [Double]
+    let evRange: [Double]
+    let inRange: Bool
+    /// When ``inRange`` is false, list of {knob, from, to} dicts. Decoded
+    /// loosely as ``[String: AnyCodable]``-shaped dictionaries — we just
+    /// pass them through to the UI's "what we tweaked" detail row.
+    let fixes: [[String: StyleMatchFixValue]]
+
+    enum CodingKeys: String, CodingKey {
+        case styleId            = "style_id"
+        case labelZh            = "label_zh"
+        case whiteBalanceKRange = "white_balance_k_range"
+        case focalLengthMmRange = "focal_length_mm_range"
+        case evRange            = "ev_range"
+        case inRange            = "in_range"
+        case fixes
+    }
+}
+
+/// One value in a ShotStyleMatch.fixes record. Backend may emit ints,
+/// doubles, strings, or nulls in the same column (knob/from/to), so we
+/// box into an enum that knows how to lossily Stringify itself for UI.
+enum StyleMatchFixValue: Codable, Sendable, Hashable {
+    case string(String)
+    case number(Double)
+    case null
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.singleValueContainer()
+        if c.decodeNil() { self = .null; return }
+        if let s = try? c.decode(String.self) { self = .string(s); return }
+        if let d = try? c.decode(Double.self) { self = .number(d); return }
+        if let i = try? c.decode(Int.self) { self = .number(Double(i)); return }
+        self = .null
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        switch self {
+        case .string(let s): try c.encode(s)
+        case .number(let d): try c.encode(d)
+        case .null: try c.encodeNil()
+        }
+    }
+
+    var displayString: String {
+        switch self {
+        case .string(let s): return s
+        case .number(let d): return d.truncatingRemainder(dividingBy: 1) == 0
+            ? String(Int(d)) : String(format: "%.1f", d)
+        case .null: return "—"
+        }
     }
 }
 
@@ -776,6 +1237,9 @@ struct AnalyzeResponse: Codable, Sendable, Hashable {
     let styleInspiration: StyleInspiration?
     let environment: EnvironmentSnapshot?
     let lightRecaptureHint: LightRecaptureHint?
+    let debug: AnalyzeDebug?
+    let timeRecommendation: TimeRecommendation?
+    let referenceFingerprints: [ReferenceFingerprint]?
 
     enum CodingKeys: String, CodingKey {
         case scene
@@ -785,5 +1249,281 @@ struct AnalyzeResponse: Codable, Sendable, Hashable {
         case styleInspiration = "style_inspiration"
         case environment
         case lightRecaptureHint = "light_recapture_hint"
+        case debug
+        case timeRecommendation = "time_recommendation"
+        case referenceFingerprints = "reference_fingerprints"
     }
 }
+
+/// Subset of backend `response.debug` that the UI actually renders.
+/// Decoded loosely so adding new debug keys server-side never breaks
+/// the iOS client.
+struct AnalyzeDebug: Codable, Sendable, Hashable {
+    let lighting: LightingDebug?
+    let styleCompliance: StyleComplianceDebug?
+    let poseHorizon: PoseHorizonDebug?
+    let composition: CompositionDebug?
+    let lightForecast: LightForecastDebug?
+
+    enum CodingKeys: String, CodingKey {
+        case lighting
+        case styleCompliance = "style_compliance"
+        case poseHorizon = "pose_horizon"
+        case composition
+        case lightForecast = "light_forecast"
+    }
+}
+
+struct CompositionDebug: Codable, Sendable, Hashable {
+    let ruleOfThirdsDist: Double?
+    let symmetry: Double?
+    let facts: [String]?
+
+    enum CodingKeys: String, CodingKey {
+        case ruleOfThirdsDist = "rule_of_thirds_dist"
+        case symmetry
+        case facts
+    }
+}
+
+struct LightForecastDebug: Codable, Sendable, Hashable {
+    let cloudIn30Min: Double?
+    let goldenHourCountdownMin: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case cloudIn30Min = "cloud_in_30min"
+        case goldenHourCountdownMin = "golden_hour_countdown_min"
+    }
+}
+
+struct PoseHorizonDebug: Codable, Sendable, Hashable {
+    let poseFacts: [String]?
+    let horizonY: Double?
+    let horizonConfidence: String?
+    let skyPresent: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case poseFacts = "pose_facts"
+        case horizonY  = "horizon_y"
+        case horizonConfidence = "horizon_confidence"
+        case skyPresent = "sky_present"
+    }
+}
+
+struct LightingDebug: Codable, Sendable, Hashable {
+    let cctK: Int?
+    let tint: Double?
+    let dynamicRange: String?
+    let lightDirection: String?
+    let highlightClipPct: Double?
+    let shadowClipPct: Double?
+    let notes: [String]?
+
+    enum CodingKeys: String, CodingKey {
+        case cctK = "cct_k"
+        case tint
+        case dynamicRange = "dynamic_range"
+        case lightDirection = "light_direction"
+        case highlightClipPct = "highlight_clip_pct"
+        case shadowClipPct    = "shadow_clip_pct"
+        case notes
+    }
+}
+
+struct StyleComplianceDebug: Codable, Sendable, Hashable {
+    let rate: Double?
+    let total: Int?
+    let clamped: Int?
+    let paletteDrift: [PaletteDriftEntry]?
+
+    enum CodingKeys: String, CodingKey {
+        case rate, total, clamped
+        case paletteDrift = "palette_drift"
+    }
+}
+
+struct PaletteDriftEntry: Codable, Sendable, Hashable {
+    let styleId: String?
+    let axis: String?
+    let message: String?
+
+    enum CodingKeys: String, CodingKey {
+        case styleId = "style_id"
+        case axis
+        case message
+    }
+}
+
+// MARK: - W2/W3/W6/W7/W9 — additional schemas
+
+struct IndoorContext: Codable, Sendable, Hashable {
+    let buildingId: String
+    let buildingNameZh: String?
+    let floor: String?
+    let hotspotLabelZh: String?
+    let imageRef: String?
+    let xFloor: Double?
+    let yFloor: Double?
+
+    enum CodingKeys: String, CodingKey {
+        case buildingId = "building_id"
+        case buildingNameZh = "building_name_zh"
+        case floor
+        case hotspotLabelZh = "hotspot_label_zh"
+        case imageRef = "image_ref"
+        case xFloor = "x_floor"
+        case yFloor = "y_floor"
+    }
+}
+
+struct WalkRouteStep: Codable, Sendable, Hashable {
+    let instructionZh: String
+    let distanceM: Double
+    let durationS: Double
+    let polyline: String?
+
+    enum CodingKeys: String, CodingKey {
+        case instructionZh = "instruction_zh"
+        case distanceM = "distance_m"
+        case durationS = "duration_s"
+        case polyline
+    }
+}
+
+struct WalkRoute: Codable, Sendable, Hashable {
+    let distanceM: Double
+    let durationMin: Double
+    let polyline: String
+    let steps: [WalkRouteStep]
+    let provider: String?
+
+    enum CodingKeys: String, CodingKey {
+        case distanceM = "distance_m"
+        case durationMin = "duration_min"
+        case polyline
+        case steps
+        case provider
+    }
+}
+
+struct ReferenceFingerprint: Codable, Sendable, Hashable, Identifiable {
+    let index: Int
+    let palette: [String]
+    let paletteWeights: [Double]
+    let contrastBand: String
+    let saturationBand: String
+    let moodKeywords: [String]
+    let embeddingDims: Int?
+    let thumbnailRef: String?
+
+    var id: Int { index }
+
+    enum CodingKeys: String, CodingKey {
+        case index
+        case palette
+        case paletteWeights = "palette_weights"
+        case contrastBand = "contrast_band"
+        case saturationBand = "saturation_band"
+        case moodKeywords = "mood_keywords"
+        case embeddingDims = "embedding_dims"
+        case thumbnailRef = "thumbnail_ref"
+    }
+}
+
+struct TimeRecommendation: Codable, Sendable, Hashable {
+    let bestHourLocal: Int
+    let score: Double
+    let sampleN: Int
+    let blurbZh: String?
+    let runnerUpHourLocal: Int?
+    let minutesUntilBest: Double?
+
+    enum CodingKeys: String, CodingKey {
+        case bestHourLocal = "best_hour_local"
+        case score
+        case sampleN = "sample_n"
+        case blurbZh = "blurb_zh"
+        case runnerUpHourLocal = "runner_up_hour_local"
+        case minutesUntilBest = "minutes_until_best"
+    }
+}
+
+struct SparseModel: Codable, Sendable, Hashable {
+    let jobId: String
+    let pointsCount: Int
+    let camerasCount: Int
+    let scaleMPerUnit: Double
+    let bboxLat: [Double]?
+    let bboxLon: [Double]?
+    let thumbnailRef: String?
+
+    enum CodingKeys: String, CodingKey {
+        case jobId = "job_id"
+        case pointsCount = "points_count"
+        case camerasCount = "cameras_count"
+        case scaleMPerUnit = "scale_m_per_unit"
+        case bboxLat = "bbox_lat"
+        case bboxLon = "bbox_lon"
+        case thumbnailRef = "thumbnail_ref"
+    }
+}
+
+struct ShotResultIn: Codable, Sendable {
+    var analyzeRequestId: String?
+    var styleKeywords: [String] = []
+    var geoLat: Double?
+    var geoLon: Double?
+    var capturedAtUtc: Date?
+    var focalLengthMm: Double?
+    var focalLength35mmEq: Double?
+    var aperture: Double?
+    var exposureTimeS: Double?
+    var iso: Int?
+    var whiteBalanceK: Int?
+    var recommendationSnapshot: [String: AnyCodable]?
+    var chosenPosition: ShotPosition?
+    var rating: Int?
+    var sceneKind: String?
+
+    enum CodingKeys: String, CodingKey {
+        case analyzeRequestId = "analyze_request_id"
+        case styleKeywords = "style_keywords"
+        case geoLat = "geo_lat"
+        case geoLon = "geo_lon"
+        case capturedAtUtc = "captured_at_utc"
+        case focalLengthMm = "focal_length_mm"
+        case focalLength35mmEq = "focal_length_35mm_eq"
+        case aperture
+        case exposureTimeS = "exposure_time_s"
+        case iso
+        case whiteBalanceK = "white_balance_k"
+        case recommendationSnapshot = "recommendation_snapshot"
+        case chosenPosition = "chosen_position"
+        case rating
+        case sceneKind = "scene_kind"
+    }
+}
+
+struct AnyCodable: Codable, Sendable {
+    let value: Any
+    init(_ value: Any) { self.value = value }
+    init(from decoder: Decoder) throws {
+        let c = try decoder.singleValueContainer()
+        if let v = try? c.decode(Bool.self) { self.value = v }
+        else if let v = try? c.decode(Int.self) { self.value = v }
+        else if let v = try? c.decode(Double.self) { self.value = v }
+        else if let v = try? c.decode(String.self) { self.value = v }
+        else { self.value = NSNull() }
+    }
+    func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        switch value {
+        case let v as Bool: try c.encode(v)
+        case let v as Int: try c.encode(v)
+        case let v as Double: try c.encode(v)
+        case let v as String: try c.encode(v)
+        default: try c.encodeNil()
+        }
+    }
+}
+

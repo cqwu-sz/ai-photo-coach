@@ -37,6 +37,7 @@ enum WizardStep: Int, CaseIterable, Identifiable {
 /// chips.
 struct RootView: View {
     @EnvironmentObject var router: AppRouter
+    @StateObject private var avatarManifest = AvatarManifest.shared
 
     // ---- Persisted preferences (same keys the legacy code used) ------------
     @AppStorage("aphc.sceneMode") private var sceneModeRaw: String = SceneMode.portrait.rawValue
@@ -170,6 +171,14 @@ struct RootView: View {
         .onAppear {
             bootstrapStep()
             refreshCachedMeta()
+            Task { @MainActor in
+                await avatarManifest.load()
+                if avatarPicksRaw.isEmpty {
+                    let seeded = resolveStoredAvatarPicks([], count: personCount)
+                    avatarPicksRaw = seeded.joined(separator: ",")
+                    UserDefaults.standard.set(seeded, forKey: "avatarPicks")
+                }
+            }
         }
         .onChange(of: currentStep) { _, step in
             if step == .review { refreshCachedMeta() }
@@ -270,7 +279,8 @@ struct RootView: View {
     }
 
     private func avatarSlot(at i: Int) -> some View {
-        let id = avatarPicks[safe: i] ?? AvatarPresets.defaultPicks[i % AvatarPresets.defaultPicks.count]
+        let id = avatarPicks[safe: i] ?? defaultAvatarPicks[i % defaultAvatarPicks.count]
+        let preset = avatarManifest.payload?.presets.first(where: { $0.id == id })
         let style = AvatarPresets.style(for: id)
         return NavigationLink {
             AvatarChooserView(slotIndex: i,
@@ -279,7 +289,13 @@ struct RootView: View {
         } label: {
             VStack(spacing: 6) {
                 ZStack(alignment: .topLeading) {
-                    AvatarThumbView(style: style)
+                    Group {
+                        if let preset {
+                            RPMAvatarThumbView(preset: preset, interactive: true)
+                        } else {
+                            AvatarThumbView(style: style)
+                        }
+                    }
                         .frame(width: 64, height: 80)
                         .background(
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -296,7 +312,7 @@ struct RootView: View {
                         .background(Circle().fill(CinemaTheme.accentWarm))
                         .padding(4)
                 }
-                Text(style.name)
+                Text(preset?.nameZh ?? style.name)
                     .font(.system(size: 11, weight: .medium))
                     .foregroundStyle(CinemaTheme.inkSoft)
                     .lineLimit(1)
@@ -321,45 +337,14 @@ struct RootView: View {
                        suffix: "？",
                        sub: "关键词决定色调和氛围；质量档决定 AI 想得多深。都可跳过用默认。")
 
-            CinemaSection(title: "风格关键词（可选）") {
-                VStack(alignment: .leading, spacing: 10) {
-                    TextField("", text: $styleInput,
-                              prompt: Text("例如：cinematic, moody, clean")
-                                .foregroundColor(CinemaTheme.inkMuted))
-                        .font(.system(size: 14.5))
-                        .foregroundStyle(CinemaTheme.ink)
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 12)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .fill(Color.black.opacity(0.28))
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .stroke(CinemaTheme.borderSoft, lineWidth: 1)
-                        )
-                        .autocorrectionDisabled()
-                        .textInputAutocapitalization(.never)
-
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 8) {
-                            ForEach(StyleSuggestion.all, id: \.self) { tag in
-                                Button {
-                                    styleInput = tag
-                                } label: {
-                                    Text(tag)
-                                        .font(.system(size: 12, weight: .medium))
-                                        .foregroundStyle(CinemaTheme.inkSoft)
-                                        .padding(.horizontal, 12)
-                                        .padding(.vertical, 7)
-                                        .background(Capsule().fill(Color.white.opacity(0.04)))
-                                        .overlay(Capsule().stroke(CinemaTheme.borderSoft, lineWidth: 1))
-                                }
-                                .buttonStyle(.plain)
-                            }
-                        }
-                    }
-                }
+            CinemaSection(title: "风格基调（可选）") {
+                // Visual 5-card picker (mirrors the web wizard). Writes
+                // back to `styleInput` as comma-separated English
+                // keywords, so the rest of the analyze flow keeps using
+                // the same string the wizard always has. Also fetches
+                // /style-feasibility against the cached geo fix to show
+                // a per-card ✓/△/⚠ verdict + a "更优时段" banner.
+                StylePickerView(styleInput: $styleInput)
             }
 
             CinemaSection(title: "质量档") {
@@ -738,16 +723,43 @@ struct RootView: View {
     // ---------------------------------------------------------------------
 
     private var avatarPicks: [String] {
-        if avatarPicksRaw.isEmpty { return AvatarPresets.resolve([], count: personCount) }
+        if avatarPicksRaw.isEmpty { return resolveStoredAvatarPicks([], count: personCount) }
         let parts = avatarPicksRaw.split(separator: ",").map(String.init)
-        return AvatarPresets.resolve(parts, count: personCount)
+        return resolveStoredAvatarPicks(parts, count: personCount)
     }
 
     private func setAvatar(at index: Int, id: String) {
         var picks = avatarPicks
-        while picks.count <= index { picks.append(AvatarPresets.defaultPicks[picks.count % AvatarPresets.defaultPicks.count]) }
+        while picks.count <= index { picks.append(defaultAvatarPicks[picks.count % defaultAvatarPicks.count]) }
         picks[index] = id
         avatarPicksRaw = picks.joined(separator: ",")
+        UserDefaults.standard.set(picks, forKey: "avatarPicks")
+    }
+
+    private var defaultAvatarPicks: [String] {
+        let manifestIds = avatarManifest.payload?.presets.map(\.id) ?? []
+        if !manifestIds.isEmpty {
+            var preferred = ["female_youth_18", "male_casual_25", "female_casual_22", "female_elegant_30"]
+                .filter { manifestIds.contains($0) }
+            if preferred.isEmpty { preferred = manifestIds }
+            return preferred
+        }
+        return AvatarPresets.defaultPicks
+    }
+
+    private func resolveStoredAvatarPicks(_ stored: [String], count: Int) -> [String] {
+        let manifestIds = Set(avatarManifest.payload?.presets.map(\.id) ?? [])
+        let legacyIds = Set(AvatarPresets.all.map(\.id))
+        let defaults = defaultAvatarPicks
+        return (0..<max(count, 1)).map { idx in
+            if idx < stored.count {
+                let raw = stored[idx]
+                if legacyIds.contains(raw) || manifestIds.contains(raw) {
+                    return raw
+                }
+            }
+            return defaults[idx % defaults.count]
+        }
     }
 
     private func parseKeywords(_ raw: String) -> [String] {
@@ -1262,6 +1274,7 @@ private struct AvatarChooserView: View {
     let currentId: String
     let onSelect: (String) -> Void
     @Environment(\.dismiss) private var dismiss
+    @StateObject private var manifest = AvatarManifest.shared
 
     private let columns = [GridItem(.adaptive(minimum: 100, maximum: 140), spacing: 12)]
 
@@ -1269,31 +1282,62 @@ private struct AvatarChooserView: View {
         ZStack {
             CinemaBackdrop()
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 12) {
-                    ForEach(AvatarPresets.all) { style in
-                        Button {
-                            onSelect(style.id)
-                            dismiss()
-                        } label: {
-                            VStack {
-                                AvatarThumbView(style: style)
-                                    .frame(width: 100, height: 130)
-                                Text(style.name).font(.caption.bold())
-                                    .foregroundStyle(CinemaTheme.ink)
-                                Text(style.summary).font(.caption2).foregroundStyle(CinemaTheme.inkMuted)
-                                    .multilineTextAlignment(.center)
+                if let presets = manifest.payload?.presets, !presets.isEmpty {
+                    LazyVGrid(columns: columns, spacing: 12) {
+                        ForEach(orderedAvatarPresets(presets), id: \.id) { preset in
+                            Button {
+                                onSelect(preset.id)
+                                dismiss()
+                            } label: {
+                                VStack {
+                                    RPMAvatarThumbView(preset: preset, interactive: true)
+                                        .frame(width: 100, height: 130)
+                                    Text(preset.nameZh).font(.caption.bold())
+                                        .foregroundStyle(CinemaTheme.ink)
+                                    Text("\(preset.style) · \(preset.gender == \"female\" ? \"女\" : \"男\")")
+                                        .font(.caption2).foregroundStyle(CinemaTheme.inkMuted)
+                                        .multilineTextAlignment(.center)
+                                }
+                                .padding(8)
+                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 14)
+                                        .stroke(preset.id == currentId
+                                                ? CinemaTheme.accentWarm
+                                                : CinemaTheme.borderSoft,
+                                                lineWidth: preset.id == currentId ? 2 : 1)
+                                )
                             }
-                            .padding(8)
-                            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 14)
-                                    .stroke(style.id == currentId
-                                            ? CinemaTheme.accentWarm
-                                            : CinemaTheme.borderSoft,
-                                            lineWidth: style.id == currentId ? 2 : 1)
-                            )
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
+                    }
+                } else {
+                    LazyVGrid(columns: columns, spacing: 12) {
+                        ForEach(AvatarPresets.all) { style in
+                            Button {
+                                onSelect(style.id)
+                                dismiss()
+                            } label: {
+                                VStack {
+                                    AvatarThumbView(style: style)
+                                        .frame(width: 100, height: 130)
+                                    Text(style.name).font(.caption.bold())
+                                        .foregroundStyle(CinemaTheme.ink)
+                                    Text(style.summary).font(.caption2).foregroundStyle(CinemaTheme.inkMuted)
+                                        .multilineTextAlignment(.center)
+                                }
+                                .padding(8)
+                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 14)
+                                        .stroke(style.id == currentId
+                                                ? CinemaTheme.accentWarm
+                                                : CinemaTheme.borderSoft,
+                                                lineWidth: style.id == currentId ? 2 : 1)
+                                )
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
                 }
                 .padding()
@@ -1301,6 +1345,17 @@ private struct AvatarChooserView: View {
         }
         .navigationTitle("第 \(slotIndex + 1) 人 · 选角色")
         .navigationBarTitleDisplayMode(.inline)
+        .task { await manifest.load() }
+    }
+}
+
+private struct RPMAvatarThumbView: View {
+    let preset: AvatarPresetEntry
+    var interactive: Bool = false
+
+    var body: some View {
+        AvatarPreset3DPreview(preset: preset, interactive: interactive)
+        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
     }
 }
 

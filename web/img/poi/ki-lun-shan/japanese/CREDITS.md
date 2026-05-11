@@ -1,0 +1,25 @@
+# Ki Lun Shan — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-bunch-of-lanterns-hanging-from-a-ceiling-QAKnydxL-ww)
+- [Marek Piwnicki](https://unsplash.com/@marekpiwnicki) — [photo](https://unsplash.com/photos/text-Do2I7G44rTU)
+- [Damon Lam](https://unsplash.com/@dayday95) — [photo](https://unsplash.com/photos/greyscale-photo-of-rod-pocket-curtain-pjkKDU9ab1I)
+- [Kate Kasiutich](https://unsplash.com/@katekasiutich) — [photo](https://unsplash.com/photos/rows-of-japanese-lanterns-with-calligraphy-MTFlgY9kGpM)
+- [ZHENYU LUO](https://unsplash.com/@mrnuclear) — [photo](https://unsplash.com/photos/a-group-of-umbrellas-sitting-on-top-of-a-roof-EZQN1n4mvGA)
+- [Jason Yuen](https://unsplash.com/@fanfandyuen) — [photo](https://unsplash.com/photos/a-door-that-has-a-sign-on-it-tPoYdRrqUqY)
+- [Tuan P.](https://unsplash.com/@tuan_p) — [photo](https://unsplash.com/photos/rows-of-oriental-lanterns-with-writing-on-them-zifOl-Fi7EM)
+- [Kate Kasiutich](https://unsplash.com/@katekasiutich) — [photo](https://unsplash.com/photos/rows-of-japanese-lanterns-with-text-lehtToAAi8I)
+- [Diana Light](https://unsplash.com/@dreamcatchlight) — [photo](https://unsplash.com/photos/a-wooden-table-topped-with-plates-of-food-to2ybdphVYE)
+- [David Clode](https://unsplash.com/@davidclode) — [photo](https://unsplash.com/photos/a-piece-of-paper-with-writing-on-it-DuZVWJq9L0U)
+- [Izzie Renee](https://unsplash.com/@izzie_renee) — [photo](https://unsplash.com/photos/peking-duck-02-39-neon-sign-during-night-GFW-TRGXwMU)
+- [Maximilian Brand](https://unsplash.com/@maximilian_brand) — [photo](https://unsplash.com/photos/a-group-of-people-walking-down-a-street-next-to-tall-buildings-MbKxgKm37WI)
+- [Giulia Squillace](https://unsplash.com/@giuliasq) — [photo](https://unsplash.com/photos/japanese-lanterns-illuminate-a-restaurant-entrance-at-night-gWMosw6KvTY)
+- [Se. Tsuchiya](https://unsplash.com/@s_tsuchiya) — [photo](https://unsplash.com/photos/a-row-of-lanterns-with-asian-writing-on-them-lay-UltePHw)
+- [@felirbe](https://unsplash.com/@felirbe) — [photo](https://unsplash.com/photos/grayscale-photo-of-printer-papers-y6VMoH6921w)
+- [LISK OBE](https://unsplash.com/@summerobelisk) — [photo](https://unsplash.com/photos/a-bunch-of-asian-writing-on-a-wall-if-iMt9DZ0c)
+- [Tanya Barrow](https://unsplash.com/@tanyabarrow) — [photo](https://unsplash.com/photos/rows-of-red-lanterns-strung-across-a-street-nNfg9mFCgMw)
+- [Da-shika](https://unsplash.com/@da_shika_photo) — [photo](https://unsplash.com/photos/a-person-with-a-hat-on-their-head-WdQJWyFTj-g)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-man-holding-an-umbrella-V_4Ta5ZIC8g)
+- [Ozgu Ozden](https://unsplash.com/@ozgut) — [photo](https://unsplash.com/photos/a-woman-standing-in-front-of-a-food-stand-QD7wbJVqDP0)

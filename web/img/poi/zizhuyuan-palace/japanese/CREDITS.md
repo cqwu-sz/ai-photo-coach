@@ -1,0 +1,25 @@
+# Zizhuyuan Palace — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-tall-building-with-many-colorful-designs-on-its-sides-xC-TdndewkY)
+- [夏 雨](https://unsplash.com/@xwithy) — [photo](https://unsplash.com/photos/white-and-red-concrete-building-IS6yr5tTxZc)
+- [Danist Soh](https://unsplash.com/@danist07) — [photo](https://unsplash.com/photos/red-and-white-concrete-building-4Cjr_8jyLpA)
+- [夏 雨](https://unsplash.com/@xwithy) — [photo](https://unsplash.com/photos/white-and-red-concrete-building-8HWivWZOjFg)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/the-buddhist-temple-of-hohhot-five-pagoda-temple-in-inner-mongolia-hohhot-china-8XdaVwjnkW4)
+- [Bryan Do](https://unsplash.com/@kiyoshiheiichi) — [photo](https://unsplash.com/photos/low-angle-photo-of-temple-juHMuTbFQRM)
+- [Sam](https://unsplash.com/@samtakespictures) — [photo](https://unsplash.com/photos/an-ancient-building-stands-on-a-grassy-field-b0F-3ESTc4M)
+- [Declan Sun](https://unsplash.com/@declansun) — [photo](https://unsplash.com/photos/traditional-chinese-architecture-with-ornate-roofs-and-white-walls-gOjm9BzDUfc)
+- [JSB Co.](https://unsplash.com/@jsbco) — [photo](https://unsplash.com/photos/a-tall-white-building-with-a-golden-roof-JBSwnTn-iDA)
+- [Leo Tang](https://unsplash.com/@leoooooot) — [photo](https://unsplash.com/photos/traditional-east-asian-architecture-with-tiered-roofs-and-wooden-details-bpCrDNfPHLw)
+- [法号 削你](https://unsplash.com/@darklammur) — [photo](https://unsplash.com/photos/brown-and-white-temple-near-body-of-water-during-daytime-udE4kdFNM-Q)
+- [Jack Shen](https://unsplash.com/@jacksj) — [photo](https://unsplash.com/photos/a-large-building-sitting-next-to-a-lush-green-forest-rt0E4_MHUvs)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/the-buddhist-temple-of-hohhot-five-pagoda-temple-in-inner-mongolia-hohhot-china-42eyOHoYULI)
+- [DongHoo Kim](https://unsplash.com/@kimphodo) — [photo](https://unsplash.com/photos/traditional-korean-temple-nestled-in-lush-green-mountains-tmVYIqajm3A)
+- [Riku Lu](https://unsplash.com/@riku) — [photo](https://unsplash.com/photos/a-bridge-over-a-body-of-water-with-a-building-in-the-background-pTwSSboasjI)
+- [Raju Kumar](https://unsplash.com/@rajurajkumar28) — [photo](https://unsplash.com/photos/a-tall-building-with-a-blue-roof-surrounded-by-trees-lIzi-gcUihU)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-large-white-building-with-a-blue-roof-4JLBmwU2nf4)
+- [Yang Plasticine](https://unsplash.com/@plasticine66) — [photo](https://unsplash.com/photos/a-chinese-style-building-sits-atop-stone-stairs-xfzn87n0fVQ)
+- [ZZ He](https://unsplash.com/@littlepoint) — [photo](https://unsplash.com/photos/a-building-sitting-next-to-a-body-of-water-WmJ73UgwXls)
+- [Harley Lin](https://unsplash.com/@v_nut_v) — [photo](https://unsplash.com/photos/a-tall-building-with-a-red-roof-surrounded-by-trees-fyvMS1wVXeU)

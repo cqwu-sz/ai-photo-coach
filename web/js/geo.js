@@ -95,8 +95,14 @@ function round4(n) {
 }
 
 /// Returns true when the given scene mode benefits from a sun fix.
-/// Today only `light_shadow`, but it's a single function so future
-/// modes (e.g. dramatic skies) can opt in without touching call sites.
-export function sceneModeNeedsGeo(sceneMode) {
-  return sceneMode === "light_shadow";
+///
+/// Was originally `light_shadow`-only. Now ALL scene modes benefit
+/// because sun position + Open-Meteo weather power the style
+/// feasibility check (e.g. "clean bright" needs >5000K + ev>=0; if
+/// user is at dusk + overcast we want to warn them up front instead
+/// of letting the LLM guess blindly). Geo is still opt-in via the
+/// browser permission prompt — if the user denies, analyze still
+/// works, just without the sun/weather block in the prompt.
+export function sceneModeNeedsGeo(_sceneMode) {
+  return true;
 }

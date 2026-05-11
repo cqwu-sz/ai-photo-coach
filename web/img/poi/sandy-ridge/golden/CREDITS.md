@@ -1,0 +1,25 @@
+# Sandy Ridge — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Jacob Dyer](https://unsplash.com/@jacobdyer) — [photo](https://unsplash.com/photos/a-golden-retriever-sitting-on-a-sandy-beach-FTbC150wV8Q)
+- [Olusola O](https://unsplash.com/@questmore) — [photo](https://unsplash.com/photos/a-view-of-a-beach-from-a-hill-dGkBHxcXUoY)
+- [Trac Vu](https://unsplash.com/@tracminhvu) — [photo](https://unsplash.com/photos/golden-retriever-puppy-running-on-green-grass-field-during-daytime-j4p5vsLnqVc)
+- [Divya Kothari](https://unsplash.com/@dk_photos) — [photo](https://unsplash.com/photos/a-golden-retriever-laying-in-the-sand-with-trees-in-the-background-iMCXN2WbyWs)
+- [Pablo Merchán Montes](https://unsplash.com/@pablomerchanm) — [photo](https://unsplash.com/photos/a-puppy-sitting-in-front-of-a-red-background-OledurWchog)
+- [Esteban Yar](https://unsplash.com/@estebanyar) — [photo](https://unsplash.com/photos/golden-retriever-on-green-grass-field-during-daytime-d8pV0Lg3KPg)
+- [Petra Andrews](https://unsplash.com/@framesofdiscovery) — [photo](https://unsplash.com/photos/a-dog-sitting-in-the-grass-with-a-mountain-in-the-background-kmZx65bceQg)
+- [Barnabas Davoti](https://unsplash.com/@davotibarna) — [photo](https://unsplash.com/photos/a-dog-sitting-on-top-of-a-snow-covered-mountain-Z2UDzZrFhsY)
+- [Josh Hild](https://unsplash.com/@joshhild) — [photo](https://unsplash.com/photos/a-forest-filled-with-lots-of-tall-trees-utesHgoDXFs)
+- [Barnabas Davoti](https://unsplash.com/@davotibarna) — [photo](https://unsplash.com/photos/golden-retriever-dog-standing-on-a-rocky-cliff-vXh1FxfMnAE)
+- [REGINE THOLEN](https://unsplash.com/@designbytholen) — [photo](https://unsplash.com/photos/a-close-up-of-a-dog-in-a-field-lX-Z3MN6hCM)
+- [Barnabas Davoti](https://unsplash.com/@davotibarna) — [photo](https://unsplash.com/photos/golden-retriever-sits-in-the-snow-outdoors-WIqSGUqMFzQ)
+- [Jason Hawke 🇨🇦](https://unsplash.com/@jfhawke) — [photo](https://unsplash.com/photos/a-dog-is-sitting-in-the-grass-outside-1SpqIdWthYQ)
+- [Olga Andreyanova](https://unsplash.com/@olgaandreyanova) — [photo](https://unsplash.com/photos/yellow-labrador-retriever-puppy-on-brown-field-during-daytime-pgrJI-Rijgk)
+- [Barnabas Davoti](https://unsplash.com/@davotibarna) — [photo](https://unsplash.com/photos/a-golden-retriever-sitting-in-the-woods-with-his-tongue-out-l_r7pHeP6-0)
+- [Barnabas Davoti](https://unsplash.com/@davotibarna) — [photo](https://unsplash.com/photos/golden-retriever-dog-sitting-on-rocks-outdoors-ViWe3-iBRcs)
+- [Jason Hawke 🇨🇦](https://unsplash.com/@jfhawke) — [photo](https://unsplash.com/photos/a-close-up-of-a-dog-with-trees-in-the-background-C40l76JszvA)
+- [Barnabas Davoti](https://unsplash.com/@davotibarna) — [photo](https://unsplash.com/photos/golden-retriever-sits-in-snowy-landscape-at-sunset-KuPnYZtJdC8)
+- [Esteban Yar](https://unsplash.com/@estebanyar) — [photo](https://unsplash.com/photos/golden-retriever-puppy-on-green-grass-field-during-daytime-mHm82hWaGhA)
+- [Harshal](https://unsplash.com/@baakya) — [photo](https://unsplash.com/photos/a-large-brown-dog-laying-on-top-of-a-dirt-field-i2kRtkanrc8)

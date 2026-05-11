@@ -1,0 +1,25 @@
+# Former site of the Provisional Government of the Republic of Korea — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [martin bennie](https://unsplash.com/@martinbennie) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-staff-in-front-of-a-building-n-XFCbKqQQY)
+- [Ignacio Plaza](https://unsplash.com/@iplaza) — [photo](https://unsplash.com/photos/traditional-korean-palace-under-a-clear-blue-sky-mROj9gfeGWo)
+- [Cecelia Chang](https://unsplash.com/@ceceliaccc) — [photo](https://unsplash.com/photos/stone-statues-and-monument-on-grassy-hill-9w00i2XOxp4)
+- [Hoyoun Lee](https://unsplash.com/@icedcocoa) — [photo](https://unsplash.com/photos/a-stone-monument-in-a-park-surrounded-by-trees-S7whf3-QoHU)
+- [insung yoon](https://unsplash.com/@insungpandora) — [photo](https://unsplash.com/photos/a-large-body-of-water-with-a-building-in-the-background-tnlpTQ0RwX0)
+- [Photos of Korea](https://unsplash.com/@photosofkorea) — [photo](https://unsplash.com/photos/a-building-with-a-large-roof-ocldm4XOFPM)
+- [Jie Yeu Teoh](https://unsplash.com/@jieyeu) — [photo](https://unsplash.com/photos/a-tall-building-with-a-tall-tower-on-top-of-it-3MPvsDgpSEM)
+- [allrosees](https://unsplash.com/@allrosees) — [photo](https://unsplash.com/photos/a-person-standing-in-front-of-gwanghwamun-UaAf7G4o1Tg)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/downtown-cityscape-at-night-in-seoul-south-korea-0njBEcQmbk4)
+- [DOKYUNG KIM](https://unsplash.com/@jindujiong) — [photo](https://unsplash.com/photos/traditional-korean-building-with-wooden-beams-and-tiled-roof-LthD_vGn3ws)
+- [Skyler W](https://unsplash.com/@skylerw) — [photo](https://unsplash.com/photos/beige-and-green-archway-cTn2813HbxY)
+- [Aldo Loya](https://unsplash.com/@traveloyavlog) — [photo](https://unsplash.com/photos/brown-and-white-temple-near-body-of-water-during-daytime-A8XLRz4ToZY)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/seoul-downtown-korea-bSElPCkl9pw)
+- [Mathew Schwartz](https://unsplash.com/@cadop) — [photo](https://unsplash.com/photos/grayscale-landscape-photography-of-a-pagoda-building-8EwyGAMqI68)
+- [Seung Hyun Lee](https://unsplash.com/@hyuny0407) — [photo](https://unsplash.com/photos/a-korean-palace-entrance-with-a-mountain-in-the-background-gEIcdkrh38s)
+- [yujeong Huh](https://unsplash.com/@yujeongh) — [photo](https://unsplash.com/photos/a-tall-building-lit-up-at-night-with-a-sky-background-vAfyiEz2MEs)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/seoul-downtown-korea-7uIU7oCdJ5Q)
+- [yeojin yun](https://unsplash.com/@seoul_lover_lily) — [photo](https://unsplash.com/photos/a-large-ship-with-a-blue-fence-FTxkcSQB_v8)
+- [Andrea Carboni](https://unsplash.com/@andreacarboni) — [photo](https://unsplash.com/photos/brown-and-white-wooden-house-near-body-of-water-during-daytime-59qHZpXtLQA)
+- [Artan](https://unsplash.com/@a_sadiku) — [photo](https://unsplash.com/photos/coastal-city-buildings-line-the-blue-ocean-shore-_wVtZ0BsMgk)

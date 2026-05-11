@@ -1,0 +1,25 @@
+# Orioles Singing in the Willows — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-yellow-and-black-bird-sitting-on-a-tree-branch-2DpkerahzqM)
+- [Uriel Soberanes](https://unsplash.com/@soberanes) — [photo](https://unsplash.com/photos/a-bird-on-a-branch-Jyg6GThnLME)
+- [mana5280](https://unsplash.com/@mana5280) — [photo](https://unsplash.com/photos/black-bird-on-brown-tree-branch-DyDDUumhxU8)
+- [Jeremy Hynes](https://unsplash.com/@hynesight) — [photo](https://unsplash.com/photos/yellow-and-black-bird-on-green-plant-KqhgY3CCn1E)
+- [Zdeněk Macháček](https://unsplash.com/@zmachacek) — [photo](https://unsplash.com/photos/a-couple-of-birds-sitting-on-top-of-a-tree-branch-CqadesKjf7o)
+- [Alex Moliski](https://unsplash.com/@alexmoliski) — [photo](https://unsplash.com/photos/a-black-orange-and-white-bird-sitting-on-a-branch-xlKKqp7cMlc)
+- [Alex Moliski](https://unsplash.com/@alexmoliski) — [photo](https://unsplash.com/photos/a-colorful-bird-perched-on-top-of-a-tree-branch-j--caJp4qNE)
+- [K T](https://unsplash.com/@ktanksa) — [photo](https://unsplash.com/photos/a-blackbird-with-red-shoulder-patches-perches-on-reeds-BLgN7GIEAo4)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/an-american-robin-sits-on-a-branch-through-a-leafy-haze-99ZHXQhum44)
+- [Trac Vu](https://unsplash.com/@tracminhvu) — [photo](https://unsplash.com/photos/a-black-bird-sitting-on-top-of-a-tree-branch-vIGpQjzHYdY)
+- [Hana Oliver](https://unsplash.com/@hanako87) — [photo](https://unsplash.com/photos/brown-and-black-bird-on-brown-tree-branch-during-daytime-DEhfIKz-8jQ)
+- [Bee Calder](https://unsplash.com/@mini_b) — [photo](https://unsplash.com/photos/blackbird-1V-zYDl4MNY)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/circa-1850-a-nutcracker-a-bird-of-the-crow-family-and-a-rose-coloured-starling-photo-by-hulton-archivegetty-images-m378njYge2M)
+- [Leon Andov](https://unsplash.com/@lando2) — [photo](https://unsplash.com/photos/a-bird-perched-on-a-branch-of-a-tree-VtLonzyFHs4)
+- [Ivan Sabayuki](https://unsplash.com/@ivansabayuki) — [photo](https://unsplash.com/photos/yellow-black-and-red-bird-on-brown-tree-branch-5ozvnx2asxw)
+- [Mark Flanagan](https://unsplash.com/@markjhc) — [photo](https://unsplash.com/photos/yellow-and-black-bird-flying-on-brown-tree-branch-during-daytime-cMjsUEFlqWM)
+- [Molly the Cat](https://unsplash.com/@mollythecat) — [photo](https://unsplash.com/photos/a-yellow-and-black-bird-sitting-on-a-branch-V7U1S8l-B_0)
+- [Mark Flanagan](https://unsplash.com/@markjhc) — [photo](https://unsplash.com/photos/brown-and-black-bird-on-tree-branch-during-daytime-vsscYiQlZhI)
+- [Mosharraf Hossain](https://unsplash.com/@mhphotography13) — [photo](https://unsplash.com/photos/a-small-bird-perched-on-top-of-a-tree-branch-pCtGsJEst8g)
+- [Maarten](https://unsplash.com/@maartenvnmlct) — [photo](https://unsplash.com/photos/a-bird-sitting-on-a-branch-Iz6l5ahuMWk)

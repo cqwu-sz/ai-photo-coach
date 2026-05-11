@@ -1,0 +1,25 @@
+# Lok Ma Chau Lookout — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Jin-Woo Lee](https://unsplash.com/@shipduck) — [photo](https://unsplash.com/photos/kyoto-tower-overlooks-city-buildings-with-mountains-behind-Rbiz4YSR9Qw)
+- [Trac Vu](https://unsplash.com/@tracminhvu) — [photo](https://unsplash.com/photos/tokyo-skytree-tower-stands-tall-over-cityscape-4IdJkqyv7Cc)
+- [Cuvii](https://unsplash.com/@cuvii) — [photo](https://unsplash.com/photos/tall-broadcasting-tower-against-a-clear-blue-sky-JBgWn2QHluc)
+- [Ramon Buçard](https://unsplash.com/@ramonbucard) — [photo](https://unsplash.com/photos/a-person-poses-in-front-of-tokyo-tower-9OVoN-ctQ48)
+- [Daryan Shamkhali](https://unsplash.com/@daryan) — [photo](https://unsplash.com/photos/tokyo-tower-stands-tall-against-a-blue-sky-meWtoH6p4b0)
+- [Dmitry Romanoff](https://unsplash.com/@dm8ryphotos) — [photo](https://unsplash.com/photos/kobe-port-tower-and-modern-buildings-by-the-water-Tlk06No3ekA)
+- [Ramon Buçard](https://unsplash.com/@ramonbucard) — [photo](https://unsplash.com/photos/man-poses-near-tokyo-tower-earsqwcqrCM)
+- [Vik Molina](https://unsplash.com/@asecasvik) — [photo](https://unsplash.com/photos/tsutenkaku-tower-against-a-cloudy-blue-sky-VnbBEDAcvmQ)
+- [Leon Tsang](https://unsplash.com/@cycnez) — [photo](https://unsplash.com/photos/a-tall-lattice-tower-against-a-cloudy-sky-Vd0QqASZef0)
+- [Ryan Moorhouse](https://unsplash.com/@ryanm98981) — [photo](https://unsplash.com/photos/three-colorful-modern-sculptures-with-a-tower-in-background-vEXyOD0_7NI)
+- [Sarmat Batagov](https://unsplash.com/@batag_) — [photo](https://unsplash.com/photos/tokyo-tower-viewed-from-below-through-trees-j8Wo7cmoieY)
+- [Dat Tran](https://unsplash.com/@huudat692) — [photo](https://unsplash.com/photos/a-tall-red-tower-against-a-cloudy-sky-CYTgUjjmHMA)
+- [WS Chae](https://unsplash.com/@wwonnssikk) — [photo](https://unsplash.com/photos/tall-white-observation-tower-with-surrounding-buildings-grBxJlSWHzs)
+- [Josip Ivanković](https://unsplash.com/@piak) — [photo](https://unsplash.com/photos/tall-white-lattice-tower-against-a-blue-sky-jfwmGtdpRIg)
+- [Daryan Shamkhali](https://unsplash.com/@daryan) — [photo](https://unsplash.com/photos/tokyo-skytree-tower-stands-tall-against-the-sky-p-pq9o05a9g)
+- [Michael Vinel](https://unsplash.com/@master8_) — [photo](https://unsplash.com/photos/a-tall-metal-structure-with-a-sky-background-mahMTC_Q4v8)
+- [chen zihan](https://unsplash.com/@cu2) — [photo](https://unsplash.com/photos/tokyo-tower-illuminated-red-between-tall-buildings-z8lfl-FS1TU)
+- [Sui Xu](https://unsplash.com/@sui_xu) — [photo](https://unsplash.com/photos/tokyo-skytree-tower-against-a-cloudy-sky-Tt5MlkSIEus)
+- [Vincent Y @USA](https://unsplash.com/@vincentyuan87) — [photo](https://unsplash.com/photos/tokyo-tower-framed-by-trees-under-a-clear-blue-sky-XF18c3dEi58)
+- [Zheng XUE](https://unsplash.com/@xue_zheng) — [photo](https://unsplash.com/photos/red-and-white-tower-stands-behind-apartment-buildings-and-stairs-SnCwfOq6UZY)

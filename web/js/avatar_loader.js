@@ -18,14 +18,130 @@
  */
 
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
-import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/loaders/GLTFLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 // SkeletonUtils exports named helpers (clone, retargetClip, ...) rather
 // than a SkeletonUtils namespace object — import them as a namespace.
-import * as SkeletonUtils from "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/utils/SkeletonUtils.js";
+import * as SkeletonUtils from "three/addons/utils/SkeletonUtils.js";
 
 const ASSET_BASE = "/web/avatars";
 const PRESET_DIR = `${ASSET_BASE}/preset`;
+const BASE_AVATAR_URL = `${ASSET_BASE}/base/xbot.glb`;
 const ANIM_DIR = `${ASSET_BASE}/animations`;
+const FALLBACK_PRESETS = [
+  {
+    id: "female_youth_18",
+    name_zh: "少女 · 18",
+    gender: "female",
+    age: 18,
+    style: "youth",
+    thumbnail: `${PRESET_DIR}/female_youth_18.png`,
+    glb: `${PRESET_DIR}/female_youth_18.glb`,
+  },
+  {
+    id: "male_casual_25",
+    name_zh: "休闲男 · 25",
+    gender: "male",
+    age: 25,
+    style: "casual",
+    thumbnail: `${PRESET_DIR}/male_casual_25.png`,
+    glb: `${PRESET_DIR}/male_casual_25.glb`,
+  },
+  {
+    id: "female_casual_22",
+    name_zh: "休闲女 · 22",
+    gender: "female",
+    age: 22,
+    style: "casual",
+    thumbnail: `${PRESET_DIR}/female_casual_22.png`,
+    glb: `${PRESET_DIR}/female_casual_22.glb`,
+  },
+  {
+    id: "female_elegant_30",
+    name_zh: "优雅女 · 30",
+    gender: "female",
+    age: 30,
+    style: "elegant",
+    thumbnail: `${PRESET_DIR}/female_elegant_30.png`,
+    glb: `${PRESET_DIR}/female_elegant_30.glb`,
+  },
+  {
+    id: "female_artsy_25",
+    name_zh: "文艺女 · 25",
+    gender: "female",
+    age: 25,
+    style: "artsy",
+    thumbnail: `${PRESET_DIR}/female_artsy_25.png`,
+    glb: `${PRESET_DIR}/female_artsy_25.glb`,
+  },
+  {
+    id: "male_business_35",
+    name_zh: "商务男 · 35",
+    gender: "male",
+    age: 35,
+    style: "business",
+    thumbnail: `${PRESET_DIR}/male_business_35.png`,
+    glb: `${PRESET_DIR}/male_business_35.glb`,
+  },
+  {
+    id: "male_athletic_28",
+    name_zh: "运动男 · 28",
+    gender: "male",
+    age: 28,
+    style: "athletic",
+    thumbnail: `${PRESET_DIR}/male_athletic_28.png`,
+    glb: `${PRESET_DIR}/male_athletic_28.glb`,
+  },
+  {
+    id: "child_boy_8",
+    name_zh: "男孩 · 8",
+    gender: "male",
+    age: 8,
+    style: "child",
+    thumbnail: `${PRESET_DIR}/child_boy_8.png`,
+    glb: `${PRESET_DIR}/child_boy_8.glb`,
+  },
+  {
+    id: "child_girl_8",
+    name_zh: "女孩 · 8",
+    gender: "female",
+    age: 8,
+    style: "child",
+    thumbnail: `${PRESET_DIR}/child_girl_8.png`,
+    glb: `${PRESET_DIR}/child_girl_8.glb`,
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────
+// v7 Phase B+: 8 preset 色板
+//
+// Why this exists:
+//   We didn't manage to wire up 8 distinct ReadyPlayerMe glb avatars
+//   (every RPM avatar requires a manual create on readyplayer.me). To
+//   still ship a "8 visually distinct, game-quality, rigged" gallery
+//   we use Three.js's official Xbot.glb as a SHARED rigged humanoid
+//   base mesh and apply a per-preset colour tint to the 2 PBR
+//   materials Xbot exposes (the "joints" material and the "limbs"
+//   material).
+//
+//   Xbot is a Khronos-published Mixamo-rigged sample model — same
+//   skeleton bone names as anything you download from Mixamo, so all
+//   30 placeholder Mixamo animation clips (and any future real
+//   Mixamo download) can drive it without retargeting.
+//
+//   When the user upgrades to real RPM avatars later, replacing the
+//   per-preset glbs in web/avatars/preset/<id>.glb takes precedence
+//   automatically — see the load order in loadAvatar() below.
+// ─────────────────────────────────────────────────────────────────────
+const PRESET_TINTS = {
+  male_casual_25:    { limbs: 0x4e8de0, joints: 0x33415f },  // skin-warm, navy tee
+  male_business_35:  { limbs: 0x21263a, joints: 0x101321 },  // dark suit
+  male_athletic_28:  { limbs: 0xd33b3b, joints: 0x6a1b1b },  // red sport top
+  female_casual_22:  { limbs: 0xe89bb6, joints: 0x6a4452 },  // pink hoodie
+  female_elegant_30: { limbs: 0xb33064, joints: 0x4d1730 },  // wine evening
+  female_artsy_25:   { limbs: 0xc7b894, joints: 0x6a614e },  // beige bohemian
+  child_boy_8:       { limbs: 0x5dbcdf, joints: 0x294f5d },  // sky blue
+  child_girl_8:      { limbs: 0xf7b1d3, joints: 0x6c4356 },  // rose
+};
 
 // In-memory caches keyed by asset id. We deep-clone via SkeletonUtils
 // every time we hand out an avatar so the same preset can show up on
@@ -33,7 +149,27 @@ const ANIM_DIR = `${ASSET_BASE}/animations`;
 const avatarCache = new Map();
 const animCache = new Map();
 let manifestPromise = null;
+let baseTemplate = null; // {scene, animations} - Xbot loaded once, shared
 const loader = new GLTFLoader();
+
+/**
+ * Lazy-load and cache the shared Xbot base mesh (rigged humanoid with
+ * Mixamo-standard skeleton + 7 built-in animations: idle / run /
+ * agree / headShake / sad_pose / sneak_pose). Returned glTF is the
+ * RAW template — callers should SkeletonUtils.clone() it.
+ */
+async function loadBaseTemplate() {
+  if (baseTemplate) return baseTemplate;
+  baseTemplate = (async () => {
+    const tpl = await fetchGltf(BASE_AVATAR_URL);
+    if (!tpl) {
+      console.warn("[avatar_loader] Xbot base failed to load — gallery will fall back to procedural");
+      return null;
+    }
+    return tpl;
+  })();
+  return baseTemplate;
+}
 
 /** Light-weight wrapper for the /avatars/manifest endpoint. */
 export async function loadAvatarManifest({ baseUrl = "" } = {}) {
@@ -45,16 +181,31 @@ export async function loadAvatarManifest({ baseUrl = "" } = {}) {
       const json = await res.json();
       const flat = flattenPoseMap(json.pose_to_mixamo || {});
       return {
-        presets: json.presets || [],
+        presets: mergePresetManifest(json.presets || []),
         poseMap: flat.flat,
         fallbackByCount: flat.fallbackByCount,
       };
     } catch (err) {
       console.warn("[avatar_loader] manifest fetch failed:", err);
-      return { presets: [], poseMap: {}, fallbackByCount: {} };
+      return {
+        presets: mergePresetManifest([]),
+        poseMap: {},
+        fallbackByCount: {},
+      };
     }
   })();
   return manifestPromise;
+}
+
+function mergePresetManifest(remotePresets) {
+  const merged = [];
+  const seen = new Set();
+  for (const preset of [...remotePresets, ...FALLBACK_PRESETS]) {
+    if (!preset?.id || seen.has(preset.id)) continue;
+    seen.add(preset.id);
+    merged.push({ ...preset, nameZh: preset.nameZh || preset.name_zh || preset.id });
+  }
+  return merged;
 }
 
 function flattenPoseMap(rawMap) {
@@ -84,10 +235,18 @@ export async function loadAvatar(presetId) {
   }
   const tpl = await avatarCache.get(presetId);
   if (!tpl) return null;
-  // SkeletonUtils.clone preserves bones + animation tracks; plain
-  // .clone() doesn't — that's the difference that lets multi-instance
-  // animation work correctly on glTF models.
-  return SkeletonUtils.clone(tpl);
+  // SkeletonUtils.clone preserves bones + animation tracks (the
+  // difference that lets multi-instance animation work on real RPM
+  // glb). For our placeholder glb (which has no SkinnedMesh / Skeleton)
+  // SkeletonUtils.clone occasionally throws on certain three.js
+  // versions; fall back to a plain deep clone in that case so the
+  // procedural placeholder pipeline still upgrades to the real glb.
+  try {
+    return SkeletonUtils.clone(tpl);
+  } catch (err) {
+    console.debug("[avatar_loader] SkeletonUtils.clone failed, using plain clone:", err?.message || err);
+    return tpl.clone(true);
+  }
 }
 
 /**
@@ -152,8 +311,9 @@ export function mapAvatarPick(person, personIndex, presets) {
   if (!presets || !presets.length) return null;
   // Default rotation: female lead → male partner → female friend → child
   const order = [
-    "female_casual_22",
+    "female_youth_18",
     "male_casual_25",
+    "female_casual_22",
     "female_elegant_30",
     "child_girl_8",
   ];

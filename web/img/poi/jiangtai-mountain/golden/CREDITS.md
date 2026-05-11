@@ -1,0 +1,25 @@
+# Jiangtai Mountain — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-snow-covered-mountain-with-a-tower-on-top-of-it-INlfVftXeQk)
+- [boris misevic](https://unsplash.com/@borisview) — [photo](https://unsplash.com/photos/snow-covered-mountain-under-blue-sky-during-daytime-dwNi8w72Y3s)
+- [Yuan zhe](https://unsplash.com/@zheeyuan) — [photo](https://unsplash.com/photos/green-grass-field-near-gray-rocky-mountain-during-daytime-QgDva_LPg3w)
+- [boris misevic](https://unsplash.com/@borisview) — [photo](https://unsplash.com/photos/a-mountain-covered-in-snow-under-a-blue-sky-JM-ljsxNfRM)
+- [Mohammad Alizade](https://unsplash.com/@mohamadaz) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-range-covered-in-snow-LCAYZzxxbBE)
+- [Matteo Bellia](https://unsplash.com/@jorjoson) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-with-snow-on-the-ground-Gmj7NvJzJH0)
+- [Paolo Boaretto](https://unsplash.com/@paolo1971) — [photo](https://unsplash.com/photos/autumn-hillside-covered-in-vibrant-golden-trees-D3NiNVbuFSE)
+- [Wilfried Santer](https://unsplash.com/@wsanter) — [photo](https://unsplash.com/photos/aerial-photography-of-mountain-u_Mx0y7PpCA)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-mountain-range-HArUZjKOkOU)
+- [Sunny Young](https://unsplash.com/@sunnyyoung) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-range-with-trees-in-the-foreground-6kUHqtf5IrE)
+- [vinay manda](https://unsplash.com/@vinaymanda) — [photo](https://unsplash.com/photos/a-mountain-covered-in-clouds-with-a-blue-sky-q9JQCW44I2w)
+- [steve yu](https://unsplash.com/@steveyu) — [photo](https://unsplash.com/photos/green-and-brown-mountains-during-daytime-wteyPSpedIw)
+- [Yunus Tuğ](https://unsplash.com/@yunustug) — [photo](https://unsplash.com/photos/autumn-forest-on-rolling-hills-with-misty-mountains-90CajznlPHc)
+- [Vlad D](https://unsplash.com/@hiking_corgi) — [photo](https://unsplash.com/photos/a-scenic-view-of-a-mountain-range-with-a-blue-sky-t1IGM1-pC_w)
+- [boris misevic](https://unsplash.com/@borisview) — [photo](https://unsplash.com/photos/brown-montain-CdppQVBVRtw)
+- [Gabriele Merlino](https://unsplash.com/@merlin_photo) — [photo](https://unsplash.com/photos/snow-dusted-mountain-peak-above-autumn-trees-SnMMxtKIBpc)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-mountain-range-GSiGj9SOq0w)
+- [光曦 刘](https://unsplash.com/@liuguangxi) — [photo](https://unsplash.com/photos/green-grass-field-near-brown-mountain-under-blue-sky-during-daytime-kc-PCeElx0k)
+- [Ariungoo Batzorig](https://unsplash.com/@ariungoo) — [photo](https://unsplash.com/photos/a-mountain-range-with-a-few-clouds-in-the-sky-14rgtIvodvM)
+- [Echo. Wang](https://unsplash.com/@leafbricker) — [photo](https://unsplash.com/photos/field-of-trees-near-mountain-bKSEadxrpoM)

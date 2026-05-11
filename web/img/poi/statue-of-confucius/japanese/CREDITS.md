@@ -1,0 +1,25 @@
+# Statue of Confucius — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [martin bennie](https://unsplash.com/@martinbennie) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-staff-in-front-of-a-building-n-XFCbKqQQY)
+- [Yosuke Ota](https://unsplash.com/@yosuke_ota) — [photo](https://unsplash.com/photos/a-statue-of-a-monk-in-a-shrine-q_kUGGbImLA)
+- [Yosuke Ota](https://unsplash.com/@yosuke_ota) — [photo](https://unsplash.com/photos/a-statue-of-a-person-sitting-in-a-shrine-i78PVcjVt6k)
+- [Yosuke Ota](https://unsplash.com/@yosuke_ota) — [photo](https://unsplash.com/photos/a-statue-of-an-old-man-with-a-beard-nO6enu3BMj8)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-buddhas-sitting-in-front-of-a-tree-Tum-cI3OvLA)
+- [Denise Bossarte](https://unsplash.com/@dbossarte) — [photo](https://unsplash.com/photos/man-in-hat-statue-under-white-clouds-during-daytime-oWnfNrC1Des)
+- [Duc Van](https://unsplash.com/@duke91) — [photo](https://unsplash.com/photos/a-statue-of-a-man-stands-in-a-park-Flw1iyCeNj8)
+- [April Vasquez](https://unsplash.com/@april_vasquez) — [photo](https://unsplash.com/photos/a-statue-of-a-person-yF3HRuffogk)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-sword-on-top-of-a-building-IYjfxrUikjs)
+- [Van Herb](https://unsplash.com/@van_herb) — [photo](https://unsplash.com/photos/angel-statue-near-green-trees-during-night-time-N6LiUMYhWoY)
+- [Jacky Watt](https://unsplash.com/@jackywatt) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-with-a-hat-on-her-head-JpMqwlyiCDw)
+- [Douglas Lima](https://unsplash.com/@douglima) — [photo](https://unsplash.com/photos/a-statue-of-a-man-EXqlaC-f8so)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-man-holding-a-sword-fkCplXrwwm0)
+- [Manuel Figueroa](https://unsplash.com/@manuelfigueroa) — [photo](https://unsplash.com/photos/a-statue-of-a-man-in-a-park-surrounded-by-trees-Dohe1Gq6QRM)
+- [tommao wang](https://unsplash.com/@tommaomaoer) — [photo](https://unsplash.com/photos/grey-concrete-statue-near-green-trees-during-daytime-esedFQeCB6g)
+- [Sergio](https://unsplash.com/@littlecarnaval) — [photo](https://unsplash.com/photos/stone-statue-of-an-old-man-with-a-long-beard-PX6ejrHGoNk)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-close-up-of-a-statue-of-a-man-in-front-of-a-brick-wall-draqIZfT9iI)
+- [Duc Van](https://unsplash.com/@duke91) — [photo](https://unsplash.com/photos/a-statue-of-a-monk-in-a-garden-N9-m8VlHeko)
+- [Xian Wen Foo](https://unsplash.com/@x_wen) — [photo](https://unsplash.com/photos/a-statue-of-a-person-with-a-robe-on-FJ_dTcHskIE)
+- [Clark Gu](https://unsplash.com/@atluminon) — [photo](https://unsplash.com/photos/grey-concrete-statue-under-white-sky-during-daytime-L-fUYCgldsU)

@@ -83,6 +83,8 @@ class VisionProvider(Protocol):
         pose_summary: str,
         camera_summary: str,
         scene_mode: str,
+        panorama_jpeg: bytes | None = None,
+        video_mp4: bytes | None = None,
     ) -> dict[str, Any]: ...
 
     async def repair(

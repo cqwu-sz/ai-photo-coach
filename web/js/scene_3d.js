@@ -27,9 +27,9 @@
  *   view.fov, view.cameraAzimuthDeg, view.aperture, view.focalMm
  */
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
-import { EffectComposer } from "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/EffectComposer.js";
-import { RenderPass } from "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/RenderPass.js";
-import { BokehPass } from "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/BokehPass.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { BokehPass } from "three/addons/postprocessing/BokehPass.js";
 
 import { buildAvatar } from "./avatar_builder.js";
 import { getAvatarStyle, resolveAvatarPicks } from "./avatar_styles.js";
@@ -69,7 +69,13 @@ export function createSceneView(container, opts) {
   const H = () => container.clientHeight || 200;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0a0a0e);
+  // The horizon colour also drives the fog and the clear colour, so
+  // wherever the camera looks there's never a pure-black void.
+  const horizonHex = skyHorizonColor(environment);
+  scene.background = new THREE.Color(horizonHex);
+  // Subtle distance fog — pushes the backdrop sphere into a soft
+  // wash so the avatar pops in the foreground.
+  scene.fog = new THREE.Fog(horizonHex, 6, 35);
 
   // ── Camera at the recommended capture pose ──
   const focalMm = clampNumber(
@@ -108,13 +114,16 @@ export function createSceneView(container, opts) {
 
   const apertureF = parseAperture(shot?.camera?.aperture);
   // Bokeh's `aperture` arg is *not* an f-number — it's a unitless
-  // screen-space blur scale. We map f/1.4 → strong (0.0010) and
-  // f/8 → mild (0.0001) on a smooth curve.
+  // screen-space blur scale. We map f/1.4 → strong (0.0006) and
+  // f/11 → mild (0.00005). Visual taste: f/2 was previously melting
+  // the *subject* itself, not just the background, because maxblur
+  // was 0.012 — far too aggressive for the small preview canvas.
+  // Keep maxblur low so the subject reads sharply even when DOF is on.
   const bokehAperture = mapApertureToBokeh(apertureF);
   const bokehPass = new BokehPass(scene, camera, {
     focus: cameraDistance(shot),
     aperture: bokehAperture,
-    maxblur: 0.012,
+    maxblur: 0.004,
   });
   composer.addPass(bokehPass);
 
@@ -124,7 +133,7 @@ export function createSceneView(container, opts) {
   // ── 360 backdrop sphere (context only — the camera looks INWARD
   //    so we put it far away, with a softening blur via emissive
   //    intensity not screen-space). ──
-  const bg = installBackdrop(scene, panoramaUrl);
+  const bg = installBackdrop(scene, panoramaUrl, environment);
 
   // ── Subject avatar(s) at world origin ──
   const pose = (shot.poses && shot.poses[0]) || null;
@@ -238,14 +247,15 @@ function parseAperture(input) {
 }
 
 function mapApertureToBokeh(fNum) {
-  // We empirically picked these endpoints by visual taste in the
-  // preview — f/1.4 should obviously melt the background, f/11+
-  // should be effectively no blur. Smooth power curve in between.
+  // f/1.4 → noticeable but not insane; f/11+ → effectively pin-sharp.
+  // Lower endpoints than v7-initial because the small preview canvas
+  // amplifies blur visually — what looks gentle in a full-screen
+  // viewport melts the subject in a 300×190 hero-stage card.
   const minF = 1.4;
   const maxF = 11.0;
   const clamped = Math.max(minF, Math.min(maxF, fNum));
   const t = (maxF - clamped) / (maxF - minF); // 1 at f/1.4, 0 at f/11
-  return 0.00012 + 0.0010 * Math.pow(t, 1.4);
+  return 0.00005 + 0.00055 * Math.pow(t, 1.4);
 }
 
 // ---------------------------------------------------------------------------
@@ -315,12 +325,18 @@ function applySunOrientation(sun, fill, environment) {
 // Backdrop sphere
 // ---------------------------------------------------------------------------
 
-function installBackdrop(scene, panoramaUrl) {
+function installBackdrop(scene, panoramaUrl, environment) {
+  // Always mount an inside-out sky sphere with a procedural vertical
+  // gradient so we get a proper sky → horizon → fog blend. If a real
+  // panorama URL is supplied it overrides the gradient.
   const geo = new THREE.SphereGeometry(BG_RADIUS, 64, 32);
   geo.scale(-1, 1, 1);
+  const tex = makeSkyTexture(environment);
   const mat = new THREE.MeshBasicMaterial({
-    color: 0x2a3346,
-    fog: false,
+    map: tex,
+    fog: true,
+    side: THREE.BackSide,
+    depthWrite: false,
   });
   const sphere = new THREE.Mesh(geo, mat);
   scene.add(sphere);
@@ -329,12 +345,13 @@ function installBackdrop(scene, panoramaUrl) {
     const loader = new THREE.TextureLoader();
     loader.load(
       panoramaUrl,
-      (tex) => {
-        tex.colorSpace = THREE.SRGBColorSpace;
-        tex.minFilter = THREE.LinearFilter;
-        tex.magFilter = THREE.LinearFilter;
-        mat.map = tex;
-        mat.color.set(0xc8c8c8); // slightly desaturate so subject pops
+      (panorama) => {
+        panorama.colorSpace = THREE.SRGBColorSpace;
+        panorama.minFilter = THREE.LinearFilter;
+        panorama.magFilter = THREE.LinearFilter;
+        if (mat.map) mat.map.dispose();
+        mat.map = panorama;
+        mat.color.set(0xd4d4d4);
         mat.needsUpdate = true;
       },
       undefined,
@@ -352,31 +369,116 @@ function installBackdrop(scene, panoramaUrl) {
   };
 }
 
+/**
+ * Procedural sky gradient. Returns a CanvasTexture with a vertical
+ * gradient: zenith → mid-tone → horizon. Horizon hue is modulated by
+ * environment.sun.altitude_deg so golden-hour shots get a warm fade.
+ */
+function makeSkyTexture(environment) {
+  const c = document.createElement("canvas");
+  c.width = 16; c.height = 256; // 1D-ish vertical gradient
+  const ctx = c.getContext("2d");
+  const horizon = skyHorizonColor(environment);
+  const zenith = skyZenithColor(environment);
+  const grad = ctx.createLinearGradient(0, 0, 0, 256);
+  grad.addColorStop(0, hexCss(zenith));
+  grad.addColorStop(0.55, hexCss(blendHex(zenith, horizon, 0.55)));
+  grad.addColorStop(1, hexCss(horizon));
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 16, 256);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.minFilter = THREE.LinearFilter;
+  tex.magFilter = THREE.LinearFilter;
+  return tex;
+}
+
+function skyHorizonColor(environment) {
+  const alt = environment?.sun?.altitude_deg ?? 35;
+  if (alt < 10) return 0x4a3520;       // dusk warm
+  if (alt < 25) return 0x6a4a30;       // golden hour
+  if (alt < 50) return 0x6e7a8c;       // mid-day haze
+  return 0x4d6b88;                      // overhead sun
+}
+
+function skyZenithColor(environment) {
+  const alt = environment?.sun?.altitude_deg ?? 35;
+  if (alt < 10) return 0x141a26;
+  if (alt < 25) return 0x1f2638;
+  if (alt < 50) return 0x2c3a5a;
+  return 0x365282;
+}
+
+function hexCss(hex) {
+  return "#" + hex.toString(16).padStart(6, "0");
+}
+function blendHex(a, b, t) {
+  const ar = (a >> 16) & 0xff, ag = (a >> 8) & 0xff, ab = a & 0xff;
+  const br = (b >> 16) & 0xff, bg = (b >> 8) & 0xff, bb = b & 0xff;
+  const r = Math.round(ar + (br - ar) * t);
+  const g = Math.round(ag + (bg - ag) * t);
+  const b2 = Math.round(ab + (bb - ab) * t);
+  return (r << 16) | (g << 8) | b2;
+}
+
 // ---------------------------------------------------------------------------
 // Ground plane (subtle, for footing context + shadow catching)
 // ---------------------------------------------------------------------------
 
 function installGround(scene) {
-  const geo = new THREE.CircleGeometry(6, 64);
+  // Layer 1: large ground disc — receives the sun's directional shadow.
+  const geo = new THREE.CircleGeometry(8, 64);
   const mat = new THREE.MeshStandardMaterial({
-    color: 0x202533,
-    roughness: 0.95,
+    color: 0x2a2f3d,
+    roughness: 0.92,
     metalness: 0.0,
-    transparent: true,
-    opacity: 0.55,
   });
   const m = new THREE.Mesh(geo, mat);
   m.rotation.x = -Math.PI / 2;
   m.position.y = 0;
   m.receiveShadow = true;
   scene.add(m);
+
+  // Layer 2: soft-edged contact shadow blob directly under the subject
+  // — gives a clear visual anchor that the avatar isn't levitating.
+  // Implemented as a radial-gradient canvas texture on a small disc;
+  // works even if shadow mapping is disabled / weak on a given GPU.
+  const blob = makeContactShadow();
+  blob.position.y = 0.005; // avoid z-fighting with ground
+  scene.add(blob);
+
   return {
     dispose() {
       scene.remove(m);
+      scene.remove(blob);
       geo.dispose();
       mat.dispose();
+      if (blob.material) blob.material.dispose();
+      if (blob.geometry) blob.geometry.dispose();
+      if (blob.material?.map) blob.material.map.dispose();
     },
   };
+}
+
+function makeContactShadow() {
+  const c = document.createElement("canvas");
+  c.width = 256; c.height = 256;
+  const ctx = c.getContext("2d");
+  const grad = ctx.createRadialGradient(128, 128, 8, 128, 128, 128);
+  grad.addColorStop(0.0, "rgba(0,0,0,0.65)");
+  grad.addColorStop(0.5, "rgba(0,0,0,0.32)");
+  grad.addColorStop(1.0, "rgba(0,0,0,0.0)");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 256, 256);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  const geo = new THREE.PlaneGeometry(1.6, 1.6);
+  const mat = new THREE.MeshBasicMaterial({
+    map: tex, transparent: true, depthWrite: false, fog: false,
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.rotation.x = -Math.PI / 2;
+  return mesh;
 }
 
 // ---------------------------------------------------------------------------
@@ -446,9 +548,15 @@ async function upgradeToRPM({
   try {
     const manifest = await loadAvatarManifest();
     const presetId = preferredPresetId || pickPresetForPerson(manifest.presets, personIndex);
-    if (!presetId) return;
+    if (!presetId) {
+      console.info("[scene_3d] no preset available, keeping procedural placeholder");
+      return;
+    }
     const avatar = await loadAvatar(presetId);
-    if (!avatar) return;  // glb not bundled, keep placeholder
+    if (!avatar) {
+      console.info(`[scene_3d] glb not bundled for ${presetId}, keeping procedural placeholder`);
+      return;
+    }
     avatar.position.copy(placeholder.root.position);
     avatar.rotation.copy(placeholder.root.rotation);
     avatar.traverse((c) => { c.castShadow = true; });
@@ -458,21 +566,26 @@ async function upgradeToRPM({
     // Replace registry entry so dispose() finds the upgraded mesh.
     const idx = registry.indexOf(placeholder);
     if (idx >= 0) registry[idx] = { dispose: () => scene.remove(avatar) };
+    console.info(`[scene_3d] upgraded to RPM avatar: ${presetId}`);
 
     // Bind Mixamo animation
     const poseId = pose?.id || pose?.reference_thumbnail_id;
     const mixamoId = resolveMixamoId(poseId, personCount, manifest);
     const clip = await loadAnimationClip(mixamoId);
     const ctrl = playAnimation(avatar, clip);
-    if (ctrl) mixers.push(ctrl.mixer);
+    if (ctrl) {
+      mixers.push(ctrl.mixer);
+      console.info(`[scene_3d] bound mixamo animation: ${mixamoId}`);
+    }
   } catch (err) {
-    console.debug("[scene_3d] RPM upgrade skipped:", err?.message || err);
+    console.warn("[scene_3d] RPM upgrade failed:", err?.message || err, err);
   }
 }
 
 function pickPresetForPerson(presets, idx) {
   if (!presets || !presets.length) return null;
-  const order = ["female_casual_22", "male_casual_25",
+  const order = ["female_youth_18", "male_casual_25",
+                 "female_casual_22",
                  "female_elegant_30", "child_girl_8"];
   const found = order.filter((id) => presets.some((p) => p.id === id));
   return found[idx % found.length] || presets[0].id;

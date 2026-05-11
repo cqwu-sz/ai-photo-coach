@@ -1,0 +1,25 @@
+{
+  "buildings": [
+    {
+      "id": "iapm_shanghai",
+      "name_zh": "上海IAPM环贸",
+      "lat": 31.2151,
+      "lon": 121.4622,
+      "floorplan_ref": "/img/indoor/iapm_l1.png",
+      "hotspots": [
+        {"name_zh": "中庭天井", "floor": "L1", "x_floor": 0.5, "y_floor": 0.4},
+        {"name_zh": "玻璃幕墙长廊", "floor": "L3", "x_floor": 0.7, "y_floor": 0.3}
+      ]
+    },
+    {
+      "id": "k11_hk",
+      "name_zh": "K11 MUSEA",
+      "lat": 22.2954,
+      "lon": 114.1741,
+      "floorplan_ref": "/img/indoor/k11_l1.png",
+      "hotspots": [
+        {"name_zh": "Opera Theatre", "floor": "G", "x_floor": 0.4, "y_floor": 0.5}
+      ]
+    }
+  ]
+}

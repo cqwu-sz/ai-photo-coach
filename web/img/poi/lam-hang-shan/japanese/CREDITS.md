@@ -1,0 +1,25 @@
+# Lam Hang Shan — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Roberta Sant'Anna](https://unsplash.com/@roberta_sant_anna) — [photo](https://unsplash.com/photos/a-man-holding-out-his-hand-in-front-of-him-TavRYsYPh3I)
+- [Thomas Kinto](https://unsplash.com/@thomaskinto) — [photo](https://unsplash.com/photos/a-wind-chime-hanging-from-the-side-of-a-building-RJr-Ek-iGc0)
+- [Damon Lam](https://unsplash.com/@dayday95) — [photo](https://unsplash.com/photos/greyscale-photo-of-rod-pocket-curtain-pjkKDU9ab1I)
+- [Da-shika](https://unsplash.com/@da_shika_photo) — [photo](https://unsplash.com/photos/a-person-with-a-hat-on-their-head-WdQJWyFTj-g)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-man-holding-a-baseball-bat-over-his-shoulder-5Dr0XPQnRIU)
+- [wang binghua](https://unsplash.com/@wangbinghua) — [photo](https://unsplash.com/photos/a-towel-hanging-on-a-tree-in-a-park-lJZgdmhcvcs)
+- [Marek Piwnicki](https://unsplash.com/@marekpiwnicki) — [photo](https://unsplash.com/photos/text-Do2I7G44rTU)
+- [Stephan HK](https://unsplash.com/@chromatograph) — [photo](https://unsplash.com/photos/a-close-up-of-a-plant-aFizbWJFG6Q)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-man-in-a-blue-kimono-holding-a-cell-phone-kIx29x7nPt0)
+- [Gerald Tan](https://unsplash.com/@ahkheong) — [photo](https://unsplash.com/photos/close-up-of-a-metal-rain-chain-with-japanese-characters-9F-rXpksorQ)
+- [Clay Banks](https://unsplash.com/@claybanks) — [photo](https://unsplash.com/photos/woman-in-black-coat-wearing-brown-woven-hat-standing-near-brown-wooden-wall-during-daytime-pVpBbIMoDBM)
+- [方 思硕](https://unsplash.com/@marxvan) — [photo](https://unsplash.com/photos/a-red-lantern-hanging-from-the-side-of-a-building-GumYvzbFGTU)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-bunch-of-lanterns-hanging-from-a-ceiling-QAKnydxL-ww)
+- [Shay Chen](https://unsplash.com/@shaychen) — [photo](https://unsplash.com/photos/a-white-curtain-with-asian-writing-on-it-9SgAPawKD3Q)
+- [Luca Severin](https://unsplash.com/@luca_severin) — [photo](https://unsplash.com/photos/a-red-and-white-gazebo-in-a-park-with-trees-WH0i9mW9lOI)
+- [@felirbe](https://unsplash.com/@felirbe) — [photo](https://unsplash.com/photos/grayscale-photo-of-printer-papers-y6VMoH6921w)
+- [Polina Kuzovkova](https://unsplash.com/@p_kuzovkova) — [photo](https://unsplash.com/photos/a-room-with-a-bunch-of-lights-hanging-from-the-ceiling-oc_xYKYkJ6U)
+- [Cinara Sommer](https://unsplash.com/@cisommer) — [photo](https://unsplash.com/photos/a-row-of-books-hFFh0Wh6DyU)
+- [Feiyou Guo](https://unsplash.com/@exquisitian) — [photo](https://unsplash.com/photos/a-red-tori-tori-tori-tori-tori-tori-tori-tori-tori-tori-tori-tori-tori-tori-o5c4l3hGHmI)
+- [Wang Yifang](https://unsplash.com/@wyfang) — [photo](https://unsplash.com/photos/red-poster-19ILvUyamvA)

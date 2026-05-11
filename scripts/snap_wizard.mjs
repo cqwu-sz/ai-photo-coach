@@ -66,7 +66,8 @@ async function freshContext() {
   await page.waitForTimeout(600);
   await shoot(page, "wizard_03_tone.png");
 
-  await page.click('button[data-suggest="cinematic, moody"]');
+  // Step 3 now uses visual style cards instead of English suggest pills.
+  await page.click('.style-card[data-style-id="cinematic_moody"] [data-pick]');
   await page.click("#next-btn");
   await page.waitForTimeout(600);
   await shoot(page, "wizard_04_review.png");

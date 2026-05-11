@@ -110,13 +110,53 @@ public final class AvatarManifest: ObservableObject {
             let (data, _) = try await URLSession.shared.data(from: url)
             let decoder = JSONDecoder()
             let parsed = try decoder.decode(AvatarManifestPayload.self, from: data)
-            self.payload = parsed
-            return parsed
+            let merged = AvatarManifestPayload(
+                presets: Self.mergeBundledPresets(parsed.presets),
+                poseToMixamo: parsed.poseToMixamo
+            )
+            self.payload = merged
+            return merged
         } catch {
             lastError = error.localizedDescription
             print("[AvatarManifest] load failed:", error)
-            return nil
+            let fallback = AvatarManifestPayload(
+                presets: Self.mergeBundledPresets([]),
+                poseToMixamo: AvatarAnimationManifest(
+                    single: [:],
+                    twoPerson: [:],
+                    threePerson: [:],
+                    fourPerson: [:],
+                    fallbackByCount: ["1": "idle_relaxed"]
+                )
+            )
+            self.payload = fallback
+            return fallback
         }
+    }
+
+    private static func mergeBundledPresets(_ remote: [AvatarPresetEntry]) -> [AvatarPresetEntry] {
+        var merged: [AvatarPresetEntry] = []
+        var seen = Set<String>()
+        for preset in remote + bundledPresetFallbacks() {
+            guard !seen.contains(preset.id) else { continue }
+            seen.insert(preset.id)
+            merged.append(preset)
+        }
+        return merged
+    }
+
+    private static func bundledPresetFallbacks() -> [AvatarPresetEntry] {
+        [
+            AvatarPresetEntry(id: "female_youth_18", nameZh: "少女 · 18", gender: "female", age: 18, style: "youth", tags: ["youth", "summer", "sweet"], glb: "/web/avatars/preset/female_youth_18.glb", usdz: "Avatars/female_youth_18.usdz", thumbnail: "/web/avatars/preset/female_youth_18.png"),
+            AvatarPresetEntry(id: "male_casual_25", nameZh: "休闲男 · 25", gender: "male", age: 25, style: "casual", tags: ["street", "everyday"], glb: "/web/avatars/preset/male_casual_25.glb", usdz: "Avatars/male_casual_25.usdz", thumbnail: "/web/avatars/preset/male_casual_25.png"),
+            AvatarPresetEntry(id: "female_casual_22", nameZh: "休闲女 · 22", gender: "female", age: 22, style: "casual", tags: ["youth", "street"], glb: "/web/avatars/preset/female_casual_22.glb", usdz: "Avatars/female_casual_22.usdz", thumbnail: "/web/avatars/preset/female_casual_22.png"),
+            AvatarPresetEntry(id: "female_elegant_30", nameZh: "优雅女 · 30", gender: "female", age: 30, style: "elegant", tags: ["formal", "fashion"], glb: "/web/avatars/preset/female_elegant_30.glb", usdz: "Avatars/female_elegant_30.usdz", thumbnail: "/web/avatars/preset/female_elegant_30.png"),
+            AvatarPresetEntry(id: "female_artsy_25", nameZh: "文艺女 · 25", gender: "female", age: 25, style: "artsy", tags: ["bohemian", "softlight"], glb: "/web/avatars/preset/female_artsy_25.glb", usdz: "Avatars/female_artsy_25.usdz", thumbnail: "/web/avatars/preset/female_artsy_25.png"),
+            AvatarPresetEntry(id: "male_business_35", nameZh: "商务男 · 35", gender: "male", age: 35, style: "business", tags: ["formal", "office"], glb: "/web/avatars/preset/male_business_35.glb", usdz: "Avatars/male_business_35.usdz", thumbnail: "/web/avatars/preset/male_business_35.png"),
+            AvatarPresetEntry(id: "male_athletic_28", nameZh: "运动男 · 28", gender: "male", age: 28, style: "athletic", tags: ["outdoor", "fit"], glb: "/web/avatars/preset/male_athletic_28.glb", usdz: "Avatars/male_athletic_28.usdz", thumbnail: "/web/avatars/preset/male_athletic_28.png"),
+            AvatarPresetEntry(id: "child_boy_8", nameZh: "男孩 · 8", gender: "male", age: 8, style: "child", tags: ["family", "kids"], glb: "/web/avatars/preset/child_boy_8.glb", usdz: "Avatars/child_boy_8.usdz", thumbnail: "/web/avatars/preset/child_boy_8.png"),
+            AvatarPresetEntry(id: "child_girl_8", nameZh: "女孩 · 8", gender: "female", age: 8, style: "child", tags: ["family", "kids"], glb: "/web/avatars/preset/child_girl_8.glb", usdz: "Avatars/child_girl_8.usdz", thumbnail: "/web/avatars/preset/child_girl_8.png"),
+        ]
     }
 
     /// Resolve the API base URL from UserDefaults (BYOK / dev override)
@@ -211,7 +251,8 @@ public enum AvatarPicker {
             return stored[personIndex]
         }
         guard !presets.isEmpty else { return nil }
-        let rotation = ["female_casual_22", "male_casual_25",
+        let rotation = ["female_youth_18", "male_casual_25",
+                        "female_casual_22",
                         "female_elegant_30", "child_girl_8"]
         let available = rotation.filter { id in presets.contains { $0.id == id } }
         if available.isEmpty {

@@ -1,0 +1,25 @@
+# Meridian View Center — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/three-generation-family-kneeling-on-cushions-at-table-talking-RXtq2e2mdmI)
+- [Yuan Yang](https://unsplash.com/@jack_young022) — [photo](https://unsplash.com/photos/aerial-view-of-city-buildings-during-daytime-q9ghYz_j4DA)
+- [PJH](https://unsplash.com/@dokae) — [photo](https://unsplash.com/photos/traditional-japanese-room-with-open-doorway-to-garden-96tG_FDCBw8)
+- [Mahesh Ranaweera](https://unsplash.com/@mahesh_ranaweera) — [photo](https://unsplash.com/photos/japanese-cityscape-with-mountains-and-a-flag-xho9Sb15nwE)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/japanese-room-51Zct6qgJ8E)
+- [PJH](https://unsplash.com/@dokae) — [photo](https://unsplash.com/photos/people-sitting-in-a-traditional-japanese-room-overlooking-garden-SBZEDS17fNU)
+- [Sunao Noguchi](https://unsplash.com/@fwm3u) — [photo](https://unsplash.com/photos/traditional-japanese-room-with-circular-window-overlooking-lush-greenery-6aem_R8-nPw)
+- [Kouji Tsuru](https://unsplash.com/@pafuxu) — [photo](https://unsplash.com/photos/a-room-with-a-stage-and-a-stage-with-a-curtain-and-a-stage-UXoI35NJhd4)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-large-body-of-water-with-a-city-in-the-background-oppo1IzFS78)
+- [Zheng XUE](https://unsplash.com/@xue_zheng) — [photo](https://unsplash.com/photos/aerial-view-of-a-dense-cityscape-under-cloudy-skies-hSORJg_bKgo)
+- [Yosuke Ota](https://unsplash.com/@yosuke_ota) — [photo](https://unsplash.com/photos/japanese-garden-with-manicured-bushes-and-sand-u5jBj3NUF7Q)
+- [PJH](https://unsplash.com/@dokae) — [photo](https://unsplash.com/photos/people-sit-on-tatami-mats-overlooking-a-garden-_OfwiAusLMk)
+- [Jerome Maas](https://unsplash.com/@jeromemaas) — [photo](https://unsplash.com/photos/a-room-with-a-lot-of-tables-and-chairs-2ennOP8oVWY)
+- [Zhisheng Deng](https://unsplash.com/@z_deng) — [photo](https://unsplash.com/photos/white-and-black-striped-round-wall-decor-PC2SwWqJWFg)
+- [hyunwoo jang](https://unsplash.com/@hyunnu) — [photo](https://unsplash.com/photos/path-leading-to-ocean-view-between-buildings-4KzoshiVaT8)
+- [Adarsh Chauhan](https://unsplash.com/@dyno8426) — [photo](https://unsplash.com/photos/traditional-japanese-room-with-garden-view-KFhQrBJ6R4Q)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/hayama-japan-FnDKBdnbp-M)
+- [Nicholas Ng](https://unsplash.com/@nicsandman20) — [photo](https://unsplash.com/photos/modern-building-with-large-windows-and-greenery-MMnNratXuZc)
+- [Jean-Claude Dumont](https://unsplash.com/@jcd8) — [photo](https://unsplash.com/photos/black-framed-glass-door-closed-0AKi6u69R2o)
+- [Anne Laure P](https://unsplash.com/@byannel) — [photo](https://unsplash.com/photos/a-dark-room-with-a-red-light-in-the-middle-of-it-PbemriYGLoQ)

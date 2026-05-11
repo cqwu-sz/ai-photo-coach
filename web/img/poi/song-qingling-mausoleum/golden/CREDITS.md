@@ -1,0 +1,25 @@
+# Song Qingling Mausoleum — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-group-of-ancient-historic-religious-buildings-in-the-middle-of-green-scenery-in-phnom-penh-in-cambodia-imnBvYV1jJQ)
+- [Zainab Iqbal](https://unsplash.com/@zee_iqbal) — [photo](https://unsplash.com/photos/a-building-with-a-golden-dome-in-the-middle-of-a-forest-7wEFZJqTW-c)
+- [Ágatha Depiné](https://unsplash.com/@agathadepine) — [photo](https://unsplash.com/photos/gold-domr-gazebo-csBxMptTonQ)
+- [Lucas Zhou](https://unsplash.com/@lucas_zhou) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-clock-on-top-of-it-KPTGgLf-Oe8)
+- [Polina Kuzovkova](https://unsplash.com/@p_kuzovkova) — [photo](https://unsplash.com/photos/ornate-temple-architecture-with-golden-spires-and-details-4BGkCh7Bt1c)
+- [أخٌ‌في‌الله](https://unsplash.com/@mhrezaa) — [photo](https://unsplash.com/photos/a-yellow-and-blue-building-with-a-sky-background-8CtCzxJNzXA)
+- [Gabriel Cattaruzzi](https://unsplash.com/@gabrielcattaruzzi) — [photo](https://unsplash.com/photos/a-group-of-people-standing-in-front-of-a-building-lwoHGAY85wM)
+- [Rowan Heuvel](https://unsplash.com/@insolitus) — [photo](https://unsplash.com/photos/intricate-golden-temple-facade-with-ornate-window-pQbI1y04PtU)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/sunset-at-fo-guang-shan-buddha-temple-in-kaohsiung-taiwan-oXVR3UOwifE)
+- [Danil Aksenov](https://unsplash.com/@nebe3etogo) — [photo](https://unsplash.com/photos/a-large-golden-building-with-a-sky-background-gVTvCBC0SiE)
+- [Imam Ali Holy Shrine](https://unsplash.com/@imamaliholyshrine) — [photo](https://unsplash.com/photos/a-crowd-of-people-standing-around-a-golden-shrine-sdQAt0XIRPY)
+- [Hongbin](https://unsplash.com/@hbsun2013) — [photo](https://unsplash.com/photos/an-aerial-view-of-a-white-and-gold-church-vBV3FANqz_M)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-gold-and-white-building-with-a-sky-background-MK7del6kDr8)
+- [BIlly Xue](https://unsplash.com/@billyxue) — [photo](https://unsplash.com/photos/a-building-that-is-next-to-a-body-of-water-fF3kABPk5IA)
+- [أخٌ‌في‌الله](https://unsplash.com/@mhrezaa) — [photo](https://unsplash.com/photos/golden-dome-of-a-mosque-illuminated-at-night-O-zszWDAve0)
+- [Noman Memon](https://unsplash.com/@300ali) — [photo](https://unsplash.com/photos/gray-concrete-church-UHms_-pLXd0)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/the-global-vipassana-pagoda-is-a-meditation-hall-in-mumbai-india-2wE7xigXt5I)
+- [Husam Harrasi](https://unsplash.com/@harrasi) — [photo](https://unsplash.com/photos/a-golden-dome-with-arabic-writing-on-it-d_U4rR8pcpU)
+- [Kashyap V](https://unsplash.com/@kashcyaptures) — [photo](https://unsplash.com/photos/a-large-golden-dome-on-top-of-a-building-6lSMeakS-1A)
+- [Ankit Sharma](https://unsplash.com/@theperfecthorizon) — [photo](https://unsplash.com/photos/brown-and-beige-concrete-building-near-body-of-water-during-daytime-ZuAxrcTdUuE)

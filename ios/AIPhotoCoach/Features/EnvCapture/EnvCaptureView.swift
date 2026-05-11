@@ -115,6 +115,32 @@ struct EnvCaptureView: View {
     }
 
     private var bottomBar: some View {
+        VStack(spacing: 12) {
+            if qualityMode == .high && !capture.isRecording {
+                Text("精致出片：请慢速转一圈 ≈ 8 秒，会同时录制视频上传给 AI")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.white.opacity(0.85))
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(.black.opacity(0.45), in: Capsule())
+            }
+            if viewModel.degradedFromHighToFast {
+                // High mode failed (no .mov, oversized, etc.) — surface
+                // an honest "auto-降级" badge so the user isn't billed/
+                // surprised by a fast-only result they expected to be high.
+                Text("⚠ 本次环境不支持高质量模式，已为你按快速模式分析")
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Color.orange.opacity(0.85), in: Capsule())
+            }
+            inner
+        }
+        .padding(.bottom, 24)
+    }
+
+    private var inner: some View {
         HStack(spacing: 24) {
             if capture.isRecording {
                 Button(action: stopAndAnalyze) {
@@ -134,7 +160,6 @@ struct EnvCaptureView: View {
                 .disabled(viewModel.isAnalyzing)
             }
         }
-        .padding(.bottom, 24)
     }
 
     private var analyzingOverlay: some View {
@@ -166,6 +191,10 @@ struct EnvCaptureView: View {
     }
 
     private func startRecording() {
+        // High mode also records a 720p .mov so Gemini Pro can do
+        // temporal reasoning. Capture session writes to a temp file and
+        // hands the URL back via endRecording().
+        capture.shouldRecordVideo = (qualityMode == .high)
         capture.beginRecording()
     }
 

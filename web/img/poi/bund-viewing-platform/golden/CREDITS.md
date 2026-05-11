@@ -1,0 +1,25 @@
+# Bund Viewing Platform — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/coin-operated-binoculars-at-the-scenic-viewpoint-oTejF-c37TA)
+- [Saira](https://unsplash.com/@sairaa) — [photo](https://unsplash.com/photos/a-group-of-people-on-a-bridge-7tB4Y4Ly3N8)
+- [Hoang Dang Khoa](https://unsplash.com/@khoahd7621) — [photo](https://unsplash.com/photos/golden-dome-against-a-blue-sky-with-clouds-DmOWzkOdaIY)
+- [Nimity Boronia](https://unsplash.com/@nboronia) — [photo](https://unsplash.com/photos/a-couple-of-people-standing-on-top-of-a-beach-next-to-the-ocean-rkbxc284lVI)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-large-golden-dome-on-top-of-a-building-GWeto31xD9k)
+- [Adam Nyhuis](https://unsplash.com/@adamnyhuisisme) — [photo](https://unsplash.com/photos/dock-pathway-on-rock-formation-eNkjN0ZPnlE)
+- [Lexin](https://unsplash.com/@lexinhaha) — [photo](https://unsplash.com/photos/a-person-standing-on-a-balcony-at-sunset-nChmq4743k8)
+- [Linda Gerbec](https://unsplash.com/@lsgerbec) — [photo](https://unsplash.com/photos/golden-bridge-held-by-giant-hands-in-vietnam-CsoQ-jm_0vQ)
+- [Polina Kuzovkova](https://unsplash.com/@p_kuzovkova) — [photo](https://unsplash.com/photos/a-view-of-a-city-from-a-rooftop-restaurant-Pb09Tv5d_ew)
+- [Renan Matias](https://unsplash.com/@renanmatiass) — [photo](https://unsplash.com/photos/golden-telescope-overlooks-a-sprawling-city-with-river-9vSARBmS1Nw)
+- [Pedro Oliveira](https://unsplash.com/@pedrohenrique_r) — [photo](https://unsplash.com/photos/wooden-deck-overlooks-misty-mountains-at-sunrise-XH_65mUxT98)
+- [Andrew Yu](https://unsplash.com/@foliumcore) — [photo](https://unsplash.com/photos/a-man-standing-on-top-of-a-grass-covered-hill--2dFyRM8PtE)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-bell-is-hanging-on-a-railing-0CS-hsRxTYk)
+- [Peter Ivey-Hansen](https://unsplash.com/@peteriveyphotography) — [photo](https://unsplash.com/photos/people-standing-in-building-during-daytime-7pEQCzVid0s)
+- [Maria Ivanova](https://unsplash.com/@marishphoto) — [photo](https://unsplash.com/photos/a-view-of-a-city-from-a-tall-building-mgCOuyfmcIg)
+- [Andrew Yu](https://unsplash.com/@foliumcore) — [photo](https://unsplash.com/photos/a-bench-on-top-of-a-hill-overlooking-a-city-v4lkZnaHPQM)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-small-shrine-with-golden-statues-on-top-of-it-TGQhv3r3o1A)
+- [Meritt Thomas](https://unsplash.com/@merittthomas) — [photo](https://unsplash.com/photos/brown-wooden-bridge-under-blue-sky-during-daytime-klRXBDf77I4)
+- [Karthick Gislen](https://unsplash.com/@karthickgislen) — [photo](https://unsplash.com/photos/a-couple-of-people-walking-across-a-bridge-over-a-body-of-water-G2st2CxmsnQ)
+- [Leo_Visions](https://unsplash.com/@leo_visions_) — [photo](https://unsplash.com/photos/two-yellow-towers-of-tower-bridge-sacramento-california-YwL59JGCXDU)

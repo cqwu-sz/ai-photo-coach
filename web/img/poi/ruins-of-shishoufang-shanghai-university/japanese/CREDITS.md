@@ -1,0 +1,25 @@
+# Ruins of Shishoufang, Shanghai University — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Allison Saeng](https://unsplash.com/@allisonsaeng) — [photo](https://unsplash.com/photos/a-red-and-white-cityscape-with-a-red-background-0A_1NzxLpS0)
+- [Hyory Liu](https://unsplash.com/@lxrsone) — [photo](https://unsplash.com/photos/a-van-driving-down-a-street-next-to-tall-buildings-n7p2RGHXqIc)
+- [Bruna Santos](https://unsplash.com/@brunafisantos) — [photo](https://unsplash.com/photos/traditional-east-asian-temple-architecture-with-tiered-roofs-P2EwyK_ImyA)
+- [David Veksler](https://unsplash.com/@davidveksler) — [photo](https://unsplash.com/photos/leafless-trees-BSG7AlTnT4I)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-large-body-of-water-with-a-city-in-the-background-z2Qadkv1fDc)
+- [ran liwen](https://unsplash.com/@nikol_royce) — [photo](https://unsplash.com/photos/a-white-building-with-red-shutters-and-trees-in-front-of-it-1kdWP1xouCI)
+- [Nk Ni](https://unsplash.com/@nkhasebe) — [photo](https://unsplash.com/photos/a-wooden-room-divider-with-chinese-writing-on-it-1sNZm05Oj8w)
+- [Bruna Santos](https://unsplash.com/@brunafisantos) — [photo](https://unsplash.com/photos/traditional-wooden-temple-with-tiered-roofs-against-sky-tWazAre3ukE)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-view-of-a-city-at-night-from-across-the-water--kmjRZuyFN8)
+- [Arvin Yuan](https://unsplash.com/@arvin_yuan) — [photo](https://unsplash.com/photos/orange-brick-building-with-windows-under-blue-sky-qgl53u1HqLA)
+- [Tom Ru](https://unsplash.com/@tom_66) — [photo](https://unsplash.com/photos/a-group-of-people-standing-in-front-of-a-building-8bO5cV7oaKg)
+- [Leon Hu](https://unsplash.com/@leonhu123) — [photo](https://unsplash.com/photos/city-buildings-reflected-in-a-calm-lake-tNGWjq8x3j0)
+- [ZHENYU LUO](https://unsplash.com/@mrnuclear) — [photo](https://unsplash.com/photos/a-city-skyline-with-skyscrapers-lit-up-at-night-XuMFb5DjVZU)
+- [he zhu](https://unsplash.com/@zhugher) — [photo](https://unsplash.com/photos/grayscale-photo-of-city-buildings-S9TVPpO77ps)
+- [Leon Hu](https://unsplash.com/@leonhu123) — [photo](https://unsplash.com/photos/building-facade-with-shanghart-sign-and-vines-ylpKKp3t0Ig)
+- [tangi bertin](https://unsplash.com/@tangib) — [photo](https://unsplash.com/photos/a-courtyard-with-a-fountain-in-the-middle-of-it-LNj94Kyz-kY)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-view-of-a-city-at-night-from-the-water-6UQuHTLJw4Q)
+- [Timothy Chambers](https://unsplash.com/@emilam) — [photo](https://unsplash.com/photos/a-large-garden-in-the-middle-of-a-city-oSkgEF8h7yY)
+- [Nk Ni](https://unsplash.com/@nkhasebe) — [photo](https://unsplash.com/photos/a-couple-of-people-that-are-walking-under-a-bridge-d1ZJu9d9HRU)
+- [Margarita B](https://unsplash.com/@margaritab) — [photo](https://unsplash.com/photos/a-historic-clock-tower-with-a-red-flag-FUSJPjWz6w4)

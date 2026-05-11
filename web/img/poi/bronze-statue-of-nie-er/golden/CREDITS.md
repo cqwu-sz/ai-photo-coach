@@ -1,0 +1,25 @@
+# Bronze Statue of Nie Er — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Alex Shuper](https://unsplash.com/@alexshuperart) — [photo](https://unsplash.com/photos/a-shiny-gold-statue-of-a-man-holding-a-baseball-bat-Xu1L6VHzarg)
+- [Dan Meyers](https://unsplash.com/@dmey503) — [photo](https://unsplash.com/photos/gold-statue-X_71d7I0rb8)
+- [Zdeněk Fekar](https://unsplash.com/@jackal007) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-with-her-arms-outstretched-RvQbrFQ22AY)
+- [Sui Xu](https://unsplash.com/@sui_xu) — [photo](https://unsplash.com/photos/golden-statue-of-a-woman-by-the-sea-EyWDEP2Jpwk)
+- [Alex Shuper](https://unsplash.com/@alexshuperart) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-holding-a-cell-phone-3Ct_YZazIkM)
+- [Zii Miller](https://unsplash.com/@anarchist) — [photo](https://unsplash.com/photos/man-in-gold-suit-statue-yIGSMcpQ1sQ)
+- [Juan Antonio Barrios Vidal](https://unsplash.com/@jbarrios) — [photo](https://unsplash.com/photos/a-statue-of-a-man-riding-a-horse-in-a-park-cH4U-Jwt64k)
+- [Frederick Lenard](https://unsplash.com/@profe218) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-cross-mQokyE-1kWA)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-gold-statue-of-a-person-holding-a-bird-xXPdvCGX-Dw)
+- [Leo Korman](https://unsplash.com/@leokorman) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-man-on-a-horse-zPY8ZMvOuIk)
+- [Eugenio Salinas](https://unsplash.com/@eugenio_gabriel) — [photo](https://unsplash.com/photos/golden-statue-of-a-woman-on-a-stone-monument-48hywz2Uk6w)
+- [Tadeusz Zachwieja](https://unsplash.com/@haiku_ted) — [photo](https://unsplash.com/photos/a-statue-of-a-hockey-player-on-a-skateboard-2kvuuO36LG0)
+- [Alex Shuper](https://unsplash.com/@alexshuperart) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-man-with-a-crown-on-his-head-l2PLM44wdSs)
+- [Felipe Simo](https://unsplash.com/@felipesimo) — [photo](https://unsplash.com/photos/female-with-arrow-statue-T-U6wuM0lvg)
+- [Mariana Maciel](https://unsplash.com/@marimaxiel) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-man-with-his-arms-in-the-air-WcjNg6Wjjg4)
+- [Ed Wingate](https://unsplash.com/@ed_wingate) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-on-top-of-a-pillar-uAV94BfowMo)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-woman-holding-a-flower-tecpr2YFoYM)
+- [Александр Давыдов](https://unsplash.com/@kucheryavy) — [photo](https://unsplash.com/photos/golden-monument-of-two-figures-against-a-twilight-sky-VXC6H-FO2KM)
+- [Александр Давыдов](https://unsplash.com/@kucheryavy) — [photo](https://unsplash.com/photos/golden-statue-of-two-figures-against-a-twilight-sky-fFjgtFknP_0)
+- [Youssef D](https://unsplash.com/@ussefd) — [photo](https://unsplash.com/photos/a-gold-statue-of-a-woman-holding-a-black-cat-BB1wKlQJQ6o)

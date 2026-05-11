@@ -1,0 +1,25 @@
+# Statue of Confucius — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-buddhas-sitting-in-front-of-a-tree-Tum-cI3OvLA)
+- [ASTERISK KWON](https://unsplash.com/@unknown_salad) — [photo](https://unsplash.com/photos/low-angle-photography-of-sitting-statue-rpFVnsi7PXw)
+- [(っ◔◡◔)っ Clement 🇰🇷](https://unsplash.com/@parlonscoree) — [photo](https://unsplash.com/photos/a-statue-of-a-person-MeqkQj3MPtw)
+- [Anand Ramavath](https://unsplash.com/@anandramavath_786) — [photo](https://unsplash.com/photos/a-statue-of-a-man-sitting-on-a-bench-5apMI9TyyOU)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-man-holding-a-sword-fkCplXrwwm0)
+- [Thomas Oxford](https://unsplash.com/@thom_oxford) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-person-nBv4Eyuw9og)
+- [Лариса Янковская](https://unsplash.com/@lora3762) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-person-sitting-on-a-bench-gYENbjbqaOE)
+- [Harrison Qi](https://unsplash.com/@harix) — [photo](https://unsplash.com/photos/gold-statue-of-man-holding-stick-z30fEwTmAnQ)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-vi59HkFt4dQ)
+- [Jason Leung](https://unsplash.com/@ninjason) — [photo](https://unsplash.com/photos/statue-of-a-man-in-chinatown-UYccuaqnaak)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/golden-statue-of-a-monk-in-a-temple-81r5UeGWId4)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/a-large-golden-statue-of-a-monk-in-a-temple-oxsQR1vR_8E)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-woman-holding-a-flower-tecpr2YFoYM)
+- [Hugo L. Casanova](https://unsplash.com/@hlcasan) — [photo](https://unsplash.com/photos/gold-statue-of-a-man-holding-a-book-uvsUMAI7Ehw)
+- [Yosuke Ota](https://unsplash.com/@yosuke_ota) — [photo](https://unsplash.com/photos/a-statue-of-an-old-man-with-a-beard-nO6enu3BMj8)
+- [Luna Wang](https://unsplash.com/@lunawangjl) — [photo](https://unsplash.com/photos/golden-statue-of-a-monk-with-its-fist-raised-DQMfiyt7EhE)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-AHkFdkLCGVo)
+- [YEH CHE WEI](https://unsplash.com/@yeh_che_wei) — [photo](https://unsplash.com/photos/gold-and-red-hindu-deity-statue-W9ZFAam0vOg)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/golden-statue-of-a-buddhist-monk-in-temple-TNCUcHT9CAY)
+- [Harrison Qi](https://unsplash.com/@harix) — [photo](https://unsplash.com/photos/gold-statue-of-man-in-gold-robe-nr0LIglGtqc)

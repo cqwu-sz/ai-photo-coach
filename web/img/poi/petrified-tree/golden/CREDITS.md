@@ -1,0 +1,25 @@
+# petrified tree — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Curated Lifestyle](https://unsplash.com/@curatedlifestyle) — [photo](https://unsplash.com/photos/see-more-wooden-backgrounds-TD02Ka-X5do)
+- [Adrián Valverde](https://unsplash.com/@adrianvalverdem) — [photo](https://unsplash.com/photos/a-tree-stump-that-has-been-cut-down-vJfVNqeQ0xs)
+- [Graphic Node](https://unsplash.com/@graphicnode) — [photo](https://unsplash.com/photos/brown-rock-formation-XRYyumee_DQ)
+- [Brandon Stoll](https://unsplash.com/@brandonstoll) — [photo](https://unsplash.com/photos/a-tree-stump-that-has-been-turned-into-a-planter-us2u2Y3wr6o)
+- [Daniel Mirlea](https://unsplash.com/@danielmirlea) — [photo](https://unsplash.com/photos/jagged-mountain-peaks-emerge-from-swirling-mist-ZkJW8oHbo98)
+- [Tasha Kostyuk](https://unsplash.com/@tashakostyuk) — [photo](https://unsplash.com/photos/close-up-of-petrified-wood-with-intricate-grain-patterns-WJP-nQ3Ka4U)
+- [Joseph Corl](https://unsplash.com/@jcorl) — [photo](https://unsplash.com/photos/a-piece-of-colorful-rock-sitting-on-top-of-a-dirt-field-0f9TjG_2BYI)
+- [Caleb Jack](https://unsplash.com/@hitthetrailjack) — [photo](https://unsplash.com/photos/a-large-piece-of-wood-sitting-on-top-of-a-dirt-field-1_3mnev5x5I)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/close-up-of-weathered-wood-grain-texture-uMvUnf2Bdac)
+- [Mark Valentine](https://unsplash.com/@photosbymarkv) — [photo](https://unsplash.com/photos/a-large-rock-sitting-on-top-of-a-dirt-field-WTrRnwGKhcA)
+- [Nguyễn Đại](https://unsplash.com/@enzoy) — [photo](https://unsplash.com/photos/brown-and-black-rock-formation-nK7KO0dTaLk)
+- [Aimable Mugabo](https://unsplash.com/@mugabo_library) — [photo](https://unsplash.com/photos/a-bird-is-perched-on-a-tree-stump-lPp_OURb-E8)
+- [Kamran Abdullayev](https://unsplash.com/@thekamranzadeh) — [photo](https://unsplash.com/photos/a-close-up-of-a-vase-on-a-black-background-0oPPLt1p-ls)
+- [Sen Ewe](https://unsplash.com/@senewe) — [photo](https://unsplash.com/photos/a-close-up-of-the-bark-of-a-tree-I49l0-nMX6w)
+- [Josie Weiss](https://unsplash.com/@scarlettweiss) — [photo](https://unsplash.com/photos/a-large-tree-stump-sitting-on-top-of-a-rocky-hillside-P_fWvV-tHrM)
+- [Dave Hoefler](https://unsplash.com/@iamthedave) — [photo](https://unsplash.com/photos/brown-rock-formation-on-body-of-water-woC_8dJuWlM)
+- [Behnam Norouzi](https://unsplash.com/@behy_studio) — [photo](https://unsplash.com/photos/a-bird-is-perched-on-a-tree-stump-45RQRtiv7Jg)
+- [Liza Golyarchuk](https://unsplash.com/@lizagolyarchuk) — [photo](https://unsplash.com/photos/a-piece-of-wood-that-is-brown-and-brown-EKyCN-RjM_0)
+- [Aimable Mugabo](https://unsplash.com/@mugabo_library) — [photo](https://unsplash.com/photos/a-close-up-of-a-rock-face-with-a-bird-perched-on-top-of-it-4uiO04oBbHg)
+- [Aimable Mugabo](https://unsplash.com/@mugabo_library) — [photo](https://unsplash.com/photos/a-close-up-of-a-tree-stump-with-a-blue-sky-in-the-background-R2ImnLe6agE)

@@ -2189,12 +2189,24 @@ button {
   box-shadow: 0 0 0 2px rgba(91, 156, 255, 0.2);
 }
 
-.avatar-slot img {
+.avatar-slot-preview {
   width: 56px;
   height: 70px;
-  object-fit: contain;
   background: rgba(0, 0, 0, 0.25);
   border-radius: 6px;
+  overflow: hidden;
+}
+
+.avatar-slot-preview canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: grab;
+}
+
+.avatar-slot-preview canvas:active {
+  cursor: grabbing;
 }
 
 .avatar-slot-num {
@@ -2213,18 +2225,34 @@ button {
   justify-content: center;
 }
 
-.avatar-slot-name {
-  font-size: 10.5px;
-  font-weight: 600;
-  color: var(--text-dim);
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
+.avatar-tabs {
+  display: flex;
+  gap: 6px;
+  margin: 4px 0 10px;
 }
 
-.avatar-slot.active .avatar-slot-name {
+.avatar-tab {
+  flex: 1;
+  padding: 7px 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.avatar-tab:hover {
+  border-color: rgba(91, 156, 255, 0.5);
+  color: var(--text);
+}
+
+.avatar-tab.is-active {
+  background: rgba(91, 156, 255, 0.15);
+  border-color: var(--accent);
   color: var(--text);
 }
 
@@ -2260,40 +2288,28 @@ button {
   background: rgba(69, 200, 156, 0.08);
 }
 
-.avatar-cell img {
+.avatar-cell-preview {
   width: 80px;
   height: 100px;
-  object-fit: contain;
   background: rgba(0, 0, 0, 0.18);
   border-radius: 8px;
+  overflow: hidden;
 }
 
-.avatar-cell-meta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
+.avatar-cell-preview canvas {
   width: 100%;
-  text-align: center;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: grab;
 }
 
-.avatar-cell-meta b {
-  font-size: 12px;
-  color: var(--text);
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
+.avatar-cell-preview canvas:active {
+  cursor: grabbing;
 }
 
-.avatar-cell-meta span {
-  font-size: 10.5px;
-  color: var(--text-dim);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
+.avatar-cell.is-hidden {
+  display: none;
 }
 
 /* ==========================================================
@@ -2342,7 +2358,9 @@ button {
 .hero-3d-stage {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 4 / 5;
+  min-height: 320px;
+  max-height: 70vh;
   border-radius: var(--radius-sm);
   overflow: hidden;
   background: #0d0d12;
@@ -3402,7 +3420,7 @@ body .chip-row .chip:nth-child(n+6) { animation-delay: 200ms; }
 .quality-card-name { font-size: 15px; font-weight: 800; color: var(--ink-bright); }
 .quality-card-meta { font-size: 11.5px; color: var(--text-muted); }
 
-/* Style suggest pills */
+/* Style suggest pills (legacy, kept for backwards compat) */
 .style-suggest {
   display: flex;
   flex-wrap: wrap;
@@ -3425,6 +3443,461 @@ body .chip-row .chip:nth-child(n+6) { animation-delay: 200ms; }
   background: rgba(255,255,255,0.08);
   border-color: rgba(255,255,255,0.22);
   color: var(--ink-bright);
+}
+
+/* ===== Style picker (Step 3) — visual cards + foldable references ===== */
+.style-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.style-section-header h3 { margin: 0; }
+.style-section-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.style-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 8px;
+}
+@media (max-width: 720px) {
+  .style-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    margin-left: -4px;
+    margin-right: -4px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  .style-grid > .style-card {
+    flex: 0 0 62%;
+    scroll-snap-align: start;
+  }
+}
+
+.style-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+.style-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.18);
+}
+.style-card.is-active {
+  border-color: rgba(244,184,96,0.7);
+  box-shadow: 0 0 0 1px rgba(244,184,96,0.25) inset,
+              0 8px 24px -10px rgba(244,184,96,0.4);
+}
+.style-card.is-expanded {
+  border-color: rgba(91,156,255,0.55);
+}
+.style-card.is-active.is-expanded {
+  border-color: rgba(244,184,96,0.85);
+}
+
+.style-card-pick {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: rgba(0,0,0,0.45);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+}
+.style-card-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s var(--ease-out);
+}
+.style-card:hover .style-card-img { transform: scale(1.04); }
+.style-card-pick::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.35), transparent 40%);
+  pointer-events: none;
+}
+.style-card-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(244,184,96,0.95);
+  color: #1a1a1a;
+  font-size: 13px;
+  font-weight: 800;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.style-card.is-active .style-card-check { display: flex; }
+
+.style-card-meta {
+  padding: 10px 12px 4px;
+}
+.style-card-title strong {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink-bright);
+  letter-spacing: -0.005em;
+}
+.style-card-title em {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.style-card-blurb {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* "Better time" banner — surfaced by style_picker.js when every
+   picked style scores < 0.5 in the current env and the server's
+   suggest_better_time scan finds a clearly better slot today. */
+.style-better-time-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(91, 156, 255, 0.08);
+  border: 1px solid rgba(91, 156, 255, 0.35);
+  color: var(--text);
+}
+.style-better-time-banner .sbt-icon {
+  font-size: 18px;
+  line-height: 1.2;
+  color: rgba(91, 156, 255, 0.95);
+  flex-shrink: 0;
+}
+.style-better-time-banner .sbt-body strong {
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+}
+.style-better-time-banner .sbt-body p {
+  margin: 4px 0 0;
+  font-size: 11.5px;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+/* Feasibility badge — populated by style_picker.js after it queries
+   /style-feasibility?lat=&lon=. Three tiers: recommended (✓ green),
+   marginal (△ amber), discouraged (⚠ red). The card itself also
+   gets a `tier-*` class so we can dim discouraged ones globally. */
+.style-card-badge {
+  margin: 6px 0 0;
+  font-size: 10.5px;
+  line-height: 1.4;
+  padding: 4px 7px;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.style-card-badge[data-tier="recommended"] {
+  background: rgba(86, 200, 130, 0.12);
+  color: rgba(126, 220, 160, 0.95);
+  border: 1px solid rgba(86, 200, 130, 0.35);
+}
+.style-card-badge[data-tier="marginal"] {
+  background: rgba(244, 184, 96, 0.12);
+  color: rgba(244, 184, 96, 0.95);
+  border: 1px solid rgba(244, 184, 96, 0.35);
+}
+.style-card-badge[data-tier="discouraged"] {
+  background: rgba(244, 96, 96, 0.12);
+  color: rgba(255, 140, 140, 0.95);
+  border: 1px solid rgba(244, 96, 96, 0.35);
+}
+.style-card.tier-discouraged {
+  opacity: 0.62;
+}
+.style-card.tier-discouraged:hover,
+.style-card.tier-discouraged.is-active {
+  opacity: 1;          /* user explicitly chose / hovers — restore */
+}
+
+/* Per-shot "style match" panel on result page — surfaces the
+   risk we built up: tells the user "you picked X, recommended
+   range was Y, AI gave Z" so the chain is auditable. */
+.style-match {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+}
+.style-match.in-range {
+  border-color: rgba(86, 200, 130, 0.35);
+  background: rgba(86, 200, 130, 0.06);
+}
+.style-match.clamped {
+  border-color: rgba(244, 184, 96, 0.4);
+  background: rgba(244, 184, 96, 0.06);
+}
+.style-match-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.style-match-label {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+.style-match-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.25);
+  color: var(--text-soft);
+}
+.style-match.in-range .style-match-pill {
+  color: rgba(126, 220, 160, 0.95);
+}
+.style-match.clamped .style-match-pill {
+  color: rgba(244, 184, 96, 0.95);
+}
+.style-match-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.style-match-row {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  gap: 10px;
+  font-size: 11.5px;
+  padding: 4px 0;
+  align-items: baseline;
+}
+.style-match-row .smr-label {
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.style-match-row .smr-range {
+  color: var(--text-soft);
+  opacity: 0.85;
+}
+.style-match-row .smr-actual {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.style-match-row.ok .smr-actual {
+  color: rgba(126, 220, 160, 0.95);
+}
+.style-match-row.warn .smr-actual {
+  color: rgba(244, 184, 96, 0.95);
+}
+.style-card-more {
+  margin: 6px 12px 10px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-soft);
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 5px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--dur-base) var(--ease-out);
+  font: inherit;
+  letter-spacing: 0.02em;
+}
+.style-card-more:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(244,184,96,0.06);
+}
+.style-card.is-expanded .style-card-more {
+  border-color: rgba(91,156,255,0.55);
+  color: rgba(91,156,255,0.95);
+  background: rgba(91,156,255,0.08);
+}
+
+/* Drawer — slides under the grid when "+N 张参考" clicked */
+.style-drawer {
+  margin-top: 4px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+  padding: 14px;
+  animation: style-drawer-in 0.24s var(--ease-spring);
+}
+.style-drawer[hidden] { display: none; }
+@keyframes style-drawer-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.style-drawer-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.style-drawer-title-wrap { flex: 1; min-width: 0; }
+.style-drawer-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink-bright);
+  letter-spacing: -0.005em;
+}
+.style-drawer-en {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: 6px;
+  letter-spacing: 0.02em;
+}
+.style-drawer-pick {
+  background: rgba(244,184,96,0.16);
+  border: 1px solid rgba(244,184,96,0.40);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  white-space: nowrap;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.style-drawer-pick:hover {
+  background: rgba(244,184,96,0.26);
+  border-color: rgba(244,184,96,0.6);
+}
+.style-drawer-pick.is-picked {
+  background: rgba(244,184,96,0.32);
+  border-color: rgba(244,184,96,0.7);
+  color: var(--ink-bright);
+}
+.style-drawer-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 6px;
+  font: inherit;
+  transition: color var(--dur-base) var(--ease-out);
+}
+.style-drawer-close:hover { color: var(--ink-bright); }
+.style-drawer-desc {
+  margin: 4px 0 12px;
+  font-size: 12.5px;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+.style-drawer-thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+.style-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.4);
+  text-decoration: none;
+}
+.style-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s var(--ease-out);
+}
+.style-thumb:hover img { transform: scale(1.06); }
+.style-thumb-tag {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  font-size: 9.5px;
+  padding: 2px 7px;
+  background: rgba(0,0,0,0.65);
+  color: #fff;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.style-drawer-credit {
+  margin: 12px 0 0;
+  font-size: 10.5px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+.style-drawer-credit a {
+  color: var(--text-soft);
+  text-decoration: underline;
+}
+
+/* Custom keyword escape hatch — folded by default */
+.style-custom {
+  margin-top: 12px;
+}
+.style-custom > summary {
+  cursor: pointer;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  list-style: none;
+  user-select: none;
+  letter-spacing: 0.02em;
+  transition: color var(--dur-base) var(--ease-out);
+}
+.style-custom > summary:hover { color: var(--text-soft); }
+.style-custom > summary::-webkit-details-marker { display: none; }
+.style-custom > summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 6px;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.style-custom[open] > summary::before { transform: rotate(90deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .style-card,
+  .style-card-img,
+  .style-thumb img,
+  .style-drawer { animation: none !important; transition: none !important; }
 }
 
 /* Review screen — summary chips + big CTA */

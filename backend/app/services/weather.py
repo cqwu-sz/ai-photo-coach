@@ -229,3 +229,114 @@ def to_prompt_block(snap: WeatherSnapshot) -> str:
 
 def _softness_zh(softness: str) -> str:
     return {"soft": "软", "hard": "硬", "mixed": "半软半硬", "unknown": "未知"}.get(softness, "未知")
+
+
+# ---------------------------------------------------------------------------
+# v12 — Provider protocol + Open-Meteo / Mock implementations
+# ---------------------------------------------------------------------------
+#
+# This indirection lets us swap weather sources without touching the
+# scene_aggregate / prompts call sites:
+#   - OpenMeteoProvider: production default (free, no key).
+#   - MockProvider: used by pytest, returns whatever you preload.
+#   - WeatherKitProvider: stub for when the iOS client provides cached
+#     WeatherKit snapshots over the wire (no backend Apple Dev needed).
+
+from typing import Protocol, runtime_checkable
+
+
+@runtime_checkable
+class WeatherProvider(Protocol):
+    async def fetch_current(self, lat: float, lon: float) -> Optional[WeatherSnapshot]: ...
+    async def fetch_minutely_15(self, lat: float, lon: float, hours: int = 1) -> Optional[list[dict]]: ...
+
+
+class OpenMeteoProvider:
+    """Default provider that wraps the existing module-level functions."""
+    async def fetch_current(self, lat: float, lon: float) -> Optional[WeatherSnapshot]:
+        return await fetch_current(lat, lon)
+
+    async def fetch_minutely_15(self, lat: float, lon: float, hours: int = 1) -> Optional[list[dict]]:
+        """Return up to `hours` of 15-minute forecast points for the
+        next hour: cloud_cover, visibility, weather_code. Used to
+        predict golden_hour_countdown / cloud_in_30min.
+        """
+        try:
+            async with httpx.AsyncClient(timeout=TIMEOUT_SEC) as cli:
+                resp = await cli.get(
+                    OPEN_METEO_URL,
+                    params={
+                        "latitude": lat, "longitude": lon,
+                        "minutely_15": "cloud_cover,visibility,weather_code",
+                        "forecast_minutely_15": str(min(hours * 4, 24)),
+                    },
+                )
+                if resp.status_code != 200:
+                    return None
+                payload = resp.json()
+        except Exception as e:                     # pragma: no cover
+            log.info("minutely forecast failed: %s", e)
+            return None
+        m15 = payload.get("minutely_15") or {}
+        times = m15.get("time") or []
+        if not times:
+            return None
+        out: list[dict] = []
+        for i, t in enumerate(times):
+            out.append({
+                "time":         t,
+                "cloud_cover":  (m15.get("cloud_cover") or [None])[i],
+                "visibility":   (m15.get("visibility") or [None])[i],
+                "weather_code": (m15.get("weather_code") or [None])[i],
+            })
+        return out
+
+
+class MockProvider:
+    def __init__(self, snapshot: Optional[WeatherSnapshot] = None,
+                 minutely: Optional[list[dict]] = None):
+        self.snapshot = snapshot
+        self.minutely = minutely
+
+    async def fetch_current(self, lat: float, lon: float) -> Optional[WeatherSnapshot]:
+        return self.snapshot
+
+    async def fetch_minutely_15(self, lat: float, lon: float, hours: int = 1) -> Optional[list[dict]]:
+        return self.minutely
+
+
+# Module-level singleton for now — swappable in tests via
+# ``weather.PROVIDER = MockProvider(...)``.
+PROVIDER: WeatherProvider = OpenMeteoProvider()
+
+
+# ---------------------------------------------------------------------------
+# v12 — light prediction helpers
+# ---------------------------------------------------------------------------
+
+def predict_cloud_in_30min(minutely: list[dict]) -> Optional[float]:
+    """Probability that cloud cover will be > 70% within the next 30
+    min. Heuristic: take the next two 15-min steps; return fraction
+    that exceed the threshold.
+    """
+    if not minutely:
+        return None
+    window = minutely[:2]   # next 30 min
+    high = sum(1 for p in window if (p.get("cloud_cover") or 0) > 70)
+    return round(high / len(window), 2)
+
+
+def golden_hour_countdown(altitude_now_deg: float, altitude_in_15_deg: float) -> Optional[int]:
+    """Minutes until sun altitude drops into the golden range (0-6°
+    above horizon). Returns None if already in range or sun is rising
+    rather than setting.
+    """
+    if 0 <= altitude_now_deg <= 6:
+        return 0
+    if altitude_now_deg < 0 or altitude_in_15_deg >= altitude_now_deg:
+        return None
+    rate_per_min = (altitude_now_deg - altitude_in_15_deg) / 15.0
+    if rate_per_min <= 0:
+        return None
+    minutes_to_6 = (altitude_now_deg - 6) / rate_per_min
+    return max(0, int(minutes_to_6))

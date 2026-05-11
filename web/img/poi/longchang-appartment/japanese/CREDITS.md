@@ -1,0 +1,25 @@
+# longchang appartment — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Curated Lifestyle](https://unsplash.com/@curatedlifestyle) — [photo](https://unsplash.com/photos/home-decor-japanese-historic-style-GTDK9m_A-Gs)
+- [Cuvii](https://unsplash.com/@cuvii) — [photo](https://unsplash.com/photos/a-traditional-japanese-pagoda-stands-between-modern-buildings-PrngEC0q73I)
+- [Shoham Avisrur](https://unsplash.com/@shoham_avisrur) — [photo](https://unsplash.com/photos/traditional-japanese-house-with-cherry-blossoms-blooming-luoMQzG07Ok)
+- [vaea Garrido](https://unsplash.com/@vaea) — [photo](https://unsplash.com/photos/brown-and-white-concrete-building-beside-road-under-blue-sky-during-daytime-Rdh2v57kTOA)
+- [Lala Azizli](https://unsplash.com/@lazizli) — [photo](https://unsplash.com/photos/a-house-with-a-tree-in-front-of-it-52Q-0QjhEn0)
+- [Tsuyoshi Kozu](https://unsplash.com/@tsuyoshikozu) — [photo](https://unsplash.com/photos/a-street-scene-with-a-building-in-the-middle-of-the-street-3mWGbsnsfKY)
+- [Se. Tsuchiya](https://unsplash.com/@s_tsuchiya) — [photo](https://unsplash.com/photos/a-building-with-a-tree-in-front-of-it-34RZTS-7trc)
+- [Alex Rerh](https://unsplash.com/@alexrerh) — [photo](https://unsplash.com/photos/white-concrete-building-during-daytime-PHEzBgH-BFM)
+- [ZHENYU LUO](https://unsplash.com/@mrnuclear) — [photo](https://unsplash.com/photos/a-group-of-umbrellas-sitting-on-top-of-a-roof-EZQN1n4mvGA)
+- [Yanhao Fang](https://unsplash.com/@alamanga) — [photo](https://unsplash.com/photos/a-room-with-a-chair-and-a-window-in-it-gsQ74-Lxs-M)
+- [Susann Schuster](https://unsplash.com/@susannschuster) — [photo](https://unsplash.com/photos/black-wooden-table-with-chairs-aBv1DziNn4Y)
+- [Hung Ba](https://unsplash.com/@hungba) — [photo](https://unsplash.com/photos/a-group-of-people-walking-down-a-street-next-to-tall-buildings-OICTjGMy008)
+- [Mariela Ferbo](https://unsplash.com/@marielaferbo) — [photo](https://unsplash.com/photos/apartment-building-with-balconies-and-laundry-hanging-outside-UG0QewKd07U)
+- [Lucas Calloch](https://unsplash.com/@dreiimos) — [photo](https://unsplash.com/photos/brown-wooden-framed-glass-door-MrXbVczGSGc)
+- [CHIH-HSIN CHEN](https://unsplash.com/@chibubux3) — [photo](https://unsplash.com/photos/a-couple-of-tall-buildings-sitting-next-to-each-other-KbG_5OZ5ShI)
+- [Mmoka .](https://unsplash.com/@pedarun) — [photo](https://unsplash.com/photos/a-room-that-has-a-bench-in-it-mhBIl-xKUDE)
+- [Lala Azizli](https://unsplash.com/@lazizli) — [photo](https://unsplash.com/photos/modern-building-corner-with-street-and-crosswalk-7L4MqevwPrA)
+- [5010](https://unsplash.com/@isoten) — [photo](https://unsplash.com/photos/traditional-japanese-room-with-shoji-screens-and-open-window-L39Q2rM9kdo)
+- [Peter Thomas](https://unsplash.com/@lifeof_peter_) — [photo](https://unsplash.com/photos/traditional-japanese-hallway-with-sliding-doors-and-wooden-railings-ouzlNdLb69w)
+- [Gilbert Ng](https://unsplash.com/@zhekai_39) — [photo](https://unsplash.com/photos/a-tall-white-building-sitting-on-the-side-of-a-road-CWgdzvrsgGM)

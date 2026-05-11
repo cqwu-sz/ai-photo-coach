@@ -1,0 +1,25 @@
+# Pedestrian x crossing — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/aerial-view-of-intersection-in-ginza-tokyo-japan-at-night-buZbAm7oLBY)
+- [Avi Varma](https://unsplash.com/@avivarma) — [photo](https://unsplash.com/photos/aerial-view-of-a-busy-city-intersection-with-buildings-913BQbzmzjo)
+- [Jivan Garcha](https://unsplash.com/@jivangarcha) — [photo](https://unsplash.com/photos/busy-city-intersection-at-night-with-many-cars-and-pedestrians-qwuCe0xrP28)
+- [Xuedi Liu](https://unsplash.com/@liuxuedi) — [photo](https://unsplash.com/photos/crowded-city-street-at-night-with-a-bus-zUk1vEivmVQ)
+- [Chris Barbalis](https://unsplash.com/@cbarbalis) — [photo](https://unsplash.com/photos/people-crossing-a-busy-street-on-a-sunny-day-vVk1GxTaQ_E)
+- [Ishaan Sen](https://unsplash.com/@ishaanthephotoman) — [photo](https://unsplash.com/photos/busy-city-street-at-night-with-blurred-pedestrians-crossing-pedestrians-e1FKoPFc5Ek)
+- [Ishaan Sen](https://unsplash.com/@ishaanthephotoman) — [photo](https://unsplash.com/photos/people-crossing-a-busy-street-at-night-_wLFKYI_rcY)
+- [Luke Robinson](https://unsplash.com/@rbnsnlk) — [photo](https://unsplash.com/photos/a-city-street-with-people-walking-on-the-sidewalk-iNdvf_siORM)
+- [Georgi Kalaydzhiev](https://unsplash.com/@jorok) — [photo](https://unsplash.com/photos/people-crossing-a-busy-street-intersection-from-above-WVFQv92z_as)
+- [Perry Merrity II](https://unsplash.com/@prince_perry) — [photo](https://unsplash.com/photos/a-city-street-with-people-walking-on-it-yBlaMU_sTDI)
+- [Joseph Matthias](https://unsplash.com/@joeir) — [photo](https://unsplash.com/photos/pedestrians-crossing-a-busy-city-street-with-tall-buildings-_txhtYs2EOc)
+- [Xu Duo](https://unsplash.com/@xuduo_shanghai) — [photo](https://unsplash.com/photos/pedestrian-lane-HOTr_nDl6D4)
+- [Jordan González](https://unsplash.com/@jorbrain) — [photo](https://unsplash.com/photos/people-crossing-a-street-in-a-modern-city-lLkEuJXCPqU)
+- [MAK](https://unsplash.com/@mak_jp) — [photo](https://unsplash.com/photos/a-person-walking-on-the-sidewalk-DJszsdW3u3s)
+- [Taiga Ishii](https://unsplash.com/@shichisan) — [photo](https://unsplash.com/photos/person-crossing-pedestrian-lane-during-daytime-c3bGjcw6lCE)
+- [De an Sun](https://unsplash.com/@andyadcon) — [photo](https://unsplash.com/photos/people-crossing-a-busy-street-at-night-kObDPYfIUts)
+- [Levi Meir Clancy](https://unsplash.com/@levimeirclancy) — [photo](https://unsplash.com/photos/a-group-of-people-walking-across-a-street-TY4zwc4hoek)
+- [Egor Myznik](https://unsplash.com/@vonshnauzer) — [photo](https://unsplash.com/photos/people-walking-on-pedestrian-lane-during-daytime-FRGNhs86rdE)
+- [Match Sùmàyà](https://unsplash.com/@themadphotography) — [photo](https://unsplash.com/photos/grayscale-photo-of-three-person-on-pedestrian-lane-vZGgOEFbLjA)
+- [ayumi kubo](https://unsplash.com/@ayumikubo) — [photo](https://unsplash.com/photos/people-cross-the-street-near-a-store-H0ImyUOJUPo)

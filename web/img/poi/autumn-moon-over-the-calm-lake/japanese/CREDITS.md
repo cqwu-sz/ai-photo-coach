@@ -1,0 +1,25 @@
+# Autumn Moon over the Calm Lake — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Raphael Lopes](https://unsplash.com/@raph_lopes) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-through-the-leaves-of-a-tree-2ojNFhDYqf4)
+- [Thomas Bormans](https://unsplash.com/@thomasbormans) — [photo](https://unsplash.com/photos/japanese-garden-reflected-on-the-calm-water-5GkYofWWvxY)
+- [bady abbas](https://unsplash.com/@bady) — [photo](https://unsplash.com/photos/green-and-brown-trees-beside-river-during-daytime-f74C-fWvJRg)
+- [Pratiksha Singh](https://unsplash.com/@momentsbyprats) — [photo](https://unsplash.com/photos/three-boats-float-on-a-calm-lake-near-trees-uO-1T5if4fo)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/car-parked-by-a-lake-with-a-mountain-view-bTIENHAP6q0)
+- [Hkyu Wu](https://unsplash.com/@hkyu) — [photo](https://unsplash.com/photos/silhouette-of-mountain-UMxZyZ2tpg0)
+- [Ben George](https://unsplash.com/@bgphotography) — [photo](https://unsplash.com/photos/a-peaceful-scene-of-a-japanese-building-6gHe_w6Eo_Q)
+- [Hat Trick](https://unsplash.com/@hattrick1996) — [photo](https://unsplash.com/photos/golden-pavilion-reflected-in-calm-water-at-sunrise-gS_tKezII1s)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/mount-fuji-reflects-under-a-stunning-milky-way-BDyTrpSTPZo)
+- [Diana Bondarenko](https://unsplash.com/@diadesigner) — [photo](https://unsplash.com/photos/autumn-village-by-a-calm-lake-with-mountains-_QbcPMy9J_M)
+- [あま あわれ](https://unsplash.com/@ueruko) — [photo](https://unsplash.com/photos/a-lake-with-a-mountain-in-the-background-2ILkXX6CIkQ)
+- [Hui Ling Chua](https://unsplash.com/@hlchua) — [photo](https://unsplash.com/photos/calm-lake-with-trees-and-clear-blue-sky-emyIzl1M9wU)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-majestic-mountain-reflected-in-a-calm-lake-bhsk6vDhegM)
+- [Kishor](https://unsplash.com/@shorstudio) — [photo](https://unsplash.com/photos/lake-near-mountain-during-daytime-1LtTdcXuX98)
+- [Kate Kasiutich](https://unsplash.com/@katekasiutich) — [photo](https://unsplash.com/photos/autumn-trees-and-steam-rising-from-a-lake-aYB_f8BsYv0)
+- [Chandra Oh](https://unsplash.com/@ceveoh) — [photo](https://unsplash.com/photos/brown-wooden-railings-DrMWyNABgcs)
+- [Kevin Charit](https://unsplash.com/@kevin_charit) — [photo](https://unsplash.com/photos/a-person-standing-on-a-dock-in-front-of-a-mountain-oBHlgjrHWIY)
+- [Jaipreet Singh](https://unsplash.com/@jpreet) — [photo](https://unsplash.com/photos/a-boat-floating-on-top-of-a-lake-surrounded-by-trees-Un5SZm6Yek8)
+- [Kishor](https://unsplash.com/@shorstudio) — [photo](https://unsplash.com/photos/green-and-brown-trees-near-body-of-water-during-daytime-ow2EaQNUgZc)
+- [Kirill Petropavlov](https://unsplash.com/@kp89_) — [photo](https://unsplash.com/photos/body-of-water-under-clear-blue-sky-ERgV4N-kR1M)

@@ -94,7 +94,7 @@ struct AvatarGalleryView: View {
                 columns: [GridItem(.adaptive(minimum: 96), spacing: 12)],
                 spacing: 14,
             ) {
-                ForEach(presets, id: \.id) { p in
+                ForEach(orderedAvatarPresets(presets), id: \.id) { p in
                     galleryCell(preset: p)
                 }
             }
@@ -131,30 +131,16 @@ struct AvatarGalleryView: View {
     }
 
     private func avatarThumb(presetId: String) -> some View {
-        let preset = manifest.payload?.presets.first { $0.id == presetId }
-        let urlString: String? = preset?.thumbnail.map(absoluteThumbURL)
-        return AsyncImage(
-            url: urlString.flatMap(URL.init(string:))
-        ) { phase in
-            switch phase {
-            case .success(let image):
-                image.resizable().scaledToFill()
-            default:
-                ZStack {
-                    Color.primary.opacity(0.06)
-                    Image(systemName: "person.crop.rectangle")
-                        .font(.title3)
-                        .foregroundStyle(Color.primary.opacity(0.30))
-                }
+        if let preset = manifest.payload?.presets.first(where: { $0.id == presetId }) {
+            AvatarPreset3DPreview(preset: preset, interactive: true)
+        } else {
+            ZStack {
+                Color.primary.opacity(0.06)
+                Image(systemName: "person.crop.rectangle")
+                    .font(.title3)
+                    .foregroundStyle(Color.primary.opacity(0.30))
             }
         }
-    }
-
-    private func absoluteThumbURL(_ rel: String) -> String {
-        if rel.hasPrefix("http") { return rel }
-        let base = UserDefaults.standard.string(forKey: "apiBaseURL")
-            ?? "http://127.0.0.1:8000"
-        return base.trimmingCharacters(in: CharacterSet(charactersIn: "/")) + rel
     }
 
     // MARK: - Loading + persistence

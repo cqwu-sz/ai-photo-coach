@@ -1,0 +1,25 @@
+# Nine dragon pillar — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-bunch-of-red-and-white-lights-hanging-from-a-pole-WK2RZ67Ip7c)
+- [Da Da](https://unsplash.com/@dakv) — [photo](https://unsplash.com/photos/a-statue-of-a-dragon-in-front-of-a-building-R76vlwhVsR4)
+- [Douglas Lima](https://unsplash.com/@douglima) — [photo](https://unsplash.com/photos/a-statue-of-a-dragon-FkDpQEIyft0)
+- [Astemir Almov](https://unsplash.com/@astik07) — [photo](https://unsplash.com/photos/shallow-focus-black-concrete-dragon-statue-M5dwO-mMU9g)
+- [Adolfo Félix](https://unsplash.com/@adolfofelix) — [photo](https://unsplash.com/photos/dragon-sign-on-a-building-under-blue-sky-Wd7y6oRf-VI)
+- [Omkar Jori](https://unsplash.com/@ojori) — [photo](https://unsplash.com/photos/a-statue-of-a-dragon-in-front-of-a-building-ow1iFD17py8)
+- [Jeremy Huang](https://unsplash.com/@plover37) — [photo](https://unsplash.com/photos/stone-dragon-sculpture-on-temple-stairs-tfFUBydk3TU)
+- [Diana Bondarenko](https://unsplash.com/@diadesigner) — [photo](https://unsplash.com/photos/a-close-up-of-a-wooden-cross-with-carvings-on-it-rrR5zBYANiw)
+- [A Chosen Soul](https://unsplash.com/@a_chosensoul) — [photo](https://unsplash.com/photos/ancient-torii-gate-in-a-field-of-wildflowers-WNpSZhS9Te4)
+- [Novel Saleh](https://unsplash.com/@novel2199) — [photo](https://unsplash.com/photos/a-stone-statue-of-a-lion-with-a-pagoda-on-top-SVKwsr8sURs)
+- [Marek Piwnicki](https://unsplash.com/@marekpiwnicki) — [photo](https://unsplash.com/photos/two-intricately-carved-wooden-dragons-facing-each-other-oY7rj1cz4y4)
+- [Kyle Hinkson](https://unsplash.com/@whereiskylenow) — [photo](https://unsplash.com/photos/stone-dragon-statue-with-lush-greenery-in-background-GhhTn1zXInc)
+- [Raphael Lopes](https://unsplash.com/@raph_lopes) — [photo](https://unsplash.com/photos/the-roof-of-a-building-with-a-tree-in-the-background-FoVEHDX38U4)
+- [Marco Vockner](https://unsplash.com/@marcovockner) — [photo](https://unsplash.com/photos/a-wooden-carving-of-a-mythical-creature-0Ed_L8v6Jyc)
+- [Mohamed Jamil Latrach](https://unsplash.com/@jamillatrach) — [photo](https://unsplash.com/photos/a-dragon-carving-on-the-side-of-a-building-PZb5DETdyYo)
+- [Marco Vockner](https://unsplash.com/@marcovockner) — [photo](https://unsplash.com/photos/a-statue-of-a-lion-is-in-front-of-a-building-ZrgPs4KaxRA)
+- [Jakub Tomasik](https://unsplash.com/@jakubeq) — [photo](https://unsplash.com/photos/stone-dragon-statue-with-temple-lantern-in-background-CURVyt_GyHY)
+- [Susann Schuster](https://unsplash.com/@susannschuster) — [photo](https://unsplash.com/photos/blue-and-brown-dragon-wall-decor-rMUeTc9dBeA)
+- [bay](https://unsplash.com/@alabyuu) — [photo](https://unsplash.com/photos/a-stone-dragon-statue-sits-in-front-of-a-temple-XAUokJT2Ki4)
+- [LIM ENG](https://unsplash.com/@shadoweng93) — [photo](https://unsplash.com/photos/giant-dragon-teeth-structure-with-a-lantern-and-buildings-_yCnjHYVzsk)

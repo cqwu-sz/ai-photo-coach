@@ -199,11 +199,15 @@ function addLabel(svg, text, x, y) {
 // ---------------------------------------------------------------------------
 
 function renderHUD(hud, shot, sv) {
+  // Sit in the top-right corner only — leaves the main 60% of the
+  // canvas for the actual subject preview. Previous version stacked
+  // full-width chips that visually consumed the entire upper half.
   hud.style.cssText = `
-    position: absolute; top: 12px; right: 12px;
-    display: flex; flex-direction: column; gap: 6px;
+    position: absolute; top: 8px; right: 8px;
+    display: flex; flex-direction: column; gap: 4px;
     align-items: flex-end;
     pointer-events: none;
+    max-width: 65%;
   `;
 
   const camera = shot?.camera || {};
@@ -245,16 +249,17 @@ function makeChip(text, kind = "neutral") {
   el.style.cssText = `
     background: ${chipBg(kind)};
     color: ${chipFg(kind)};
-    padding: 6px 12px;
+    padding: 3px 8px;
     border-radius: 999px;
-    font-size: 12.5px;
+    font-size: 10.5px;
     font-weight: 600;
-    letter-spacing: 0.02em;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    letter-spacing: 0.01em;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid ${chipBorder(kind)};
-    box-shadow: 0 4px 16px rgba(0,0,0,0.32);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.28);
     white-space: nowrap;
+    line-height: 1.3;
   `;
   return el;
 }

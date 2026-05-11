@@ -1,0 +1,25 @@
+# Jade Buddha — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [JSB Co.](https://unsplash.com/@jsbco) — [photo](https://unsplash.com/photos/a-close-up-of-a-statue-of-a-person-Az97RSl5KiE)
+- [Rendy Novantino](https://unsplash.com/@novantino) — [photo](https://unsplash.com/photos/green-skull-with-green-light-KVkfOA9NOGA)
+- [Elizabeth Love](https://unsplash.com/@elizabethlove) — [photo](https://unsplash.com/photos/a-statue-of-a-laughing-buddha-next-to-a-cell-phone-MMvmeqSOsbQ)
+- [Marek Piwnicki](https://unsplash.com/@marekpiwnicki) — [photo](https://unsplash.com/photos/a-statue-of-a-person-sitting-on-top-of-a-table-AG8u1r2Wxyw)
+- [JSB Co.](https://unsplash.com/@jsbco) — [photo](https://unsplash.com/photos/a-white-buddha-statue-sitting-in-the-dark-uKM8Sb7JWS0)
+- [Andrius Budrikas](https://unsplash.com/@andriusbudrikas) — [photo](https://unsplash.com/photos/a-statue-of-a-buddha-with-eyes-closed-XjWCjFYqF8U)
+- [SOUVIK ROY](https://unsplash.com/@nimuos) — [photo](https://unsplash.com/photos/brown-buddha-figurine-close-up-photography-rdZid3Oby7U)
+- [Stefan Neumann](https://unsplash.com/@aikidomitki) — [photo](https://unsplash.com/photos/a-statue-of-a-buddha-holding-a-staff-1thOKAkiNQo)
+- [Lala Azizli](https://unsplash.com/@lazizli) — [photo](https://unsplash.com/photos/a-statue-of-a-person-surrounded-by-plants-t5Lwo3Y6UEw)
+- [Suyash Mahar](https://unsplash.com/@suyashmahar) — [photo](https://unsplash.com/photos/a-statue-sitting-on-top-of-a-table-in-a-cemetery-odNgVu0atvc)
+- [András Dénes](https://unsplash.com/@andrasdenes) — [photo](https://unsplash.com/photos/a-close-up-of-a-statue-of-a-person-iikh1lN3C5w)
+- [Syawish Rehman](https://unsplash.com/@syawishrehman) — [photo](https://unsplash.com/photos/a-stone-buddha-statue-sits-on-a-lotus-flower-base-1nGp1Zo1l5o)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-person-sitting-on-top-of-a-table-UHxc54HAqrg)
+- [Anastasia Vikhareva](https://unsplash.com/@stasyabis) — [photo](https://unsplash.com/photos/stone-buddha-statue-in-front-of-traditional-japanese-temple-Amwviv26F3E)
+- [Param Dixit](https://unsplash.com/@param_dixit) — [photo](https://unsplash.com/photos/green-ceramic-figurine-on-blue-surface-npuVgkxSh4A)
+- [Akash Mehra](https://unsplash.com/@akashmehra17) — [photo](https://unsplash.com/photos/laughing-buddha-figurine-beside-leaf-0OnpgZ4j07M)
+- [Andrej Lišakov](https://unsplash.com/@lishakov) — [photo](https://unsplash.com/photos/a-mannequins-head-with-a-bunch-of-rings-on-top-of-it-1IBuo2WRa_s)
+- [Townsend Walton](https://unsplash.com/@twalton) — [photo](https://unsplash.com/photos/brown-ceramic-buddha-figurine-on-black-surface-gwAVanJepcY)
+- [Diana Lisunova](https://unsplash.com/@dianainjapan) — [photo](https://unsplash.com/photos/a-statue-of-a-person-sitting-on-a-rock-js0CT1a8t1w)
+- [ANANYA ANAND](https://unsplash.com/@ananya94) — [photo](https://unsplash.com/photos/a-serene-buddha-statue-sits-peacefully-amidst-lush-greenery-TPgHyYxlMmw)

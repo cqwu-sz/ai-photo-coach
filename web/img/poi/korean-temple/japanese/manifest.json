@@ -1,0 +1,48 @@
+{
+  "poi": "Korean Temple",
+  "style": "japanese",
+  "items": [
+    {
+      "id": "KLrlL5zcUlA",
+      "url": "https://images.unsplash.com/photo-1758696654112-cbb7abba65bf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8S29yZWFuJTIwVGVtcGxlJTIwamFwYW5lc2V8ZW58MHx8fHwxNzc4Mzg4OTU0fDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/stone-bridge-over-a-dry-creek-bed-with-wooden-railing-KLrlL5zcUlA",
+      "author_name": "Brother Yoon",
+      "author_url": "https://unsplash.com/@brother_yoon"
+    },
+    {
+      "id": "WD1Mw53U9WI",
+      "url": "https://images.unsplash.com/photo-1777497478508-ff638035ae19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8S29yZWFuJTIwVGVtcGxlJTIwamFwYW5lc2V8ZW58MHx8fHwxNzc4Mzg4OTU0fDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/traditional-korean-gate-with-blooming-cherry-blossoms-WD1Mw53U9WI",
+      "author_name": "Trac Vu",
+      "author_url": "https://unsplash.com/@tracminhvu"
+    },
+    {
+      "id": "rpVItHk3vGk",
+      "url": "https://images.unsplash.com/photo-1773968936120-2af0d2080439?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8M3x8S29yZWFuJTIwVGVtcGxlJTIwamFwYW5lc2V8ZW58MHx8fHwxNzc4Mzg4OTU0fDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/bare-trees-grow-above-a-tiled-roof-building-rpVItHk3vGk",
+      "author_name": "MChe Lee",
+      "author_url": "https://unsplash.com/@mclee"
+    },
+    {
+      "id": "WSqdHj01ZGM",
+      "url": "https://images.unsplash.com/photo-1769522388896-8736a2b618e5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8NHx8S29yZWFuJTIwVGVtcGxlJTIwamFwYW5lc2V8ZW58MHx8fHwxNzc4Mzg4OTU0fDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/row-of-red-pillars-supporting-a-patterned-ceiling-WSqdHj01ZGM",
+      "author_name": "LUHAN YANG",
+      "author_url": "https://unsplash.com/@yangluhan091"
+    },
+    {
+      "id": "ZwZujXfnFYo",
+      "url": "https://images.unsplash.com/photo-1776424157791-cfb08d53ace2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8NXx8S29yZWFuJTIwVGVtcGxlJTIwamFwYW5lc2V8ZW58MHx8fHwxNzc4Mzg4OTU0fDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/cherry-blossoms-frame-a-traditional-gate-in-gate-ZwZujXfnFYo",
+      "author_name": "Kelsey He",
+      "author_url": "https://unsplash.com/@idwyss"
+    },
+    {
+      "id": "n9LzhKdLWlU",
+      "url": "https://images.unsplash.com/photo-1758696654424-304fbeb88e90?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8S29yZWFuJTIwVGVtcGxlJTIwamFwYW5lc2V8ZW58MHx8fHwxNzc4Mzg4OTU0fDA&ixlib=rb-4.1.0&q=80&w=400",
+      "permalink": "https://unsplash.com/photos/a-winding-path-through-a-lush-green-forest-n9LzhKdLWlU",
+      "author_name": "Brother Yoon",
+      "author_url": "https://unsplash.com/@brother_yoon"
+    }
+  ]
+}

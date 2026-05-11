@@ -1,0 +1,25 @@
+# Class JS 2-8-2 Locomotive — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [JSB Co.](https://unsplash.com/@jsbco) — [photo](https://unsplash.com/photos/a-close-up-of-the-wheels-of-a-train-2VdgtFc4ZpQ)
+- [Hat Trick](https://unsplash.com/@hattrick1996) — [photo](https://unsplash.com/photos/two-vintage-steam-locomotives-parked-on-railway-tracks-_T6TAo0Ndw0)
+- [Julia Schuwer](https://unsplash.com/@julia_2501) — [photo](https://unsplash.com/photos/a-detailed-view-of-a-vintage-black-steam-locomotive-pZ06ZXCawu8)
+- [ᛟᛞᚨᛚᚹ](https://unsplash.com/@odalv) — [photo](https://unsplash.com/photos/vintage-black-steam-locomotive-on-tracks-oV4ZhKVKZX0)
+- [Lawrence Krowdeed](https://unsplash.com/@krowdeed) — [photo](https://unsplash.com/photos/a-black-and-white-photo-of-a-train-wheel-FNAPuVFbZC0)
+- [Makoto Yamanobe](https://unsplash.com/@kyoto256) — [photo](https://unsplash.com/photos/an-old-train-is-on-display-at-a-museum-kyWcGfDwTcY)
+- [Jürgen Scheeff](https://unsplash.com/@sardinien_blog) — [photo](https://unsplash.com/photos/a-black-and-red-train-sitting-on-top-of-train-tracks-p056nVf8OiI)
+- [Kouji Tsuru](https://unsplash.com/@pafuxu) — [photo](https://unsplash.com/photos/a-black-train-engine-sitting-on-top-of-train-tracks-gKope-gFG0U)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/vintage-black-steam-locomotive-train-rush-railway-XZxQlziBwiE)
+- [note thanun](https://unsplash.com/@notethanun) — [photo](https://unsplash.com/photos/a-black-train-traveling-down-train-tracks-next-to-a-field-oSsCg5cbRAU)
+- [Nguyen Minh](https://unsplash.com/@ngminh8895) — [photo](https://unsplash.com/photos/a-black-train-in-a-station-uhzEsV3k5js)
+- [Arda E. Genç](https://unsplash.com/@gencsanatkultur) — [photo](https://unsplash.com/photos/a-black-and-white-image-of-an-old-train-wWbW9Gx9mcg)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/locomotive-steam-with-powerful-clouds-of-smoke-leaves-the-station-for-a-retro-trip-motion-speed-0hi3uEJ3yOE)
+- [Wolfgang Weiser](https://unsplash.com/@hamburgmeinefreundin) — [photo](https://unsplash.com/photos/a-steam-engine-train-traveling-down-train-tracks-IQBGNz8w0kc)
+- [旭展 姚](https://unsplash.com/@doremiyao) — [photo](https://unsplash.com/photos/red-and-black-train-on-rail-tracks-CdWObweqoFo)
+- [LISK OBE](https://unsplash.com/@summerobelisk) — [photo](https://unsplash.com/photos/a-close-up-of-the-front-of-a-train-Lac36jbpkmY)
+- [Kamran Abdullayev](https://unsplash.com/@thekamranzadeh) — [photo](https://unsplash.com/photos/a-train-car-sitting-under-a-cloudy-sky-7veT1BeqLZk)
+- [Dušan veverkolog](https://unsplash.com/@veverkolog) — [photo](https://unsplash.com/photos/a-train-on-the-tracks-near-a-platform-13dEp0AMdnw)
+- [KUA YUE](https://unsplash.com/@df11g) — [photo](https://unsplash.com/photos/a-green-and-blue-train-traveling-down-train-tracks-P2D59kNYeIs)
+- [Sky](https://unsplash.com/@theskytales) — [photo](https://unsplash.com/photos/a-steam-train-is-under-repair-inside-a-workshop-Di4Sa-_c7nc)

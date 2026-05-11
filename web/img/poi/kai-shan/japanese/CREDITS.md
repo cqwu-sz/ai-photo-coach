@@ -1,0 +1,25 @@
+# Kai Shan — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-man-in-a-blue-kimono-holding-a-cell-phone-kIx29x7nPt0)
+- [karma svara](https://unsplash.com/@karrna) — [photo](https://unsplash.com/photos/a-man-standing-in-front-of-a-red-building-kyZWRWKDPV4)
+- [Kouji Tsuru](https://unsplash.com/@pafuxu) — [photo](https://unsplash.com/photos/a-sign-for-a-restaurant-with-asian-writing-on-it-4Hvt7GMDFyQ)
+- [Hannah Wright](https://unsplash.com/@hannahwrightdesigner) — [photo](https://unsplash.com/photos/brown-wooden-surface-ZzWsHbu2y80)
+- [Diana Light](https://unsplash.com/@dreamcatchlight) — [photo](https://unsplash.com/photos/a-wooden-table-topped-with-plates-of-food-to2ybdphVYE)
+- [Matthew Buchanan](https://unsplash.com/@mthwbchn) — [photo](https://unsplash.com/photos/brown-wooden-board-Us7_-H4N-Dg)
+- [Damon Lam](https://unsplash.com/@dayday95) — [photo](https://unsplash.com/photos/greyscale-photo-of-rod-pocket-curtain-pjkKDU9ab1I)
+- [MAK](https://unsplash.com/@mak_jp) — [photo](https://unsplash.com/photos/black-and-white-chinese-character-sign-LJT5ckJgLmo)
+- [Roberta Sant'Anna](https://unsplash.com/@roberta_sant_anna) — [photo](https://unsplash.com/photos/a-man-holding-out-his-hand-in-front-of-him-TavRYsYPh3I)
+- [@felirbe](https://unsplash.com/@felirbe) — [photo](https://unsplash.com/photos/grayscale-photo-of-printer-papers-y6VMoH6921w)
+- [Clay Banks](https://unsplash.com/@claybanks) — [photo](https://unsplash.com/photos/woman-in-black-coat-wearing-brown-woven-hat-standing-near-brown-wooden-wall-during-daytime-pVpBbIMoDBM)
+- [Kouji Tsuru](https://unsplash.com/@pafuxu) — [photo](https://unsplash.com/photos/traditional-japanese-building-facade-with-signs-and-lanterns-eZDXEiTjF0s)
+- [Pablo Merchán Montes](https://unsplash.com/@pablomerchanm) — [photo](https://unsplash.com/photos/a-woman-with-a-tattoo-on-her-arm-making-a-peace-sign-V7xk_EwjaRE)
+- [LISK OBE](https://unsplash.com/@summerobelisk) — [photo](https://unsplash.com/photos/a-bunch-of-asian-writing-on-a-wall-if-iMt9DZ0c)
+- [Antonio Araujo](https://unsplash.com/@antonioaaaraujo) — [photo](https://unsplash.com/photos/a-group-of-people-standing-in-a-kitchen-preparing-food-Y6E-Ex3r6GU)
+- [David Emrich](https://unsplash.com/@davidemrich) — [photo](https://unsplash.com/photos/a-group-of-people-wearing-hats-walking-down-a-street-Mu3x_sZ06UY)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-man-with-a-baseball-bat-standing-in-front-of-a-building-egDlA3NHeX0)
+- [Arctic](https://unsplash.com/@ioarctic) — [photo](https://unsplash.com/photos/four-brown-wooden-chairs-yQK82D3njDE)
+- [Harman Tatla](https://unsplash.com/@harmant) — [photo](https://unsplash.com/photos/building-with-japanese-signage-and-red-lanterns-at-night-wUBPzCxnI9c)
+- [Ozgu Ozden](https://unsplash.com/@ozgut) — [photo](https://unsplash.com/photos/a-woman-standing-in-front-of-a-food-stand-QD7wbJVqDP0)

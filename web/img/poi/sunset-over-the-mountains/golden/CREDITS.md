@@ -1,0 +1,25 @@
+# Sunset over the mountains — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-plane-flying-over-a-mountain-range-at-sunset-JUpYUMcyes4)
+- [Alex Ko](https://unsplash.com/@alexko) — [photo](https://unsplash.com/photos/dramatic-sunset-with-vibrant-orange-and-pink-clouds-C83w6E77zdk)
+- [Gustavo Sánchez](https://unsplash.com/@gustavo0351) — [photo](https://unsplash.com/photos/sunrise-over-a-bay-with-distant-islands-3_D2o3DxenI)
+- [Shawn Rain](https://unsplash.com/@shawn_rain) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-mountain-range-rBFe9hdnPvE)
+- [Daniel Mirlea](https://unsplash.com/@danielmirlea) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-mountain-range-wz4N8OwdZBc)
+- [Vijetha Surakanti](https://unsplash.com/@vijetha_surakanti) — [photo](https://unsplash.com/photos/hazy-mountain-range-at-sunset-with-golden-light-3zaf7jfl_vA)
+- [Maciek Sulkowski](https://unsplash.com/@imac666) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-mountain-range-lYvVC_ujZzQ)
+- [Joe Dudeck](https://unsplash.com/@joetography) — [photo](https://unsplash.com/photos/silhouette-of-mountain-during-sunset-5PBTbILv2bc)
+- [Spencer Backman](https://unsplash.com/@spencerbackman) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-mountain-range-4Cpq8vzSUI4)
+- [Joachim Lesne](https://unsplash.com/@joaching) — [photo](https://unsplash.com/photos/silhouette-of-mountain-1mRkAJHa2D0)
+- [Thomas Galler](https://unsplash.com/@t_galler) — [photo](https://unsplash.com/photos/sun-setting-behind-mountains-TYJwHr4U4bg)
+- [Artin Bakhan](https://unsplash.com/@artinbakhan) — [photo](https://unsplash.com/photos/a-landscape-with-hills-and-a-road-mu3-HLmcrVM)
+- [Luke Thornton](https://unsplash.com/@lukethorntonofficial) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-mountain-range-CNfhixEyx4k)
+- [Amir Hosein Azhdari](https://unsplash.com/@amir_h_azhdari) — [photo](https://unsplash.com/photos/silhouette-of-mountains-under-cloudy-sky-during-daytime-smFgWmZxDbM)
+- [Shawn Rain](https://unsplash.com/@shawn_rain) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-mountain-range-edfoaZs3uhs)
+- [Simon Joseph](https://unsplash.com/@bumpyshot) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-mountain-range-JRDkdBGKRj4)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-range-at-sunset-9vEDqDymdu8)
+- [Uday Nakade](https://unsplash.com/@unakade) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-mountain-range-xOrZ7n-byMA)
+- [Erika](https://unsplash.com/@erikahg) — [photo](https://unsplash.com/photos/silhoutte-of-mountain-kcb1oJzmlUI)
+- [Bobby](https://unsplash.com/@thapapawan) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-range-at-sunset-qEJRVTbDpTQ)

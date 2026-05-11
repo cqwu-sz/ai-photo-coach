@@ -1,0 +1,25 @@
+# Roundabout with Oriental Pearl Tower — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Roberta Sant'Anna](https://unsplash.com/@roberta_sant_anna) — [photo](https://unsplash.com/photos/fairground-ride-against-a-beautiful-sunset-sky-uR-TiDe2tvw)
+- [Nikesh Bajaj](https://unsplash.com/@nikeshbajaj) — [photo](https://unsplash.com/photos/an-aerial-view-of-a-city-with-lots-of-traffic-kVMXJD4XxLo)
+- [qiang xu](https://unsplash.com/@qian_xu) — [photo](https://unsplash.com/photos/a-very-tall-building-with-a-lot-of-lights-on-it-1bZc8Evnl8w)
+- [Maxim Klimashin](https://unsplash.com/@maxim_klimashin) — [photo](https://unsplash.com/photos/traditional-pagoda-structure-on-water-with-modern-buildings-behind-gmLCGbuEHIs)
+- [Polina Kuzovkova](https://unsplash.com/@p_kuzovkova) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-lot-of-decorations-on-top-of-it-ptGrGOa_zEk)
+- [Joshua Fernandez](https://unsplash.com/@joshuafernandez) — [photo](https://unsplash.com/photos/a-very-tall-building-with-a-very-tall-tower-in-the-background-k-zvYPrb_4I)
+- [Maxim Klimashin](https://unsplash.com/@maxim_klimashin) — [photo](https://unsplash.com/photos/a-traditional-pagoda-stands-in-a-park-with-modern-buildings-ZjQ5Z6btO3U)
+- [wang binghua](https://unsplash.com/@wangbinghua) — [photo](https://unsplash.com/photos/a-large-red-tower-sitting-above-a-body-of-water-GEqF-PuALHo)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/wangjiang-pavilion-wangjiang-tower-in-wangjianglou-park-on-sunrise-with-sun-chengdu-sichuan-china-8NlLx7Lg-2Q)
+- [nate](https://unsplash.com/@nathanmortn) — [photo](https://unsplash.com/photos/woman-walking-beside-green-tree-RixLP84iqcU)
+- [carmen dominguez](https://unsplash.com/@sandivan) — [photo](https://unsplash.com/photos/a-tall-building-with-a-red-and-white-sign-in-front-of-it-lD4UjmqCjB0)
+- [Aaron Burden](https://unsplash.com/@aaronburden) — [photo](https://unsplash.com/photos/a-tall-tower-with-lots-of-balconies-on-top-of-it-akjobXez1tU)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/golden-pavilion-in-nan-lian-garden-near-chi-lin-nunnery-temple-hong-kong-k4pFlAQH204)
+- [Chengyu Wang](https://unsplash.com/@chenriew) — [photo](https://unsplash.com/photos/a-city-street-with-tall-buildings-and-a-clock-tower-CLvi6OMgkAk)
+- [Sergio Guardiola Herrador](https://unsplash.com/@guardiola86) — [photo](https://unsplash.com/photos/golden-pagoda-in-lush-garden-with-modern-buildings-0P5MP2rD3qQ)
+- [Aswin](https://unsplash.com/@drag88) — [photo](https://unsplash.com/photos/red-and-white-pagoda-temple-Byuysdsv980)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/aerial-view-highway-road-intersection-roundabout-or-circle-at-night-for-transportation-distribution-or-traffic-background-1H1a-31HRVw)
+- [Miguel Lorenzo](https://unsplash.com/@miggymigs) — [photo](https://unsplash.com/photos/black-and-white-concrete-temple-during-daytime-4CHOHxCDu04)
+- [Katie Miller](https://unsplash.com/@katie_miller95) — [photo](https://unsplash.com/photos/blue-and-gray-temple-under-gray-sky-5FJmiJLIcQw)
+- [Jian Xi](https://unsplash.com/@xijian) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-sky-background-SuFXb_TADFA)

@@ -1,0 +1,25 @@
+# Statue of Chen Yi — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-sword-on-top-of-a-building-IYjfxrUikjs)
+- [WANG Tianfang](https://unsplash.com/@senchannnn) — [photo](https://unsplash.com/photos/a-statue-of-a-man-on-a-horse-with-a-bow-2kHEw0Z6RL0)
+- [Mathew Schwartz](https://unsplash.com/@cadop) — [photo](https://unsplash.com/photos/knight-statue-during-daytime-6JytDkYv584)
+- [Duc Van](https://unsplash.com/@duke91) — [photo](https://unsplash.com/photos/a-statue-of-a-man-stands-in-a-park-Flw1iyCeNj8)
+- [martin bennie](https://unsplash.com/@martinbennie) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-staff-in-front-of-a-building-n-XFCbKqQQY)
+- [Luo Jin Hong](https://unsplash.com/@logichom) — [photo](https://unsplash.com/photos/a-large-statue-of-a-woman-holding-a-baby-PKzyFIg0ujk)
+- [Mehmet Can Özgümüş](https://unsplash.com/@canmehmet) — [photo](https://unsplash.com/photos/statue-of-a-king-on-horseback-waving-BsTVqiGbIe4)
+- [Clark Gu](https://unsplash.com/@atluminon) — [photo](https://unsplash.com/photos/grey-concrete-statue-under-white-sky-during-daytime-L-fUYCgldsU)
+- [Wesley Tingey](https://unsplash.com/@wesleyphotography) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-hat-on-his-head-O4-d8gFvvPo)
+- [Mạnh Ngô](https://unsplash.com/@manhngo) — [photo](https://unsplash.com/photos/a-black-and-white-statue-of-a-samurai-warrior-4HgvLbGcK8Q)
+- [Nerissa J](https://unsplash.com/@nerissa_j_photography) — [photo](https://unsplash.com/photos/statue-of-a-warrior-with-a-bow-stands-outdoors-f9mKdB83nWw)
+- [ZJ Luk](https://unsplash.com/@zeonjat) — [photo](https://unsplash.com/photos/a-statue-of-a-man-on-a-horse-with-a-sword-bYN832_SGpk)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-banana-L6IyHeO4280)
+- [Paul Bill](https://unsplash.com/@hoffman11) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-pipe-on-top-of-a-building-prtbPBzcFto)
+- [Denise Bossarte](https://unsplash.com/@dbossarte) — [photo](https://unsplash.com/photos/man-in-hat-statue-under-white-clouds-during-daytime-oWnfNrC1Des)
+- [Jacky Watt](https://unsplash.com/@jackywatt) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-with-a-hat-on-her-head-JpMqwlyiCDw)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-pole-Tyxb2EczUYo)
+- [Jorge Fernández Salas](https://unsplash.com/@jorgefdezsalas) — [photo](https://unsplash.com/photos/statue-of-man-holding-book-f8scKO9jjas)
+- [Mathew Schwartz](https://unsplash.com/@cadop) — [photo](https://unsplash.com/photos/gold-statue-of-man-sitting-on-throne-Ktxql22DyMk)
+- [Peter Kang](https://unsplash.com/@gaiush) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-sword-in-front-of-a-blue-sky-gRIwJkPkmlU)

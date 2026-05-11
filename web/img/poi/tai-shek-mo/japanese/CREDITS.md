@@ -1,0 +1,25 @@
+# Tai Shek Mo — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Curated Lifestyle](https://unsplash.com/@curatedlifestyle) — [photo](https://unsplash.com/photos/portrait-of-a-cheerful-man-9mG0uHC0VaM)
+- [Damon Lam](https://unsplash.com/@dayday95) — [photo](https://unsplash.com/photos/greyscale-photo-of-rod-pocket-curtain-pjkKDU9ab1I)
+- [mos design](https://unsplash.com/@mosdesign) — [photo](https://unsplash.com/photos/a-restaurant-with-asian-writing-on-the-front-of-it-hn1_U1yCNAQ)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/there-is-a-sign-that-says-sake-no-misse-5dYFyY_mAzQ)
+- [Diana Light](https://unsplash.com/@dreamcatchlight) — [photo](https://unsplash.com/photos/a-wooden-table-topped-with-plates-of-food-to2ybdphVYE)
+- [Nichika Sakurai](https://unsplash.com/@nichiyoshi) — [photo](https://unsplash.com/photos/a-sign-on-a-building-SOEV-mg385g)
+- [Ozgu Ozden](https://unsplash.com/@ozgut) — [photo](https://unsplash.com/photos/a-woman-standing-in-front-of-a-food-stand-QD7wbJVqDP0)
+- [Richard Lu](https://unsplash.com/@skyfly_rich) — [photo](https://unsplash.com/photos/a-group-of-people-standing-outside-of-a-restaurant-at-night-BjLS9Wi8ZJ8)
+- [Roberta Sant'Anna](https://unsplash.com/@roberta_sant_anna) — [photo](https://unsplash.com/photos/a-man-with-a-moustache-standing-in-front-of-an-orange-wall-HFW7FSiD6PI)
+- [Dovile Ramoskaite](https://unsplash.com/@dovilerm) — [photo](https://unsplash.com/photos/person-in-black-t-shirt-GsSHHOA0RLY)
+- [Madeline Liu](https://unsplash.com/@madeline_sd) — [photo](https://unsplash.com/photos/a-bottle-of-tenko-20-sake-with-japanese-characters-gfEvrBLqyMk)
+- [Perry Merrity II](https://unsplash.com/@prince_perry) — [photo](https://unsplash.com/photos/chef-preparing-takoyaki-at-a-street-food-stall-LA9O_rB_-Xg)
+- [Roberta Sant'Anna](https://unsplash.com/@roberta_sant_anna) — [photo](https://unsplash.com/photos/a-man-in-a-white-shirt-is-dancing-XL4b2KtdSrI)
+- [Alireza heidarpour](https://unsplash.com/@ahcapture) — [photo](https://unsplash.com/photos/a-woman-with-a-hat-on-her-head-z_Jp7ewfduU)
+- [mos design](https://unsplash.com/@mosdesign) — [photo](https://unsplash.com/photos/a-group-of-people-standing-outside-of-a-restaurant-xX3hM3RwHrg)
+- [Harrison Qi](https://unsplash.com/@harix) — [photo](https://unsplash.com/photos/turned-on-tokyo-sign-at-night-SS4xlj8ThN8)
+- [JSB Co.](https://unsplash.com/@jsbco) — [photo](https://unsplash.com/photos/a-black-plate-topped-with-fried-food-on-top-of-a-wooden-table-zx-E3tw55AI)
+- [Tuan P.](https://unsplash.com/@tuan_p) — [photo](https://unsplash.com/photos/rows-of-oriental-lanterns-with-writing-on-them-zifOl-Fi7EM)
+- [Francisco Suarez](https://unsplash.com/@fsuarez) — [photo](https://unsplash.com/photos/grayscale-photo-of-people-in-restaurant-DhhwGTCsGOE)
+- [Matthew Buchanan](https://unsplash.com/@mthwbchn) — [photo](https://unsplash.com/photos/brown-wooden-board-Us7_-H4N-Dg)

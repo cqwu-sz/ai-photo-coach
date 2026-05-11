@@ -1,0 +1,25 @@
+# Deng Xiaoping Statue — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-mpj-Zp1NAhY)
+- [Raimond Klavins](https://unsplash.com/@raimondklavins) — [photo](https://unsplash.com/photos/gold-statue-of-man-and-woman-nk12dIfLG30)
+- [Anushka Singh](https://unsplash.com/@anushkas) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-person-holding-a-torch-YXakGFzhm78)
+- [Ciprian Stoenescu](https://unsplash.com/@cipri77) — [photo](https://unsplash.com/photos/golden-statue-of-a-warrior-with-a-large-weapon-Exah6F4vkcc)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-buddhas-sitting-in-front-of-a-tree-Tum-cI3OvLA)
+- [Thomas Oxford](https://unsplash.com/@thom_oxford) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-person-holding-a-knife-IrDzZzsDvKk)
+- [Rama Krushna Behera](https://unsplash.com/@rkdotdesign) — [photo](https://unsplash.com/photos/golden-statue-against-a-bright-blue-sky-bJC10wqOYsA)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/a-large-golden-statue-of-a-monk-in-a-temple-oxsQR1vR_8E)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-gold-statue-of-a-person-holding-a-bird-xXPdvCGX-Dw)
+- [(っ◔◡◔)っ Clement 🇰🇷](https://unsplash.com/@parlonscoree) — [photo](https://unsplash.com/photos/a-statue-of-a-person-MeqkQj3MPtw)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/golden-statue-of-a-buddhist-monk-in-temple-TNCUcHT9CAY)
+- [Chiyoung](https://unsplash.com/@chiyoung) — [photo](https://unsplash.com/photos/a-statue-of-a-buddha-in-a-garden-Ivr1TTc46io)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-82vU-p9skQY)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-man-in-front-of-a-red-wall-ddwbr8U3xrE)
+- [Quinten de Graaf](https://unsplash.com/@quinten149) — [photo](https://unsplash.com/photos/a-group-of-golden-figurines-in-a-room-JWh6keFnaZQ)
+- [Thomas Oxford](https://unsplash.com/@thom_oxford) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-person-nBv4Eyuw9og)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-woman-holding-a-flower-tecpr2YFoYM)
+- [ASTERISK KWON](https://unsplash.com/@unknown_salad) — [photo](https://unsplash.com/photos/low-angle-photography-of-sitting-statue-rpFVnsi7PXw)
+- [Passang Tobgay](https://unsplash.com/@passa_tobgay21) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-woman-holding-a-flower--DuzBGz7k4U)
+- [Raimond Klavins](https://unsplash.com/@raimondklavins) — [photo](https://unsplash.com/photos/gold-hindu-deity-figurine-in-close-up-photography-Igwbq4d04eQ)

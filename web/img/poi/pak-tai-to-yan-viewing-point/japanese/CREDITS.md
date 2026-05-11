@@ -1,0 +1,25 @@
+# Pak Tai To Yan Viewing Point — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/asian-woman-relax-in-the-holiday-play-if-yoga-on-the-balcony-landscape-natural-field-papongpieng-in-thailand-yX2lAUXsrZc)
+- [Esther J Lee](https://unsplash.com/@esthersky) — [photo](https://unsplash.com/photos/man-in-green-t-shirt-raising-his-hand-near-green-tree-during-daytime-ofG04R-PX_A)
+- [Datingjungle](https://unsplash.com/@datingjungle) — [photo](https://unsplash.com/photos/a-structure-in-the-middle-of-a-forest-iDjHiK5cfTE)
+- [MChe Lee](https://unsplash.com/@mclee) — [photo](https://unsplash.com/photos/green-trees-on-mountain-near-body-of-water-during-daytime-ozgxKByasDY)
+- [Spenser Sembrat](https://unsplash.com/@spensersembrat) — [photo](https://unsplash.com/photos/a-bird-perched-on-a-fence-overlooking-a-body-of-water-LYVjS5AlkMo)
+- [Omri D. Cohen](https://unsplash.com/@omridcohen) — [photo](https://unsplash.com/photos/a-group-of-people-standing-on-top-of-a-roof-tG5-EZzrvec)
+- [AR](https://unsplash.com/@ar__) — [photo](https://unsplash.com/photos/brown-wooden-table-near-railings-viewing-mountain-and-blue-sea-during-daytime-H8ESRWAbs7A)
+- [CreateTravel.tv](https://unsplash.com/@greenmarketing) — [photo](https://unsplash.com/photos/people-walking-on-park-during-daytime-FpkQ-KAAr5I)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-man-standing-on-a-platform-oDWbcedUX_E)
+- [Mark Joseph Sesaldo](https://unsplash.com/@marksesaldo) — [photo](https://unsplash.com/photos/a-set-of-stairs-leading-down-to-a-lake-u93_THNqARs)
+- [Naresh Kumar](https://unsplash.com/@naresh_kumar) — [photo](https://unsplash.com/photos/four-men-sitting-on-brown-wooden-bridge-tGMcRg83bcY)
+- [Alexandros Giannakakis](https://unsplash.com/@alegi__) — [photo](https://unsplash.com/photos/a-bench-sitting-on-top-of-a-lush-green-hillside-gAAl-lzH-kk)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/asian-woman-relax-in-the-holiday-play-if-yoga-on-the-balcony-landscape-natural-fieldpapongpieng-in-thailand-GJrdr96AhEM)
+- [JP Sheard](https://unsplash.com/@jpsheard) — [photo](https://unsplash.com/photos/a-house-on-a-hill-with-a-view-of-the-mountains-QJhtMvFwdNI)
+- [Kate Wells](https://unsplash.com/@katewells27) — [photo](https://unsplash.com/photos/monk-in-conical-hat-overlooking-lush-green-mountains-v4927OI2zJM)
+- [Ma Ben](https://unsplash.com/@mbmmbb) — [photo](https://unsplash.com/photos/green-mountains-under-white-clouds-during-daytime-6e7cyJSd9ik)
+- [Spenser Sembrat](https://unsplash.com/@spensersembrat) — [photo](https://unsplash.com/photos/a-woman-looking-out-over-a-body-of-water-bWELfbTVrA0)
+- [Igor Manachkin](https://unsplash.com/@manachkin) — [photo](https://unsplash.com/photos/a-large-wooden-structure-sitting-on-top-of-a-cement-slab-LpMdQTA2z0E)
+- [KG Baek](https://unsplash.com/@kgbaek) — [photo](https://unsplash.com/photos/a-view-of-a-wooden-walkway-with-benches-on-the-side-of-it-nmd3irMKAoI)
+- [ShihHung Chen](https://unsplash.com/@leothebug) — [photo](https://unsplash.com/photos/a-gazebo-sitting-on-top-of-a-hill-next-to-the-ocean-QNi-BL3QFz4)

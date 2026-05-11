@@ -33,6 +33,24 @@ actor APIClient {
         }
     }
 
+    /// Inject the current bearer token + device id on every outbound
+    /// request. Pulled out so analyze/feedback/recon3d all stay
+    /// consistent. Best-effort: when AuthManager has no session yet we
+    /// fall back to X-Device-Id only — the backend's
+    /// `enable_legacy_device_id_auth` path will still pick us up.
+    private func attachAuth(to request: inout URLRequest) async {
+        let auth = await MainActor.run { AuthManager.shared }
+        request.setValue(auth.deviceId, forHTTPHeaderField: "X-Device-Id")
+        do {
+            let token = try await auth.accessToken()
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        } catch {
+            // No token; rely on X-Device-Id fallback. Don't block the
+            // request — most upstream callers can tolerate a 401 and
+            // surface their own retry.
+        }
+    }
+
     func health() async throws -> Bool {
         let url = APIConfig.baseURL.appendingPathComponent("healthz")
         let (data, response) = try await session.data(from: url)
@@ -52,11 +70,13 @@ actor APIClient {
         referenceThumbnails: [Data] = [],
         modelId: String? = nil,
         modelApiKey: String? = nil,
-        modelBaseUrl: String? = nil
+        modelBaseUrl: String? = nil,
+        videoMP4: Data? = nil
     ) async throws -> AnalyzeResponse {
         let url = APIConfig.baseURL.appendingPathComponent("analyze")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        await attachAuth(to: &request)
 
         let boundary = "Boundary-\(UUID().uuidString)"
         request.setValue("multipart/form-data; boundary=\(boundary)",
@@ -68,11 +88,15 @@ actor APIClient {
 
         var body = Data()
         body.appendFormField(name: "meta", value: String(data: metaJSON, encoding: .utf8) ?? "{}", boundary: boundary)
-        for (i, frame) in frames.enumerated() {
+        // A1-exif-strip: scrub EXIF/GPS before any image leaves the
+        // device. Cheap (<5ms per JPEG on A14+) and idempotent.
+        let safeFrames = ImageSanitizer.stripped(all: frames)
+        let safeRefs = ImageSanitizer.stripped(all: referenceThumbnails)
+        for (i, frame) in safeFrames.enumerated() {
             body.appendFile(name: "frames", filename: "frame_\(i).jpg",
                             mimeType: "image/jpeg", data: frame, boundary: boundary)
         }
-        for (i, ref) in referenceThumbnails.enumerated() {
+        for (i, ref) in safeRefs.enumerated() {
             body.appendFile(name: "reference_thumbnails", filename: "ref_\(i).jpg",
                             mimeType: "image/jpeg", data: ref, boundary: boundary)
         }
@@ -84,6 +108,10 @@ actor APIClient {
         }
         if let baseUrl = modelBaseUrl, !baseUrl.isEmpty {
             body.appendFormField(name: "model_base_url", value: baseUrl, boundary: boundary)
+        }
+        if let video = videoMP4, !video.isEmpty {
+            body.appendFile(name: "video", filename: "scan.mov",
+                            mimeType: "video/quicktime", data: video, boundary: boundary)
         }
         body.append("--\(boundary)--\r\n")
 

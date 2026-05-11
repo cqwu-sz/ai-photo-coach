@@ -1,0 +1,25 @@
+# Statue of Mao Zedong — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-with-a-ferris-wheel-on-top-of-it-5iCJEwKbBr4)
+- [LISK OBE](https://unsplash.com/@summerobelisk) — [photo](https://unsplash.com/photos/statue-of-a-man-in-uniform-holding-a-book-9WCIVl8zxDo)
+- [Peng Wei](https://unsplash.com/@ricear) — [photo](https://unsplash.com/photos/man-in-brown-suit-statue-lLjzSoA2FU8)
+- [Phương Anh Nguyễn](https://unsplash.com/@phuonganh1199) — [photo](https://unsplash.com/photos/a-statue-of-a-group-of-people-standing-in-front-of-a-mountain-ztbLHtwo0Z4)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-man-holding-a-sword-fkCplXrwwm0)
+- [Bu Jeff](https://unsplash.com/@jeffbu) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-rainbow-in-the-background-cCdV8I1ES0s)
+- [Oscar Schnell](https://unsplash.com/@oscar1319) — [photo](https://unsplash.com/photos/man-in-coat-statue-near-building-during-daytime-UDRG28JFcj8)
+- [NATasha Nguyen](https://unsplash.com/@nat13ng) — [photo](https://unsplash.com/photos/a-statue-of-a-person-zEUu2Trc22o)
+- [martin bennie](https://unsplash.com/@martinbennie) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-staff-in-front-of-a-building-n-XFCbKqQQY)
+- [Zhe ZHANG](https://unsplash.com/@doublez0108) — [photo](https://unsplash.com/photos/a-large-statue-of-a-man-with-his-hand-up-in-the-air-5tAOXXVu0FA)
+- [Fenghua](https://unsplash.com/@fenghua1975) — [photo](https://unsplash.com/photos/bust-of-a-man-on-a-pedestal-in-a-park-guNaNIU_VMk)
+- [kiryl](https://unsplash.com/@kshar2) — [photo](https://unsplash.com/photos/three-people-standing-statue-MMJX-M9CuKA)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-sword-on-top-of-a-building-IYjfxrUikjs)
+- [Subulu Salam](https://unsplash.com/@subulus_salam) — [photo](https://unsplash.com/photos/a-statue-of-a-man-DSH2BCfoSig)
+- [Maxim Klimashin](https://unsplash.com/@maxim_klimashin) — [photo](https://unsplash.com/photos/statue-of-a-seated-man-flanked-by-two-flags-EW3leEj-yI4)
+- [Duc Van](https://unsplash.com/@duke91) — [photo](https://unsplash.com/photos/a-statue-of-a-man-in-a-suit-and-tie-n-M_O96M6b0)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-golden-statue-of-a-woman-holding-a-flower-tecpr2YFoYM)
+- [Jeffrey Hamilton](https://unsplash.com/@pistos) — [photo](https://unsplash.com/photos/a-bronze-statue-of-a-young-boy-sitting-outdoors-V9Tp5dVPVXM)
+- [Jensil Brujan Nuñez](https://unsplash.com/@jbrujan) — [photo](https://unsplash.com/photos/a-statue-of-a-man-pointing-at-something-ow2s4Y3TPzU)
+- [Khanh Nguyen](https://unsplash.com/@thejourneyofframes) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-plant-in-his-hand-Fd4VYKevmCw)

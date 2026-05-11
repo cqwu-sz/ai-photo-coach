@@ -1,0 +1,25 @@
+# Bronze Statue of Nie Er — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-sword-on-top-of-a-building-IYjfxrUikjs)
+- [Photos of Korea](https://unsplash.com/@photosofkorea) — [photo](https://unsplash.com/photos/a-statue-of-a-man-and-a-woman-joxin0Hh1JE)
+- [Michael Myers](https://unsplash.com/@myers2021) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-sword-uGbcejDCzso)
+- [Franck Ridel](https://unsplash.com/@cryptrz) — [photo](https://unsplash.com/photos/bronze-samurai-warrior-statue-holding-a-sword-P3ZvOjaSrT0)
+- [martin bennie](https://unsplash.com/@martinbennie) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-staff-in-front-of-a-building-n-XFCbKqQQY)
+- [k J](https://unsplash.com/@kevin_jia) — [photo](https://unsplash.com/photos/a-group-of-people-sitting-around-a-statue-of-a-man-KyOV7qnfUWE)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/black-statue-of-man-on-brown-rock-HyH0-O31KGY)
+- [Jason Leung](https://unsplash.com/@ninjason) — [photo](https://unsplash.com/photos/tribal-totem-IdCBGviMDFA)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-with-a-ferris-wheel-on-top-of-it-5iCJEwKbBr4)
+- [Duc Van](https://unsplash.com/@duke91) — [photo](https://unsplash.com/photos/a-statue-of-a-man-stands-in-a-park-Flw1iyCeNj8)
+- [Jacky Watt](https://unsplash.com/@jackywatt) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-with-a-hat-on-her-head-JpMqwlyiCDw)
+- [Leon Andov](https://unsplash.com/@lando2) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-hat-and-a-cane-dgE0Vgju8_c)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-buddha-statues-sitting-on-top-of-a-rock-F-4Q95NK5i0)
+- [Lee Soo hyun](https://unsplash.com/@arisu_view) — [photo](https://unsplash.com/photos/girl-statue-photography-VMdHE1vkS3k)
+- [Rio Lecatompessy](https://unsplash.com/@riolec) — [photo](https://unsplash.com/photos/hindu-deity-figurine-cJWJgTrFgQA)
+- [yang jia](https://unsplash.com/@jyredrose) — [photo](https://unsplash.com/photos/a-bronze-statue-of-a-warrior-holding-a-fan-WBZ39YrqL-Y)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-pole-Tyxb2EczUYo)
+- [Moon Moons](https://unsplash.com/@moonmoons_days) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-an-umbrella-wnHlSmyOCSA)
+- [Vik Molina](https://unsplash.com/@asecasvik) — [photo](https://unsplash.com/photos/a-bronze-statue-of-a-historical-warrior-with-a-sword-m_sHyDq1mH0)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/man-in-black-suit-statue-0KulY_22DZQ)

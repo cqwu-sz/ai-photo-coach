@@ -1,0 +1,25 @@
+# Iron Screen Wall — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-wooden-bench-sitting-in-front-of-a-building-3JuGRalgaEE)
+- [Hiroshige Fukuhara](https://unsplash.com/@invisi) — [photo](https://unsplash.com/photos/a-close-up-of-a-window-with-a-tree-in-the-background-mPjgs5TlmYU)
+- [Darien Attridge](https://unsplash.com/@dariendesigns) — [photo](https://unsplash.com/photos/bamboo-fence-and-lush-greenery-seen-through-a-lattice-bkXQaLiJdcc)
+- [Tsuyoshi Kozu](https://unsplash.com/@tsuyoshikozu) — [photo](https://unsplash.com/photos/textured-wave-pattern-in-dark-tones-sQu0y77uZHM)
+- [Toa Heftiba](https://unsplash.com/@heftiba) — [photo](https://unsplash.com/photos/a-street-light-sitting-next-to-a-tall-tree-IvSw7lz49CI)
+- [Flavio Mori](https://unsplash.com/@flvision_) — [photo](https://unsplash.com/photos/wooden-wall-with-dappled-sunlight-and-shadows-1YMkOMp0xs4)
+- [Naoki Suzuki](https://unsplash.com/@naopp) — [photo](https://unsplash.com/photos/a-room-with-a-wooden-door-and-a-window-1xsG-JfjW7E)
+- [Bhanu Singh](https://unsplash.com/@insane_scene) — [photo](https://unsplash.com/photos/wooden-fence-with-japanese-inscriptions-curving-along-a-path-OOKzEH2IRu0)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-wooden-alcove-with-a-small-plant-U2k8LeZVc_8)
+- [Johan Mouchet](https://unsplash.com/@johanmouchet) — [photo](https://unsplash.com/photos/a-foldable-screen-shows-a-scenic-landscape-painting-0Mfc1O8TJTM)
+- [Leongsan](https://unsplash.com/@leongsan) — [photo](https://unsplash.com/photos/a-stone-wall-with-a-wooden-fence-and-street-3VsFsVPve0g)
+- [Chris Barbalis](https://unsplash.com/@cbarbalis) — [photo](https://unsplash.com/photos/closed-white-and-black-window-1Pz22ifmd0s)
+- [Thomas Boxma](https://unsplash.com/@reispackers) — [photo](https://unsplash.com/photos/a-small-building-with-a-gate-in-the-middle-of-it-HC1p5Frfodg)
+- [一只猫的橘](https://unsplash.com/@seelean) — [photo](https://unsplash.com/photos/view-of-lush-green-trees-through-a-circular-window-xcCEbHC0eGw)
+- [The New York Public Library](https://unsplash.com/@nypl) — [photo](https://unsplash.com/photos/traditional-japanese-building-with-ornate-screens-and-trees-XSwSXMTOqys)
+- [Bergkinder](https://unsplash.com/@bergkinder) — [photo](https://unsplash.com/photos/a-castle-on-top-of-a-rock-wall-next-to-a-body-of-water-eEmPKcOafsk)
+- [Lala Azizli](https://unsplash.com/@lazizli) — [photo](https://unsplash.com/photos/a-row-of-wooden-benches-sitting-next-to-each-other-dQrplLXq22s)
+- [Robert Guss](https://unsplash.com/@robertguss) — [photo](https://unsplash.com/photos/grayscale-photo-of-metal-fence-tDOGOrUNNuk)
+- [Johannes Plenio](https://unsplash.com/@jplenio) — [photo](https://unsplash.com/photos/a-clock-on-the-side-of-a-building-next-to-a-potted-plant-P7U6CCYQ6v8)
+- [hee hee tan](https://unsplash.com/@heeheetan) — [photo](https://unsplash.com/photos/brown-and-gray-window-e9k7adG-hcc)

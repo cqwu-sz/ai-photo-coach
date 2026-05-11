@@ -1,0 +1,25 @@
+# Monument of 100th Anniversary — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/low-angle-view-of-berlin-victory-column-VekFsKyJS3U)
+- [Ranjini Hemanth](https://unsplash.com/@armastus) — [photo](https://unsplash.com/photos/the-image-shows-osmania-universitys-centenary-pylon-QkMvU00nu0o)
+- [mostafa meraji](https://unsplash.com/@mostafa_meraji) — [photo](https://unsplash.com/photos/beige-concrete-tower-during-daytime-WJXrPJyA5cI)
+- [Namzhil Chimitov](https://unsplash.com/@nmzhlk) — [photo](https://unsplash.com/photos/a-large-metal-structure-with-a-clock-on-top-of-it-xuET8Y2so5c)
+- [Ahmed](https://unsplash.com/@mutecevvil) — [photo](https://unsplash.com/photos/a-monument-in-the-middle-of-a-grassy-field-utIiA3zE7HY)
+- [LOGAN WEAVER | @LGNWVR](https://unsplash.com/@lgnwvr) — [photo](https://unsplash.com/photos/brown-concrete-building-near-green-trees-during-daytime--BSD4afPbHk)
+- [Peter Luo](https://unsplash.com/@peterluo0113) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-clock-on-top-of-it-z5l1MQmMTRc)
+- [Erica Viana](https://unsplash.com/@erica_viana) — [photo](https://unsplash.com/photos/a-statue-of-a-person-holding-a-torch-in-front-of-a-crowd-MqseQ0MWnzA)
+- [Unsplash+ Community](https://unsplash.com/@plus) — [photo](https://unsplash.com/photos/a-statue-on-top-of-a-pillar-with-a-sky-background-qQf6xxE1eug)
+- [Alex Lindberg](https://unsplash.com/@alzems) — [photo](https://unsplash.com/photos/the-sun-is-shining-through-the-metal-fence-EaSV-h8esN4)
+- [Evan Wise](https://unsplash.com/@evanthewise) — [photo](https://unsplash.com/photos/a-monument-in-a-park-with-a-blue-sky-in-the-background-r4tMIWmg_0I)
+- [Alina Makhatyrova](https://unsplash.com/@tfcygv79) — [photo](https://unsplash.com/photos/a-building-with-a-statue-on-top-v7IaohL5X3o)
+- [Ahmed](https://unsplash.com/@mutecevvil) — [photo](https://unsplash.com/photos/a-tall-brick-tower-with-a-clock-on-its-side-E3UzhYfeEQs)
+- [Taylor Keeran](https://unsplash.com/@taylorkeeran) — [photo](https://unsplash.com/photos/a-monument-with-a-golden-statue-on-top-of-it-PnSUHv6AMhQ)
+- [Peter Podolskikh](https://unsplash.com/@podolskikh) — [photo](https://unsplash.com/photos/a-tall-building-with-a-clock-on-top-ZH13zkgHi7A)
+- [Matěj Krejčík](https://unsplash.com/@mathew_kewerick) — [photo](https://unsplash.com/photos/brown-concrete-building-under-white-sky-during-daytime-RWHfqhbVQdQ)
+- [Ahmed](https://unsplash.com/@mutecevvil) — [photo](https://unsplash.com/photos/a-tall-brick-building-with-a-clock-on-the-top-of-it-mSkf29fYujQ)
+- [Thales Botelho de Sousa](https://unsplash.com/@thalesbs) — [photo](https://unsplash.com/photos/a-large-building-with-a-sun-on-the-side-of-it-pOZLhQJgYmg)
+- [Carlos Felipe Ramírez Mesa](https://unsplash.com/@cafera13) — [photo](https://unsplash.com/photos/a-statue-of-a-person-on-a-horse-7pT2SMJ_NTY)
+- [Đào Việt Hoàng](https://unsplash.com/@dvhoang2106) — [photo](https://unsplash.com/photos/the-monument-on-ly-son-island-is-shown-QpUPGCoJ5VE)

@@ -1,5 +1,6 @@
 import { HeadingTracker, renderHeadingRing } from "./heading.js";
 import { FrameSampler, selectKeyframes, dataUrlToBlob } from "./keyframe.js";
+import { analyzeKeyframes as analyzeKeyframeSemantics } from "./frame_semantics.js";
 import { analyze } from "./api.js";
 import {
   loadSettings,
@@ -52,6 +53,7 @@ let sampler = null;
 let isRecording = false;
 let stream = null;
 let lastSamples = null; // for retry
+let lastVideoBlob = null; // optional 720p clip captured in high quality mode
 
 heading.on(({ azimuthDeg, coveredAngles, coverageProgress }) => {
   renderHeadingRing(ringSvg, coveredAngles);
@@ -90,18 +92,79 @@ renderHeadingRing(ringSvg, new Set());
   }
 })();
 
+// Holds the MediaRecorder + chunks for a high-quality capture. Null in
+// fast mode (we save the upload bandwidth + battery). Reset every cycle.
+let videoRecorder = null;
+let videoChunks = [];
+
+function startVideoRecording() {
+  videoChunks = [];
+  videoRecorder = null;
+  if ((settings.qualityMode || "fast") !== "high") return;
+  const stream = video.srcObject;
+  if (!stream || typeof MediaRecorder === "undefined") return;
+  // Pick the best supported MIME — Safari needs mp4, everywhere else
+  // accepts WebM/VP9. Backend treats both as a Gemini "video" Part.
+  const candidates = [
+    "video/mp4;codecs=h264",
+    "video/webm;codecs=vp9",
+    "video/webm;codecs=vp8",
+    "video/webm",
+  ];
+  const mime = candidates.find((m) => MediaRecorder.isTypeSupported?.(m));
+  try {
+    videoRecorder = new MediaRecorder(stream, mime ? {
+      mimeType: mime,
+      videoBitsPerSecond: 2_500_000,   // ~2.5 Mbps → ~2.5 MB for 8s
+    } : undefined);
+    videoRecorder.ondataavailable = (e) => {
+      if (e.data && e.data.size) videoChunks.push(e.data);
+    };
+    videoRecorder.start(1000);
+  } catch (e) {
+    console.warn("[capture] MediaRecorder failed (non-fatal, will fallback to fast):", e);
+    videoRecorder = null;
+  }
+}
+
+async function stopVideoRecording() {
+  if (!videoRecorder) return null;
+  return await new Promise((resolve) => {
+    videoRecorder.onstop = () => {
+      const type = videoRecorder.mimeType || "video/webm";
+      const blob = new Blob(videoChunks, { type });
+      videoRecorder = null;
+      videoChunks = [];
+      // Keep ≤ 12 MB to match the backend cap.
+      resolve(blob.size <= 12 * 1024 * 1024 ? blob : null);
+    };
+    try { videoRecorder.stop(); }
+    catch { resolve(null); }
+  });
+}
+
 recordBtn.addEventListener("click", async () => {
   if (!isRecording) {
     isRecording = true;
     recordBtn.classList.add("recording");
     heading.reset();
-    sampler = new FrameSampler({ video, heading, intervalMs: 150 });
+    // FrameSampler picks resolution + interval from QUALITY_PROFILES based
+    // on the wizard's selection. high mode uses 1024px @ 80ms (denser +
+    // sharper) so the LLM has materially more pixels to work with.
+    sampler = new FrameSampler({
+      video,
+      heading,
+      qualityMode: settings.qualityMode || "fast",
+    });
     sampler.start();
+    startVideoRecording();
   } else {
     isRecording = false;
     recordBtn.classList.remove("recording");
     const samples = sampler.stop();
     sampler = null;
+    const videoBlob = await stopVideoRecording();
+    lastVideoBlob = videoBlob;
 
     if (samples.length < 4) {
       showError("录制时间太短，请至少环视 3 秒", true);
@@ -149,8 +212,8 @@ function resetStages() {
 }
 
 const FUNNY_TIPS = [
-  "AI 正在数你环境里有多少棵树…",
-  "正在跟 Gemini 商量该用 35mm 还是 50mm…",
+  "正在数你现场里有多少棵树…",
+  "在纠结用 35mm 还是 50mm…",
   "在脑子里给你模特排个位置…",
   "盯着光线方向看了 10 秒…",
 ];
@@ -179,6 +242,12 @@ async function runAnalyze(samples) {
     setStage("extract", "done");
     setStage("upload", "active");
 
+    // Per-keyframe semantic signals (person box / saliency quadrant /
+    // horizon tilt). Runs MediaPipe + canvas Sobel; total < ~1s for 10
+    // keyframes. Failure-tolerant: returns nulls per signal so the
+    // backend treats absence as "no information".
+    const semantics = await analyzeKeyframeSemantics(keyframes).catch(() => []);
+
     const sceneMode = settings.sceneMode || "portrait";
     const meta = {
       person_count: settings.personCount,
@@ -196,11 +265,20 @@ async function runAnalyze(samples) {
         // a tiebreak for the keyframe scorer downstream.
         mean_luma: kf.meanLuma,
         blur_score: kf.blurScore,
+        // v8 semantic signals (Phase 2 — A 路线). All three are
+        // independently nullable so we don't fight schema validation
+        // when MediaPipe load fails or saliency canvas is tainted.
+        person_box: semantics[i]?.personBox ?? null,
+        saliency_quadrant: semantics[i]?.saliencyQuadrant ?? null,
+        horizon_tilt_deg: semantics[i]?.horizonTiltDeg ?? null,
+        face_hit: semantics[i]?.personBox != null ? true : null,
       })),
     };
 
-    // Optional location fix — only requested for scene modes that actually
-    // benefit (today: light_shadow). Cached for 6h so we don't ask twice.
+    // Geo fix powers ENVIRONMENT FACTS (sun + weather + softness) which
+    // in turn drive the style feasibility check. Requested for ALL scene
+    // modes now; cached 6h so we don't re-prompt. Browser permission is
+    // still opt-in — if user denies, analyze keeps working without geo.
     if (sceneModeNeedsGeo(sceneMode)) {
       try {
         const fix = await ensureGeoFix();
@@ -232,6 +310,10 @@ async function runAnalyze(samples) {
       modelId: modelCfg.model_id,
       modelApiKey: modelCfg.api_key,
       modelBaseUrl: modelCfg.base_url,
+      // Only present in high quality mode + when MediaRecorder succeeded.
+      // The api wrapper attaches it under the optional `video` multipart
+      // field; backend silently ignores when missing.
+      video: lastVideoBlob || null,
     });
 
     setStage("ai", "done");
@@ -280,13 +362,13 @@ async function runAnalyze(samples) {
 
 function friendlyError(raw) {
   if (/503|UNAVAILABLE|high demand/i.test(raw)) {
-    return "Gemini 当前繁忙（503），稍等几秒点重试。";
+    return "服务当前繁忙，稍等几秒点重试。";
   }
   if (/quota|RESOURCE_EXHAUSTED/i.test(raw)) {
-    return "免费额度用完了，明天再试或升级到付费配额。";
+    return "今天免费额度用完了，明天再试。";
   }
   if (/network|fetch|Failed to fetch/i.test(raw)) {
-    return "网络断了或者后端没起来，确认 8000 端口可达。";
+    return "网络连接不上，检查网络后重试。";
   }
   return raw.length > 220 ? raw.slice(0, 220) + "…" : raw;
 }

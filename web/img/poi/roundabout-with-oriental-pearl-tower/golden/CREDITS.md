@@ -1,0 +1,25 @@
+# Roundabout with Oriental Pearl Tower — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-view-of-a-city-at-night-from-across-the-water--kmjRZuyFN8)
+- [Joshua Fernandez](https://unsplash.com/@joshuafernandez) — [photo](https://unsplash.com/photos/a-very-tall-building-with-a-very-tall-tower-in-the-background-k-zvYPrb_4I)
+- [alan braeley](https://unsplash.com/@alanbraeley) — [photo](https://unsplash.com/photos/brown-and-red-tower-during-daytime-YhSfWtCMDug)
+- [Jian Xi](https://unsplash.com/@xijian) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-sky-background-SuFXb_TADFA)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-large-body-of-water-with-a-city-in-the-background-z2Qadkv1fDc)
+- [Purvang Panchal](https://unsplash.com/@shotbypurvangpanchal) — [photo](https://unsplash.com/photos/a-very-tall-tower-with-a-clock-on-its-side-FBMIhDLPzJw)
+- [runningchild](https://unsplash.com/@runningchild) — [photo](https://unsplash.com/photos/the-oriental-pearl-tower-with-shanghai-skyline-WIlgUVq2CnI)
+- [Kaja Sariwating](https://unsplash.com/@k_sariwating) — [photo](https://unsplash.com/photos/a-tall-tower-with-lights-y6Lig9517Xc)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-large-city-UzI7hy57_9M)
+- [蔡 世宏](https://unsplash.com/@cshong) — [photo](https://unsplash.com/photos/white-and-blue-lighted-tower-during-night-time-cQhu6z_twy8)
+- [Xingchen Yan](https://unsplash.com/@xingchenyan) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-clock-on-its-side-67WivEZdg8U)
+- [tangi bertin](https://unsplash.com/@tangib) — [photo](https://unsplash.com/photos/the-oriental-pearl-tower-stands-tall-against-the-sky-RaWuCTyTeqM)
+- [Zhuojun Yu](https://unsplash.com/@heebase) — [photo](https://unsplash.com/photos/hand-makes-peace-sign-in-front-of-shanghais-skyline-u8k2xwF4JQE)
+- [Hai Nguyen](https://unsplash.com/@hai_nguyen) — [photo](https://unsplash.com/photos/a-tall-tower-with-a-sky-background-r1v5a8fH8y8)
+- [Kun Liu](https://unsplash.com/@xiemukkk) — [photo](https://unsplash.com/photos/modern-skyscrapers-and-a-spherical-tower-structure-FJ5t3JluORk)
+- [Zhao Yangjun](https://unsplash.com/@youngjun420) — [photo](https://unsplash.com/photos/a-very-tall-building-with-a-very-colorful-top-Gy97YfKlYPc)
+- [Allison Saeng](https://unsplash.com/@allisonsaeng) — [photo](https://unsplash.com/photos/a-red-and-white-cityscape-with-a-red-background-0A_1NzxLpS0)
+- [Green Liu](https://unsplash.com/@greenliustudio) — [photo](https://unsplash.com/photos/a-view-of-a-very-tall-building-in-a-city-nCXmwFC3ir4)
+- [Nikesh Bajaj](https://unsplash.com/@nikeshbajaj) — [photo](https://unsplash.com/photos/an-aerial-view-of-a-city-with-lots-of-traffic-kVMXJD4XxLo)
+- [Xingchen Yan](https://unsplash.com/@xingchenyan) — [photo](https://unsplash.com/photos/a-very-tall-tower-with-a-clock-on-its-side-CL-TZOil_2M)

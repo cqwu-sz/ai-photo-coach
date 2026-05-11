@@ -1,0 +1,25 @@
+# Green Bridge — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/a-scenic-view-of-the-golden-gate-bridge-_BtiXMM8ado)
+- [Mason C](https://unsplash.com/@mbcarterphotography) — [photo](https://unsplash.com/photos/the-golden-gate-bridge-spans-across-the-water-X0u2vZFeDv8)
+- [Mason C](https://unsplash.com/@mbcarterphotography) — [photo](https://unsplash.com/photos/the-golden-gate-bridge-spans-across-the-water-5PHCo0TBXTQ)
+- [Noah Gremmert](https://unsplash.com/@noahgremmert1) — [photo](https://unsplash.com/photos/the-golden-gate-bridge-shrouded-in-fog-MmT0tCBBnsY)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/the-golden-gate-bridge-is-seen-over-greenery-FexkQsxU3Yc)
+- [Enq 1998](https://unsplash.com/@enq_1998) — [photo](https://unsplash.com/photos/a-person-looks-at-the-golden-gate-bridge-CpxjyRy7_Lg)
+- [Enq 1998](https://unsplash.com/@enq_1998) — [photo](https://unsplash.com/photos/person-gazes-at-the-golden-gate-bridge-Qq0KmoqdP20)
+- [Mason C](https://unsplash.com/@mbcarterphotography) — [photo](https://unsplash.com/photos/the-golden-gate-bridge-spans-a-beautiful-bay-HHeQO4ApLQg)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/the-golden-gate-bridge-towers-over-the-landscape-PhPpTNw0sW0)
+- [Naveen Ketterer](https://unsplash.com/@naveenketterer) — [photo](https://unsplash.com/photos/a-view-of-the-golden-gate-bridge-from-a-helicopter-DPWXqywVs_M)
+- [Mason C](https://unsplash.com/@mbcarterphotography) — [photo](https://unsplash.com/photos/golden-gate-bridge-with-people-on-the-land-XFQcDPxAOcA)
+- [Mason C](https://unsplash.com/@mbcarterphotography) — [photo](https://unsplash.com/photos/two-people-sit-looking-at-the-golden-gate-bridge-Pa1U9GF5IBM)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/golden-gate-bridge-overlooks-a-serene-beach-_3NEorxR1TQ)
+- [Mason C](https://unsplash.com/@mbcarterphotography) — [photo](https://unsplash.com/photos/the-golden-gate-bridge-stretches-over-a-beautiful-landscape-IC5b-Csyu8M)
+- [Mason C](https://unsplash.com/@mbcarterphotography) — [photo](https://unsplash.com/photos/golden-gate-bridge-on-a-beautiful-day-P66Uh-DIpTw)
+- [Mason C](https://unsplash.com/@mbcarterphotography) — [photo](https://unsplash.com/photos/people-view-the-golden-gate-bridge-on-a-sunny-day-ZawFKmjXmE0)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/golden-gate-bridge-view-with-lavender-flowers-YelfKyuYaQQ)
+- [Mason C](https://unsplash.com/@mbcarterphotography) — [photo](https://unsplash.com/photos/couple-sits-overlooking-the-golden-gate-bridge-xoerZ9Lyeus)
+- [Mason C](https://unsplash.com/@mbcarterphotography) — [photo](https://unsplash.com/photos/tourists-admire-the-golden-gate-bridge-on-a-sunny-day-JCAiOqpb-Po)
+- [Alen Gevorgyan](https://unsplash.com/@w0rtex) — [photo](https://unsplash.com/photos/a-very-tall-bridge-over-a-body-of-water-nelbjIVTI4w)

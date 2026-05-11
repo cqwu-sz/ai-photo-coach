@@ -5,11 +5,23 @@
 // same azimuth-bucketed selection algorithm as the Swift KeyframeExtractor
 // to pick `target` representative frames.
 
+// Per-quality-mode capture knobs. Higher quality bumps both the JPEG
+// width and quality so the LLM has more to look at; cost: roughly 4x
+// upload size from fast → high before video kicks in. fast keeps the
+// previous behaviour to stay binary-compatible with prior captures.
+export const QUALITY_PROFILES = {
+  fast: { jpegWidth: 768,  jpegQuality: 0.82, intervalMs: 150 },
+  high: { jpegWidth: 1024, jpegQuality: 0.88, intervalMs: 80  },
+};
+
 export class FrameSampler {
-  constructor({ video, heading, intervalMs = 150 }) {
+  constructor({ video, heading, intervalMs, qualityMode = "fast" }) {
     this.video = video;
     this.heading = heading;
-    this.intervalMs = intervalMs;
+    const profile = QUALITY_PROFILES[qualityMode] || QUALITY_PROFILES.fast;
+    this.intervalMs = intervalMs ?? profile.intervalMs;
+    this.jpegWidth = profile.jpegWidth;
+    this.jpegQuality = profile.jpegQuality;
     this.samples = [];
     this._timer = null;
     this._canvas = document.createElement("canvas");
@@ -37,13 +49,13 @@ export class FrameSampler {
 
   _tick() {
     if (!this.video.videoWidth) return;
-    const w = 384;
+    const w = this.jpegWidth;
     const h = Math.round((this.video.videoHeight / this.video.videoWidth) * w);
     this._canvas.width = w;
     this._canvas.height = h;
-    const ctx = this._canvas.getContext("2d");
+    const ctx = this._canvas.getContext("2d", { willReadFrequently: true });
     ctx.drawImage(this.video, 0, 0, w, h);
-    const dataUrl = this._canvas.toDataURL("image/jpeg", 0.7);
+    const dataUrl = this._canvas.toDataURL("image/jpeg", this.jpegQuality);
     const snap = this.heading.snapshot();
 
     // Cheap client-side quality signals — we already have the pixels in

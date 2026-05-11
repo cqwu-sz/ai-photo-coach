@@ -1,0 +1,25 @@
+# Tiger Spring Mountain — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-mountain-peaks-through-clouds-NCEtfO6Z7sg)
+- [The Walters Art Museum](https://unsplash.com/@thewalters) — [photo](https://unsplash.com/photos/a-tiger-prowls-through-a-misty-mountainous-landscape-zs28Vkes_pE)
+- [Kenny Gaines](https://unsplash.com/@kgphoto87) — [photo](https://unsplash.com/photos/green-trees-on-mountain-under-cloudy-sky-during-daytime-d6-i0hrwNX0)
+- [Nguyen Minh](https://unsplash.com/@ngminh8895) — [photo](https://unsplash.com/photos/a-house-sits-peacefully-in-a-foggy-mountain-CQnHN2HVESA)
+- [Taiki Ishikawa](https://unsplash.com/@fl__q) — [photo](https://unsplash.com/photos/a-mountain-covered-in-fog-with-trees-in-the-foreground-9aX7TdpZn24)
+- [The Walters Art Museum](https://unsplash.com/@thewalters) — [photo](https://unsplash.com/photos/misty-mountains-with-a-small-house-and-blooming-tree-0k0ttlNAjMI)
+- [Finn](https://unsplash.com/@finn_staygold) — [photo](https://unsplash.com/photos/a-lush-green-forest-filled-with-lots-of-trees-d-gJdH7-fnc)
+- [Marek Piwnicki](https://unsplash.com/@marekpiwnicki) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-range-with-trees-and-mountains-in-the-background-nO9vsWUH4oY)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-red-bridge-crosses-a-river-amidst-lush-greenery-9bwS4-mxSi0)
+- [mahiru dake](https://unsplash.com/@mahirudake) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-range-with-trees-in-the-foreground-qvyEGy7KUoM)
+- [Tsuyoshi Kozu](https://unsplash.com/@tsuyoshikozu) — [photo](https://unsplash.com/photos/corner-building-with-illuminated-windows-at-night-mR2Ujz0RiH0)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-waterfall-surrounded-by-mountains-FvGIjn0ztSI)
+- [Dario Brönnimann](https://unsplash.com/@dariobroe) — [photo](https://unsplash.com/photos/a-water-spigot-sitting-on-top-of-a-wooden-table-ly8tfSryGCU)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-mountain-with-a-sky-background-sbwUUQRSc7Q)
+- [Daniel Akselrod](https://unsplash.com/@daniel_akserlod) — [photo](https://unsplash.com/photos/a-small-house-is-nestled-into-a-forested-hillside-D3LS0BCTe-A)
+- [Se. Tsuchiya](https://unsplash.com/@s_tsuchiya) — [photo](https://unsplash.com/photos/a-field-of-wheat-with-a-hill-in-the-background-cAoip3A_Rqk)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/fog-blankets-a-mountain-range-goA-ciy9Xs4)
+- [Marek Piwnicki](https://unsplash.com/@marekpiwnicki) — [photo](https://unsplash.com/photos/a-mountain-covered-in-lots-of-white-flowers-XfxDdIgj8Y4)
+- [Mason C](https://unsplash.com/@mbcarterphotography) — [photo](https://unsplash.com/photos/a-pagoda-in-the-middle-of-a-lush-green-park-bdoRpz_q9_k)
+- [YANGHONG YU](https://unsplash.com/@shellingfordyu) — [photo](https://unsplash.com/photos/a-tall-tower-sitting-in-the-middle-of-a-forest--m7RMvPSBq8)

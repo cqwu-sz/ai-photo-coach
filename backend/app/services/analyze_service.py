@@ -32,8 +32,18 @@ from . import (
     camera_apply,
     camera_params,
     keyframe_score,
+    panorama as panorama_service,
+    poi_indoor as poi_indoor_service,
+    poi_lookup as poi_lookup_service,
     pose_engine,
     prompts as prompts_mod,
+    route_planner as route_planner_service,
+    shot_fusion as shot_fusion_service,
+    style_compliance as style_compliance_service,
+    style_extract as style_extract_service,
+    time_optimal as time_optimal_service,
+    triangulation as triangulation_service,
+    walk_geometry as walk_geometry_service,
     weather as weather_service,
 )
 from .knowledge import (
@@ -62,15 +72,44 @@ class AnalyzeService:
         model_id: Optional[str] = None,
         model_api_key: Optional[str] = None,
         model_base_url: Optional[str] = None,
+        video_mp4: Optional[bytes] = None,
     ) -> AnalyzeResponse:
         scene_mode = _scene_mode_str(meta)
 
-        # Pre-fetch weather (Open-Meteo, no key, 1.5s timeout) so the prompt
-        # builders can fold it into ENVIRONMENT FACTS. We stash it in a
-        # ContextVar so the synchronous provider Protocol doesn't need a
-        # new kwarg. None on failure — analyze keeps working without it.
-        weather_snap = await self._fetch_weather(meta)
+        # P1-5: parallelise every independent prefetch with a TaskGroup
+        # so the slowest single upstream (POI / weather / minutely) sets
+        # the wall-clock floor instead of the sum of them all.
+        import asyncio as _asyncio
+        async def _weather():       return await self._fetch_weather(meta)
+        async def _forecast():      return await self._fetch_light_forecast(meta)
+        async def _poi():           return await self._fetch_poi_candidates(meta)
+        async def _indoor():        return await self._fetch_indoor_positions(meta)
+        async def _time_opt():      return self._fetch_time_optimal(meta)
+        async def _sfm():           return self._derive_sfm_candidates(meta)
+        async def _refs():
+            # CPU-bound (PIL + numpy k-means); shove to a worker thread
+            # so the event loop keeps draining other prefetches.
+            return await _asyncio.to_thread(self._extract_style_fingerprints, references)
+        weather_snap, light_forecast, poi_candidates, indoor_positions, \
+            time_recommendation, sfm_candidates, reference_fingerprints = (
+            await _asyncio.gather(
+                _weather(), _forecast(), _poi(), _indoor(),
+                _time_opt(), _sfm(), _refs(),
+                return_exceptions=False,
+            )
+        )
         prompts_mod.set_request_weather(weather_snap)
+        prompts_mod.set_request_poi_block(
+            poi_lookup_service.to_prompt_block(poi_candidates)
+            + ("\n" + poi_indoor_service.to_prompt_block(indoor_positions) if indoor_positions else "")
+        )
+        prompts_mod.set_request_walk_block(
+            walk_geometry_service.to_prompt_block(meta.walk_segment, sfm_candidates)
+            + ("\n" + style_extract_service.to_prompt_block(reference_fingerprints)
+               if reference_fingerprints else "")
+            + ("\n" + time_optimal_service.to_prompt_block(time_recommendation)
+               if time_recommendation else "")
+        )
 
         if self.settings.mock_mode:
             log.info(
@@ -96,6 +135,23 @@ class AnalyzeService:
             self._enforce_capture_advisory(response)
             for s in response.shots:
                 s.overall_score = self._compute_overall_score(s, response.environment)
+            # Mock mode also runs fusion so the result UI's map / pin
+            # rendering is exercised end-to-end without a real LLM.
+            response.shots = shot_fusion_service.fuse(
+                response.shots,
+                poi_candidates,
+                sfm_candidates,
+                response.environment,
+                meta.geo,
+                indoor_positions=indoor_positions,
+            )
+            await self._enrich_walk_routes(response.shots, meta)
+            if reference_fingerprints:
+                response.reference_fingerprints = reference_fingerprints
+            if time_recommendation:
+                if response.environment is None:
+                    response.environment = self._build_environment_snapshot(meta, weather_snap)
+                response.time_recommendation = time_recommendation
             return response
 
         if not self.settings.enable_byok:
@@ -119,6 +175,21 @@ class AnalyzeService:
         )
         prompts_mod.set_request_composition_kb(comp_summary)
 
+        # Build a low-res 1024x512 panorama thumbnail to give the LLM a
+        # global spatial map. Cheap (< 100ms for 10 frames) and bounded
+        # (~80KB JPEG). On any error we just skip it — the per-frame
+        # keyframes still carry the same info, just less ergonomically.
+        panorama_jpeg: bytes | None = None
+        try:
+            if frames and len(frames) == len(meta.frame_meta):
+                panorama_jpeg = panorama_service.make_panorama(
+                    frames,
+                    meta.frame_meta,
+                    cfg=panorama_service.PanoramaConfig(width=1024, height=512),
+                )
+        except Exception as e:   # noqa: BLE001
+            log.info("panorama prefetch failed (non-fatal): %s", e)
+
         try:
             raw = await provider.analyze(
                 meta=meta,
@@ -127,6 +198,8 @@ class AnalyzeService:
                 pose_summary=summarize_poses(poses, max(meta.person_count, 1)),
                 camera_summary=summarize_camera_kb(cam_kb),
                 scene_mode=scene_mode,
+                panorama_jpeg=panorama_jpeg,
+                video_mp4=video_mp4,
             )
         except ProviderError as exc:
             log.warning(
@@ -170,6 +243,64 @@ class AnalyzeService:
             for shot in response.shots
         ]
         response.shots = repaired_shots
+
+        # Style compliance — clamp any camera knob the LLM let drift
+        # outside the user's chosen style range, and log how often it
+        # got it right on its own. Runs AFTER _repair_shot so we don't
+        # fight the iPhone-specific aperture/shutter normalisation.
+        # v11: also pass scene-level color science aggregate so the
+        # palette drift check (cct / saturation / contrast bands per
+        # style) can warn the user when "your scene's color is off
+        # for the style you picked".
+        from . import scene_aggregate as _sa
+        _scene = _sa.aggregate(meta.frame_meta) if meta.frame_meta else None
+        _cct = _scene.cct_k if _scene else None
+        _sat_vals = [f.saturation_mean for f in (meta.frame_meta or []) if f.saturation_mean is not None]
+        _sat_mean = sum(_sat_vals) / len(_sat_vals) if _sat_vals else None
+        _contrast = None
+        if _scene and _scene.dynamic_range:
+            _contrast = {"low": 0.30, "standard": 0.55, "high": 0.75, "extreme": 0.90}.get(_scene.dynamic_range)
+        compliance = style_compliance_service.validate_and_clamp(
+            response.shots, meta.style_keywords or [],
+            scene_cct_k=_cct, scene_saturation=_sat_mean, scene_contrast=_contrast,
+        )
+        # Expose scene-level lighting aggregate (Sprint 1) so the
+        # result UI can render color-temp / clipping / direction chips
+        # without re-deriving them from raw frames.
+        if _scene is not None and (_scene.cct_k or _scene.dynamic_range or _scene.lighting_notes):
+            response.debug["lighting"] = {
+                "cct_k":              _scene.cct_k,
+                "tint":               _scene.tint,
+                "dynamic_range":      _scene.dynamic_range,
+                "light_direction":    _scene.light_direction,
+                "highlight_clip_pct": _scene.highlight_clip_pct,
+                "shadow_clip_pct":    _scene.shadow_clip_pct,
+                "notes":              list(_scene.lighting_notes),
+            }
+        if light_forecast is not None:
+            response.debug["light_forecast"] = light_forecast
+        if _scene is not None and (_scene.composition_facts_zh or _scene.rule_of_thirds_dist is not None):
+            response.debug["composition"] = {
+                "rule_of_thirds_dist": _scene.rule_of_thirds_dist,
+                "symmetry":            _scene.symmetry_score,
+                "facts":               list(_scene.composition_facts_zh),
+            }
+        if _scene is not None and (_scene.pose_facts_zh or _scene.horizon_consensus_y is not None):
+            response.debug["pose_horizon"] = {
+                "pose_facts":          list(_scene.pose_facts_zh),
+                "horizon_y":           _scene.horizon_consensus_y,
+                "horizon_confidence":  _scene.horizon_confidence,
+                "sky_present":         _scene.sky_present,
+            }
+        if compliance.total_checks or (compliance.palette_drift or []):
+            log.info("style compliance report", extra=compliance.to_log_dict())
+            response.debug["style_compliance"] = {
+                "rate":          round(compliance.rate, 3),
+                "total":         compliance.total_checks,
+                "clamped":       compliance.clamped_count,
+                "per_shot":      compliance.per_shot,
+                "palette_drift": compliance.palette_drift or [],
+            }
 
         # Synthesize style_inspiration if the model left it empty but the
         # user actually uploaded reference photos. The UI relies on this
@@ -246,7 +377,59 @@ class AnalyzeService:
         # client doesn't need to duplicate the formula.
         for s in response.shots:
             s.overall_score = self._compute_overall_score(s, response.environment)
+
+        # v13 — three-source fusion: combine LLM relative shots with
+        # POI + SfM/VIO candidates, dedup, rank, and guarantee at least
+        # one ``relative`` shot survives for map-less clients.
+        far_points = self._derive_far_points(meta, frames)
+        response.shots = shot_fusion_service.fuse(
+            response.shots,
+            poi_candidates,
+            sfm_candidates,
+            response.environment,
+            meta.geo,
+            far_points=far_points,
+            indoor_positions=indoor_positions,
+        )
+        # Re-score the new clones so their badge matches the rest.
+        for s in response.shots:
+            if s.overall_score is None:
+                s.overall_score = self._compute_overall_score(s, response.environment)
+        await self._enrich_walk_routes(response.shots, meta)
+        if reference_fingerprints:
+            response.reference_fingerprints = reference_fingerprints
+            self._apply_palette_match(response.shots, reference_fingerprints)
+        if time_recommendation:
+            response.time_recommendation = time_recommendation
         return response
+
+    @staticmethod
+    def _apply_palette_match(shots: list[ShotRecommendation],
+                              fingerprints: list) -> None:
+        """Compute a per-shot palette_match_score against the strongest
+        reference and fold it into ShotStyleMatch.fixes audit trail (W6.2).
+
+        We don't add a new top-level field on ShotRecommendation to avoid
+        breaking older clients; instead the score lands as a {knob:
+        'palette_match', from: ref_idx, to: score} entry that the UI can
+        surface in the compliance panel."""
+        if not fingerprints:
+            return
+        # Pick the highest-weight reference as the canonical target.
+        ref = fingerprints[0]
+        for s in shots:
+            try:
+                k = s.camera.white_balance_k if s.camera else None
+                score = style_extract_service.palette_match_score(k, None, ref)
+                if s.style_match is None:
+                    continue
+                s.style_match.fixes.append({
+                    "knob": "palette_match",
+                    "from": f"ref#{ref.index}",
+                    "to": score,
+                })
+            except Exception:                                # noqa: BLE001
+                continue
 
     @staticmethod
     def _enforce_capture_advisory(response: AnalyzeResponse) -> None:
@@ -293,6 +476,150 @@ class AnalyzeService:
         weighted = 0.5 * crit_avg + 0.3 * conf + 0.2 * time_bonus
         return round(min(5.0, max(0.0, weighted)), 2)
 
+    async def _fetch_poi_candidates(
+        self, meta: CaptureMeta,
+    ) -> list["poi_lookup_service.POICandidate"]:
+        """Look up nearby POIs for the user's GeoFix. Returns ``[]`` when
+        no geo, when the feature is disabled in settings, or on any
+        error — POI is purely additive.
+        """
+        if not getattr(self.settings, "enable_poi_lookup", True):
+            return []
+        if meta.geo is None:
+            return []
+        try:
+            return await poi_lookup_service.search_nearby(
+                meta.geo.lat, meta.geo.lon,
+                radius_m=getattr(self.settings, "poi_lookup_radius_m", 300),
+                amap_key=getattr(self.settings, "amap_key", "") or None,
+            )
+        except Exception as e:                              # noqa: BLE001
+            log.info("poi_lookup failed (non-fatal): %s", e)
+            return []
+
+    async def _fetch_indoor_positions(self, meta: CaptureMeta) -> list:
+        """Look up indoor hotspots via poi_indoor when GeoFix is inside a
+        known building. Returns a list of ShotPosition(kind=indoor)."""
+        if not getattr(self.settings, "enable_indoor_poi", True):
+            return []
+        if meta.geo is None:
+            return []
+        try:
+            ctxs = await poi_indoor_service.lookup_indoor(
+                meta.geo.lat, meta.geo.lon,
+                provider=getattr(self.settings, "indoor_provider", "amap"),
+                amap_key=getattr(self.settings, "amap_indoor_key", "") or None,
+                mapbox_token=getattr(self.settings, "mapbox_token", "") or None,
+            )
+        except Exception as e:                              # noqa: BLE001
+            log.info("indoor poi failed (non-fatal): %s", e)
+            return []
+        from ..models import ShotPosition, ShotPositionKind
+        out = []
+        for c in ctxs:
+            out.append(ShotPosition(
+                kind=ShotPositionKind.indoor,
+                source="poi_indoor",
+                confidence=0.78,
+                indoor=c,
+                name_zh=c.hotspot_label_zh or c.building_name_zh,
+            ))
+        return out
+
+    def _fetch_time_optimal(self, meta: CaptureMeta):
+        if not getattr(self.settings, "enable_time_optimal", True):
+            return None
+        if meta.geo is None:
+            return None
+        try:
+            return time_optimal_service.lookup(meta.geo.lat, meta.geo.lon)
+        except Exception as e:                              # noqa: BLE001
+            log.info("time_optimal failed (non-fatal): %s", e)
+            return None
+
+    def _extract_style_fingerprints(self, references: list[bytes]):
+        if not references or not getattr(self.settings, "enable_style_extract", True):
+            return []
+        try:
+            return style_extract_service.extract_fingerprints(
+                references, enable_embedding=False,
+            )
+        except Exception as e:                              # noqa: BLE001
+            log.info("style_extract failed (non-fatal): %s", e)
+            return []
+
+    def _derive_far_points(self, meta: CaptureMeta, frames: list[bytes]):
+        """Run two-view triangulation (W4). Currently a thin wrapper —
+        we don't have per-frame intrinsics from this code path so we hand
+        off when the client supplies focal_length and walk_segment poses
+        in the future. Returns ``[]`` as a safe default today.
+        """
+        if not getattr(self.settings, "enable_triangulation", True):
+            return []
+        try:
+            # Building TriangulationFrame requires per-frame R/t in ENU
+            # plus intrinsics; until the iOS / Web clients ship those
+            # alongside frames, derive_far_points naturally returns [].
+            return triangulation_service.derive_far_points(
+                [], meta.geo.lat if meta.geo else 0.0,
+                meta.geo.lon if meta.geo else 0.0,
+                initial_heading_deg=(meta.walk_segment.initial_heading_deg
+                                      if meta.walk_segment else 0.0) or 0.0,
+            )
+        except Exception as e:                              # noqa: BLE001
+            log.info("triangulation failed (non-fatal): %s", e)
+            return []
+
+    async def _enrich_walk_routes(self, shots: list[ShotRecommendation],
+                                   meta: CaptureMeta) -> None:
+        """For every absolute shot beyond the route_planner threshold,
+        fire off a walking-route lookup in parallel and attach it."""
+        if not getattr(self.settings, "enable_route_planner", True):
+            return
+        if meta.geo is None:
+            return
+        threshold = getattr(self.settings, "route_planner_distance_threshold_m", 50)
+        amap_key = getattr(self.settings, "amap_key", "") or None
+        from ..models import ShotPositionKind
+        targets = []
+        for s in shots:
+            pos = s.position
+            if pos is None or pos.kind != ShotPositionKind.absolute:
+                continue
+            if pos.lat is None or pos.lon is None:
+                continue
+            if (pos.walk_distance_m or 0) < threshold:
+                continue
+            targets.append(pos)
+        if not targets:
+            return
+        import asyncio as _asyncio
+        async def _go(pos):
+            try:
+                pos.walk_route = await route_planner_service.plan_route(
+                    meta.geo.lat, meta.geo.lon,
+                    pos.lat, pos.lon, amap_key=amap_key,
+                )
+            except Exception as e:                          # noqa: BLE001
+                log.info("route_planner failed for %s: %s", pos.name_zh, e)
+        await _asyncio.gather(*(_go(p) for p in targets), return_exceptions=True)
+
+    def _derive_sfm_candidates(self, meta: CaptureMeta) -> list:
+        """Convert the optional walk_segment into ShotPosition candidates.
+        Returns ``[]`` when the user didn't opt into the walk or when the
+        feature is disabled in settings."""
+        if not getattr(self.settings, "enable_walk_segment", True):
+            return []
+        if meta.walk_segment is None or meta.geo is None:
+            return []
+        try:
+            return walk_geometry_service.derive_candidates(
+                meta.walk_segment, meta.geo,
+            )
+        except Exception as e:                              # noqa: BLE001
+            log.info("walk_geometry failed (non-fatal): %s", e)
+            return []
+
     @staticmethod
     async def _fetch_weather(meta: CaptureMeta) -> Optional["weather_service.WeatherSnapshot"]:
         """Fetch current weather from Open-Meteo when geo is available.
@@ -304,6 +631,36 @@ class AnalyzeService:
             return await weather_service.fetch_current(meta.geo.lat, meta.geo.lon)
         except Exception as e:
             log.info("weather fetch failed, continuing without it: %s", e)
+            return None
+
+    @staticmethod
+    async def _fetch_light_forecast(meta: CaptureMeta) -> Optional[dict]:
+        """v12 — predict cloud_in_30min + golden_hour_countdown so the
+        UI can warn 'lock in your shot — sun goes behind clouds in 12 min'.
+        Best-effort, returns None on any failure.
+        """
+        if meta.geo is None:
+            return None
+        try:
+            from . import sun as sun_service
+            from datetime import timedelta
+            minutely = await weather_service.PROVIDER.fetch_minutely_15(
+                meta.geo.lat, meta.geo.lon, hours=1,
+            )
+            cloud_in_30 = weather_service.predict_cloud_in_30min(minutely or [])
+            now = meta.geo.timestamp or datetime.now(timezone.utc)
+            if now.tzinfo is None:
+                now = now.replace(tzinfo=timezone.utc)
+            alt_now = sun_service.compute(meta.geo.lat, meta.geo.lon, now).altitude_deg
+            alt_15 = sun_service.compute(
+                meta.geo.lat, meta.geo.lon, now + timedelta(minutes=15)
+            ).altitude_deg
+            golden = weather_service.golden_hour_countdown(alt_now, alt_15)
+            if cloud_in_30 is None and golden is None:
+                return None
+            return {"cloud_in_30min": cloud_in_30, "golden_hour_countdown_min": golden}
+        except Exception as e:
+            log.info("light forecast failed: %s", e)
             return None
 
     @staticmethod

@@ -1,0 +1,25 @@
+# Sunset over the mountains — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Jörg Angeli](https://unsplash.com/@joerga) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-covered-in-clouds-S6K8JhDmiMU)
+- [Marek Okon](https://unsplash.com/@marekokon) — [photo](https://unsplash.com/photos/white-clouds-over-mountains-during-daytime-vmbew07E-t4)
+- [Tobias Wilden](https://unsplash.com/@tobiasw) — [photo](https://unsplash.com/photos/a-view-of-a-snow-covered-mountain-in-the-distance-NZmghBlJKh8)
+- [Sarmat Batagov](https://unsplash.com/@batag_) — [photo](https://unsplash.com/photos/golden-sun-setting-behind-hazy-mountains-over-city-Zgo-rEaCL1M)
+- [Raphael Lopes](https://unsplash.com/@raph_lopes) — [photo](https://unsplash.com/photos/the-sun-is-setting-over-a-mountain-range-bCW1RDt0YlI)
+- [Sarmat Batagov](https://unsplash.com/@batag_) — [photo](https://unsplash.com/photos/city-skyline-at-sunset-with-mountains-in-background-8RnIBlKz_Ck)
+- [Ale](https://unsplash.com/@goodguyale) — [photo](https://unsplash.com/photos/snow-covered-mountains-at-sunrise-with-a-village-below-Qoo_rffuffg)
+- [Ale](https://unsplash.com/@goodguyale) — [photo](https://unsplash.com/photos/sunset-over-a-snowy-village-with-mountains-l2e5UMpxWGM)
+- [Simone Viani](https://unsplash.com/@flik185) — [photo](https://unsplash.com/photos/a-view-of-a-sunset-with-a-mountain-in-the-background-eZaub7xEsSk)
+- [あま あわれ](https://unsplash.com/@ueruko) — [photo](https://unsplash.com/photos/snow-covered-buildings-and-ski-slope-at-dusk-_iWn6vJdRbU)
+- [Andre Benz](https://unsplash.com/@trapnation) — [photo](https://unsplash.com/photos/gray-roofed-temple-surrounded-with-trees-axQXVkrUASg)
+- [S L](https://unsplash.com/@gingermias) — [photo](https://unsplash.com/photos/mountain-illuminated-by-sunset-over-a-town-ZxgEWye3qIA)
+- [Kevin Charit](https://unsplash.com/@kevin_charit) — [photo](https://unsplash.com/photos/a-person-standing-on-a-dock-in-front-of-a-mountain-oBHlgjrHWIY)
+- [LIM ENG](https://unsplash.com/@shadoweng93) — [photo](https://unsplash.com/photos/a-bridge-over-a-river-with-a-building-in-the-background-ICHRlz7IrYg)
+- [Yosuke Ota](https://unsplash.com/@yosuke_ota) — [photo](https://unsplash.com/photos/a-view-of-a-sunset-through-some-trees-PWR0n6FlQHE)
+- [Ivan Yurkin](https://unsplash.com/@yuru_in) — [photo](https://unsplash.com/photos/sunset-over-a-mountain-range-behind-buildings-P22blKX1NFg)
+- [Joshua Earle](https://unsplash.com/@joshuaearle) — [photo](https://unsplash.com/photos/a-mountain-peaks-through-clouds-NCEtfO6Z7sg)
+- [Nathalie Lays](https://unsplash.com/@nath_lays) — [photo](https://unsplash.com/photos/traditional-japanese-street-with-cherry-blossoms-and-mountains-Nd1J6Rbky7w)
+- [PJH](https://unsplash.com/@dokae) — [photo](https://unsplash.com/photos/mountain-landscape-with-houses-and-trees-at-dawn-FLgkO4bnIZo)
+- [Mahesh Ranaweera](https://unsplash.com/@mahesh_ranaweera) — [photo](https://unsplash.com/photos/silhouette-of-temple-roof-against-sunset-mountains-MErAp68_LCQ)

@@ -1,0 +1,25 @@
+# Kai Kung Shan — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Margaret Jaszowska](https://unsplash.com/@margaret_jaszowska) — [photo](https://unsplash.com/photos/two-bowls-of-food-on-a-mat-with-chopsticks-n1PF1hVp8pM)
+- [Clay Banks](https://unsplash.com/@claybanks) — [photo](https://unsplash.com/photos/woman-in-black-coat-wearing-brown-woven-hat-standing-near-brown-wooden-wall-during-daytime-pVpBbIMoDBM)
+- [Alireza heidarpour](https://unsplash.com/@ahcapture) — [photo](https://unsplash.com/photos/a-man-with-a-hat-on-his-head-g6_UT_j4_Qg)
+- [Rui Hao Lim](https://unsplash.com/@ruii_hao) — [photo](https://unsplash.com/photos/a-red-star-on-a-wooden-surface-BEIcwaYvET8)
+- [Maryam Sicard](https://unsplash.com/@maryamsicard) — [photo](https://unsplash.com/photos/a-white-bowl-filled-with-fried-green-beans-0nD8eUysM5s)
+- [Kate Kasiutich](https://unsplash.com/@katekasiutich) — [photo](https://unsplash.com/photos/rows-of-japanese-lanterns-with-text-lehtToAAi8I)
+- [Yosuke Ota](https://unsplash.com/@yosuke_ota) — [photo](https://unsplash.com/photos/a-bunch-of-cheeses-that-are-on-a-rack-ytww0wxohNQ)
+- [Carlos Felipe Ramírez Mesa](https://unsplash.com/@cafera13) — [photo](https://unsplash.com/photos/a-sword-on-a-blue-surface-zIOrZH4Hkmc)
+- [Maryam Sicard](https://unsplash.com/@maryamsicard) — [photo](https://unsplash.com/photos/a-white-bowl-filled-with-green-beans-and-chopsticks-koPTQO1vAvg)
+- [Marek Piwnicki](https://unsplash.com/@marekpiwnicki) — [photo](https://unsplash.com/photos/text-Do2I7G44rTU)
+- [White.Rainforest ™︎ ∙ 易雨白林.](https://unsplash.com/@whiterainforest) — [photo](https://unsplash.com/photos/text-mMJBjXAZ9tA)
+- [Ozgu Ozden](https://unsplash.com/@ozgut) — [photo](https://unsplash.com/photos/a-group-of-people-standing-around-a-large-pot-TPmQW70HQq4)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/top-view-of-dim-sum-with-fried-japanese-gyoza-dumplings-on-black-plate-and-chinese-dumplings-served-on-traditional-steamer-ok7sOEEgId0)
+- [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd) — [photo](https://unsplash.com/photos/a-meticulously-pruned-bonsai-tree-in-a-garden-setting-DEN6nh8IdIc)
+- [Damon Lam](https://unsplash.com/@dayday95) — [photo](https://unsplash.com/photos/greyscale-photo-of-rod-pocket-curtain-pjkKDU9ab1I)
+- [@felirbe](https://unsplash.com/@felirbe) — [photo](https://unsplash.com/photos/grayscale-photo-of-printer-papers-y6VMoH6921w)
+- [Maryam Sicard](https://unsplash.com/@maryamsicard) — [photo](https://unsplash.com/photos/a-white-bowl-filled-with-green-beans-next-to-two-dipping-sauces-FqE-YLttd2c)
+- [Alireza heidarpour](https://unsplash.com/@ahcapture) — [photo](https://unsplash.com/photos/a-person-standing-in-a-room-with-a-hat-on-their-head-CsdTebUZmaQ)
+- [ERIC MIYAGI](https://unsplash.com/@miyagi123) — [photo](https://unsplash.com/photos/an-elderly-man-in-traditional-japanese-attire-with-a-sword-QgdCawt0Y9k)
+- [David Clode](https://unsplash.com/@davidclode) — [photo](https://unsplash.com/photos/a-piece-of-paper-with-writing-on-it-DuZVWJq9L0U)

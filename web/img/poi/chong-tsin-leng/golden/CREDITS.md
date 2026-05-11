@@ -1,0 +1,25 @@
+# Chong Tsin Leng — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-group-of-golden-statues-sitting-next-to-each-other-mpj-Zp1NAhY)
+- [Sam](https://unsplash.com/@samtakespictures) — [photo](https://unsplash.com/photos/a-view-of-a-town-with-mountains-in-the-background-saXglH9zUUw)
+- [Adrien Brun](https://unsplash.com/@bruncolombo) — [photo](https://unsplash.com/photos/a-red-and-white-gate-with-a-dragon-on-it-ELCyJLI9ejI)
+- [Rasadin Nahin](https://unsplash.com/@nah1n) — [photo](https://unsplash.com/photos/a-golden-and-white-building-with-a-clock-on-it-2BAt4H-s5GQ)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-gold-and-white-building-with-a-sky-background-MK7del6kDr8)
+- [Norbert Braun](https://unsplash.com/@medion4you) — [photo](https://unsplash.com/photos/a-group-of-people-standing-in-front-of-a-building-aelTYUU4YJk)
+- [Supasit Chantranon](https://unsplash.com/@supasitc) — [photo](https://unsplash.com/photos/gold-and-white-concrete-building-under-blue-sky-during-daytime-17DLTOYrxmI)
+- [Anjali Lokhande](https://unsplash.com/@anj4li) — [photo](https://unsplash.com/photos/a-building-with-a-gold-roof-epPaiYYophY)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-gold-statue-of-a-person-holding-a-bird-xXPdvCGX-Dw)
+- [Norbert Braun](https://unsplash.com/@medion4you) — [photo](https://unsplash.com/photos/a-large-golden-elephant-statue-in-front-of-a-building-C5j0gmVXbhE)
+- [Rendy Novantino](https://unsplash.com/@novantino) — [photo](https://unsplash.com/photos/a-woman-dressed-in-a-costume-and-headdress-q9ghR9nv8rE)
+- [Thoeun Ratana](https://unsplash.com/@thoeunratana) — [photo](https://unsplash.com/photos/a-large-gold-statue-in-front-of-a-group-of-buildings-XsaTFZ6lih4)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/wat-phra-that-hariphunchai-temple-in-lamphun-thailand-Z2dUMx3Ol-I)
+- [Adisa Sripathomsawat](https://unsplash.com/@amiizafoto) — [photo](https://unsplash.com/photos/a-small-village-in-the-middle-of-a-mountain-range-3lzrF5SKe_Y)
+- [Kim Phong](https://unsplash.com/@phongkimm) — [photo](https://unsplash.com/photos/a-view-of-a-mountain-with-clouds-in-the-sky-iAU3tvvL7PQ)
+- [PK Pearry](https://unsplash.com/@pk_pearry) — [photo](https://unsplash.com/photos/woman-lying-in-floor-while-wearing-gold-traditional-dress-QeCAK65iP9M)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-grassy-field-with-mountains-in-the-background-TPvWAcG5dXE)
+- [rishi](https://unsplash.com/@beingabstrac) — [photo](https://unsplash.com/photos/a-large-golden-building-with-a-sky-in-the-background-tJ1MW7R7dIA)
+- [Kate Wells](https://unsplash.com/@katewells27) — [photo](https://unsplash.com/photos/golden-stupa-against-a-blue-sky-with-clouds-V3CDfIPCPcU)
+- [LKHTK](https://unsplash.com/@lkhtk) — [photo](https://unsplash.com/photos/a-large-golden-building-sitting-next-to-a-river-pJq2SLELK_M)

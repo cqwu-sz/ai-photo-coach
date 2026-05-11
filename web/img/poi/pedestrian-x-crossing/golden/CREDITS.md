@@ -1,0 +1,25 @@
+# Pedestrian x crossing — golden refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Sara Canonici](https://unsplash.com/@saracanonici) — [photo](https://unsplash.com/photos/pedestrian-sign-on-asphalt-next-to-a-yellow-line-ftWX3zfpjnc)
+- [Vincent Y @USA](https://unsplash.com/@vincentyuan87) — [photo](https://unsplash.com/photos/street-with-pedestrian-crossing-and-trees-at-sunset-odBi6DFLMMw)
+- [Daniel Radu](https://unsplash.com/@bijamonte) — [photo](https://unsplash.com/photos/man-crosses-street-under-sunlit-trees-and-lamp-s1os23Z93Ys)
+- [Benjamin Huggett](https://unsplash.com/@benjiblobs) — [photo](https://unsplash.com/photos/white-and-brown-pedestrian-line-wxsxS-2cmTI)
+- [Georgi Kalaydzhiev](https://unsplash.com/@jorok) — [photo](https://unsplash.com/photos/people-crossing-a-street-at-a-crosswalk-wh6qHkQ626A)
+- [Federico Chionetti](https://unsplash.com/@chionesfede) — [photo](https://unsplash.com/photos/person-stands-on-street-under-bridge-at-sunset-QhlbVtR_kAk)
+- [niko n](https://unsplash.com/@niko_nguyen_10) — [photo](https://unsplash.com/photos/people-crossing-a-street-in-a-city-iNjYy0uTZzM)
+- [niko n](https://unsplash.com/@niko_nguyen_10) — [photo](https://unsplash.com/photos/people-crossing-a-sunlit-city-street-with-buildings-rLripQs5E6M)
+- [Kirsten Frank](https://unsplash.com/@kirsten_frank) — [photo](https://unsplash.com/photos/man-crossing-street-at-sunset-near-white-buildings-QDhx6HMrEJk)
+- [Leyla M](https://unsplash.com/@leyla21m) — [photo](https://unsplash.com/photos/person-skateboarding-across-a-crosswalk-hFWEY_VDMr0)
+- [Lens by Benji](https://unsplash.com/@lens_by_benji) — [photo](https://unsplash.com/photos/people-crossing-street-at-sunset-with-long-shadows-4IstEtAjTrg)
+- [niko n](https://unsplash.com/@niko_nguyen_10) — [photo](https://unsplash.com/photos/people-crossing-a-sunlit-city-street-8ATGlh0GvGA)
+- [Georgi Kalaydzhiev](https://unsplash.com/@jorok) — [photo](https://unsplash.com/photos/crowd-crossing-a-busy-street-during-sunset-tX56EkPgDBw)
+- [Gunay Topaloglu](https://unsplash.com/@gunnay) — [photo](https://unsplash.com/photos/street-scene-with-tram-tracks-and-distant-figures-at-sunset-cv1M0Er5y6I)
+- [Kaden Taylor](https://unsplash.com/@kaden_t) — [photo](https://unsplash.com/photos/people-crossing-a-street-in-a-city-160OYF2vHbI)
+- [Leyla M](https://unsplash.com/@leyla21m) — [photo](https://unsplash.com/photos/shadows-of-people-on-a-crosswalk-VrSQJGaPFgM)
+- [Natalia Blauth](https://unsplash.com/@nataliablauth) — [photo](https://unsplash.com/photos/people-walking-on-a-street-at-sunset-mJ4xDZzSnfA)
+- [Chuang XY](https://unsplash.com/@xinyu0421) — [photo](https://unsplash.com/photos/pedestrians-cross-street-at-sunset-with-long-shadows-aXR0F4GAPZ8)
+- [Raymond Yeung](https://unsplash.com/@optiny) — [photo](https://unsplash.com/photos/sunset-illuminates-people-crossing-a-street-in-a-city-RSTn-bGfPmc)
+- [niko n](https://unsplash.com/@niko_nguyen_10) — [photo](https://unsplash.com/photos/people-crossing-a-street-in-a-city-alley-K5TKSY1mR0s)

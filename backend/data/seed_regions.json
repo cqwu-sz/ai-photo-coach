@@ -1,0 +1,46 @@
+{
+  "regions": [
+    {
+      "name": "shanghai_core",
+      "label_zh": "上海核心区",
+      "bbox": [31.20, 121.45, 31.27, 121.52]
+    },
+    {
+      "name": "beijing_center",
+      "label_zh": "北京中心",
+      "bbox": [39.88, 116.36, 39.96, 116.44]
+    },
+    {
+      "name": "hongkong_island",
+      "label_zh": "香港岛核心",
+      "bbox": [22.27, 114.14, 22.30, 114.21]
+    },
+    {
+      "name": "tokyo_central",
+      "label_zh": "东京核心",
+      "bbox": [35.66, 139.68, 35.72, 139.78]
+    },
+    {
+      "name": "kyoto_center",
+      "label_zh": "京都中心",
+      "bbox": [34.99, 135.74, 35.04, 135.79]
+    },
+    {
+      "name": "new_york_manhattan",
+      "label_zh": "纽约曼哈顿",
+      "bbox": [40.70, -74.02, 40.80, -73.95]
+    },
+    {
+      "name": "paris_center",
+      "label_zh": "巴黎中心",
+      "bbox": [48.84, 2.30, 48.88, 2.37]
+    },
+    {
+      "name": "london_center",
+      "label_zh": "伦敦中心",
+      "bbox": [51.49, -0.16, 51.53, -0.07]
+    }
+  ],
+  "default_grid_step_deg": 0.005,
+  "default_radius_m": 400
+}

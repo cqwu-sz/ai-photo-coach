@@ -1,0 +1,25 @@
+# Light show (Dancing fountains) — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Cristina Gottardi](https://unsplash.com/@cristina_gottardi) — [photo](https://unsplash.com/photos/a-group-of-people-standing-in-front-of-a-water-fountain-8rFvkc4MDXc)
+- [Aditya Chinchure](https://unsplash.com/@adityachinchure) — [photo](https://unsplash.com/photos/fireworks-during-night-time-bh_LzPSbs-M)
+- [Ayden Gen](https://unsplash.com/@aydengen) — [photo](https://unsplash.com/photos/water-fountains-and-fireworks-at-night-with-building-M4ghrCBCsyM)
+- [Brandi Alexandra](https://unsplash.com/@brandialxndra) — [photo](https://unsplash.com/photos/pink-and-blue-fountain-rtdMVtG3Ysk)
+- [Roberta Sant'Anna](https://unsplash.com/@roberta_sant_anna) — [photo](https://unsplash.com/photos/an-aerial-view-of-a-fountain-at-night-qgPstevuflo)
+- [Ayden Gen](https://unsplash.com/@aydengen) — [photo](https://unsplash.com/photos/fireworks-explode-over-a-traditional-building-with-a-water-show-WDRr_DYhEYo)
+- [MARIOLA GROBELSKA](https://unsplash.com/@mariolagr) — [photo](https://unsplash.com/photos/a-large-water-fountain-is-lit-up-at-night-XWmMcR5s7NI)
+- [MARIOLA GROBELSKA](https://unsplash.com/@mariolagr) — [photo](https://unsplash.com/photos/a-large-fountain-of-water-is-lit-up-at-night-DRSG1QeGPAk)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/horse-by-a-stream-with-magical-glowing-lights-xFtmgfo9icU)
+- [Fahad Salman](https://unsplash.com/@fsalman01) — [photo](https://unsplash.com/photos/fireworks-going-off-over-water-0s8SDdV0aBs)
+- [biemme zeta](https://unsplash.com/@biemmezeta) — [photo](https://unsplash.com/photos/lighted-red-lights-at-night-OSohgfhi-U4)
+- [note thanun](https://unsplash.com/@notethanun) — [photo](https://unsplash.com/photos/colorful-water-fountains-illuminate-a-cityscape-at-night-cPYQwBjSmlg)
+- [Point Normal](https://unsplash.com/@normals) — [photo](https://unsplash.com/photos/abstract-shimmering-lines-and-particles-on-black-background-eTyqwmz0Rhw)
+- [Axel  Antas-Bergkvist](https://unsplash.com/@aabergkvist) — [photo](https://unsplash.com/photos/water-fountain-with-lights-turned-on-during-night-time-sVbVAoXHO9k)
+- [Axel  Antas-Bergkvist](https://unsplash.com/@aabergkvist) — [photo](https://unsplash.com/photos/water-fountain-with-fire-during-night-time-NZfsRDdv-Ds)
+- [Jason Leung](https://unsplash.com/@ninjason) — [photo](https://unsplash.com/photos/a-purple-fountain-is-lit-up-at-night-gApIvUkjAJY)
+- [Phạm Nhật](https://unsplash.com/@ph4minhat) — [photo](https://unsplash.com/photos/a-couple-of-people-standing-in-front-of-a-stage-Zsb49jz__68)
+- [Vida Huang](https://unsplash.com/@rebylulu) — [photo](https://unsplash.com/photos/people-watch-the-brightly-lit-fountain-at-night-sLtGS6twuTo)
+- [Matthew Ball](https://unsplash.com/@tex450) — [photo](https://unsplash.com/photos/a-water-fountain-is-lit-up-at-night-5lu-R80AFeg)
+- [Jason Leung](https://unsplash.com/@ninjason) — [photo](https://unsplash.com/photos/a-purple-fountain-is-lit-up-at-night-K0K4HZ_BZr0)

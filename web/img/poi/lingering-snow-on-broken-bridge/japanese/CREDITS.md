@@ -1,0 +1,25 @@
+# Lingering Snow on Broken Bridge — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/a-foggy-forest-path-with-a-wooden-bridge-kGdf3WYZ-bo)
+- [Kouji Tsuru](https://unsplash.com/@pafuxu) — [photo](https://unsplash.com/photos/a-red-bridge-over-a-small-stream-in-a-park-cy5ayG_EVOU)
+- [Art Institute of Chicago](https://unsplash.com/@artchicago) — [photo](https://unsplash.com/photos/a-painting-of-a-bridge-over-a-body-of-water-gGM8Tfa4E2M)
+- [Maximilian Brand](https://unsplash.com/@maximilian_brand) — [photo](https://unsplash.com/photos/a-snow-covered-bridge-over-a-body-of-water-R34mWDezF2c)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/a-wooden-bridge-over-a-frosty-path-in-foggy-woods-OohVKOwNS8U)
+- [Kouji Tsuru](https://unsplash.com/@pafuxu) — [photo](https://unsplash.com/photos/a-couple-of-red-benches-sitting-on-top-of-a-snow-covered-ground-T-_Zef96yCQ)
+- [Jonathan Wondemu](https://unsplash.com/@wondisemo) — [photo](https://unsplash.com/photos/brown-wooden-house-in-the-middle-of-forest-Gsru9sJozcs)
+- [Kouji Tsuru](https://unsplash.com/@pafuxu) — [photo](https://unsplash.com/photos/a-snow-covered-bench-with-a-bridge-in-the-background-d3-5SHnKa-w)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/wooden-bridge-over-frozen-stream-in-foggy-forest-KlwqYH5x9DI)
+- [Elliot Gouy](https://unsplash.com/@gouyelliot) — [photo](https://unsplash.com/photos/a-snow-covered-path-leading-to-a-small-pond-1oPlJhKFXxY)
+- [The Cleveland Museum of Art](https://unsplash.com/@clevelandart) — [photo](https://unsplash.com/photos/a-painting-of-a-woman-holding-an-umbrella-in-the-snow-boQTKce0whE)
+- [Regös Környei](https://unsplash.com/@kornyeir) — [photo](https://unsplash.com/photos/snow-covered-trees-and-bridge-in-a-park-bEds_4MJWto)
+- [Annie Spratt](https://unsplash.com/@anniespratt) — [photo](https://unsplash.com/photos/wooden-bridge-over-a-frosty-landscape-with-trees-4JglSs9yLCc)
+- [The Cleveland Museum of Art](https://unsplash.com/@clevelandart) — [photo](https://unsplash.com/photos/a-painting-of-people-walking-across-a-bridge-in-the-snow-w5T6DY78TBU)
+- [Kouji Tsuru](https://unsplash.com/@pafuxu) — [photo](https://unsplash.com/photos/a-red-bridge-over-a-body-of-water-JC14cktjWgM)
+- [ayumi kubo](https://unsplash.com/@ayumikubo) — [photo](https://unsplash.com/photos/a-wooden-walkway-in-the-middle-of-a-snowy-forest-rpq9xhfNF2A)
+- [Roberta Sant'Anna](https://unsplash.com/@roberta_sant_anna) — [photo](https://unsplash.com/photos/a-white-dog-stands-on-a-snowy-path-GTTS7tTAUA0)
+- [Duong Thinh](https://unsplash.com/@duongtrungthinh) — [photo](https://unsplash.com/photos/a-bridge-over-a-body-of-water-with-a-mountain-in-the-background-vc_2XePd3XE)
+- [Kouji Tsuru](https://unsplash.com/@pafuxu) — [photo](https://unsplash.com/photos/a-bridge-over-a-body-of-water-surrounded-by-trees-K79j-dQDG3E)
+- [Mariah Hewines](https://unsplash.com/@mariahhewines) — [photo](https://unsplash.com/photos/a-red-bridge-over-a-stream-in-a-park-iC1yYl9yAzE)

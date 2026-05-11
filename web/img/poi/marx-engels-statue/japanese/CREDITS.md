@@ -1,0 +1,25 @@
+# Marx-Engels Statue — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-sword-on-top-of-a-building-IYjfxrUikjs)
+- [Jeyakumaran Mayooresan](https://unsplash.com/@jaydraws2019) — [photo](https://unsplash.com/photos/a-powerful-buddhist-statue-is-shown-with-flags-zeN77Eb5eu4)
+- [Seiya Maeda](https://unsplash.com/@seiya_maeda) — [photo](https://unsplash.com/photos/a-statue-of-a-boy-holding-a-bird-in-a-park-EzpsAEMTdH4)
+- [Óscar Gutiérrez](https://unsplash.com/@oslegutiez) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-standing-in-a-park-LTvMWR5BJTE)
+- [Lala Azizli](https://unsplash.com/@lazizli) — [photo](https://unsplash.com/photos/a-statue-of-a-person-surrounded-by-plants-t5Lwo3Y6UEw)
+- [You Le](https://unsplash.com/@le_y0u) — [photo](https://unsplash.com/photos/stone-statue-of-a-young-girl-holding-a-basket-BnCOjlf_N7I)
+- [Dennis Rothermel](https://unsplash.com/@dennis_roth) — [photo](https://unsplash.com/photos/man-in-hat-statue-near-green-plants-during-daytime-68AdnbxfuKs)
+- [Leon Andov](https://unsplash.com/@lando2) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-hat-and-a-cane-dgE0Vgju8_c)
+- [martin bennie](https://unsplash.com/@martinbennie) — [photo](https://unsplash.com/photos/a-statue-of-a-man-holding-a-staff-in-front-of-a-building-n-XFCbKqQQY)
+- [MAK](https://unsplash.com/@mak_jp) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-dog-under-a-tree-VcNVW-PkNus)
+- [Pieter](https://unsplash.com/@pieterpanflute) — [photo](https://unsplash.com/photos/deity-statue-near-tree-MxBLGt4p9k0)
+- [Hongwei FAN](https://unsplash.com/@yokonoito0512) — [photo](https://unsplash.com/photos/bronze-statue-in-front-of-a-japanese-temple-fWMEFp82U40)
+- [Wesley Tingey](https://unsplash.com/@wesleyphotography) — [photo](https://unsplash.com/photos/a-statue-of-a-man-with-a-hat-on-his-head-O4-d8gFvvPo)
+- [Armand Mckenzie](https://unsplash.com/@armandmckenzie) — [photo](https://unsplash.com/photos/two-bronze-statues-of-children-sitting-on-stone-IHX4EYxD84E)
+- [Duc Van](https://unsplash.com/@duke91) — [photo](https://unsplash.com/photos/a-statue-of-a-man-stands-in-a-park-Flw1iyCeNj8)
+- [Jacky Watt](https://unsplash.com/@jackywatt) — [photo](https://unsplash.com/photos/a-statue-of-a-woman-with-a-hat-on-her-head-JpMqwlyiCDw)
+- [George Dagerotip](https://unsplash.com/@dagerotip) — [photo](https://unsplash.com/photos/a-statue-with-a-ferris-wheel-on-top-of-it-5iCJEwKbBr4)
+- [Junel Mujar](https://unsplash.com/@junelmujar) — [photo](https://unsplash.com/photos/a-statue-of-a-samurai-warrior-holding-a-sword-NgWsrdyTLCQ)
+- [MAK](https://unsplash.com/@mak_jp) — [photo](https://unsplash.com/photos/a-statue-of-a-man-in-a-kimono-standing-in-front-of-a-tree-tSYWEB62zJM)
+- [enkuu smile](https://unsplash.com/@enkuu) — [photo](https://unsplash.com/photos/green-concrete-statue-of-a-man-KVxVJxNMZDw)

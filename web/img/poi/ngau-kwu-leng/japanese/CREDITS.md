@@ -1,0 +1,25 @@
+# Ngau Kwu Leng — japanese refs
+
+All images licensed under [Unsplash License](https://unsplash.com/license)
+(free commercial / non-commercial use, no permission required, attribution appreciated).
+
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-couple-of-women-standing-next-to-each-other-GjjvBIxoQtg)
+- [Damon Lam](https://unsplash.com/@dayday95) — [photo](https://unsplash.com/photos/greyscale-photo-of-rod-pocket-curtain-pjkKDU9ab1I)
+- [Sodium Carbonate](https://unsplash.com/@glcbrg) — [photo](https://unsplash.com/photos/a-group-of-bottles-KXdcYQPIhY8)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/two-bottles-of-drink-sitting-on-top-of-a-table-Cxlr22wrOto)
+- [RODOLFO BARRETTO](https://unsplash.com/@rodolfobarreto) — [photo](https://unsplash.com/photos/a-city-street-filled-with-lots-of-tall-buildings-sqDPuppP2K4)
+- [Declan Sun](https://unsplash.com/@declansun) — [photo](https://unsplash.com/photos/a-yellow-sign-that-is-on-the-side-of-a-building-_3YunYYUZAY)
+- [Filiz Elaerts](https://unsplash.com/@filizelaerts) — [photo](https://unsplash.com/photos/a-box-with-writing-on-it-sitting-on-a-table-cqwpBUj8Auw)
+- [@felirbe](https://unsplash.com/@felirbe) — [photo](https://unsplash.com/photos/grayscale-photo-of-printer-papers-y6VMoH6921w)
+- [Curated Lifestyle](https://unsplash.com/@curatedlifestyle) — [photo](https://unsplash.com/photos/hand-holding-variation-of-object-IW6ghwA361g)
+- [The Cleveland Museum of Art](https://unsplash.com/@clevelandart) — [photo](https://unsplash.com/photos/ancient-chinese-calligraphy-on-aged-paper-axm7m_45_zk)
+- [Dovile Ramoskaite](https://unsplash.com/@dovilerm) — [photo](https://unsplash.com/photos/person-in-black-t-shirt-GsSHHOA0RLY)
+- [Kate Kasiutich](https://unsplash.com/@katekasiutich) — [photo](https://unsplash.com/photos/rows-of-japanese-lanterns-with-text-lehtToAAi8I)
+- [Rod Long](https://unsplash.com/@rodlong) — [photo](https://unsplash.com/photos/busy-street-in-japan-with-many-illuminated-signs-xiny8SCX7RY)
+- [Markus Winkler](https://unsplash.com/@markuswinkler) — [photo](https://unsplash.com/photos/a-couple-of-bottles-sitting-on-top-of-a-leather-chair-mRaClo3uS2Q)
+- [Kate Kasiutich](https://unsplash.com/@katekasiutich) — [photo](https://unsplash.com/photos/rows-of-japanese-lanterns-with-calligraphy-MTFlgY9kGpM)
+- [little plant](https://unsplash.com/@little_plant) — [photo](https://unsplash.com/photos/black-metal-rod-on-white-and-black-floor-tiles-sHcsEun6TSE)
+- [Getty Images](https://unsplash.com/@gettyimages) — [photo](https://unsplash.com/photos/a-woman-in-a-kimono-smiles-at-the-camera-qeucbhv5oJs)
+- [5010](https://unsplash.com/@isoten) — [photo](https://unsplash.com/photos/japanese-characters-on-a-sign-with-bokeh-lights-BtSjU9snGqM)
+- [Nichika Sakurai](https://unsplash.com/@nichiyoshi) — [photo](https://unsplash.com/photos/a-group-of-people-walking-down-a-street-next-to-a-tall-building-UxY1nTcU5DY)
+- [Yosuke Ota](https://unsplash.com/@yosuke_ota) — [photo](https://unsplash.com/photos/japanese-sign-with-calligraphy-on-wooden-building-K5tyAsu80sc)

@@ -1,0 +1,281 @@
+{
+  "version": 2,
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "note": "All images downloaded under the free Unsplash License (commercial use allowed, attribution not required by Unsplash but kept here as App Store due-diligence). See CREDITS.md for the full per-image table.",
+  "styles": [
+    {
+      "id": "cinematic_moody",
+      "label_zh": "氛围感",
+      "label_en": "cinematic moody",
+      "keywords": [
+        "cinematic",
+        "moody"
+      ],
+      "blurb_zh": "黄昏 / 夜晚 · 想要点情绪",
+      "summary_long_zh": "光线偏暗、阴影占大半、画面像电影截图一样有故事感。适合黄昏、夜晚、雾天、霓虹街头这种「光不那么平」的时候。",
+      "images": [
+        {
+          "file": "01.jpg",
+          "kind": "portrait",
+          "id": "l7R85WBKl1c",
+          "author": "Ben Griffiths",
+          "author_url": "https://unsplash.com/@benofthenorth",
+          "source": "https://unsplash.com/photos/l7R85WBKl1c"
+        },
+        {
+          "file": "02.jpg",
+          "kind": "scenery",
+          "id": "G0KVzxBb2xo",
+          "author": "Cuvii",
+          "author_url": "https://unsplash.com/@cuvii",
+          "source": "https://unsplash.com/photos/G0KVzxBb2xo"
+        },
+        {
+          "file": "03.jpg",
+          "kind": "portrait",
+          "id": "EKQMsJPxv3g",
+          "author": "Majid Rangraz",
+          "author_url": "https://unsplash.com/@majidrangraz",
+          "source": "https://unsplash.com/photos/EKQMsJPxv3g"
+        },
+        {
+          "file": "04.jpg",
+          "kind": "scenery",
+          "id": "6iCxGiQ8bws",
+          "author": "Fethi Benattallah",
+          "author_url": "https://unsplash.com/@fethibenattallah",
+          "source": "https://unsplash.com/photos/6iCxGiQ8bws"
+        },
+        {
+          "file": "05.jpg",
+          "kind": "scenery",
+          "id": "nTZZj8dPQhM",
+          "author": "Intricate Explorer",
+          "author_url": "https://unsplash.com/@intricateexplorer",
+          "source": "https://unsplash.com/photos/nTZZj8dPQhM"
+        }
+      ]
+    },
+    {
+      "id": "clean_bright",
+      "label_zh": "清爽日系",
+      "label_en": "clean bright",
+      "keywords": [
+        "clean",
+        "bright"
+      ],
+      "blurb_zh": "白墙 / 海边 · 不复杂的明亮",
+      "summary_long_zh": "画面亮、色少、留白多，像晴天午后随手一拍那种感觉。适合白墙建筑、浅色小巷、海滩、沙漠等明亮干净的户外环境。",
+      "images": [
+        {
+          "file": "01.jpg",
+          "kind": "portrait",
+          "id": "sj2YTX5K_BU",
+          "author": "Ary Pura",
+          "author_url": "https://unsplash.com/@moochpura",
+          "source": "https://unsplash.com/photos/sj2YTX5K_BU"
+        },
+        {
+          "file": "02.jpg",
+          "kind": "scenery",
+          "id": "6gLsBZ1_4Gg",
+          "author": "Greg Bulla",
+          "author_url": "https://unsplash.com/@gregbulla",
+          "source": "https://unsplash.com/photos/6gLsBZ1_4Gg"
+        },
+        {
+          "file": "03.jpg",
+          "kind": "scenery",
+          "id": "EDjJ0eKEW9Y",
+          "author": "Veronica Lybbert",
+          "author_url": "https://unsplash.com/@vphotographyphoto",
+          "source": "https://unsplash.com/photos/EDjJ0eKEW9Y"
+        },
+        {
+          "file": "04.jpg",
+          "kind": "scenery",
+          "id": "XvWl5RZ51gQ",
+          "author": "Zhen Yao",
+          "author_url": "https://unsplash.com/@zhenyao_photo",
+          "source": "https://unsplash.com/photos/XvWl5RZ51gQ"
+        }
+      ]
+    },
+    {
+      "id": "film_warm",
+      "label_zh": "温柔暖光",
+      "label_en": "film warm",
+      "keywords": [
+        "film",
+        "warm"
+      ],
+      "blurb_zh": "金光时分 · 想要复古一点",
+      "summary_long_zh": "整张图发暖、偏黄、肤色奶油，像老胶片冲出来的样子。适合日落前一小时的海边、森林、田野这种暖光时刻。",
+      "images": [
+        {
+          "file": "01.jpg",
+          "kind": "portrait",
+          "id": "xnS3upQYaOk",
+          "author": "Sasha Matveeva",
+          "author_url": "https://unsplash.com/@sashamatveeva",
+          "source": "https://unsplash.com/photos/xnS3upQYaOk"
+        },
+        {
+          "file": "02.jpg",
+          "kind": "portrait",
+          "id": "NB4Rnh9zjKM",
+          "author": "sammy swae",
+          "author_url": "https://unsplash.com/@sammyswae",
+          "source": "https://unsplash.com/photos/NB4Rnh9zjKM"
+        },
+        {
+          "file": "03.jpg",
+          "kind": "portrait",
+          "id": "-s8_61ynxAY",
+          "author": "Yeshi Kangrang",
+          "author_url": "https://unsplash.com/@omgitsyeshi",
+          "source": "https://unsplash.com/photos/-s8_61ynxAY"
+        },
+        {
+          "file": "04.jpg",
+          "kind": "scenery",
+          "id": "z7nAuJa-YIg",
+          "author": "Annie Spratt",
+          "author_url": "https://unsplash.com/@anniespratt",
+          "source": "https://unsplash.com/photos/z7nAuJa-YIg"
+        },
+        {
+          "file": "05.jpg",
+          "kind": "scenery",
+          "id": "aCJPS1G7GKU",
+          "author": "Quiet Studio",
+          "author_url": "https://unsplash.com/@quietcreativestudio",
+          "source": "https://unsplash.com/photos/aCJPS1G7GKU"
+        }
+      ]
+    },
+    {
+      "id": "street_candid",
+      "label_zh": "自然随手",
+      "label_en": "street candid",
+      "keywords": [
+        "street",
+        "candid"
+      ],
+      "blurb_zh": "走路 / 不摆 pose · 像旅行随拍",
+      "summary_long_zh": "不用专门站好，自然走动、回头、笑就行；画面里能看到周围环境。适合街市、巷子、人群里那种「正在发生」的时刻。",
+      "images": [
+        {
+          "file": "01.jpg",
+          "kind": "portrait",
+          "id": "03di_wcQlj4",
+          "author": "Douglas Schneiders",
+          "author_url": "https://unsplash.com/@dougschneiders",
+          "source": "https://unsplash.com/photos/03di_wcQlj4"
+        },
+        {
+          "file": "02.jpg",
+          "kind": "portrait",
+          "id": "wsdV6Tts8sA",
+          "author": "Jason Leung",
+          "author_url": "https://unsplash.com/@ninjason",
+          "source": "https://unsplash.com/photos/wsdV6Tts8sA"
+        },
+        {
+          "file": "03.jpg",
+          "kind": "portrait",
+          "id": "2h0Vt8l-_GQ",
+          "author": "Sinitta Leunen",
+          "author_url": "https://unsplash.com/@sinileunen",
+          "source": "https://unsplash.com/photos/2h0Vt8l-_GQ"
+        },
+        {
+          "file": "04.jpg",
+          "kind": "portrait",
+          "id": "OfsOzOIvNFc",
+          "author": "zero take",
+          "author_url": "https://unsplash.com/@zerotake",
+          "source": "https://unsplash.com/photos/OfsOzOIvNFc"
+        },
+        {
+          "file": "05.jpg",
+          "kind": "portrait",
+          "id": "fy-VKC2BYHM",
+          "author": "Zoshua Colah",
+          "author_url": "https://unsplash.com/@zoshuacolah",
+          "source": "https://unsplash.com/photos/fy-VKC2BYHM"
+        },
+        {
+          "file": "06.jpg",
+          "kind": "scenery",
+          "id": "ld4I1YL70YI",
+          "author": "Jerry Shen",
+          "author_url": "https://unsplash.com/@orson_krennic",
+          "source": "https://unsplash.com/photos/ld4I1YL70YI"
+        }
+      ]
+    },
+    {
+      "id": "editorial_fashion",
+      "label_zh": "大片感",
+      "label_en": "editorial fashion",
+      "keywords": [
+        "editorial",
+        "fashion"
+      ],
+      "blurb_zh": "服装 / 想拍出杂志封面感",
+      "summary_long_zh": "姿态明显、背景干净或对比强、构图大胆，像杂志里那种「摆得很正经」的照片。适合屋顶、沙漠、海边、混凝土建筑这种本身就有设计感的环境。",
+      "images": [
+        {
+          "file": "01.jpg",
+          "kind": "portrait",
+          "id": "WOZYzurGqwM",
+          "author": "Tide_trasher_x",
+          "author_url": "https://unsplash.com/@tide_trasher_x",
+          "source": "https://unsplash.com/photos/WOZYzurGqwM"
+        },
+        {
+          "file": "02.jpg",
+          "kind": "portrait",
+          "id": "cmDq1L-4MXE",
+          "author": "Zulfugar Karimov",
+          "author_url": "https://unsplash.com/@zulfugarkarimov",
+          "source": "https://unsplash.com/photos/cmDq1L-4MXE"
+        },
+        {
+          "file": "03.jpg",
+          "kind": "portrait",
+          "id": "qC_XoctgYKw",
+          "author": "Suelee Wright",
+          "author_url": "https://unsplash.com/@sueleewright",
+          "source": "https://unsplash.com/photos/qC_XoctgYKw"
+        },
+        {
+          "file": "04.jpg",
+          "kind": "portrait",
+          "id": "fRnYYL4jn5I",
+          "author": "Patrick Nguyen",
+          "author_url": "https://unsplash.com/@pokiepatt",
+          "source": "https://unsplash.com/photos/fRnYYL4jn5I"
+        },
+        {
+          "file": "05.jpg",
+          "kind": "portrait",
+          "id": "O6i6D2x9xts",
+          "author": "Sasha Matveeva",
+          "author_url": "https://unsplash.com/@sashamatveeva",
+          "source": "https://unsplash.com/photos/O6i6D2x9xts"
+        },
+        {
+          "file": "06.jpg",
+          "kind": "scenery",
+          "id": "BdeFclXOQ2Y",
+          "author": "Harrison Lin",
+          "author_url": "https://unsplash.com/@htlin",
+          "source": "https://unsplash.com/photos/BdeFclXOQ2Y"
+        }
+      ]
+    }
+  ]
+}
