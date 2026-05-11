@@ -75,3 +75,4 @@ web/avatars/base/*.glb
 # --- Tripo3D generation logs (intermediate artefacts) ------------------------
 scripts/_tripo_logs/
 /.git-commit-msg.txt
+ios_fail.log

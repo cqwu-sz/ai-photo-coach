@@ -20,7 +20,13 @@ targets:
     platform: iOS
     deploymentTarget: "17.0"
     sources:
+      # Exclude Tests/ from the app target — those files import XCTest
+      # which is only available to bundle.unit-test targets. Pre-v9
+      # CI failed with "no such module 'XCTest'" because PostProcessSnapshotTests.swift
+      # was being compiled into the app binary.
       - path: AIPhotoCoach
+        excludes:
+          - "Tests/**"
     info:
       path: AIPhotoCoach/Info.plist
       properties:
