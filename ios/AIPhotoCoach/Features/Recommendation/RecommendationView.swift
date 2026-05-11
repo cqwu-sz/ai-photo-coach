@@ -1242,8 +1242,9 @@ private struct CaptureAdvisoryBanner: View {
 /// the conforming type must opt into MainActor isolation too — without
 /// the attribute Xcode 16 reports "inheritance from non-protocol type 'Layout'"
 /// because it cannot resolve the protocol from a nonisolated context.
+@available(iOS 16.0, *)
 @MainActor
-private struct FlowLayout: Layout {
+private struct FlowLayout: SwiftUI.Layout {
     var spacing: CGFloat = 6
 
     func sizeThatFits(proposal: ProposedViewSize, subviews: LayoutSubviews, cache: inout ()) -> CGSize {
