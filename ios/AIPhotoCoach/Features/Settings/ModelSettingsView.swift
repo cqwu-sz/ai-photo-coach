@@ -27,6 +27,26 @@ struct ModelSettingsView: View {
         NavigationStack {
             Form {
                 Section {
+                    NavigationLink {
+                        AppIconPickerView()
+                    } label: {
+                        Label {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("外观与图标")
+                                    .font(.system(size: 15, weight: .semibold))
+                                Text("挑一张你想每天打开的「拾光」图")
+                                    .font(.system(size: 12))
+                                    .foregroundStyle(.secondary)
+                            }
+                        } icon: {
+                            Image(systemName: "app.badge.fill")
+                                .symbolRenderingMode(.hierarchical)
+                                .foregroundStyle(Color.orange)
+                        }
+                    }
+                }
+
+                Section {
                     Text("密钥仅保存在你的设备 Keychain，分析时随请求发到后端，绝不会被服务端持久化。")
                         .font(.footnote)
                         .foregroundStyle(.secondary)

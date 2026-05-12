@@ -131,9 +131,13 @@ def main() -> None:
     print(f"  wrote {n_default} images → {default_set.relative_to(ROOT)}")
 
     alt_label = "Sunset" if ALT_DIRECTION == 1 else "Beam"
-    alt_masters = load_direction_masters(ALT_DIRECTION, with_variants=False)
+    # Alternate icons also ship full appearance variants: when the user has
+    # switched to the alternate icon, iOS still respects the system dark /
+    # tinted modes — without these the alternate would look stale next to
+    # everything else on the home screen.
+    alt_masters = load_direction_masters(ALT_DIRECTION, with_variants=True)
     alt_set = XCASSETS / f"AppIcon-{alt_label}.appiconset"
-    n_alt = build_iconset(alt_set, alt_masters, include_appearances=False)
+    n_alt = build_iconset(alt_set, alt_masters, include_appearances=True)
     print(f"  wrote {n_alt} images → {alt_set.relative_to(ROOT)}")
 
     (XCASSETS / "Contents.json").write_text(

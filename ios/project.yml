@@ -50,7 +50,6 @@ targets:
           UIColorName: LaunchBackground
           UIImageName: ""
         UIRequiredDeviceCapabilities:
-          - armv7
           - arkit
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait

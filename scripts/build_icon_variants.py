@@ -111,6 +111,35 @@ def make_dark(light: Image.Image, sky_stops: list[tuple[float, tuple[int, int, i
     return out
 
 
+def fill_dark_holes(mask: Image.Image, threshold: int = 80, radius: int = 6) -> Image.Image:
+    """Fill small dark blobs that are surrounded by bright pixels.
+
+    The tinted mask treats the camera-lens center as "mid-luminance" which
+    drops it to near-black. At small icon sizes that black dot reads as
+    a manufacturing speck on an otherwise tinted silhouette, so we patch
+    isolated dark blobs whose `radius`-neighbourhood is mostly bright.
+    Implemented with PIL's MaxFilter (bright-dilation), which is O(width *
+    height * radius) but trivially fast for a 1024² icon.
+    """
+    from PIL import ImageFilter
+
+    # Dilate brightness by `radius` so bright regions swallow nearby holes.
+    dilated = mask.filter(ImageFilter.MaxFilter(size=radius * 2 + 1))
+    src = mask.load()
+    dil = dilated.load()
+    out = mask.copy()
+    dst = out.load()
+    w, h = mask.size
+    for y in range(h):
+        for x in range(w):
+            sr = src[x, y][0]
+            if sr < threshold and dil[x, y][0] > 200:
+                # Dark pixel surrounded by bright neighbours → fill in.
+                v = dil[x, y][0]
+                dst[x, y] = (v, v, v)
+    return out
+
+
 def make_tinted(light: Image.Image) -> Image.Image:
     """Tinted mask: silhouettes → bright (gets tinted), sky → dark, sun/lens → brightest."""
     w, h = light.size
@@ -163,7 +192,9 @@ def main() -> None:
         print("wrote", light_out)
         make_dark(light, DIRECTION_PALETTES[name]).save(dark_out, "PNG")
         print("wrote", dark_out)
-        make_tinted(light).save(tinted_out, "PNG")
+        tinted = make_tinted(light)
+        tinted = fill_dark_holes(tinted)
+        tinted.save(tinted_out, "PNG")
         print("wrote", tinted_out)
 
 
