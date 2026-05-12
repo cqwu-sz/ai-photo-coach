@@ -356,6 +356,7 @@ private struct ShotCard: View {
                     .font(.callout)
                     .foregroundStyle(.secondary)
                     .padding(.top, 4)
+                    .onAppear { PersonaTone.audit(rationale: rationale, context: "shot.rationale") }
             }
 
             // ── PRIMARY + SECONDARY CTA — kept above the fold. iOS users

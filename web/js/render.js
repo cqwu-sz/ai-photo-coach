@@ -513,6 +513,14 @@ function renderShot(shot, idx, frames) {
     }
     if (shot.rationale) {
       body.appendChild(el("p", { class: "coach-rationale" }, shot.rationale));
+      // Dev-only persona-tone sanity check. Mirrors shared/copy/persona_tone.json.
+      // Logs a warning when the AI slips back into teacher-y openers so we
+      // can spot prompt regressions without bothering the user with UI.
+      const banned = ["我建议你","你应该","你需要","让我们","我们一起","试想一下","不妨"];
+      const hit = banned.find((b) => shot.rationale.startsWith(b) || shot.rationale.includes(`。${b}`));
+      if (hit) {
+        console.warn(`[persona-tone] shot ${idx} rationale uses banned opener "${hit}":`, shot.rationale);
+      }
     }
     bubble.appendChild(body);
     card.appendChild(bubble);

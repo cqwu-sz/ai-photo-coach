@@ -142,7 +142,7 @@ def _shot_for(meta: CaptureMeta, idx: int, lighting: Lighting) -> ShotRecommenda
             "你站到三分线，看向远处别看我",
         ]
     rationale = (
-        f"我建议你转到 {target_az:.0f}° 方向，距离主体大约 {angle.distance_m:.1f} 米，"
+        f"往 {target_az:.0f}° 方向转过去，离主体大约 {angle.distance_m:.1f} 米，"
         f"用 {cam.focal_length_mm:.0f}mm {cam.aperture}。{lighting.value} 光线下"
         f"{composition.primary.value} 构图最稳，能把"
         f"{'天空和前景' if scene_mode == 'scenery' else '人和环境'}都收得干净。"
