@@ -66,7 +66,7 @@ export async function shareOrDownloadPlan(shot, idx) {
       await navigator.share({
         files: [file],
         title: `拾光 · 方案 #${idx + 1}`,
-        text: "AI 摄影教练生成的方案，带去现场拍照参考",
+        text: "AI 取景师替你框好的方案，带去现场拍照参考",
       });
       return;
     } catch (e) {
@@ -113,7 +113,7 @@ function drawCard(ctx, shot, idx) {
   ctx.fillStyle = "rgba(245, 244, 238, 0.6)";
   ctx.font = "500 28px 'PingFang SC', -apple-system, system-ui, sans-serif";
   ctx.textBaseline = "top";
-  ctx.fillText("拾光 · AI 摄影教练", PAD, y);
+  ctx.fillText("拾光 · AI 取景师", PAD, y);
   y += 50;
 
   ctx.fillStyle = "#f5f4ee";

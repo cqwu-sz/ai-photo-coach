@@ -115,7 +115,7 @@ struct RootView: View {
                             .font(.system(size: 16, weight: .heavy))
                             .foregroundStyle(CinemaTheme.heroGradient)
                             .tracking(0.6)
-                        Text("AI 摄影教练")
+                        Text("AI 取景师")
                             .font(.system(size: 9.5, weight: .semibold))
                             .tracking(1.2)
                             .foregroundStyle(CinemaTheme.inkMuted)

@@ -64,7 +64,7 @@ struct WelcomeView: View {
                     .font(.system(size: 19, weight: .heavy))
                     .tracking(1.5)
                     .foregroundStyle(CinemaTheme.heroGradient)
-                Text("AI 摄影教练 · 拾起每一束光")
+                Text("AI 取景师 · 拾起每一束光")
                     .font(.system(size: 10, weight: .semibold))
                     .tracking(1.2)
                     .foregroundStyle(CinemaTheme.inkMuted)
