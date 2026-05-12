@@ -32,10 +32,22 @@ targets:
       properties:
         CFBundleDisplayName: 拾光
         CFBundleName: ShiGuang
+        CFBundleIconName: AppIcon
+        CFBundleIcons:
+          CFBundlePrimaryIcon:
+            CFBundleIconName: AppIcon
+            CFBundleIconFiles:
+              - AppIcon
+          CFBundleAlternateIcons:
+            AppIcon-Sunset:
+              CFBundleIconName: AppIcon-Sunset
+              CFBundleIconFiles:
+                - AppIcon-Sunset
+              UIPrerenderedIcon: false
         CFBundleShortVersionString: "0.1.0"
         CFBundleVersion: "1"
         UILaunchScreen:
-          UIColorName: ""
+          UIColorName: LaunchBackground
           UIImageName: ""
         UIRequiredDeviceCapabilities:
           - armv7
