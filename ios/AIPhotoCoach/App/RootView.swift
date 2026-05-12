@@ -51,6 +51,7 @@ struct RootView: View {
     @AppStorage("aphc.wizardFurthestStep") private var furthestStepRaw: Int = 1
     @State private var currentStep: WizardStep = .scene
     @State private var showSettings = false
+    @State private var showIconPicker = false
 
     // ---- Reuse-environment cache (Step 4 chip) ------------------------------
     @State private var cachedMeta: CapturedFramesStore.Meta?
@@ -127,25 +128,53 @@ struct RootView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showSettings = true
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                            .foregroundStyle(CinemaTheme.inkSoft)
-                            .padding(8)
-                            .background(.ultraThinMaterial,
-                                        in: RoundedRectangle(cornerRadius: 10, style: .continuous))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .stroke(CinemaTheme.borderSoft, lineWidth: 1)
-                            )
+                    HStack(spacing: 8) {
+                        Button {
+                            showIconPicker = true
+                        } label: {
+                            Image(systemName: "app.badge.fill")
+                                .symbolRenderingMode(.hierarchical)
+                                .foregroundStyle(CinemaTheme.accentWarm)
+                                .padding(8)
+                                .background(.ultraThinMaterial,
+                                            in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .stroke(CinemaTheme.borderSoft, lineWidth: 1)
+                                )
+                        }
+                        .accessibilityLabel("挑选 App 图标")
+
+                        Button {
+                            showSettings = true
+                        } label: {
+                            Image(systemName: "gearshape.fill")
+                                .foregroundStyle(CinemaTheme.inkSoft)
+                                .padding(8)
+                                .background(.ultraThinMaterial,
+                                            in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .stroke(CinemaTheme.borderSoft, lineWidth: 1)
+                                )
+                        }
+                        .accessibilityLabel("模型设置")
                     }
-                    .accessibilityLabel("模型设置")
                 }
             }
             .toolbarBackground(.hidden, for: .navigationBar)
             .sheet(isPresented: $showSettings) {
                 ModelSettingsView()
+            }
+            .sheet(isPresented: $showIconPicker) {
+                NavigationStack {
+                    AppIconPickerView()
+                        .toolbar {
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button("完成") { showIconPicker = false }
+                            }
+                        }
+                }
             }
             .navigationDestination(for: AppDestination.self) { destination in
                 switch destination {
