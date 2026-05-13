@@ -24,6 +24,29 @@ struct AccountView: View {
 
     var body: some View {
         Form {
+            Section {
+                NavigationLink {
+                    UsageHistoryView()
+                } label: {
+                    Label("使用记录", systemImage: "clock.arrow.circlepath")
+                }
+                NavigationLink {
+                    PrivacyDisclosureView()
+                } label: {
+                    Label("数据与隐私", systemImage: "hand.raised.fill")
+                }
+            }
+
+            if auth.role == "admin" {
+                Section {
+                    NavigationLink {
+                        AdminDashboardView()
+                    } label: {
+                        Label("管理员审计", systemImage: "chart.bar.doc.horizontal")
+                    }
+                }
+            }
+
             Section("账户") {
                 LabeledContent("用户 ID", value: shortened(auth.userId ?? "—"))
                 LabeledContent("登录方式", value: auth.isAnonymous ? "匿名（仅本机）" : "Sign in with Apple")

@@ -16,7 +16,7 @@ from pydantic import BaseModel, Field
 
 from ..config import get_settings
 from ..services import auth as auth_svc
-from ..services import rate_limit, recon3d as recon_svc
+from ..services import rate_limit, recon3d as recon_svc, usage_quota
 
 log = logging.getLogger(__name__)
 router = APIRouter(prefix="/recon3d", tags=["recon3d"])
@@ -87,11 +87,21 @@ async def start_recon(
                 detail=f"image too large: {len(data)} > {settings.recon3d_max_image_bytes}",
             )
         blobs.append(data)
-    job = recon_svc.submit_job(
-        blobs, priors=payload.priors,
-        origin_lat=payload.origin_lat, origin_lon=payload.origin_lon,
-        user_id=user.id,
-    )
+    # v17 / opt-recon3d-quota: 3D reconstruction also burns model time.
+    # Reserve a slot before scheduling; rollback if submit_job throws
+    # synchronously, otherwise commit so async worker failures still
+    # count (the GPU was busy regardless).
+    quota = usage_quota.reserve(user.id, role=user.role)
+    try:
+        job = recon_svc.submit_job(
+            blobs, priors=payload.priors,
+            origin_lat=payload.origin_lat, origin_lon=payload.origin_lon,
+            user_id=user.id,
+        )
+    except Exception:
+        usage_quota.rollback(quota.reservation_id)
+        raise
+    usage_quota.commit(quota.reservation_id)
     return _to_out(job)
 
 

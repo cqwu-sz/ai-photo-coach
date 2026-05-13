@@ -17,6 +17,7 @@ more like a friend coaching you on the spot):
 from __future__ import annotations
 
 import json
+import logging
 from contextvars import ContextVar
 from datetime import datetime, timezone
 from textwrap import dedent
@@ -27,6 +28,8 @@ from . import scene_aggregate as scene_aggregate_service
 from . import style_feasibility as style_feasibility_service
 from . import sun as sun_service
 from . import weather as weather_service
+
+log = logging.getLogger(__name__)
 
 
 # Weather is async-fetched by AnalyzeService just before invoking the LLM
@@ -51,6 +54,13 @@ _REQUEST_POI_BLOCK: ContextVar[str] = ContextVar(
 )
 _REQUEST_WALK_BLOCK: ContextVar[str] = ContextVar(
     "_REQUEST_WALK_BLOCK", default="",
+)
+
+# v18 — id of the authenticated user driving this analyze. Used by the
+# preference / cross-user-trend prompt blocks. None = anonymous /
+# pre-v18 caller; both blocks then no-op cleanly.
+_REQUEST_USER_ID: ContextVar[Optional[str]] = ContextVar(
+    "_REQUEST_USER_ID", default=None,
 )
 
 
@@ -78,6 +88,16 @@ def set_request_poi_block(block: str) -> None:
 
 def set_request_walk_block(block: str) -> None:
     _REQUEST_WALK_BLOCK.set(block or "")
+
+
+def set_request_user_id(user_id: Optional[str]) -> None:
+    """v18 — let analyze.py tell prompt builders who the caller is so
+    `## USER_PREFERENCE` and `## CROSS_USER_TREND` can render."""
+    _REQUEST_USER_ID.set(user_id)
+
+
+def get_request_user_id() -> Optional[str]:
+    return _REQUEST_USER_ID.get()
 
 
 SYSTEM_INSTRUCTION = dedent(
@@ -530,6 +550,10 @@ def build_user_prompt(
     # otherwise fall back to the per-request ContextVar.
     composition_kb_summary = composition_kb_summary or (get_request_composition_kb() or "")
 
+    # v18 — personal + cross-user satisfaction hints. Both can be empty
+    # strings (cold start, opt-out, etc.); the template tolerates both.
+    pref_block = _build_preference_block(scene_mode)
+
     return dedent(
         f"""
         ── 拍摄请求元数据 ──
@@ -567,6 +591,8 @@ def build_user_prompt(
         ── 用户参考样片状态 ──
         {reference_note}
 
+        {pref_block}
+
         ── 输出多样性硬要求 ──
         给 2 或 3 个 shot，相互之间必须满足下面至少两条不同：
           A. angle.azimuth_deg 至少差 30 度
@@ -596,6 +622,45 @@ def build_user_prompt(
         AnalyzeResponse JSON。representative_frame_index 必填。
         """
     ).strip()
+
+
+def _build_preference_block(scene_mode: str) -> str:
+    """v18 — render the optional `## USER_PREFERENCE` and
+    `## CROSS_USER_TREND` blocks.
+
+    Personal block: always evaluated when we know the user_id and
+    `user_preferences.render_personal_hint` returns a paragraph
+    (>= 2 satisfied taps in this scene with positive net score).
+
+    Cross-user block: gated by
+      * runtime_settings `pref.global_hint.enabled` (default false)
+      * min_distinct_users threshold
+      * min_satisfaction_rate threshold
+
+    Both blocks are intentionally written as soft-suggestion language
+    so the LLM treats them as nudges, not commands. Hard requirements
+    keep living in the rest of the prompt.
+    """
+    parts: list[str] = []
+    user_id = get_request_user_id()
+    if user_id:
+        try:
+            from . import user_preferences
+            personal = user_preferences.render_personal_hint(
+                user_id, scene_mode)
+            if personal:
+                parts.append("## USER_PREFERENCE\n" + personal)
+        except Exception as e:                                       # noqa: BLE001
+            log.debug("user_preferences hint skipped: %s", e)
+    try:
+        from . import satisfaction_aggregates
+        global_block = satisfaction_aggregates.render_global_hint(
+            scene_mode)
+        if global_block:
+            parts.append("## CROSS_USER_TREND\n" + global_block)
+    except Exception as e:                                          # noqa: BLE001
+        log.debug("satisfaction_aggregates hint skipped: %s", e)
+    return "\n\n".join(parts)
 
 
 def _style_presets_branch(

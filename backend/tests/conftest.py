@@ -8,17 +8,23 @@ def _force_mock(monkeypatch, tmp_path):
     monkeypatch.setenv("GEMINI_API_KEY", "")
     monkeypatch.setenv("ENABLE_RATE_LIMIT", "false")
     monkeypatch.setenv("ENABLE_LEGACY_DEVICE_ID_AUTH", "true")
+    # v17 — anonymous signup is disabled in prod, but our existing test
+    # corpus relies on /auth/anonymous + X-Device-Id legacy. Turn it
+    # back on for the test process so PR2's gate doesn't block fixtures.
+    monkeypatch.setenv("ENABLE_ANONYMOUS_AUTH", "true")
     monkeypatch.setenv("APP_JWT_SECRET", "test-secret-please-rotate-this-is-32-bytes-min")
     monkeypatch.setenv("APPLE_SIWA_BUNDLE_ID", "com.example.aiphotocoach.test")
     monkeypatch.setenv("APPLE_IAP_BUNDLE_ID", "")  # disable bundle check in tests
     from app.config import get_settings
-    from app.services import rate_limit, user_repo
+    from app.services import model_config, otp, rate_limit, user_repo
 
     # Re-route the users db into a per-test tmp dir so test runs don't
     # cross-pollinate (and don't need disk cleanup).
     user_repo.DB_PATH = tmp_path / "users.db"
     get_settings.cache_clear()
     rate_limit.reset_for_tests()
+    otp.reset_for_tests()
+    model_config.reset_for_tests()
 
     # Inject a default X-Device-Id on requests that don't already carry
     # one (or an Authorization header). Registered once, idempotent.
@@ -37,3 +43,5 @@ def _force_mock(monkeypatch, tmp_path):
     yield
     get_settings.cache_clear()
     rate_limit.reset_for_tests()
+    otp.reset_for_tests()
+    model_config.reset_for_tests()

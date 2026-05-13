@@ -75,14 +75,14 @@ class TokenPair:
     refresh_expires_at: datetime
 
 
-def issue_pair(user_id: str, *, tier: str = "free") -> TokenPair:
+def issue_pair(user_id: str, *, tier: str = "free", role: str = "user") -> TokenPair:
     settings = get_settings()
     now = datetime.now(timezone.utc)
     access_exp = now + timedelta(seconds=settings.app_jwt_access_ttl_sec)
     refresh_exp = now + timedelta(seconds=settings.app_jwt_refresh_ttl_sec)
     jti = str(uuid.uuid4())
     access = jwt.encode(
-        {"sub": user_id, "type": "access", "tier": tier,
+        {"sub": user_id, "type": "access", "tier": tier, "role": role,
          "iat": int(now.timestamp()), "exp": int(access_exp.timestamp())},
         _secret(), algorithm=_ALG,
     )
@@ -120,7 +120,7 @@ def rotate_refresh(refresh_token: str) -> TokenPair:
     user = user_repo.get_user(sub)
     if user is None:
         raise HTTPException(401, {"error": {"code": "user_gone"}})
-    return issue_pair(user.id, tier=user.tier)
+    return issue_pair(user.id, tier=user.tier, role=user.role)
 
 
 # ---------------------------------------------------------------------------
@@ -220,6 +220,7 @@ class CurrentUser:
     id: str
     tier: str
     is_anonymous: bool
+    role: str = "user"
 
 
 def _bearer(request: Request) -> Optional[str]:
@@ -252,6 +253,16 @@ async def current_user(
         user = user_repo.get_user(str(sub))
         if user is None:
             raise HTTPException(401, {"error": {"code": "user_gone"}})
+        # v17c — kill switch. Even a valid JWT for a banned user is
+        # refused so a stolen refresh token can't keep them alive.
+        from . import blocklist as blocklist_svc
+        if blocklist_svc.is_blocked("user", user.id):
+            raise HTTPException(403, {"error": {"code": "user_blocked",
+                                                  "message": "账号已被封禁，如有疑问请联系客服。"}})
+        if user.phone and blocklist_svc.is_blocked("phone", user.phone):
+            raise HTTPException(403, {"error": {"code": "user_blocked"}})
+        if user.email and blocklist_svc.is_blocked("email", user.email):
+            raise HTTPException(403, {"error": {"code": "user_blocked"}})
         user_repo.touch(user.id)
         try:
             from ..api import metrics as metrics_api
@@ -260,9 +271,18 @@ async def current_user(
             pass
         # Claims-cached tier may lag the DB after a webhook flips it;
         # always trust the DB so a refunded user loses Pro instantly.
-        return CurrentUser(id=user.id, tier=user.tier, is_anonymous=user.is_anonymous)
+        # Same goes for role — admin demotion must be effective the
+        # next request.
+        return CurrentUser(id=user.id, tier=user.tier,
+                            is_anonymous=user.is_anonymous, role=user.role)
 
-    if settings.enable_legacy_device_id_auth and x_device_id:
+    # v17 — anonymous + device_id legacy is gated behind two flags:
+    #   1. settings.enable_legacy_device_id_auth (existing kill switch)
+    #   2. settings.enable_anonymous_auth (new opt-in for local/dev)
+    # Production flips both to False so the only way in is Bearer.
+    if (settings.enable_legacy_device_id_auth
+            and settings.enable_anonymous_auth
+            and x_device_id):
         user = user_repo.get_by_device_id(x_device_id)
         if user is None:
             user = user_repo.create_anonymous(device_id=x_device_id)
@@ -273,7 +293,8 @@ async def current_user(
             metrics_api.inc("ai_photo_coach_auth_total", method="device_id_legacy")
         except Exception:                                       # noqa: BLE001
             pass
-        return CurrentUser(id=user.id, tier=user.tier, is_anonymous=user.is_anonymous)
+        return CurrentUser(id=user.id, tier=user.tier,
+                            is_anonymous=user.is_anonymous, role=user.role)
 
     raise HTTPException(401, {"error": {"code": "auth_required",
                                          "message": "Bearer token required"}})
@@ -294,10 +315,25 @@ async def optional_user(
 
 
 def require_pro(user: CurrentUser = Depends(current_user)) -> CurrentUser:
+    if user.role == "admin":
+        return user
     if user.tier != "pro":
         raise HTTPException(
             status.HTTP_402_PAYMENT_REQUIRED,
             {"error": {"code": "pro_required",
                        "message": "This feature requires AI Photo Coach Pro."}},
+        )
+    return user
+
+
+def require_admin(user: CurrentUser = Depends(current_user)) -> CurrentUser:
+    """v17 — gates `/admin/*` and any backoffice operation. Always
+    trusts the DB role (resolved in current_user), never the JWT
+    claim alone."""
+    if user.role != "admin":
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            {"error": {"code": "admin_required",
+                       "message": "Administrator privileges required."}},
         )
     return user

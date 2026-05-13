@@ -150,9 +150,70 @@ class Settings(BaseSettings):
     """Bundle id used to validate the StoreKit 2 JWS `bundleId` claim."""
     apple_iap_environment: str = "Production"
     """Production | Sandbox. Sandbox-only when set to 'Sandbox'."""
-    apple_iap_pro_product_ids: str = "ai_photo_coach.pro.monthly"
-    """Comma-separated list of product ids that grant tier=pro."""
+    apple_iap_pro_product_ids: str = (
+        "ai_photo_coach.pro.monthly,"
+        "ai_photo_coach.pro.quarterly,"
+        "ai_photo_coach.pro.yearly"
+    )
+    """Comma-separated list of product ids that grant tier=pro.
+    See ``apple_iap_plan_map`` for product → plan/quota mapping."""
     apple_iap_grace_period_days: int = 16
+
+    apple_iap_plan_map: str = (
+        "ai_photo_coach.pro.monthly:monthly:100,"
+        "ai_photo_coach.pro.quarterly:quarterly:500,"
+        "ai_photo_coach.pro.yearly:yearly:2000"
+    )
+
+    apple_iap_plan_price_cny: str = (
+        "ai_photo_coach.pro.monthly:39,"
+        "ai_photo_coach.pro.quarterly:108,"
+        "ai_photo_coach.pro.yearly:412"
+    )
+    """List price per product in CNY for revenue accounting. Format:
+    ``product_id:price``. Apple takes 15-30% commission so this is gross
+    revenue; net is computed in admin audit views by applying
+    ``apple_iap_commission_rate``."""
+
+    apple_iap_commission_rate: float = 0.30
+    """Default Apple commission. Drops to 0.15 after the user's first
+    paid year (Small Business Program 2026); admin can override per-month
+    via the audit page when actual ledger numbers come in."""
+
+    @property
+    def iap_price_map(self) -> dict[str, float]:
+        out: dict[str, float] = {}
+        for chunk in (self.apple_iap_plan_price_cny or "").split(","):
+            chunk = chunk.strip()
+            if not chunk or ":" not in chunk:
+                continue
+            pid, price = chunk.rsplit(":", 1)
+            try:
+                out[pid.strip()] = float(price)
+            except ValueError:
+                continue
+        return out
+    """Per-plan quota config. Format: ``product_id:plan:total_count``.
+    plan ∈ {monthly, quarterly, yearly}; total_count is the per-period
+    usage budget that PR5 enforces. Reading via `iap_plan_map` property."""
+
+    @property
+    def iap_plan_map(self) -> dict[str, tuple[str, int]]:
+        """Parse ``apple_iap_plan_map`` into ``{product_id: (plan, total)}``."""
+        out: dict[str, tuple[str, int]] = {}
+        for chunk in (self.apple_iap_plan_map or "").split(","):
+            chunk = chunk.strip()
+            if not chunk:
+                continue
+            parts = chunk.split(":")
+            if len(parts) != 3:
+                continue
+            pid, plan, total = parts[0].strip(), parts[1].strip(), parts[2].strip()
+            try:
+                out[pid] = (plan, int(total))
+            except ValueError:
+                continue
+        return out
 
     enable_legacy_device_id_auth: bool = True
     """When True, requests without Authorization but with X-Device-Id are
@@ -189,6 +250,58 @@ class Settings(BaseSettings):
     """When True, app refuses to start unless all production-critical
     env vars are set. CI / staging should keep it False; prod should
     flip to True so a misconfigured deploy fails loudly."""
+
+    # ---- v17 — multi-channel auth + admin RBAC --------------------------
+    admin_bootstrap: str = ""
+    """Comma-separated list of admin accounts to create on startup.
+    Format: ``<phone_or_email>:<channel>`` per entry, e.g.
+    ``13800000000:sms,admin@yourdomain.com:email``. Idempotent —
+    existing rows are upgraded to role='admin' but never demoted."""
+
+    otp_hash_secret: str = ""
+    """HMAC secret for hashing OTP codes before persistence. Blank →
+    fall back to app_jwt_secret (still hashed, just shares the key).
+    Set independently in prod so rotating one doesn't invalidate the other."""
+
+    disable_web_routes_in_prod: bool = True
+    """v17 / PR11 — when ``app_env`` is one of {production, prod}, the
+    /web/* PWA, /docs, /redoc, /openapi.json and / root redirect are
+    NOT mounted. The API surface is exclusively /api/*, /auth/*, /me/*,
+    /iap/*, /admin/*, /apple/asn, /healthz. Users who try to hit /web
+    or /docs in prod get a plain 404, leaving no fingerprint of the
+    admin/dev tooling."""
+
+    admin_ip_allowlist: str = ""
+    """Comma-separated CIDRs allowed to reach /admin/*. Empty = no IP
+    gate (only RBAC). In prod we strongly recommend setting this to
+    your office VPN + Cloudflare Access ranges."""
+
+    enable_anonymous_auth: bool = False
+
+    # v17c — App Attest enforcement on the most expensive endpoints
+    # (/auth/otp/request and /analyze). Off by default so existing
+    # tests + dev clients keep working; flip to True in production
+    # AFTER the iOS app ships a build that sends `X-Attest-KeyId`
+    # and `X-Attest-Assertion` headers and you've confirmed >95% of
+    # requests carry them (otherwise legit users get 403'd).
+    require_app_attest_on_otp: bool = False
+    require_app_attest_on_analyze: bool = False
+    """v17 — anonymous (device_id) signup is being phased out.
+    Set True only for local/dev where existing test fixtures still
+    rely on /auth/anonymous. Production MUST keep False so the
+    endpoint returns 410 Gone."""
+
+    # Aliyun SMS (Dysmsapi) — used by OTP sms channel.
+    aliyun_sms_access_key: str = ""
+    aliyun_sms_access_secret: str = ""
+    aliyun_sms_sign_name: str = ""
+    aliyun_sms_template_code: str = ""
+
+    # Aliyun DirectMail — used by OTP email channel.
+    aliyun_dm_access_key: str = ""
+    aliyun_dm_access_secret: str = ""
+    aliyun_dm_sender: str = ""
+    aliyun_dm_sender_name: str = ""
 
     @property
     def kb_poses_path(self) -> Path:

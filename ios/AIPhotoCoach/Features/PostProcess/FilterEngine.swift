@@ -18,18 +18,32 @@ enum FilterPreset: String, CaseIterable, Identifiable {
     case japanCrisp = "日系小清新"
     case retroFade = "复古褪色"
     case hkVibe = "港风"
+    case beautyNatural = "美颜·自然"
+    case beautyStrong = "美颜·精致"
 
     var id: String { rawValue }
     var label: String { rawValue }
 
-    /// P1-9.1 — Pro-only presets. UI shows a lock icon and routes
-    /// taps through the IAP paywall.
+    /// P1-9.1 / v17 — Pro-only presets. UI shows a lock icon and routes
+    /// taps through the unified PaywallGate (PR7).
     var requiresPro: Bool {
         switch self {
-        case .cinematic, .hkVibe, .retroFade, .filmWarm:
+        case .cinematic, .hkVibe, .retroFade, .filmWarm,
+             .beautyNatural, .beautyStrong:
             return true
         default:
             return false
+        }
+    }
+
+    /// v17 — feature key sent to the backend's quota engine. Beauty
+    /// and advanced filters share a feature key so a single capture
+    /// session doesn't burn multiple quota units.
+    var featureKey: String {
+        switch self {
+        case .beautyNatural, .beautyStrong: return "beauty"
+        case .cinematic, .filmWarm, .hkVibe, .retroFade: return "advanced_filter"
+        default: return "filter"
         }
     }
 }
@@ -105,6 +119,30 @@ final class FilterEngine {
                 .applyingFilter("CIVignette",
                                 parameters: [kCIInputIntensityKey: 0.9,
                                              kCIInputRadiusKey: 1.4])
+        case .beautyNatural:
+            // Light skin softening: subtle blur fused with original via
+            // luminance mask. CIHighlightShadowAdjust + CIVibrance gives
+            // a believable "glow" without the plastic doll look.
+            return image
+                .applyingFilter("CIHighlightShadowAdjust",
+                                parameters: ["inputHighlightAmount": 0.85,
+                                             "inputShadowAmount": 0.4])
+                .applyingFilter("CIVibrance",
+                                parameters: [kCIInputAmountKey: 0.25])
+                .applyingFilter("CISharpenLuminance",
+                                parameters: [kCIInputSharpnessKey: 0.25])
+        case .beautyStrong:
+            return image
+                .applyingFilter("CIHighlightShadowAdjust",
+                                parameters: ["inputHighlightAmount": 0.7,
+                                             "inputShadowAmount": 0.55])
+                .applyingFilter("CIGaussianBlur",
+                                parameters: [kCIInputRadiusKey: 1.4])
+                .applyingFilter("CIColorControls",
+                                parameters: [kCIInputBrightnessKey: 0.06,
+                                             kCIInputSaturationKey: 1.05])
+                .applyingFilter("CIVibrance",
+                                parameters: [kCIInputAmountKey: 0.4])
         }
     }
 }

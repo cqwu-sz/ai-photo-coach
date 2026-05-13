@@ -1,0 +1,63 @@
+# fly.toml — AI Photo Coach backend (PR11 灰度部署)
+#
+# Why fly.io for staging:
+#   - Cloud-native, anycast edge, sub-30s deploys
+#   - Pairs naturally with Fly Postgres + Upstash Redis +
+#     Cloudflare R2 (we use them as Aliyun OSS equivalents)
+#   - $0/mo idle (auto-stop machines), perfect for 灰度
+#
+# Deploy:
+#   fly launch --copy-config --no-deploy   # first time
+#   fly secrets set APP_JWT_SECRET=$(openssl rand -hex 32) \
+#                   OTP_HASH_SECRET=$(openssl rand -hex 32) \
+#                   ALIYUN_SMS_ACCESS_KEY=... ALIYUN_SMS_ACCESS_SECRET=... \
+#                   ALIYUN_SMS_SIGN_NAME='AI Photo Coach' \
+#                   ALIYUN_SMS_TEMPLATE_CODE=SMS_xxx \
+#                   ALIYUN_DM_ACCESS_KEY=... ALIYUN_DM_ACCESS_SECRET=... \
+#                   ALIYUN_DM_SENDER='no-reply@aiphotocoach.app' \
+#                   ADMIN_BOOTSTRAP='13800000000:sms,owner@aiphotocoach.app:email' \
+#                   ADMIN_IP_ALLOWLIST='198.51.100.0/24' \
+#                   APP_ENV=production
+#   fly deploy
+
+app = "ai-photo-coach"
+primary_region = "nrt"     # Tokyo — closest low-latency hop to Apple sandbox
+
+[build]
+  dockerfile = "../backend/Dockerfile"
+
+[env]
+  APP_ENV = "production"
+  ENFORCE_REQUIRED_SECRETS = "true"
+  ENABLE_ANONYMOUS_AUTH = "false"
+  ENABLE_LEGACY_DEVICE_ID_AUTH = "false"
+  DISABLE_WEB_ROUTES_IN_PROD = "true"
+  ENABLE_RATE_LIMIT = "true"
+  RATE_LIMIT_ANALYZE_PER_MIN = "20"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    path = "/healthz"
+    protocol = "http"
+    timeout = "5s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
+
+# Persistent volume for SQLite (灰度阶段); 切到 Fly Postgres 后可移除
+[[mounts]]
+  source = "ai_photo_coach_data"
+  destination = "/data"
+
+# Upstash Redis 通过 fly redis create 后自动注入 REDIS_URL
+# Fly Postgres: fly pg create + fly pg attach

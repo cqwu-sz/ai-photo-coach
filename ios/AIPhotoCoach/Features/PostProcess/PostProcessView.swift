@@ -128,8 +128,11 @@ struct PostProcessView: View {
             isProActive = await IAPManager.shared.isProActive
         }
         .sheet(isPresented: $showPaywall) {
-            paywallSheet
-                .presentationDetents([.medium])
+            // PR7: route the legacy single-product paywall through
+            // the unified three-tier PaywallView. Detents stay
+            // friendly; PaywallView itself drives its own scroll.
+            PaywallView()
+                .presentationDetents([.large])
         }
     }
 

@@ -1,5 +1,16 @@
 # 多模型 BYOK 指南
 
+> ⚠️ **v17 (订阅与认证改造) 后此文档过时**
+>
+> - **客户端 BYOK 已下线**：iOS app 不再暴露模型选择/API Key 输入项，`ModelSettingsView` 仅在 `auth.role == "admin"` 时显示
+> - **模型由后端中央化管理**：当前生效的 fast / high model 存在 `model_settings` 表，靠 `services/model_config.py` 30s 缓存，admin 通过 `PUT /admin/model` 切换，所有用户下个请求即生效
+> - `analyze` 接口仍然接受 `model_id` / `model_api_key` / `model_base_url` 字段，但仅当 `ENABLE_BYOK=true` 时才生效（默认 false，生产关闭）
+> - 历史的 11 个 vendor preset 仍保留，但用户不可见，仅给 admin 在 `/admin/model` 选项里选
+
+下面是 PR8 之前的旧文档，仅供参考：
+
+---
+
 AI 摄影教练的视觉分析层是 vendor-agnostic 的。后端通过 `VisionProvider` 抽象暴露一组内置预设（11 个，覆盖 Google / OpenAI / 智谱 / 通义 / DeepSeek / Kimi），任何客户端都可以在每次 `/analyze` 请求里：
 
 1. 沿用后端默认（默认 `gemini-2.5-flash`，operator 通过环境变量喂 fallback key）；

@@ -8,7 +8,10 @@ enum AppDestination: Hashable {
     case arGuide(shot: ShotRecommendation, avatarStyleId: String)
     /// Real shoot screen — opens AVCaptureSession, applies the AI plan
     /// to AVCaptureDevice, shows alignment HUD + shutter.
-    case shoot(shot: ShotRecommendation)
+    /// `usageRecordId` is the backend pk of the analyze that produced
+    /// this shot; passed so the screen can mark it captured + collect
+    /// satisfaction signal. nil tolerated for pre-v18 server compat.
+    case shoot(shot: ShotRecommendation, usageRecordId: String? = nil)
 }
 
 @MainActor

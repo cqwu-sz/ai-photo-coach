@@ -29,8 +29,66 @@ final class IAPManager: ObservableObject {
     /// without contacting Apple. Production builds MUST keep this
     /// `false` — a Pro check that returns true without a verified
     /// receipt is a 3.1.1 failure.
+    /// v17 / opt-iap-shadow-pro-prod-guard — `useShadowPro` is a dev
+    /// shortcut that bypasses StoreKit so we can demo paid features
+    /// without a sandbox account. It MUST never ship to TestFlight /
+    /// App Store, hence the `#if DEBUG` guard. Setting it in a Release
+    /// build is silently ignored.
+    #if DEBUG
     var useShadowPro: Bool = false
-    static let productId = "ai_photo_coach.pro.monthly"
+    #else
+    let useShadowPro: Bool = false
+    #endif
+
+    /// v17 — three subscription tiers. Order matters for default UI
+    /// rendering (yearly first, marked as "best value").
+    enum Plan: String, CaseIterable, Identifiable {
+        case yearly    = "ai_photo_coach.pro.yearly"
+        case quarterly = "ai_photo_coach.pro.quarterly"
+        case monthly   = "ai_photo_coach.pro.monthly"
+
+        var id: String { rawValue }
+        var displayName: String {
+            switch self {
+            case .yearly:    return "年度会员"
+            case .quarterly: return "季度会员"
+            case .monthly:   return "月度会员"
+            }
+        }
+        var quotaCount: Int {
+            switch self {
+            case .yearly: return 2000
+            case .quarterly: return 500
+            case .monthly: return 100
+            }
+        }
+        var quotaLabel: String {
+            switch self {
+            case .yearly:    return "含 2000 次智能分析"
+            case .quarterly: return "含 500 次智能分析"
+            case .monthly:   return "含 100 次智能分析"
+            }
+        }
+        var periodLabel: String {
+            switch self {
+            case .yearly: return "/年"
+            case .quarterly: return "/季"
+            case .monthly: return "/月"
+            }
+        }
+        var displayedFallbackPriceCNY: String {
+            // Backup for offline / Apple metadata not yet propagated.
+            // Real price always preferred from `Product.displayPrice`.
+            switch self {
+            case .yearly:    return "¥412"
+            case .quarterly: return "¥108"
+            case .monthly:   return "¥39"
+            }
+        }
+    }
+
+    static let allProductIds: [String] = Plan.allCases.map { $0.rawValue }
+    static let productId = Plan.monthly.rawValue   // legacy alias
 
     /// Cached server entitlement. Refreshed on init, on app foreground,
     /// before paywalled flows, and after every successful purchase.
@@ -40,17 +98,25 @@ final class IAPManager: ObservableObject {
 
     struct Entitlement: Equatable {
         var tier: String          // 'free' | 'pro'
+        var plan: String?         // 'monthly' | 'quarterly' | 'yearly' | 'admin'
         var productId: String?
         var expiresAt: Date?
         var inGracePeriod: Bool
         var environment: String?
+        var quotaTotal: Int?      // nil = unlimited (admin)
+        var quotaUsed: Int?
+        var quotaRemaining: Int?
+        var periodEnd: Date?
 
         static let free = Entitlement(
-            tier: "free", productId: nil, expiresAt: nil,
+            tier: "free", plan: nil, productId: nil, expiresAt: nil,
             inGracePeriod: false, environment: nil,
+            quotaTotal: nil, quotaUsed: nil, quotaRemaining: nil,
+            periodEnd: nil,
         )
 
         var isPro: Bool { tier == "pro" }
+        var isAdmin: Bool { plan == "admin" }
     }
 
     private init() {
@@ -80,11 +146,17 @@ final class IAPManager: ObservableObject {
         return entitlement.isPro
     }
 
-    func purchasePro() async throws {
-        if useShadowPro {
-            return
-        }
-        guard let product = try await Product.products(for: [Self.productId]).first else {
+    /// Fetch all three subscription products (yearly / quarterly /
+    /// monthly) so the Paywall can render them with Apple-localised
+    /// prices.
+    func loadProducts() async throws -> [Product] {
+        try await Product.products(for: Self.allProductIds)
+    }
+
+    /// Purchase the given subscription product id.
+    func purchase(productId: String) async throws {
+        if useShadowPro { return }
+        guard let product = try await Product.products(for: [productId]).first else {
             throw NSError(domain: "iap", code: 404,
                            userInfo: [NSLocalizedDescriptionKey: "Pro 商品未上架"])
         }
@@ -104,6 +176,12 @@ final class IAPManager: ObservableObject {
         @unknown default:
             return
         }
+    }
+
+    /// Legacy single-product helper kept so older callsites (e.g.
+    /// PostProcessView Paywall) keep compiling. Defaults to monthly.
+    func purchasePro() async throws {
+        try await purchase(productId: Plan.monthly.rawValue)
     }
 
     func restore() async {
@@ -136,14 +214,18 @@ final class IAPManager: ObservableObject {
             guard let http = resp as? HTTPURLResponse,
                   (200..<300).contains(http.statusCode) else { return }
             let obj = (try? JSONSerialization.jsonObject(with: data) as? [String: Any]) ?? [:]
+            let iso = ISO8601DateFormatter()
             entitlement = Entitlement(
                 tier: (obj["tier"] as? String) ?? "free",
+                plan: obj["plan"] as? String,
                 productId: obj["product_id"] as? String,
-                expiresAt: (obj["expires_at"] as? String).flatMap {
-                    ISO8601DateFormatter().date(from: $0)
-                },
+                expiresAt: (obj["expires_at"] as? String).flatMap { iso.date(from: $0) },
                 inGracePeriod: (obj["in_grace_period"] as? Bool) ?? false,
                 environment: obj["environment"] as? String,
+                quotaTotal: obj["quota_total"] as? Int,
+                quotaUsed: obj["quota_used"] as? Int,
+                quotaRemaining: obj["quota_remaining"] as? Int,
+                periodEnd: (obj["period_end"] as? String).flatMap { iso.date(from: $0) },
             )
             entitlementFetchedAt = Date()
         } catch {

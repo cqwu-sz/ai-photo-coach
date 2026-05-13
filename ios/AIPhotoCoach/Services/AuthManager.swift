@@ -22,6 +22,18 @@ import Foundation
 import Security
 import AuthenticationServices
 
+enum AuthError: LocalizedError {
+    case notAuthenticated
+    case server(message: String, code: Int)
+
+    var errorDescription: String? {
+        switch self {
+        case .notAuthenticated: return "请先登录"
+        case .server(let m, _):  return m
+        }
+    }
+}
+
 @MainActor
 final class AuthManager: NSObject, ObservableObject {
     static let shared = AuthManager()
@@ -30,7 +42,12 @@ final class AuthManager: NSObject, ObservableObject {
     @Published private(set) var userId: String?
     @Published private(set) var isAnonymous: Bool = true
     @Published private(set) var tier: String = "free"
+    @Published private(set) var role: String = "user"
     @Published private(set) var lastError: String?
+
+    /// True when there is no usable session and the LoginView should
+    /// take over the root. Updated whenever tokens change.
+    @Published private(set) var isAuthenticated: Bool = false
 
     // MARK: - Tokens / device id
     private var accessTokenValue: String?
@@ -48,6 +65,7 @@ final class AuthManager: NSObject, ObservableObject {
     private override init() {
         super.init()
         loadFromKeychain()
+        isAuthenticated = (accessTokenValue != nil && refreshTokenValue != nil)
     }
 
     // MARK: - Public API
@@ -61,26 +79,66 @@ final class AuthManager: NSObject, ObservableObject {
     }
 
     /// Returns a fresh access token, refreshing if expired.
+    /// v17: no longer auto-creates an anonymous session — callers must
+    /// have driven the user through `LoginView` first. Throws
+    /// `AuthError.notAuthenticated` so UI layers can route to login.
     func accessToken() async throws -> String {
-        if accessTokenValue == nil || refreshTokenValue == nil {
-            try await ensureSession()
+        guard accessTokenValue != nil, refreshTokenValue != nil else {
+            isAuthenticated = false
+            throw AuthError.notAuthenticated
         }
         if Date().addingTimeInterval(60) >= accessExpiry, refreshTokenValue != nil {
             try await refreshIfPossible()
         }
         guard let t = accessTokenValue else {
-            throw NSError(domain: "AuthManager", code: 401,
-                          userInfo: [NSLocalizedDescriptionKey: "No session"])
+            isAuthenticated = false
+            throw AuthError.notAuthenticated
         }
         return t
     }
 
-    /// Boot an anonymous session if we don't have one.
-    func ensureSession() async throws {
-        if accessTokenValue != nil, refreshTokenValue != nil { return }
+    /// Send an OTP via SMS or email. `target` is the phone (e.g. 13800000000)
+    /// or the email address.
+    func requestOtp(channel: String, target: String) async throws {
+        // v17c — attach App Attest assertion when available so the
+        // backend can verify request really came from a real install.
+        // Backend currently in shadow mode; once enforce flips on
+        // we still won't break: a failed assertion → header missing,
+        // backend returns `attest_required`, friendlyMessage gives
+        // user a "请升级 App" prompt.
+        let attestHeaders = await AppAttestManager.shared.assertionHeaders(for: target)
+        do {
+            _ = try await postJSON(
+                path: "/auth/otp/request",
+                body: ["channel": channel, "target": target],
+                extraHeaders: attestHeaders,
+            )
+        } catch let err as NSError {
+            // v17d: if backend says attest is invalid/missing, try one
+            // more time with a freshly-generated key. Common cause:
+            // user reinstalled / changed env — old keyId is stale.
+            let code = (err.userInfo["server_code"] as? String) ?? ""
+            if code == "attest_invalid" || code == "attest_required" {
+                _ = await AppAttestManager.shared.forceReBootstrap()
+                let retryHeaders = await AppAttestManager.shared
+                    .assertionHeaders(for: target)
+                _ = try await postJSON(
+                    path: "/auth/otp/request",
+                    body: ["channel": channel, "target": target],
+                    extraHeaders: retryHeaders,
+                )
+                return
+            }
+            throw err
+        }
+    }
+
+    /// Verify the OTP code; on success applies the new token pair so
+    /// the rest of the app sees `isAuthenticated == true`.
+    func verifyOtp(channel: String, target: String, code: String) async throws {
         let pair = try await postJSON(
-            path: "/auth/anonymous",
-            body: ["device_id": deviceId],
+            path: "/auth/otp/verify",
+            body: ["channel": channel, "target": target, "code": code],
         )
         applyPair(pair)
     }
@@ -94,10 +152,10 @@ final class AuthManager: NSObject, ObservableObject {
             )
             applyPair(pair)
         } catch {
-            // Refresh failed → fall back to a fresh anonymous session.
-            accessTokenValue = nil
-            refreshTokenValue = nil
-            try await ensureSession()
+            // v17: no auto-anonymous fallback. Clear so the LoginView
+            // takes over the next time the UI checks `isAuthenticated`.
+            clearAll()
+            throw AuthError.notAuthenticated
         }
     }
 
@@ -115,13 +173,13 @@ final class AuthManager: NSObject, ObservableObject {
         applyPair(pair)
     }
 
-    /// Server-side revoke + local Keychain wipe.
+    /// Server-side revoke + local Keychain wipe. v17: the user is sent
+    /// back to the LoginView; we do not auto-create an anonymous one.
     func signOut() async {
         if let r = refreshTokenValue {
             _ = try? await postJSON(path: "/auth/logout", body: ["refresh_token": r])
         }
         clearAll()
-        try? await ensureSession()
     }
 
     /// DELETE /users/me + local wipe. Apple 5.1.1(v).
@@ -137,7 +195,6 @@ final class AuthManager: NSObject, ObservableObject {
                           userInfo: [NSLocalizedDescriptionKey: "Delete failed"])
         }
         clearAll()
-        try? await ensureSession()
     }
 
     // MARK: - Internals
@@ -149,6 +206,7 @@ final class AuthManager: NSObject, ObservableObject {
         userId = uid.isEmpty ? nil : uid
         isAnonymous = (obj["is_anonymous"] as? Bool) ?? true
         tier = (obj["tier"] as? String) ?? "free"
+        role = (obj["role"] as? String) ?? "user"
         // Best-effort expiry parse; default 14 min if missing.
         if let s = obj["access_expires_at"] as? String,
            let d = ISO8601DateFormatter().date(from: s) {
@@ -159,6 +217,7 @@ final class AuthManager: NSObject, ObservableObject {
         if let t = accessTokenValue { writeKC(.accessToken, t) }
         if let t = refreshTokenValue { writeKC(.refreshToken, t) }
         if let u = userId { writeKC(.userId, u) }
+        isAuthenticated = (accessTokenValue != nil && refreshTokenValue != nil)
     }
 
     private func clearAll() {
@@ -168,6 +227,8 @@ final class AuthManager: NSObject, ObservableObject {
         userId = nil
         isAnonymous = true
         tier = "free"
+        role = "user"
+        isAuthenticated = false
         deleteKC(.accessToken)
         deleteKC(.refreshToken)
         deleteKC(.userId)
@@ -189,20 +250,69 @@ final class AuthManager: NSObject, ObservableObject {
         return req
     }
 
-    private func postJSON(path: String, body: [String: Any]) async throws -> [String: Any] {
+    /// Map server error codes (`{detail:{error:{code}}}`) to UX-grade
+    /// Chinese messages. Centralised so views don't drift. v17c.
+    static func friendlyMessage(code: String, fallback: String, http: Int) -> String {
+        switch code {
+        case "otp_cooldown":
+            return "请稍候 1 分钟再获取验证码。"
+        case "otp_target_locked", "otp_too_many_failures":
+            return "尝试次数过多，账号已临时锁定 3 小时，请稍后再试。"
+        case "otp_code_invalid", "otp_code_mismatch":
+            return "验证码不正确，剩余尝试次数有限。"
+        case "otp_code_expired":
+            return "验证码已过期，请重新获取。"
+        case "otp_ip_throttled":
+            return "当前网络环境短时间内尝试了过多账号。\n请切换到 4G/5G 蜂窝网络后重试。"
+        case "otp_daily_target_exhausted":
+            return "今日该号码请求验证码次数已达上限，请明天再试。"
+        case "otp_daily_ip_exhausted":
+            return "今日该网络请求验证码次数已达上限，请切换网络或明天再试。"
+        case "otp_service_busy":
+            return "短信服务繁忙，请 1 分钟后再试。"
+        case "otp_target_blocked", "otp_ip_blocked", "user_blocked", "ip_blocked":
+            return "该账号或网络已被封禁，如有疑问请联系客服。"
+        case "rate_limited", "auth_rate_limited":
+            return "请求过于频繁，请稍后再试。"
+        default:
+            if !fallback.isEmpty { return fallback }
+            return "操作失败 (\(http))，请稍后重试。"
+        }
+    }
+
+    private func postJSON(path: String, body: [String: Any],
+                            extraHeaders: [String: String] = [:]) async throws -> [String: Any] {
         var req = makeRequest(path: path)
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        for (k, v) in extraHeaders { req.setValue(v, forHTTPHeaderField: k) }
         req.httpBody = try JSONSerialization.data(withJSONObject: body)
         let (data, resp) = try await URLSession.shared.data(for: req)
         guard let http = resp as? HTTPURLResponse else {
             throw NSError(domain: "AuthManager", code: 0)
         }
         guard (200..<300).contains(http.statusCode) else {
-            let msg = String(data: data, encoding: .utf8) ?? ""
-            self.lastError = msg
+            // Map our standard `{detail: {error: {code, message}}}`
+            // envelope into a friendly localized string + retain the
+            // server code so views can branch on it (e.g. show a
+            // network-switch hint on `otp_ip_throttled`).
+            var serverCode = ""
+            var serverMsg = ""
+            if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+               let detail = json["detail"] as? [String: Any],
+               let err = detail["error"] as? [String: Any] {
+                serverCode = (err["code"] as? String) ?? ""
+                serverMsg = (err["message"] as? String) ?? ""
+            }
+            let friendly = AuthManager.friendlyMessage(
+                code: serverCode, fallback: serverMsg, http: http.statusCode
+            )
+            self.lastError = friendly
             throw NSError(domain: "AuthManager", code: http.statusCode,
-                          userInfo: [NSLocalizedDescriptionKey: msg])
+                          userInfo: [
+                            NSLocalizedDescriptionKey: friendly,
+                            "server_code": serverCode,
+                          ])
         }
         return (try JSONSerialization.jsonObject(with: data) as? [String: Any]) ?? [:]
     }

@@ -1264,6 +1264,26 @@ struct AnalyzeDebug: Codable, Sendable, Hashable {
     let poseHorizon: PoseHorizonDebug?
     let composition: CompositionDebug?
     let lightForecast: LightForecastDebug?
+    /// v17i — backend's "users like you usually pick this proposal_id".
+    /// nil = cohort too sparse (k-anon < 5) or no historical data.
+    /// UI uses this to bump that proposal to the top of the list.
+    let cohortRecommendedProposalId: String?
+    /// v17j — how many distinct users back the recommendation. Lets
+    /// the UI render an explainer chip ("based on N similar users")
+    /// so the rerank isn't a black box.
+    let cohortSize: Int?
+    /// v17j — which slice was used (e.g. "scene+keyword:natural" or
+    /// "scene:portrait"). UI shows a friendlier label, but we keep
+    /// the raw key for QA/logging.
+    let cohortBasis: String?
+    /// v17k — server-rendered Chinese label for the scene_mode used
+    /// in the cohort. Avoids duplicating the enum→中文 map on iOS.
+    let cohortSceneLabel: String?
+    /// v18 — primary key of the usage_records row this analyze
+    /// produced. Required so PATCH /me/usage/{id}/captured and
+    /// /satisfied can target the right row. nil only happens for
+    /// pre-v18 servers; UI must tolerate that.
+    let usageRecordId: String?
 
     enum CodingKeys: String, CodingKey {
         case lighting
@@ -1271,6 +1291,11 @@ struct AnalyzeDebug: Codable, Sendable, Hashable {
         case poseHorizon = "pose_horizon"
         case composition
         case lightForecast = "light_forecast"
+        case cohortRecommendedProposalId = "cohort_recommended_proposal_id"
+        case cohortSize = "cohort_size"
+        case cohortBasis = "cohort_basis"
+        case cohortSceneLabel = "cohort_scene_label"
+        case usageRecordId = "usage_record_id"
     }
 }
 

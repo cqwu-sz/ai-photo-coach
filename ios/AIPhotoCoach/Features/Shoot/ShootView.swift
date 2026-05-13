@@ -13,6 +13,11 @@ import UIKit
 ///      the latest capture into the Photos library on demand.
 struct ShootView: View {
     let shot: ShotRecommendation
+    /// v18 — backend pk of the analyze that produced this shot. Lets
+    /// the screen mark it captured + collect satisfaction signal.
+    /// nil tolerated for pre-v18 server compat (old responses didn't
+    /// surface `usage_record_id` in `debug`).
+    let usageRecordId: String?
 
     @StateObject private var camera = ShootingCameraController()
     @StateObject private var align  = AlignmentTracker()
@@ -23,6 +28,33 @@ struct ShootView: View {
     @State private var savedToAlbum = false
     @State private var showTipsSheet = false
     @State private var capturedURL: URL?
+    /// v18 — guard against double-firing PATCH /captured if user
+    /// hits shutter twice in the same session.
+    @State private var capturedReported = false
+    /// v18 — once user gives a thumbs answer we hide the chip and
+    /// mark it confirmed. nil = not answered yet (and chip is shown).
+    @State private var satisfactionAnswer: SatisfactionAnswer? = nil
+    /// v18 s1 — only ask for satisfaction after the user has actually
+    /// taken a few comparison shots. Asking after the very first
+    /// frame interrupts the natural "shoot 3-5 then pick the best"
+    /// loop. Chip appears once shotCount >= _kChipMinShots.
+    @State private var shotCount: Int = 0
+    /// v18 s2 — overridable from admin "运行时阈值" via a UserDefaults
+    /// key `shoot.chip_min_shots`. Default 3; clamped to [1, 20].
+    private var kChipMinShots: Int {
+        let raw = UserDefaults.standard.integer(forKey: "shoot.chip_min_shots")
+        return raw == 0 ? 3 : max(1, min(20, raw))
+    }
+
+    enum SatisfactionAnswer: Equatable { case love, ok, bad
+        var isPositive: Bool { self != .bad }
+        var apiBool: Bool { self != .bad }
+    }
+
+    init(shot: ShotRecommendation, usageRecordId: String? = nil) {
+        self.shot = shot
+        self.usageRecordId = usageRecordId
+    }
 
     private var plan: IphoneApplyPlan? { shot.camera.iphoneApplyPlan }
 
@@ -146,6 +178,17 @@ struct ShootView: View {
             paramChips
             alignmentRing
             shutterRow
+            // v18 s1 — chip appears only after the user has taken
+            // a meaningful number of comparison shots (default 3).
+            // This protects the natural "shoot a few, pick the best"
+            // loop. User can still ignore it; we never block.
+            if shotCount >= kChipMinShots,
+               usageRecordId != nil,
+               satisfactionAnswer == nil {
+                satisfactionChip
+            } else if let ans = satisfactionAnswer {
+                satisfactionConfirmed(ans)
+            }
         }
         .padding(.vertical, 14)
         .padding(.horizontal, 16)
@@ -153,6 +196,85 @@ struct ShootView: View {
             RoundedRectangle(cornerRadius: 24, style: .continuous)
                 .fill(.ultraThinMaterial)
         )
+        .animation(.easeInOut(duration: 0.18), value: satisfactionAnswer)
+    }
+
+    private var satisfactionChip: some View {
+        HStack(spacing: 8) {
+            Text("拍了几张了，整体满意吗？")
+                .font(.system(size: 12.5, weight: .semibold))
+                .foregroundStyle(.white)
+                .lineLimit(1).minimumScaleFactor(0.8)
+            Spacer(minLength: 0)
+            satisfactionButton(.love, icon: "hand.thumbsup.fill",
+                                tint: Color.green)
+            satisfactionButton(.ok, icon: "hand.raised.fill",
+                                tint: Color.blue.opacity(0.7))
+            satisfactionButton(.bad, icon: "hand.thumbsdown.fill",
+                                tint: Color.gray)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Color.white.opacity(0.10))
+        )
+        .transition(.move(edge: .bottom).combined(with: .opacity))
+    }
+
+    private func satisfactionButton(_ ans: SatisfactionAnswer,
+                                      icon: String,
+                                      tint: Color) -> some View {
+        Button {
+            recordSatisfaction(ans)
+        } label: {
+            Image(systemName: icon)
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(.white)
+                .frame(width: 34, height: 34)
+                .background(tint.opacity(0.85), in: Circle())
+        }
+        .accessibilityLabel(ans == .love ? "非常满意"
+                              : ans == .ok ? "还行" : "不满意")
+    }
+
+    private func satisfactionConfirmed(_ ans: SatisfactionAnswer) -> some View {
+        let label: String = {
+            switch ans {
+            case .love: return "已记录：非常满意"
+            case .ok:   return "已记录：还行"
+            case .bad:  return "已记录：不满意 · 我们会调整"
+            }
+        }()
+        return HStack(spacing: 6) {
+            Image(systemName: ans.isPositive ? "checkmark.circle.fill"
+                                                : "checkmark.circle")
+                .foregroundStyle(ans.isPositive ? Color.green : Color.gray)
+            Text(label)
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(.white.opacity(0.85))
+        }
+        .padding(.vertical, 4)
+    }
+
+    private func recordSatisfaction(_ ans: SatisfactionAnswer) {
+        guard let id = usageRecordId else { return }
+        satisfactionAnswer = ans
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        // v18 s1 — backend now persists the 3-grade signal in
+        // `usage_records.satisfied_grade`. We still send the bool
+        // for back-compat with the older boolean-only column.
+        let grade: String = {
+            switch ans {
+            case .love: return "love"
+            case .ok:   return "ok"
+            case .bad:  return "bad"
+            }
+        }()
+        UsageReporter.shared.markSatisfied(usageRecordId: id,
+                                              satisfied: ans.apiBool,
+                                              grade: grade,
+                                              note: nil)
     }
 
     private var paramChips: some View {
@@ -421,7 +543,15 @@ struct ShootView: View {
             let url = try await camera.capturePhoto()
             capturedURL = url
             savedToAlbum = false
+            shotCount += 1
             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+            // v18 — fire-and-forget tell backend this proposal was
+            // actually shot. Idempotent server-side; we still gate
+            // here so a chatty user doesn't burn requests.
+            if !capturedReported, let id = usageRecordId {
+                capturedReported = true
+                UsageReporter.shared.markCaptured(usageRecordId: id)
+            }
         } catch {
             camera.objectWillChange.send()
         }

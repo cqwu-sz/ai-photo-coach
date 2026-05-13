@@ -39,10 +39,50 @@ struct RecommendationView: View {
         response.shots.contains { $0.overallScore != nil }
     }
 
+    /// v17j — explainer text for the cohort-based rerank. Returned
+    /// only for the shot the backend told us to surface, and only
+    /// while we're in `.recommended` ordering (overall score ranking
+    /// is the user's choice, not ours, so don't second-guess it).
+    private func cohortBadge(for shot: ShotRecommendation) -> String? {
+        guard rankingMode == .recommended,
+              let pid = response.debug?.cohortRecommendedProposalId,
+              let n = response.debug?.cohortSize, n >= 5,
+              shot.id == pid else { return nil }
+        let basis = response.debug?.cohortBasis ?? ""
+        let sceneLabel = response.debug?.cohortSceneLabel
+        let where_: String
+        if basis.hasPrefix("scene+keyword:") {
+            let kw = String(basis.dropFirst("scene+keyword:".count))
+            if let s = sceneLabel {
+                where_ = "在「\(s)」场景里选了「\(kw)」的"
+            } else {
+                where_ = "选了「\(kw)」的"
+            }
+        } else if let s = sceneLabel {
+            where_ = "在「\(s)」场景里的"
+        } else {
+            where_ = "同场景的"
+        }
+        return "\(where_) \(n) 位用户里多数选了它"
+    }
+
     private var orderedShots: [ShotRecommendation] {
         switch rankingMode {
         case .recommended:
-            return response.shots
+            // v17i — if the backend's cohort recommender returned a
+            // best-fit proposal_id (≥5 distinct similar users), bump
+            // it to the front. Falls back to LLM-natural order when
+            // the cohort is too sparse.
+            let cohortId = response.debug?.cohortRecommendedProposalId
+            guard let cohortId,
+                  let idx = response.shots.firstIndex(where: { $0.id == cohortId }),
+                  idx > 0 else {
+                return response.shots
+            }
+            var reordered = response.shots
+            let pick = reordered.remove(at: idx)
+            reordered.insert(pick, at: 0)
+            return reordered
         case .overall:
             return response.shots.sorted {
                 ($0.overallScore ?? 0) > ($1.overallScore ?? 0)
@@ -67,6 +107,7 @@ struct RecommendationView: View {
                             ShotCard(
                                 index: idx,
                                 shot: shot,
+                                cohortBadge: cohortBadge(for: shot),
                                 onTryShot: { tryShot(shot) },
                                 onShootForReal: { shootForReal(shot) },
                             )
@@ -186,7 +227,11 @@ struct RecommendationView: View {
     private func shootForReal(_ shot: ShotRecommendation) {
         // Push the real shoot screen — opens AVCaptureSession, applies
         // the AI plan to AVCaptureDevice and shows the alignment HUD.
-        router.push(.shoot(shot: shot))
+        // v18 — pass the usage_record_id so the shoot screen can call
+        // PATCH /captured + /satisfied. Server returns it in
+        // response.debug; tolerated nil on pre-v18 deployments.
+        router.push(.shoot(shot: shot,
+                            usageRecordId: response.debug?.usageRecordId))
     }
 }
 
@@ -317,6 +362,12 @@ private struct RecScenecard: View {
 private struct ShotCard: View {
     let index: Int
     let shot: ShotRecommendation
+    /// v17j — when non-nil, render an explainer chip at the very
+    /// top of the card so the user understands why this shot was
+    /// promoted to position 1 by the cohort recommender. nil = no
+    /// chip (either this isn't the recommended shot, or the cohort
+    /// is too sparse / user picked overall-score ranking).
+    var cohortBadge: String? = nil
     let onTryShot: () -> Void
     let onShootForReal: () -> Void
 
@@ -328,6 +379,21 @@ private struct ShotCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
+            if let badge = cohortBadge {
+                HStack(spacing: 6) {
+                    Image(systemName: "person.2.fill")
+                        .font(.caption2)
+                    Text(badge)
+                        .font(.caption)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .background(Color.accentColor.opacity(0.12),
+                              in: Capsule())
+                .foregroundStyle(Color.accentColor)
+                .accessibilityLabel("基于相似用户的推荐：\(badge)")
+            }
             // ── Header: shot index + title + confidence
             HStack(alignment: .firstTextBaseline) {
                 Text("机位 #\(index + 1)")

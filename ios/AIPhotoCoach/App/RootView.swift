@@ -38,6 +38,7 @@ enum WizardStep: Int, CaseIterable, Identifiable {
 struct RootView: View {
     @EnvironmentObject var router: AppRouter
     @StateObject private var avatarManifest = AvatarManifest.shared
+    @ObservedObject private var auth = AuthManager.shared
 
     // ---- Persisted preferences (same keys the legacy code used) ------------
     @AppStorage("aphc.sceneMode") private var sceneModeRaw: String = SceneMode.portrait.rawValue
@@ -67,11 +68,42 @@ struct RootView: View {
         QualityMode(rawValue: qualityModeRaw) ?? .fast
     }
 
+    @AppStorage("aphc.freeIntroShown") private var freeIntroShown: Bool = false
+    @State private var showFreeIntro: Bool = false
+
     var body: some View {
+        Group {
+            if auth.isAuthenticated {
+                wizardBody
+                    .sheet(isPresented: $showFreeIntro) {
+                        FreeQuotaIntroSheet(onDismiss: {
+                            freeIntroShown = true
+                            showFreeIntro = false
+                        })
+                            .presentationDetents([.medium])
+                    }
+            } else {
+                LoginView()
+            }
+        }
+        .onChange(of: auth.isAuthenticated) { _, isOn in
+            // First moment after a successful login (and we've never
+            // shown it) — surface the free-quota / pricing primer
+            // exactly once. Don't show for admin (they have ∞ quota).
+            if isOn, !freeIntroShown, auth.role != "admin" {
+                showFreeIntro = true
+            }
+        }
+    }
+
+    private var wizardBody: some View {
         NavigationStack(path: $router.path) {
             ZStack {
                 CinemaBackdrop()
                 VStack(spacing: 0) {
+                    QuotaPill()
+                        .padding(.top, 6)
+                        .padding(.bottom, 4)
                     WizardProgressBar(
                         currentStep: currentStep,
                         furthestStep: WizardStep(rawValue: furthestStepRaw) ?? .scene,
@@ -164,7 +196,13 @@ struct RootView: View {
             }
             .toolbarBackground(.hidden, for: .navigationBar)
             .sheet(isPresented: $showSettings) {
-                ModelSettingsView()
+                // v17 / PR8: model selection is admin-only; regular
+                // users land on the account / subscription page.
+                if auth.role == "admin" {
+                    ModelSettingsView()
+                } else {
+                    NavigationStack { AccountView() }
+                }
             }
             .sheet(isPresented: $showIconPicker) {
                 NavigationStack {
@@ -190,8 +228,8 @@ struct RootView: View {
                         avatarStyle: AvatarPresets.style(for: id),
                         presetId: UserDefaults.standard.stringArray(forKey: "avatarPicks")?.first ?? id,
                     )
-                case .shoot(let shot):
-                    ShootView(shot: shot)
+                case .shoot(let shot, let usageRecordId):
+                    ShootView(shot: shot, usageRecordId: usageRecordId)
                 }
             }
         }

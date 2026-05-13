@@ -1,0 +1,58 @@
+# docker-compose.ratelimit-test.yml — v17d 跨实例 Redis 验证
+#
+# 目的：证明 rate_buckets 和 OTP global RPM 真的跨进程聚合，
+# 不会因为多实例把限流额度乘以 N。
+#
+# 拓扑：
+#   redis (本地容器)
+#     ↑          ↑
+#   api-a:8001  api-b:8002    （两个独立 fastapi 进程，共享同一 redis）
+#
+# 起服：
+#   docker compose -f deploy/docker-compose.ratelimit-test.yml up --build
+#
+# 跑验证：
+#   python deploy/test_redis_distributed.py
+#
+# 期望：global_rpm=50 时，向 a/b 两实例并发各发 30 条 OTP，
+# 应该总计成功 ≤ 50（如果走本地 SQLite 后端会出现 60 个全成功，
+# 那就是聚合失败）。
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6390:6379"   # 主机 6390 避免和本地 redis 冲突
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+
+  api-a:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    environment:
+      APP_ENV: development              # 跳过强制 secrets 校验
+      APP_JWT_SECRET: "ratelimit-test-secret-key-32bytes!!"
+      OTP_HASH_SECRET: "otp-test-secret-32bytes-padding-xx"
+      ADMIN_BOOTSTRAP: ""
+      OTP_PROVIDER: "mock"              # 不真发短信
+      REDIS_URL: "redis://redis:6379/0"
+      INSTANCE_NAME: "a"
+    ports:
+      - "8001:8000"
+    depends_on: [redis]
+
+  api-b:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    environment:
+      APP_ENV: development
+      APP_JWT_SECRET: "ratelimit-test-secret-key-32bytes!!"
+      OTP_HASH_SECRET: "otp-test-secret-32bytes-padding-xx"
+      ADMIN_BOOTSTRAP: ""
+      OTP_PROVIDER: "mock"
+      REDIS_URL: "redis://redis:6379/0"
+      INSTANCE_NAME: "b"
+    ports:
+      - "8002:8000"
+    depends_on: [redis]

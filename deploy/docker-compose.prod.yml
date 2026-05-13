@@ -1,0 +1,59 @@
+# docker-compose.prod.yml — 阿里云 ECS 单机生产部署 (PR11)
+#
+# 拓扑：
+#   ALB (HTTPS) → ECS:8000 (本服务) → RDS PostgreSQL + 云数据库 Redis
+#   静态资产/原图：OSS bucket，本服务从不持久化原图，故 OSS 桶留空
+#   日志：SLS 接入由 Datadog Agent (host networked) 转发
+#
+# 起服：
+#   docker compose -f docker-compose.prod.yml --env-file .env.prod up -d
+#
+# .env.prod 至少包含：
+#   APP_JWT_SECRET=...
+#   OTP_HASH_SECRET=...
+#   ADMIN_BOOTSTRAP=...
+#   ADMIN_IP_ALLOWLIST=...
+#   ALIYUN_SMS_*  + ALIYUN_DM_*
+#   POSTGRES_DSN=postgresql+asyncpg://aphc:...@rds-internal:5432/aphc
+#   REDIS_URL=redis://r-bp1xxxxxx.redis.rds.aliyuncs.com:6379/0
+
+services:
+  api:
+    image: ai-photo-coach/backend:${TAG:-latest}
+    restart: unless-stopped
+    environment:
+      APP_ENV: production
+      ENFORCE_REQUIRED_SECRETS: "true"
+      ENABLE_ANONYMOUS_AUTH: "false"
+      ENABLE_LEGACY_DEVICE_ID_AUTH: "false"
+      DISABLE_WEB_ROUTES_IN_PROD: "true"
+      ENABLE_RATE_LIMIT: "true"
+      RATE_LIMIT_ANALYZE_PER_MIN: "20"
+      APP_JWT_SECRET: ${APP_JWT_SECRET}
+      OTP_HASH_SECRET: ${OTP_HASH_SECRET}
+      ADMIN_BOOTSTRAP: ${ADMIN_BOOTSTRAP}
+      ADMIN_IP_ALLOWLIST: ${ADMIN_IP_ALLOWLIST}
+      ALIYUN_SMS_ACCESS_KEY: ${ALIYUN_SMS_ACCESS_KEY}
+      ALIYUN_SMS_ACCESS_SECRET: ${ALIYUN_SMS_ACCESS_SECRET}
+      ALIYUN_SMS_SIGN_NAME: ${ALIYUN_SMS_SIGN_NAME}
+      ALIYUN_SMS_TEMPLATE_CODE: ${ALIYUN_SMS_TEMPLATE_CODE}
+      ALIYUN_DM_ACCESS_KEY: ${ALIYUN_DM_ACCESS_KEY}
+      ALIYUN_DM_ACCESS_SECRET: ${ALIYUN_DM_ACCESS_SECRET}
+      ALIYUN_DM_SENDER: ${ALIYUN_DM_SENDER}
+    ports:
+      - "127.0.0.1:8000:8000"   # 仅监听内网，由 ALB 反向代理
+    volumes:
+      - aphc_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+volumes:
+  aphc_data:
