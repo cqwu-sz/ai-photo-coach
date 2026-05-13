@@ -48,14 +48,16 @@ jobs:
           # type-checker sees the whole module (cross-file references
           # like ShareSheet across PrivacyDisclosureView ↔ AdminInsightsView
           # only resolve when compiled together).
-          mapfile -t FILES < <(find ios/AIPhotoCoach -name '*.swift' -not -path '*/.build/*')
-          echo "Type-checking ${#FILES[@]} files against iOS SDK"
-          xcrun swiftc \
-            -typecheck \
-            -sdk "$SDK" \
-            -target arm64-apple-ios17.0 \
-            -parse-as-library \
-            "${FILES[@]}"
+          # macOS ships bash 3.2 which has no `mapfile`. Use a NUL-safe
+          # find | xargs pipeline instead so paths with spaces survive.
+          COUNT=$(find ios/AIPhotoCoach -name '*.swift' -not -path '*/.build/*' | wc -l | tr -d ' ')
+          echo "Type-checking $COUNT files against iOS SDK"
+          find ios/AIPhotoCoach -name '*.swift' -not -path '*/.build/*' -print0 \
+            | xargs -0 xcrun swiftc \
+                -typecheck \
+                -sdk "$SDK" \
+                -target arm64-apple-ios17.0 \
+                -parse-as-library
           echo "All .swift files type-checked cleanly."
 
   build-unsigned-ipa:
