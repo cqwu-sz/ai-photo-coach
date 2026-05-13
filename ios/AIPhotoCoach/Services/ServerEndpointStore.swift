@@ -59,6 +59,7 @@ final class ServerEndpointStore: ObservableObject {
     /// behind `auth.role == "admin"` so the legitimate path still
     /// works; this is defense-in-depth.
     @discardableResult
+    @MainActor
     func setOverride(_ raw: String?) -> Bool {
         guard AuthManager.shared.role == "admin" else {
             #if DEBUG
@@ -81,6 +82,7 @@ final class ServerEndpointStore: ObservableObject {
     /// opaque cardinality key when reporting endpoint telemetry to
     /// the backend so admin can compute "% of installs on new URL"
     /// without us ever transmitting the raw id.
+    @MainActor
     static func deviceFingerprint() -> String? {
         let raw = AuthManager.shared.deviceId
         guard !raw.isEmpty else { return nil }

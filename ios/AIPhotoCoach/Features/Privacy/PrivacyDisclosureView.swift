@@ -48,25 +48,25 @@ struct PrivacyDisclosureView: View {
             Section("用于改进 App 的匿名聚合") {
                 row("非个人化使用统计",
                      "选择的拍摄场景 / 画质偏好 / 风格关键词 / 采纳的方案，"
-                     "我们会做聚合统计来改进 App。聚合结果不含账号 ID，"
-                     "且每个分组至少 5 个独立用户才显示，单人偏好不可被反推。",
+                     + "我们会做聚合统计来改进 App。聚合结果不含账号 ID，"
+                     + "且每个分组至少 5 个独立用户才显示，单人偏好不可被反推。",
                      icon: "chart.bar.doc.horizontal", color: .blue)
                 row("删除即清",
                      "删除账号时，相关原始记录立刻随账号一并清理，聚合统计也"
-                     "自动失去您的贡献。",
+                     + "自动失去您的贡献。",
                      icon: "trash.slash", color: .green)
             }
 
             Section("满意度反馈（可选）") {
                 row("拍完点拇指",
                      "拍完一张后，App 会询问「这次满意吗？」。回答完全可选，"
-                     "跳过不影响任何功能。回答仅是 1 bit + 可选 200 字备注，"
-                     "永远不会上传任何照片。",
+                     + "跳过不影响任何功能。回答仅是 1 bit + 可选 200 字备注，"
+                     + "永远不会上传任何照片。",
                      icon: "hand.thumbsup", color: .orange)
                 row("仅个人化",
                      "默认情况下，您的回答只用来调整未来给您本人生成的方案。"
-                     "全局聚合（≥30 位独立用户的趋势）默认关闭，仅在管理员"
-                     "显式启用时才会作为弱建议影响其他用户。",
+                     + "全局聚合（≥30 位独立用户的趋势）默认关闭，仅在管理员"
+                     + "显式启用时才会作为弱建议影响其他用户。",
                      icon: "person.crop.circle", color: .blue)
             }
 
@@ -220,7 +220,7 @@ struct PrivacyDisclosureView: View {
     }
 }
 
-private struct ShareSheet: UIViewControllerRepresentable {
+struct ShareSheet: UIViewControllerRepresentable {
     let items: [Any]
 
     func makeUIViewController(context: Context) -> UIActivityViewController {

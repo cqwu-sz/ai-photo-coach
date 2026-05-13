@@ -210,9 +210,10 @@ struct AdminAlertRecipientsView: View {
             // it loudly, not buried in the docs.
             let configured = Set(model.items.map(\.action))
             let hasDefault = configured.contains("default")
-            let missing = ["severity.critical", "severity.trend"]
-                .filter { !configured.contains($0) && !configured
-                    .contains(where: { c in c.hasPrefix($0.prefix(8)) }) }
+            let missing = ["severity.critical", "severity.trend"].filter { sev in
+                !configured.contains(sev) && !configured
+                    .contains(where: { c in c.hasPrefix(sev.prefix(8)) })
+            }
             if hasDefault && !missing.isEmpty {
                 Section {
                     VStack(alignment: .leading, spacing: 6) {

@@ -22,17 +22,17 @@ struct FreeQuotaIntroSheet: View {
                     }
 
                     Card(title: "免费体验",
-                         body: "登录即送 5 次出片方案，足够把功能试个遍。" +
+                         text: "登录即送 5 次出片方案，足够把功能试个遍。" +
                                 "出方案才扣次数；服务出错或你没拍照，不扣。",
                          color: .green)
 
                     Card(title: "订阅后无限用",
-                         body: "月度 100 次 / ¥39，季度 500 次 / ¥108，年度 2000 次 / ¥412。" +
+                         text: "月度 100 次 / ¥39，季度 500 次 / ¥108，年度 2000 次 / ¥412。" +
                                 "续订或升级当即重置，过期次数不滚存。",
                          color: .accentColor)
 
                     Card(title: "为什么按次计费",
-                         body: "每出一套方案要消耗模型 token。按次扣是为了让滥用账号不影响你的稳定使用。",
+                         text: "每出一套方案要消耗模型 token。按次扣是为了让滥用账号不影响你的稳定使用。",
                          color: .orange)
 
                     HStack(spacing: 10) {
@@ -69,13 +69,13 @@ struct FreeQuotaIntroSheet: View {
 
     private struct Card: View {
         let title: String
-        let body: String
+        let text: String
         let color: Color
 
         var body: some View {
             VStack(alignment: .leading, spacing: 6) {
                 Text(title).font(.headline)
-                Text(body).font(.callout).foregroundStyle(.secondary)
+                Text(text).font(.callout).foregroundStyle(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(14)

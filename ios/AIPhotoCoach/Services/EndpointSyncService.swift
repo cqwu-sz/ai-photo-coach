@@ -15,6 +15,7 @@ import Foundation
 /// Polled from the URL we *currently* believe — so a server that
 /// switched URLs can tell us about the move on the next request,
 /// not just at cold start.
+@MainActor
 final class EndpointSyncService {
     static let shared = EndpointSyncService()
 
