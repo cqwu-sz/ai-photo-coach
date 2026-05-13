@@ -24,8 +24,43 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  # Fast guard: type-check all .swift files against the iOS SDK without
+  # going through xcodebuild's full archive pipeline. Catches the syntax
+  # / actor-isolation / name-collision class of bugs (the ones that bit
+  # us on commit e185346) in ~45s instead of waiting 3-5min for archive.
+  #
+  # Runs on macOS so we get the real SwiftUI / UIKit / Foundation
+  # modules; ubuntu Swift can't see those frameworks.
+  swift-typecheck:
+    name: Swift typecheck guard
+    runs-on: macos-15
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show toolchain
+        run: swift --version && xcrun --sdk iphoneos --show-sdk-path
+      - name: Typecheck all .swift files
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="$(xcrun --sdk iphoneos --show-sdk-path)"
+          # Collect every source file in one swiftc invocation so the
+          # type-checker sees the whole module (cross-file references
+          # like ShareSheet across PrivacyDisclosureView ↔ AdminInsightsView
+          # only resolve when compiled together).
+          mapfile -t FILES < <(find ios/AIPhotoCoach -name '*.swift' -not -path '*/.build/*')
+          echo "Type-checking ${#FILES[@]} files against iOS SDK"
+          xcrun swiftc \
+            -typecheck \
+            -sdk "$SDK" \
+            -target arm64-apple-ios17.0 \
+            -parse-as-library \
+            "${FILES[@]}"
+          echo "All .swift files type-checked cleanly."
+
   build-unsigned-ipa:
     name: Build unsigned .ipa (macOS)
+    needs: swift-typecheck
     # macos-15 ships Xcode 16.x by default, which is required because
     # XcodeGen ≥ 2.42 emits projects with `objectVersion = 77` that
     # Xcode 15.4 (the macos-14 default) refuses to open.
