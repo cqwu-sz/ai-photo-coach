@@ -24,7 +24,11 @@ from textwrap import dedent
 from typing import Optional
 
 from ..models import CaptureMeta
+from . import landmark_graph as landmark_graph_service
+from . import light_pro as light_pro_service
+from . import potential_evaluator as potential_evaluator_service
 from . import scene_aggregate as scene_aggregate_service
+from . import shot_hypothesis as shot_hypothesis_service
 from . import style_feasibility as style_feasibility_service
 from . import sun as sun_service
 from . import weather as weather_service
@@ -540,9 +544,39 @@ def build_user_prompt(
             _sun_az = sun_service.compute(meta.geo.lat, meta.geo.lon, _t).azimuth_deg
         except Exception:
             _sun_az = None
-    scene_insights = scene_aggregate_service.to_prompt_block(
-        scene_aggregate_service.aggregate(meta.frame_meta, sun_azimuth_deg=_sun_az)
+    _scene_agg = scene_aggregate_service.aggregate(meta.frame_meta, sun_azimuth_deg=_sun_az)
+    scene_insights = scene_aggregate_service.to_prompt_block(_scene_agg)
+
+    # core-pro upgrade: 3D landmark graph + professional light + coach.
+    # All four blocks degrade to empty strings when their inputs aren't
+    # rich enough, so older clients keep working untouched.
+    _landmark_graph = landmark_graph_service.aggregate(meta.frame_meta)
+    landmark_block = landmark_graph_service.to_prompt_block(_landmark_graph)
+
+    _sun_alt = None
+    if meta.geo and meta.geo.lat is not None and meta.geo.lon is not None:
+        try:
+            _t2 = meta.geo.timestamp or datetime.now(timezone.utc)
+            if _t2.tzinfo is None:
+                _t2 = _t2.replace(tzinfo=timezone.utc)
+            _sun_alt = sun_service.compute(meta.geo.lat, meta.geo.lon, _t2).altitude_deg
+        except Exception:
+            _sun_alt = None
+    _light_pro = light_pro_service.aggregate(
+        meta.frame_meta,
+        sun_altitude_deg=_sun_alt,
+        cct_k=_scene_agg.cct_k if _scene_agg else None,
+        highlight_clip_pct=_scene_agg.highlight_clip_pct if _scene_agg else None,
+        shadow_clip_pct=_scene_agg.shadow_clip_pct if _scene_agg else None,
+        light_direction=_scene_agg.light_direction if _scene_agg else None,
     )
+    light_pro_block = light_pro_service.to_prompt_block(_light_pro)
+
+    _potential = potential_evaluator_service.evaluate(_scene_agg, _landmark_graph, _light_pro)
+    potential_block = potential_evaluator_service.to_prompt_block(_potential)
+
+    _hypotheses = shot_hypothesis_service.generate(_landmark_graph)
+    hypothesis_block = shot_hypothesis_service.to_prompt_block(_hypotheses)
     # Style preset block — biases camera params toward what each picked
     # style needs, plus annotates feasibility based on real env data.
     style_block = _style_presets_branch(meta, effective_weather)
@@ -564,6 +598,14 @@ def build_user_prompt(
         {env_facts}
 
         {scene_insights}
+
+        {landmark_block}
+
+        {light_pro_block}
+
+        {hypothesis_block}
+
+        {potential_block}
 
         {_REQUEST_POI_BLOCK.get() or ""}
 

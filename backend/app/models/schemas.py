@@ -335,6 +335,19 @@ class FrameMeta(BaseModel):
             "layer (need near_pct >= ~5% to virtualise into bokeh)."
         ),
     )
+    # ---- core-pro upgrade: 3D landmark candidates -------------------
+    landmark_candidates: Optional[list["LandmarkCandidate"]] = Field(
+        default=None,
+        description=(
+            "Optional list of 3D-anchored environment landmarks detected "
+            "by the iOS client (ARKit world map + LiDAR mesh). When "
+            "present, ``services.landmark_graph`` aggregates them into "
+            "a scene-level graph that supports stereo / multi-height "
+            "shot plans (e.g. subject on balcony, photographer below). "
+            "Older clients without ARKit just omit this field — "
+            "fallback to 2.5D foreground_candidates path."
+        ),
+    )
 
 
 class ForegroundCandidate(BaseModel):
@@ -362,6 +375,82 @@ class ForegroundCandidate(BaseModel):
             "Optional depth estimate when ``DepthLayers`` is also "
             "available — lets the prompt builder filter to '<1.5m, "
             "actually virtualisable' candidates only."
+        ),
+    )
+
+
+class LandmarkCandidate(BaseModel):
+    """A 3D-anchored environment landmark detected by the iOS client.
+
+    Unlike ``ForegroundCandidate`` (which is a 2D bbox in a single frame),
+    a landmark carries a 3D world-space position derived from ARKit
+    (``ARWorldTrackingConfiguration``) — typically a point that has been
+    raycast onto the LiDAR mesh or onto a detected plane. The backend
+    aggregates these across keyframes into a ``LandmarkGraph`` (see
+    ``services.landmark_graph``), which is what unlocks "model stands on
+    +3m balcony, photographer at ground level looking up" type plans
+    that 2.5D scene aggregation can't express.
+
+    All fields are optional except ``label`` + ``world_xyz`` so older
+    clients without LiDAR can still ship raw type guesses; the backend
+    just treats them with lower confidence.
+    """
+    label: str = Field(
+        description=(
+            "Coarse landmark class — one of: ``elevated_platform`` | "
+            "``stair`` | ``balcony`` | ``window`` | ``doorway`` | "
+            "``pillar`` | ``bench`` | ``water_edge`` | ``tree`` | "
+            "``wall_corner`` | ``railing`` | ``ground`` | ``other``. "
+            "Coarse on purpose — too fine and the LLM struggles."
+        ),
+    )
+    world_xyz: list[float] = Field(
+        min_length=3, max_length=3,
+        description=(
+            "3D position in ARKit world coords (metres, +Y up, gravity "
+            "aligned). Origin is wherever ARKit anchored the session "
+            "(typically the user's initial standing point)."
+        ),
+    )
+    size_m: Optional[list[float]] = Field(
+        default=None, min_length=3, max_length=3,
+        description="AABB extent in metres (width × height × depth). None when the client could only get a point estimate.",
+    )
+    height_above_ground_m: Optional[float] = Field(
+        default=None, ge=-5, le=50,
+        description=(
+            "Vertical offset of the landmark's top surface from the "
+            "detected ground plane. Positive = above (balcony / stair "
+            "tread / bench seat). Negative = below (descending stair, "
+            "pit). The key signal that distinguishes 'second-floor "
+            "balcony' from 'ground-level doorway'."
+        ),
+    )
+    material_label: Optional[str] = Field(
+        default=None,
+        description="Optional material guess: ``stone`` | ``wood`` | ``metal`` | ``glass`` | ``foliage`` | ``water`` | ``concrete`` | ``other``.",
+    )
+    light_exposure: Optional[Literal["lit", "shaded", "rim", "backlit", "unknown"]] = Field(
+        default=None,
+        description=(
+            "Whether the landmark's surface is currently lit / shaded "
+            "based on the brightness of pixels projected onto it. Used "
+            "by shot_hypothesis to pick subject landmarks that put the "
+            "subject in a usable light pocket."
+        ),
+    )
+    confidence: Optional[float] = Field(default=None, ge=0, le=1)
+    source_frame_index: Optional[int] = Field(
+        default=None, ge=0,
+        description="Which keyframe the landmark was first detected in. Lets the prompt builder cross-reference back into the frame.",
+    )
+    stable_id: Optional[str] = Field(
+        default=None,
+        description=(
+            "Stable across keyframes when the client tracks the same "
+            "landmark across multiple views (ARKit world anchor uuid "
+            "or similar). Backend uses this for dedup before building "
+            "the landmark graph."
         ),
     )
 
@@ -1048,9 +1137,21 @@ class AnalyzeResponse(BaseModel):
     when we can't reliably reason about light. Populated in
     ``light_shadow`` mode when vision-light confidence is too low and no
     geo fix is available."""
+    coach_lines: list["CoachLineModel"] = Field(default_factory=list)
+    """Natural-language coaching cues with emotion tags for the iOS
+    VoiceCoach to read aloud. Computed deterministically from the
+    scene aggregate + landmark graph + light_pro (no LLM cost).
+    Empty when the inputs are too sparse to evaluate."""
     generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     model: str = ""
     debug: dict[str, Any] = Field(default_factory=dict)
+
+
+class CoachLineModel(BaseModel):
+    """Wire-format mirror of ``potential_evaluator.CoachLine``."""
+    text_zh: str
+    emotion: Literal["calm", "encouraging", "playful", "caution"]
+    priority: int = Field(ge=1, le=3)
 
 
 class ErrorBody(BaseModel):
@@ -1122,3 +1223,4 @@ ShotRecommendation.model_rebuild()
 FrameMeta.model_rebuild()
 WalkSegment.model_rebuild()
 CaptureMeta.model_rebuild()
+AnalyzeResponse.model_rebuild()

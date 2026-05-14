@@ -32,10 +32,13 @@ from . import (
     camera_apply,
     camera_params,
     keyframe_score,
+    landmark_graph as landmark_graph_service,
+    light_pro as light_pro_service,
     panorama as panorama_service,
     poi_indoor as poi_indoor_service,
     poi_lookup as poi_lookup_service,
     pose_engine,
+    potential_evaluator as potential_evaluator_service,
     prompts as prompts_mod,
     route_planner as route_planner_service,
     shot_fusion as shot_fusion_service,
@@ -152,6 +155,7 @@ class AnalyzeService:
                 if response.environment is None:
                     response.environment = self._build_environment_snapshot(meta, weather_snap)
                 response.time_recommendation = time_recommendation
+            self._attach_pro_signals(response, meta)
             return response
 
         if not self.settings.enable_byok:
@@ -401,7 +405,77 @@ class AnalyzeService:
             self._apply_palette_match(response.shots, reference_fingerprints)
         if time_recommendation:
             response.time_recommendation = time_recommendation
+        self._attach_pro_signals(response, meta)
         return response
+
+    @staticmethod
+    def _attach_pro_signals(response: AnalyzeResponse, meta: CaptureMeta) -> None:
+        """Compute the core-pro upgrade signals (landmark graph + light_pro
+        + potential coach lines) and fold them into the response.
+
+        - ``coach_lines`` is a top-level wire field consumed by the iOS
+          VoiceCoach; we always overwrite it (deterministic, no LLM).
+        - ``debug.landmark`` / ``debug.light_pro`` / ``debug.potential``
+          are exposed for the result UI's "details" panel.
+
+        All four computations degrade gracefully — older clients
+        without ``landmark_candidates`` get only the light_pro +
+        potential evaluation that can be derived from existing
+        ``scene_aggregate`` outputs.
+        """
+        from . import scene_aggregate as _sa
+        if not meta.frame_meta:
+            return
+        scene_agg = _sa.aggregate(meta.frame_meta)
+        graph = landmark_graph_service.aggregate(meta.frame_meta)
+        sun_alt = None
+        if response.environment is not None and response.environment.sun is not None:
+            sun_alt = response.environment.sun.altitude_deg
+        light_pro = light_pro_service.aggregate(
+            meta.frame_meta,
+            sun_altitude_deg=sun_alt,
+            cct_k=scene_agg.cct_k if scene_agg else None,
+            highlight_clip_pct=scene_agg.highlight_clip_pct if scene_agg else None,
+            shadow_clip_pct=scene_agg.shadow_clip_pct if scene_agg else None,
+            light_direction=scene_agg.light_direction if scene_agg else None,
+        )
+        evaluation = potential_evaluator_service.evaluate(scene_agg, graph, light_pro)
+
+        from ..models import CoachLineModel
+        if evaluation is not None:
+            response.coach_lines = [
+                CoachLineModel(text_zh=c.text_zh, emotion=c.emotion, priority=c.priority)
+                for c in evaluation.coach_lines
+            ]
+            response.debug["potential"] = {
+                "internal_score": evaluation.internal_score,
+                "axes": {
+                    "light":      evaluation.breakdown.light,
+                    "background": evaluation.breakdown.background,
+                    "subject":    evaluation.breakdown.subject,
+                    "layering":   evaluation.breakdown.layering,
+                    "uniqueness": evaluation.breakdown.uniqueness,
+                },
+            }
+        if graph is not None and graph.nodes:
+            response.debug["landmark_graph"] = {
+                "node_count":             len(graph.nodes),
+                "has_stereo_opportunity": graph.has_stereo_opportunity,
+                "ground_y":               graph.ground_y,
+                "nodes": [
+                    {
+                        "id":                       n.node_id,
+                        "label":                    n.label,
+                        "azimuth_deg":              n.azimuth_from_origin_deg,
+                        "horizontal_distance_m":    n.horizontal_distance_m,
+                        "height_above_ground_m":    n.height_above_ground_m,
+                        "height_bucket":            n.height_bucket,
+                    }
+                    for n in graph.nodes
+                ],
+            }
+        if light_pro is not None:
+            response.debug["light_pro"] = light_pro.to_dict()
 
     @staticmethod
     def _apply_palette_match(shots: list[ShotRecommendation],
