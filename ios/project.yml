@@ -44,6 +44,12 @@ targets:
       - path: AIPhotoCoach
         excludes:
           - "Tests/**"
+          # Both Info plists are owned by their respective target
+          # `info.path` directive; never let them be picked up as a
+          # generic resource copy (which would trigger duplicate-output
+          # build errors on multi-target archives).
+          - "Info.plist"
+          - "Info-Internal.plist"
     info:
       path: AIPhotoCoach/Info.plist
       properties:
@@ -145,6 +151,13 @@ targets:
       - path: AIPhotoCoach
         excludes:
           - "Tests/**"
+          # XcodeGen generates AIPhotoCoach/Info.plist at "xcodegen
+          # generate" time for the production target. When the same
+          # sources tree is used by Internal target, that file gets
+          # picked up as a resource and clashes with the Info-Internal
+          # plist this target uses. Exclude it explicitly.
+          - "Info.plist"
+          - "Info-Internal.plist"
     info:
       path: AIPhotoCoach/Info-Internal.plist
       properties:
