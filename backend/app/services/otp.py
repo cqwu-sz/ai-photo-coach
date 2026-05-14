@@ -180,10 +180,10 @@ class AliyunEmailProvider(OtpProvider):
         req.add_query_param("AddressType", "1")
         req.add_query_param("ReplyToAddress", "false")
         req.add_query_param("ToAddress", target)
-        req.add_query_param("Subject", "AI Photo Coach 验证码")
+        req.add_query_param("Subject", "拾光 验证码")
         body = (
             f"您的验证码是 {code}，5 分钟内有效。"
-            "如非本人操作请忽略本邮件。AI Photo Coach"
+            "如非本人操作请忽略本邮件。拾光 · AI 取景者"
         )
         req.add_query_param("TextBody", body)
         try:

@@ -17,7 +17,7 @@ struct FreeQuotaIntroSheet: View {
                 VStack(alignment: .leading, spacing: 22) {
                     VStack(alignment: .leading, spacing: 6) {
                         Text("欢迎来到拾光").font(.title.bold())
-                        Text("AI 取景师，按出片方案计费。")
+                        Text("拾光 · AI 取景者，按出片方案计费。")
                             .font(.subheadline).foregroundStyle(.secondary)
                     }
 

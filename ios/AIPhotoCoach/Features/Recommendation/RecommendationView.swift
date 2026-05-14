@@ -1691,7 +1691,7 @@ private struct FooterCaption: View {
     var body: some View {
         HStack {
             Spacer()
-            Text("by \(model.isEmpty ? "AI Photo Coach" : model)")
+            Text("by \(model.isEmpty ? BrandConstants.localized : model)")
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
         }

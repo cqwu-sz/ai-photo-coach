@@ -321,7 +321,7 @@ def require_pro(user: CurrentUser = Depends(current_user)) -> CurrentUser:
         raise HTTPException(
             status.HTTP_402_PAYMENT_REQUIRED,
             {"error": {"code": "pro_required",
-                       "message": "This feature requires AI Photo Coach Pro."}},
+                       "message": "This feature requires 拾光 Pro."}},
         )
     return user
 

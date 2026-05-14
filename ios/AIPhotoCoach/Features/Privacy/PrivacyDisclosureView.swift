@@ -119,7 +119,7 @@ struct PrivacyDisclosureView: View {
             }
             .disabled(exporting)
 
-            Link(destination: URL(string: "https://aiphotocoach.app/privacy")!) {
+            Link(destination: BrandConstants.privacyURL) {
                 Label("阅读完整隐私政策", systemImage: "doc.text")
             }
 
@@ -151,7 +151,7 @@ struct PrivacyDisclosureView: View {
     @ViewBuilder
     private var footerSection: some View {
         Section {
-            Text("我们遵循《中华人民共和国个人信息保护法》与 Apple App Store Review Guidelines 5.1.1 — 5.1.2，对最小必要原则负责。如对数据处理有疑问，请通过 privacy@aiphotocoach.app 联系。")
+            Text("我们遵循《中华人民共和国个人信息保护法》与 Apple App Store Review Guidelines 5.1.1 — 5.1.2，对最小必要原则负责。如对数据处理有疑问，请通过 \(BrandConstants.privacyContactEmail) 联系。")
                 .font(.footnote).foregroundStyle(.secondary)
         }
     }

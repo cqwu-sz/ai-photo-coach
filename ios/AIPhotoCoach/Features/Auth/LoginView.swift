@@ -41,32 +41,33 @@ struct LoginView: View {
     @State private var cooldown: Int = 0
     @State private var cooldownTimer: Timer?
 
-    @State private var showError: Bool = false
-    @State private var errorMessage: String = ""
+    /// 玻璃 toast 状态。替代原生 alert，让登录失败的反馈与整体
+    /// CinemaTheme 一致。`toastIsError` 决定描边/图标的色相。
+    @State private var toastMessage: String?
+    @State private var toastIsError: Bool = true
+    @State private var toastDismissTask: Task<Void, Never>?
+    #if INTERNAL_BUILD
+    @State private var showEndpointSheet: Bool = false
+    #endif
 
-    private let privacyURL = URL(string: "https://aiphotocoach.app/privacy")!
-    private let eulaURL = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!
+    private let privacyURL = BrandConstants.privacyURL
+    private let eulaURL = BrandConstants.appleEulaURL
 
     var body: some View {
-        ZStack {
-            LinearGradient(
-                colors: [
-                    Color(red: 0.04, green: 0.05, blue: 0.10),
-                    Color(red: 0.10, green: 0.07, blue: 0.18),
-                ],
-                startPoint: .top, endPoint: .bottom,
-            ).ignoresSafeArea()
+        ZStack(alignment: .bottom) {
+            CinemaBackdrop()
 
             ScrollView {
-                VStack(spacing: 28) {
+                VStack(spacing: 22) {
                     header
-                    Picker("登录方式", selection: $channel) {
-                        ForEach(Channel.allCases) { c in
-                            Text(c.label).tag(c)
-                        }
+                    if !APIConfig.isConfigured {
+                        endpointWarningBanner
+                            .transition(.move(edge: .top).combined(with: .opacity))
                     }
-                    .pickerStyle(.segmented)
-                    .padding(.horizontal, 24)
+                    valuePropPills
+                        .padding(.horizontal, 24)
+                    channelPicker
+                        .padding(.horizontal, 24)
 
                     Group {
                         switch channel {
@@ -75,48 +76,240 @@ struct LoginView: View {
                         case .apple: appleForm
                         }
                     }
-                    .animation(.easeInOut(duration: 0.2), value: channel)
+                    .transition(.asymmetric(
+                        insertion: .opacity.combined(with: .move(edge: .trailing)),
+                        removal: .opacity.combined(with: .move(edge: .leading))
+                    ))
 
                     agreement
                     legalLinks
+                    #if INTERNAL_BUILD
+                    internalConnectionLink
+                    #endif
                 }
-                .padding(.top, 56)
+                .padding(.top, 44)
                 .padding(.bottom, 40)
+                .animation(.spring(response: 0.42, dampingFraction: 0.82), value: channel)
+                .animation(.easeInOut(duration: 0.25), value: APIConfig.isConfigured)
+            }
+
+            if let toastMessage {
+                LoginToast(message: toastMessage, isError: toastIsError) {
+                    dismissToast()
+                }
+                .padding(.horizontal, 24)
+                .padding(.bottom, 24)
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+                .zIndex(10)
             }
         }
-        .alert("登录失败", isPresented: $showError) {
-            Button("好") { }
-        } message: {
-            Text(errorMessage)
+        .preferredColorScheme(.dark)
+        .animation(.spring(response: 0.4, dampingFraction: 0.78), value: toastMessage)
+        #if INTERNAL_BUILD
+        .sheet(isPresented: $showEndpointSheet) {
+            NavigationStack { ServerEndpointPublicView() }
+        }
+        #endif
+    }
+
+    // MARK: - Value-prop pills (登录前先看到产品价值)
+
+    private var valuePropPills: some View {
+        HStack(spacing: 8) {
+            valuePill(icon: "camera.viewfinder", text: "环视 10 秒")
+            valuePill(icon: "person.2.fill", text: "7 个虚拟模特")
+            valuePill(icon: "sparkles", text: "3 套出片方案")
         }
     }
+
+    private func valuePill(icon: String, text: String) -> some View {
+        HStack(spacing: 5) {
+            Image(systemName: icon)
+                .font(.system(size: 10, weight: .bold))
+                .foregroundStyle(CinemaTheme.accentWarm)
+            Text(text)
+                .font(.system(size: 10.5, weight: .heavy))
+                .foregroundStyle(CinemaTheme.inkSoft)
+                .lineLimit(1)
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 7)
+        .frame(maxWidth: .infinity)
+        .background(.ultraThinMaterial,
+                    in: Capsule(style: .continuous))
+        .overlay(
+            Capsule(style: .continuous)
+                .stroke(CinemaTheme.borderSoft, lineWidth: 1)
+        )
+    }
+
+    // MARK: - Endpoint not configured banner (Production + Internal)
+
+    private var endpointWarningBanner: some View {
+        let warning = HStack(spacing: 10) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundStyle(CinemaTheme.accentCoral)
+            VStack(alignment: .leading, spacing: 2) {
+                Text("未配置服务器")
+                    .font(.system(size: 13, weight: .heavy))
+                    .foregroundStyle(CinemaTheme.ink)
+                Text(bannerSubtitle)
+                    .font(.system(size: 11))
+                    .foregroundStyle(CinemaTheme.inkSoft)
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background(.ultraThinMaterial,
+                    in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .stroke(CinemaTheme.accentCoral.opacity(0.4), lineWidth: 1)
+        )
+        .padding(.horizontal, 24)
+
+        #if INTERNAL_BUILD
+        return Button { showEndpointSheet = true } label: { warning }
+        #else
+        return warning
+        #endif
+    }
+
+    private var bannerSubtitle: String {
+        #if INTERNAL_BUILD
+        return "点击进入「连接设置」填入后端地址。"
+        #else
+        return "服务器配置异常，请稍后重试或联系客服。"
+        #endif
+    }
+
+    // MARK: - Internal connection link
+
+    #if INTERNAL_BUILD
+    private var internalConnectionLink: some View {
+        Button {
+            showEndpointSheet = true
+        } label: {
+            HStack(spacing: 4) {
+                Image(systemName: "gearshape")
+                Text("连接设置 · Internal Build")
+            }
+            .font(.caption2)
+            .foregroundStyle(CinemaTheme.inkMuted)
+        }
+    }
+    #endif
 
     // MARK: - Header
 
     private var header: some View {
-        VStack(spacing: 8) {
-            Image(systemName: "camera.aperture")
-                .font(.system(size: 56, weight: .light))
-                .foregroundStyle(.white)
-            Text("AI Photo Coach")
-                .font(.system(size: 26, weight: .semibold))
-                .foregroundStyle(.white)
-            Text("登录后开始你的拍摄之旅")
-                .font(.subheadline)
-                .foregroundStyle(.white.opacity(0.7))
+        VStack(spacing: 14) {
+            ZStack {
+                Circle()
+                    .fill(AngularGradient(
+                        colors: [CinemaTheme.accentWarm,
+                                 CinemaTheme.accentCoral,
+                                 CinemaTheme.accentCool,
+                                 CinemaTheme.accentWarm],
+                        center: .center))
+                    .frame(width: 64, height: 64)
+                    .blur(radius: 0.5)
+                Circle()
+                    .fill(CinemaTheme.bgBase)
+                    .frame(width: 30, height: 30)
+                Image(systemName: "camera.aperture")
+                    .font(.system(size: 22, weight: .bold))
+                    .foregroundStyle(CinemaTheme.accentGradient)
+            }
+            .shadow(color: CinemaTheme.accentWarm.opacity(0.45), radius: 18, y: 8)
+
+            VStack(spacing: 6) {
+                HStack(spacing: 8) {
+                    Circle()
+                        .fill(CinemaTheme.accentWarm)
+                        .frame(width: 5, height: 5)
+                        .shadow(color: CinemaTheme.accentWarm.opacity(0.7), radius: 5)
+                    Text("CINEMA HOUSE · AI · \(BrandConstants.brandYearTag)")
+                        .font(.system(size: 10, weight: .heavy))
+                        .tracking(2.4)
+                        .foregroundStyle(CinemaTheme.accentWarm)
+                }
+
+                Text("拾光")
+                    .font(.system(size: 34, weight: .heavy))
+                    .tracking(2)
+                    .foregroundStyle(CinemaTheme.heroGradient)
+
+                Text("AI 取景者 · 拾起每一束光")
+                    .font(.system(size: 11.5, weight: .heavy))
+                    .tracking(1.6)
+                    .foregroundStyle(CinemaTheme.inkMuted)
+
+                Text("登录后开始你的拍摄之旅")
+                    .font(.system(size: 13))
+                    .foregroundStyle(CinemaTheme.inkSoft)
+                    .padding(.top, 2)
+            }
         }
+    }
+
+    // MARK: - Channel picker (cinema-style chips)
+
+    private var channelPicker: some View {
+        HStack(spacing: 8) {
+            ForEach(Channel.allCases) { c in
+                channelChip(c)
+            }
+        }
+        .padding(4)
+        .background(.ultraThinMaterial,
+                    in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .stroke(CinemaTheme.borderSoft, lineWidth: 1)
+        )
+    }
+
+    private func channelChip(_ c: Channel) -> some View {
+        let isActive = channel == c
+        return Button {
+            withAnimation(.spring(response: 0.32, dampingFraction: 0.78)) {
+                channel = c
+            }
+        } label: {
+            Text(c.label)
+                .font(.system(size: 13.5, weight: .heavy))
+                .foregroundStyle(isActive ? Color.black.opacity(0.88) : CinemaTheme.inkSoft)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(isActive
+                              ? AnyShapeStyle(CinemaTheme.accentGradient)
+                              : AnyShapeStyle(Color.clear))
+                )
+                .shadow(color: isActive ? CinemaTheme.accentWarm.opacity(0.35) : .clear,
+                        radius: 8, y: 3)
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: - SMS form
 
     private var smsForm: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 12) {
             inputCard {
                 HStack(spacing: 8) {
-                    Text("+86").foregroundStyle(.white.opacity(0.6))
-                    TextField("手机号", text: $phone)
+                    // BrandConstants.defaultPhoneCountryCode 当前是 +86；
+                    // 之后接入国家码切换器只需替换这个 Text 为 Menu。
+                    Text(BrandConstants.defaultPhoneCountryCode)
+                        .font(.system(size: 14, weight: .heavy))
+                        .foregroundStyle(CinemaTheme.accentWarm)
+                    TextField("", text: $phone, prompt:
+                        Text("手机号").foregroundColor(CinemaTheme.inkMuted))
                         .keyboardType(.numberPad)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(CinemaTheme.ink)
                         .textContentType(.telephoneNumber)
                 }
             }
@@ -128,13 +321,14 @@ struct LoginView: View {
     }
 
     private var emailForm: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 12) {
             inputCard {
-                TextField("邮箱地址", text: $email)
+                TextField("", text: $email, prompt:
+                    Text("邮箱地址").foregroundColor(CinemaTheme.inkMuted))
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(CinemaTheme.ink)
                     .textContentType(.emailAddress)
             }
             otpField
@@ -148,8 +342,8 @@ struct LoginView: View {
         VStack(spacing: 14) {
             Text("使用你的 Apple ID 一键登录，安全且便捷。")
                 .multilineTextAlignment(.center)
-                .foregroundStyle(.white.opacity(0.75))
-                .font(.subheadline)
+                .foregroundStyle(CinemaTheme.inkSoft)
+                .font(.system(size: 13.5))
                 .padding(.horizontal, 24)
 
             SignInWithAppleButton(
@@ -165,15 +359,17 @@ struct LoginView: View {
                 },
             )
             .signInWithAppleButtonStyle(.white)
-            .frame(height: 48)
+            .frame(height: 50)
+            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
             .opacity(agreed ? 1.0 : 0.4)
             .disabled(!agreed)
             .padding(.horizontal, 24)
+            .shadow(color: .black.opacity(0.4), radius: 12, y: 6)
 
             if !agreed {
                 Text("请先勾选下方协议再登录")
                     .font(.caption)
-                    .foregroundStyle(.orange)
+                    .foregroundStyle(CinemaTheme.accentCoral)
             }
         }
     }
@@ -181,9 +377,11 @@ struct LoginView: View {
     private var otpField: some View {
         inputCard {
             HStack {
-                TextField("6 位验证码", text: $code)
+                TextField("", text: $code, prompt:
+                    Text("6 位验证码").foregroundColor(CinemaTheme.inkMuted))
                     .keyboardType(.numberPad)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(CinemaTheme.ink)
+                    .tracking(2)
                     .onChange(of: code) { newValue in
                         let filtered = newValue.filter { $0.isNumber }
                         let trimmed = String(filtered.prefix(6))
@@ -191,8 +389,8 @@ struct LoginView: View {
                     }
                 if cooldown > 0 {
                     Text("\(cooldown)s")
-                        .font(.caption)
-                        .foregroundStyle(.white.opacity(0.5))
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundStyle(CinemaTheme.accentWarm)
                 }
             }
         }
@@ -201,10 +399,19 @@ struct LoginView: View {
     @ViewBuilder
     private func inputCard<Content: View>(@ViewBuilder content: () -> Content) -> some View {
         content()
+            .font(.system(size: 15, weight: .semibold))
             .padding(.horizontal, 16)
-            .padding(.vertical, 14)
-            .background(Color.white.opacity(0.08))
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .padding(.vertical, 15)
+            .background(.ultraThinMaterial,
+                        in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .background(
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .fill(Color.white.opacity(0.04))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .stroke(CinemaTheme.borderSoft, lineWidth: 1)
+            )
     }
 
     private func sendCodeButton(target: String, isValid: Bool) -> some View {
@@ -212,20 +419,25 @@ struct LoginView: View {
         return Button {
             Task { await sendCode(target: target) }
         } label: {
-            HStack {
+            HStack(spacing: 8) {
                 if sending {
-                    ProgressView().tint(.white)
+                    ProgressView().tint(CinemaTheme.accentWarm)
                 }
                 Text(cooldown > 0 ? "\(cooldown) 秒后可重发" : "发送验证码")
-                    .fontWeight(.semibold)
+                    .font(.system(size: 14, weight: .heavy))
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
-            .background(canSend
-                        ? Color.white.opacity(0.18)
-                        : Color.white.opacity(0.06))
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .foregroundStyle(canSend ? .white : .white.opacity(0.4))
+            .padding(.vertical, 13)
+            .background(.ultraThinMaterial,
+                        in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .stroke(canSend
+                            ? CinemaTheme.accentWarm.opacity(0.55)
+                            : CinemaTheme.borderSoft,
+                            lineWidth: 1)
+            )
+            .foregroundStyle(canSend ? CinemaTheme.accentWarm : CinemaTheme.inkMuted)
         }
         .disabled(!canSend)
     }
@@ -235,15 +447,29 @@ struct LoginView: View {
         return Button {
             Task { await verify(target: target) }
         } label: {
-            HStack {
+            HStack(spacing: 10) {
                 if verifying { ProgressView().tint(.black) }
-                Text("登录").fontWeight(.semibold)
+                Text("登录")
+                    .font(.system(size: 16.5, weight: .heavy))
+                Image(systemName: "arrow.right")
+                    .font(.system(size: 14, weight: .heavy))
             }
+            .foregroundStyle(.black.opacity(0.9))
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 14)
-            .background(canVerify ? Color.white : Color.white.opacity(0.3))
-            .foregroundStyle(canVerify ? .black : .white.opacity(0.6))
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .padding(.vertical, 16)
+            .background(
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(canVerify
+                          ? AnyShapeStyle(CinemaTheme.ctaGradient)
+                          : AnyShapeStyle(Color.white.opacity(0.18)))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .stroke(Color.white.opacity(canVerify ? 0.16 : 0.08), lineWidth: 1)
+            )
+            .shadow(color: canVerify ? CinemaTheme.accentWarm.opacity(0.45) : .clear,
+                    radius: 16, y: 6)
+            .opacity(canVerify ? 1.0 : 0.55)
         }
         .disabled(!canVerify)
     }
@@ -251,39 +477,45 @@ struct LoginView: View {
     // MARK: - Agreement / legal
 
     private var agreement: some View {
-        HStack(alignment: .top, spacing: 8) {
+        HStack(alignment: .top, spacing: 10) {
             Button {
-                agreed.toggle()
+                withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                    agreed.toggle()
+                }
             } label: {
                 Image(systemName: agreed ? "checkmark.square.fill" : "square")
-                    .foregroundStyle(agreed ? Color.accentColor : .white.opacity(0.6))
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundStyle(agreed ? CinemaTheme.accentWarm : CinemaTheme.inkMuted)
             }
             (Text("我已阅读并同意 ")
-             + Text("《用户协议》").foregroundColor(.accentColor)
+             + Text("《用户协议》").foregroundColor(CinemaTheme.accentWarm)
              + Text(" 与 ")
-             + Text("《隐私政策》").foregroundColor(.accentColor)
+             + Text("《隐私政策》").foregroundColor(CinemaTheme.accentWarm)
              + Text("。验证码仅用于本次登录认证，不会用于营销。"))
-                .font(.footnote)
-                .foregroundStyle(.white.opacity(0.7))
+                .font(.system(size: 12))
+                .foregroundStyle(CinemaTheme.inkSoft)
+                .lineSpacing(2)
         }
         .padding(.horizontal, 24)
     }
 
     private var legalLinks: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 14) {
             Link("隐私政策", destination: privacyURL)
-            Text("·").foregroundStyle(.white.opacity(0.4))
+            Text("·").foregroundStyle(CinemaTheme.inkMuted)
             Link("用户协议 (EULA)", destination: eulaURL)
         }
-        .font(.caption)
-        .foregroundStyle(.white.opacity(0.6))
+        .font(.system(size: 11.5, weight: .semibold))
+        .tint(CinemaTheme.inkSoft)
+        .foregroundStyle(CinemaTheme.inkSoft)
     }
 
     // MARK: - Validation
 
     private func isValidCnPhone(_ s: String) -> Bool {
         let trimmed = s.trimmingCharacters(in: .whitespaces)
-        return trimmed.range(of: "^1[3-9]\\d{9}$", options: .regularExpression) != nil
+        return trimmed.range(of: BrandConstants.defaultPhoneRegex,
+                             options: .regularExpression) != nil
     }
 
     private func isValidEmail(_ s: String) -> Bool {
@@ -296,6 +528,7 @@ struct LoginView: View {
 
     private func sendCode(target: String) async {
         guard !sending else { return }
+        guard ensureConfigured() else { return }
         sending = true
         defer { sending = false }
         do {
@@ -308,6 +541,7 @@ struct LoginView: View {
 
     private func verify(target: String) async {
         guard !verifying else { return }
+        guard ensureConfigured() else { return }
         verifying = true
         defer { verifying = false }
         do {
@@ -319,11 +553,23 @@ struct LoginView: View {
     }
 
     private func runSiwa() async {
+        guard ensureConfigured() else { return }
         do {
             try await auth.signInWithApple()
         } catch {
             present(error: error)
         }
+    }
+
+    /// Short-circuit any network action when the base URL hasn't been
+    /// resolved yet — otherwise we'd send the request to the sentinel
+    /// 192.0.2.1 host and wait for the timeout. Surfaces the same
+    /// banner copy the user already sees at the top of the screen.
+    private func ensureConfigured() -> Bool {
+        if APIConfig.isConfigured { return true }
+        present(message: APIConfigError.endpointNotConfigured.localizedDescription,
+                isError: true)
+        return false
     }
 
     private func startCooldown() {
@@ -339,9 +585,77 @@ struct LoginView: View {
     }
 
     private func present(error: Error) {
-        errorMessage = (error as NSError).localizedDescription
-        if errorMessage.isEmpty { errorMessage = "请稍后重试" }
-        showError = true
+        var msg = (error as NSError).localizedDescription
+        if msg.isEmpty { msg = "请稍后重试" }
+        present(message: msg, isError: true)
+    }
+
+    /// 显示一个玻璃 toast。`isError=true` 走 coral 描边，否则走 cool 蓝。
+    /// 4.5 秒后自动收起；用户也可点 toast 上的关闭按钮立即收起。
+    private func present(message: String, isError: Bool) {
+        toastDismissTask?.cancel()
+        toastIsError = isError
+        toastMessage = message
+        toastDismissTask = Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 4_500_000_000)
+            if !Task.isCancelled { dismissToast() }
+        }
+    }
+
+    private func dismissToast() {
+        toastDismissTask?.cancel()
+        toastDismissTask = nil
+        toastMessage = nil
+    }
+}
+
+// MARK: - Glass toast (替代系统 alert)
+
+/// 底部胶囊 toast，跟 RootView 的 ReuseChip 同族视觉。错误用 coral 描边，
+/// 提示用 cool 蓝。点叉号或等 4.5s 后自动收起。
+private struct LoginToast: View {
+    let message: String
+    let isError: Bool
+    let onClose: () -> Void
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: isError ? "exclamationmark.triangle.fill" : "info.circle.fill")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundStyle(isError ? CinemaTheme.accentCoral : CinemaTheme.accentCool)
+                .padding(.top, 1)
+
+            Text(message)
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(CinemaTheme.ink)
+                .lineSpacing(2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .multilineTextAlignment(.leading)
+
+            Button(action: onClose) {
+                Image(systemName: "xmark")
+                    .font(.system(size: 11, weight: .heavy))
+                    .foregroundStyle(CinemaTheme.inkMuted)
+                    .padding(6)
+                    .background(Circle().fill(Color.white.opacity(0.06)))
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background(.ultraThinMaterial,
+                    in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .background(
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .fill(Color.black.opacity(0.35))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .stroke((isError ? CinemaTheme.accentCoral : CinemaTheme.accentCool)
+                            .opacity(0.45),
+                        lineWidth: 1)
+        )
+        .shadow(color: .black.opacity(0.55), radius: 18, y: 10)
     }
 }
 

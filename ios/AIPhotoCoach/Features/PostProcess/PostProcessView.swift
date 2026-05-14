@@ -141,7 +141,7 @@ struct PostProcessView: View {
             Image(systemName: "sparkles")
                 .font(.system(size: 44))
                 .foregroundStyle(.tint)
-            Text("AI Photo Coach Pro")
+            Text("拾光 Pro")
                 .font(.title3.weight(.semibold))
             Text("解锁电影感 / 港风 / 复古褪色 / 胶片暖 4 个高级滤镜，以及未来上线的所有 Pro 修图能力。")
                 .font(.subheadline)
