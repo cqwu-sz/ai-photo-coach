@@ -1,0 +1,76 @@
+[
+  {
+    "id": "work_seed_001_alley_rimlight",
+    "source": {
+      "platform": "manual",
+      "url": "",
+      "author": "team seed",
+      "license": "editorial"
+    },
+    "image_uri": "",
+    "thumbnail_uri": "",
+    "scene_tags": ["urban", "street", "alleyway"],
+    "light_tags": ["golden_hour", "side_light", "rim"],
+    "composition_tags": ["leading_line", "rule_of_thirds"],
+    "person_count": 1,
+    "why_good": [
+      "光线从右后方贴墙打来,把人物轮廓勾出一圈金边",
+      "墙缝引导线把视线从右下推到模特位置",
+      "暖色调与冷阴影形成戏剧反差,留出呼吸空间"
+    ],
+    "reusable_recipe": {
+      "subject_pose": "侧身45度,头微微抬起朝光",
+      "camera_position": "蹲低到主体腰部高度,距离2.5米",
+      "framing": "主体占画面右1/3,左2/3留给引导线",
+      "focal_length": "50mm equivalent (tele_2x on iPhone)",
+      "aperture": "f/1.8 大光圈虚化背景",
+      "post_style": "胶片暖色 + 中等褪色 + 微提阴影",
+      "applicable_to": {
+        "min_landmarks": 2,
+        "needs_stereo": false,
+        "needs_leading_line": true,
+        "scene_modes": ["portrait", "documentary"]
+      }
+    },
+    "embedding": null,
+    "added_at": "2026-05-13",
+    "reviewed_by": "seed"
+  },
+  {
+    "id": "work_seed_002_balcony_stereo",
+    "source": {
+      "platform": "manual",
+      "url": "",
+      "author": "team seed",
+      "license": "editorial"
+    },
+    "image_uri": "",
+    "thumbnail_uri": "",
+    "scene_tags": ["architecture", "courtyard", "indoor_outdoor_transition"],
+    "light_tags": ["overcast", "soft_top"],
+    "composition_tags": ["frame_within_frame", "negative_space"],
+    "person_count": 1,
+    "why_good": [
+      "利用了垂直空间——模特俯身阳台栏杆,把建筑变成动态画框",
+      "摄影师低机位仰拍,让天空成为干净背景,主体浮出",
+      "对角斜线把视觉张力一路拉到画面右上"
+    ],
+    "reusable_recipe": {
+      "subject_pose": "上半身前倾扶栏,目光俯视镜头或侧望远方",
+      "camera_position": "地面或更低,距离阳台正下方4-5米,镜头朝上+15°到+25°",
+      "framing": "栏杆作天然画框,主体头部对齐画面右上三分点",
+      "focal_length": "35mm equivalent (主摄 1x) 或 24mm (ultrawide) 拍夸张张力",
+      "aperture": "f/2.8-f/4 保留建筑细节又让主体突出",
+      "post_style": "冷色调 + 高对比 + 阴影深一点,强调建筑感",
+      "applicable_to": {
+        "min_landmarks": 2,
+        "needs_stereo": true,
+        "needs_leading_line": false,
+        "scene_modes": ["portrait", "documentary"]
+      }
+    },
+    "embedding": null,
+    "added_at": "2026-05-13",
+    "reviewed_by": "seed"
+  }
+]

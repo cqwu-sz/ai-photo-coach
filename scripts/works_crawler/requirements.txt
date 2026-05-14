@@ -1,0 +1,6 @@
+httpx>=0.27
+flask>=3.0
+pillow>=10
+# Optional, for xhs path. Install separately if you want it; we don't pin it here
+# to keep this file installable on a fresh box without forcing the dependency.
+# xhs>=0.2

@@ -1,0 +1,5 @@
+raw/
+drafts/
+*.cookies
+*.cookies.json
+*.cache

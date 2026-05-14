@@ -59,6 +59,34 @@ def load_composition_kb(path_str: str) -> list[dict[str, Any]]:
 
 
 @lru_cache(maxsize=4)
+def load_works(path_str: str) -> list[dict[str, Any]]:
+    """Load the photographic works corpus — deconstructed reference
+    photos with reusable recipes (see ``knowledge/works/README.md`` for
+    the schema). Files may be a single work dict or a list of dicts,
+    mirroring the composition KB. Loader is cached so the production
+    pipeline pays the JSON-parse cost once at startup.
+    """
+    items = _load_dir(Path(path_str))
+    # Filter out entries that don't carry the minimum identifying
+    # fields — happens when an unfinished draft from the review tool
+    # gets accidentally committed. We log and skip rather than crash so
+    # one bad entry doesn't poison the entire corpus.
+    valid: list[dict[str, Any]] = []
+    for w in items:
+        if not isinstance(w, dict):
+            continue
+        # An empty list of scene_tags or an empty recipe dict is still
+        # a malformed entry — but absence is the same as "falsy" here
+        # for our purposes, so don't use ``is None`` checks.
+        if (not w.get("id") or not w.get("scene_tags")
+                or "reusable_recipe" not in w):
+            log.info("dropping malformed work entry: %s", w.get("id") or "<no-id>")
+            continue
+        valid.append(w)
+    return valid
+
+
+@lru_cache(maxsize=4)
 def load_pose_to_mixamo(path_str: str) -> dict[str, str]:
     """Load the pose-id → Mixamo-animation-id mapping (v7).
 

@@ -1,0 +1,42 @@
+feat(core-pro/P2): works corpus schema + crawler toolkit + per-user reference library
+
+Lays down the knowledge-asset half of the pro upgrade — the "I've seen
+10000 great photos" backbone that pairs with the geometry backbone from
+the previous commit.
+
+Backend:
+- knowledge/works/ corpus directory + README schema doc + 2 seed
+  examples (rim-light alley, balcony stereo) that double as fixtures.
+- knowledge.load_works() loader with malformed-entry filtering.
+- services/reference_corpus.py: SQLite-backed per-user inspiration
+  library (one row per saved reference frame from the ReplayKit
+  pipeline). Supports creator bucketing, soft delete, cosine + Jaccard
+  recall. Stays out of users.db on a separate file to keep auth /
+  subscriptions queries unaffected.
+
+Maintainer tooling (scripts/works_crawler/, NOT shipped in the app):
+- unsplash_fetch.py: thin wrapper around the napi search endpoint
+  (same one build_style_assets.py already uses).
+- gallery_dl_wrapper.sh: deterministic gallery-dl invocation for
+  500px / Flickr / Behance / Pinterest.
+- xhs_fetch.py: optional wrapper around ReaJason/xhs for maintainer
+  fetch from a single creator. Refuses to run without an explicit
+  XHS_COOKIE env var; defaults xhs items to recipe-only at approve time.
+- auto_annotate.py: VLM-driven deconstruction into the works schema
+  (fixed-vocab tags, chinese why_good, concrete reusable_recipe).
+  OpenAI-compatible; runs on gpt-4o-mini, qwen-vl, deepseek-vl, etc.
+- review_ui.py: Flask app for approve / edit / reject with a "do not
+  serve image publicly" gate (auto-on for xhs).
+- build_index.py: backfills CLIP embeddings (local OpenCLIP or remote
+  API) into approved works/*.json, L2-normalised.
+- requirements.txt, .gitignore (raw/, drafts/, cookies excluded).
+
+Coverage:
+- 7 new smoke tests for reference_corpus (CRUD, creator listing,
+  embedding-based + tag-based recall, soft delete, works loader
+  validation).
+- All 434 backend tests pass.
+
+Privacy / legal: every approved entry must carry source.url +
+source.author + source.license; xhs entries default to recipe-only
+(no thumbnail served); raw downloads gitignored.
