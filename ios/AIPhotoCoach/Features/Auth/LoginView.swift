@@ -12,6 +12,10 @@
 //     the raw value (we hit our own /auth/otp/* endpoints).
 //   - 60s resend cooldown matches the backend throttle so the user
 //     sees consistent state.
+//
+// Visual: rebuilt on CinemaBackdrop + CinemaTheme so this screen
+// matches the Welcome / Wizard / Paywall surfaces (one design system,
+// not three). Errors surface as a glass toast instead of an iOS alert.
 
 import SwiftUI
 import AuthenticationServices
@@ -41,14 +45,11 @@ struct LoginView: View {
     @State private var cooldown: Int = 0
     @State private var cooldownTimer: Timer?
 
-    /// 玻璃 toast 状态。替代原生 alert，让登录失败的反馈与整体
+    /// 玻璃 toast 状态，替代原生 alert，让登录失败的反馈与整体
     /// CinemaTheme 一致。`toastIsError` 决定描边/图标的色相。
     @State private var toastMessage: String?
     @State private var toastIsError: Bool = true
     @State private var toastDismissTask: Task<Void, Never>?
-    #if INTERNAL_BUILD
-    @State private var showEndpointSheet: Bool = false
-    #endif
 
     private let privacyURL = BrandConstants.privacyURL
     private let eulaURL = BrandConstants.appleEulaURL
@@ -60,10 +61,6 @@ struct LoginView: View {
             ScrollView {
                 VStack(spacing: 22) {
                     header
-                    if !APIConfig.isConfigured {
-                        endpointWarningBanner
-                            .transition(.move(edge: .top).combined(with: .opacity))
-                    }
                     valuePropPills
                         .padding(.horizontal, 24)
                     channelPicker
@@ -83,14 +80,10 @@ struct LoginView: View {
 
                     agreement
                     legalLinks
-                    #if INTERNAL_BUILD
-                    internalConnectionLink
-                    #endif
                 }
                 .padding(.top, 44)
                 .padding(.bottom, 40)
                 .animation(.spring(response: 0.42, dampingFraction: 0.82), value: channel)
-                .animation(.easeInOut(duration: 0.25), value: APIConfig.isConfigured)
             }
 
             if let toastMessage {
@@ -105,101 +98,7 @@ struct LoginView: View {
         }
         .preferredColorScheme(.dark)
         .animation(.spring(response: 0.4, dampingFraction: 0.78), value: toastMessage)
-        #if INTERNAL_BUILD
-        .sheet(isPresented: $showEndpointSheet) {
-            NavigationStack { ServerEndpointPublicView() }
-        }
-        #endif
     }
-
-    // MARK: - Value-prop pills (登录前先看到产品价值)
-
-    private var valuePropPills: some View {
-        HStack(spacing: 8) {
-            valuePill(icon: "camera.viewfinder", text: "环视 10 秒")
-            valuePill(icon: "person.2.fill", text: "7 个虚拟模特")
-            valuePill(icon: "sparkles", text: "3 套出片方案")
-        }
-    }
-
-    private func valuePill(icon: String, text: String) -> some View {
-        HStack(spacing: 5) {
-            Image(systemName: icon)
-                .font(.system(size: 10, weight: .bold))
-                .foregroundStyle(CinemaTheme.accentWarm)
-            Text(text)
-                .font(.system(size: 10.5, weight: .heavy))
-                .foregroundStyle(CinemaTheme.inkSoft)
-                .lineLimit(1)
-        }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 7)
-        .frame(maxWidth: .infinity)
-        .background(.ultraThinMaterial,
-                    in: Capsule(style: .continuous))
-        .overlay(
-            Capsule(style: .continuous)
-                .stroke(CinemaTheme.borderSoft, lineWidth: 1)
-        )
-    }
-
-    // MARK: - Endpoint not configured banner (Production + Internal)
-
-    private var endpointWarningBanner: some View {
-        let warning = HStack(spacing: 10) {
-            Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundStyle(CinemaTheme.accentCoral)
-            VStack(alignment: .leading, spacing: 2) {
-                Text("未配置服务器")
-                    .font(.system(size: 13, weight: .heavy))
-                    .foregroundStyle(CinemaTheme.ink)
-                Text(bannerSubtitle)
-                    .font(.system(size: 11))
-                    .foregroundStyle(CinemaTheme.inkSoft)
-            }
-            Spacer()
-        }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 12)
-        .background(.ultraThinMaterial,
-                    in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
-                .stroke(CinemaTheme.accentCoral.opacity(0.4), lineWidth: 1)
-        )
-        .padding(.horizontal, 24)
-
-        #if INTERNAL_BUILD
-        return Button { showEndpointSheet = true } label: { warning }
-        #else
-        return warning
-        #endif
-    }
-
-    private var bannerSubtitle: String {
-        #if INTERNAL_BUILD
-        return "点击进入「连接设置」填入后端地址。"
-        #else
-        return "服务器配置异常，请稍后重试或联系客服。"
-        #endif
-    }
-
-    // MARK: - Internal connection link
-
-    #if INTERNAL_BUILD
-    private var internalConnectionLink: some View {
-        Button {
-            showEndpointSheet = true
-        } label: {
-            HStack(spacing: 4) {
-                Image(systemName: "gearshape")
-                Text("连接设置 · Internal Build")
-            }
-            .font(.caption2)
-            .foregroundStyle(CinemaTheme.inkMuted)
-        }
-    }
-    #endif
 
     // MARK: - Header
 
@@ -236,12 +135,12 @@ struct LoginView: View {
                         .foregroundStyle(CinemaTheme.accentWarm)
                 }
 
-                Text("拾光")
+                Text(BrandConstants.productNameCn)
                     .font(.system(size: 34, weight: .heavy))
                     .tracking(2)
                     .foregroundStyle(CinemaTheme.heroGradient)
 
-                Text("AI 取景者 · 拾起每一束光")
+                Text("\(BrandConstants.functionTaglineCn) · 拾起每一束光")
                     .font(.system(size: 11.5, weight: .heavy))
                     .tracking(1.6)
                     .foregroundStyle(CinemaTheme.inkMuted)
@@ -252,6 +151,37 @@ struct LoginView: View {
                     .padding(.top, 2)
             }
         }
+    }
+
+    // MARK: - Value-prop pills (登录前先看到产品价值)
+
+    private var valuePropPills: some View {
+        HStack(spacing: 8) {
+            valuePill(icon: "camera.viewfinder", text: "环视 10 秒")
+            valuePill(icon: "person.2.fill", text: "7 个虚拟模特")
+            valuePill(icon: "sparkles", text: "3 套出片方案")
+        }
+    }
+
+    private func valuePill(icon: String, text: String) -> some View {
+        HStack(spacing: 5) {
+            Image(systemName: icon)
+                .font(.system(size: 10, weight: .bold))
+                .foregroundStyle(CinemaTheme.accentWarm)
+            Text(text)
+                .font(.system(size: 10.5, weight: .heavy))
+                .foregroundStyle(CinemaTheme.inkSoft)
+                .lineLimit(1)
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 7)
+        .frame(maxWidth: .infinity)
+        .background(.ultraThinMaterial,
+                    in: Capsule(style: .continuous))
+        .overlay(
+            Capsule(style: .continuous)
+                .stroke(CinemaTheme.borderSoft, lineWidth: 1)
+        )
     }
 
     // MARK: - Channel picker (cinema-style chips)
@@ -302,7 +232,7 @@ struct LoginView: View {
             inputCard {
                 HStack(spacing: 8) {
                     // BrandConstants.defaultPhoneCountryCode 当前是 +86；
-                    // 之后接入国家码切换器只需替换这个 Text 为 Menu。
+                    // 接入国家码切换器只需把这个 Text 替换成 Menu。
                     Text(BrandConstants.defaultPhoneCountryCode)
                         .font(.system(size: 14, weight: .heavy))
                         .foregroundStyle(CinemaTheme.accentWarm)
@@ -528,7 +458,6 @@ struct LoginView: View {
 
     private func sendCode(target: String) async {
         guard !sending else { return }
-        guard ensureConfigured() else { return }
         sending = true
         defer { sending = false }
         do {
@@ -541,7 +470,6 @@ struct LoginView: View {
 
     private func verify(target: String) async {
         guard !verifying else { return }
-        guard ensureConfigured() else { return }
         verifying = true
         defer { verifying = false }
         do {
@@ -553,23 +481,11 @@ struct LoginView: View {
     }
 
     private func runSiwa() async {
-        guard ensureConfigured() else { return }
         do {
             try await auth.signInWithApple()
         } catch {
             present(error: error)
         }
-    }
-
-    /// Short-circuit any network action when the base URL hasn't been
-    /// resolved yet — otherwise we'd send the request to the sentinel
-    /// 192.0.2.1 host and wait for the timeout. Surfaces the same
-    /// banner copy the user already sees at the top of the screen.
-    private func ensureConfigured() -> Bool {
-        if APIConfig.isConfigured { return true }
-        present(message: APIConfigError.endpointNotConfigured.localizedDescription,
-                isError: true)
-        return false
     }
 
     private func startCooldown() {
