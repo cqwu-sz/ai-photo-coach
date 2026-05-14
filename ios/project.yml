@@ -22,9 +22,6 @@ options:
 #   2. 本地: 开发者拷贝 Config/Production.xcconfig.template → 填值
 # 该 xcconfig 文件被 .gitignore 排除，永远不进仓库。
 
-configFiles:
-  Release: Config/Production.xcconfig
-
 settings:
   base:
     SWIFT_VERSION: "5.9"
@@ -91,6 +88,9 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.aiphotocoach.app
         TARGETED_DEVICE_FAMILY: "1"
         IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+    configFiles:
+      # 只 Release 烤入正式 URL；Debug 留空，本地开发依赖 Internal 包。
+      Release: Config/Production.xcconfig
     postCompileScripts:
       - name: "Block leaked INTERNAL symbols in Release"
         # 双重保险：万一某个文件忘了用 #if INTERNAL_BUILD 包裹本机覆盖
@@ -191,10 +191,9 @@ targets:
         IPHONEOS_DEPLOYMENT_TARGET: "17.0"
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: "INTERNAL_BUILD"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon-Sunset
-        # Internal 不依赖 Production.xcconfig，覆盖掉根级 configFiles。
-    configFiles:
-      Release: ""
-      Debug: ""
+        # Internal 不烤入 API_BASE_URL，启动后由用户在 App 内填写。
+        # 不声明 configFiles → 不继承 Production.xcconfig。
+        API_BASE_URL: ""
 
   AIPhotoCoachTests:
     type: bundle.unit-test
