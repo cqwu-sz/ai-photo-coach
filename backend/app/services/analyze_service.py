@@ -53,6 +53,7 @@ from .knowledge import (
     load_camera_kb,
     load_composition_kb,
     load_poses,
+    load_works,
     summarize_camera_kb,
     summarize_composition_kb,
     summarize_poses,
@@ -178,6 +179,16 @@ class AnalyzeService:
             person_count=meta.person_count,
         )
         prompts_mod.set_request_composition_kb(comp_summary)
+        # Make the curated works corpus visible to the prompt's few-shot
+        # recall path. The directory may not exist yet on a fresh
+        # checkout — load_works degrades to [].
+        works_dir = (self.settings.kb_composition_path.parent / "works"
+                     if hasattr(self.settings, "kb_composition_path")
+                     else None)
+        if works_dir is not None:
+            prompts_mod.set_request_works_corpus(load_works(str(works_dir)))
+        else:
+            prompts_mod.set_request_works_corpus([])
 
         # Build a low-res 1024x512 panorama thumbnail to give the LLM a
         # global spatial map. Cheap (< 100ms for 10 frames) and bounded

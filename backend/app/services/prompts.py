@@ -32,6 +32,7 @@ from . import shot_hypothesis as shot_hypothesis_service
 from . import style_feasibility as style_feasibility_service
 from . import sun as sun_service
 from . import weather as weather_service
+from . import works_retrieval as works_retrieval_service
 
 log = logging.getLogger(__name__)
 
@@ -65,6 +66,14 @@ _REQUEST_WALK_BLOCK: ContextVar[str] = ContextVar(
 # pre-v18 caller; both blocks then no-op cleanly.
 _REQUEST_USER_ID: ContextVar[Optional[str]] = ContextVar(
     "_REQUEST_USER_ID", default=None,
+)
+
+# core-pro upgrade — list of work dicts loaded from
+# ``backend/app/knowledge/works/``. Stashed here by analyze_service
+# before the LLM call so prompts can do few-shot recall without owning
+# the load path.
+_REQUEST_WORKS_CORPUS: ContextVar[list] = ContextVar(
+    "_REQUEST_WORKS_CORPUS", default=[],
 )
 
 
@@ -102,6 +111,11 @@ def set_request_user_id(user_id: Optional[str]) -> None:
 
 def get_request_user_id() -> Optional[str]:
     return _REQUEST_USER_ID.get()
+
+
+def set_request_works_corpus(corpus: list) -> None:
+    """Stash the loaded works/ corpus for ``works_retrieval`` to consume."""
+    _REQUEST_WORKS_CORPUS.set(corpus or [])
 
 
 SYSTEM_INSTRUCTION = dedent(
@@ -577,6 +591,46 @@ def build_user_prompt(
 
     _hypotheses = shot_hypothesis_service.generate(_landmark_graph)
     hypothesis_block = shot_hypothesis_service.to_prompt_block(_hypotheses)
+
+    # Few-shot reference works recall — feeds the LLM "here are 3-5
+    # real photographer recipes for an environment like this one".
+    # Inputs are deliberately derived from already-computed signals
+    # rather than touching frames again.
+    _query_scene_tags: list[str] = []
+    _query_light_tags: list[str] = []
+    if _scene_agg is not None:
+        if _scene_agg.dynamic_range:
+            _query_light_tags.append("high_contrast" if _scene_agg.dynamic_range in ("high", "extreme") else "soft")
+        if _scene_agg.light_direction:
+            _query_light_tags.append({"front": "front_light", "side": "side_light", "back": "backlight"}.get(_scene_agg.light_direction, ""))
+    if _light_pro is not None:
+        if _light_pro.elevation == "golden":     _query_light_tags.append("golden_hour")
+        elif _light_pro.elevation == "overhead": _query_light_tags.append("harsh_noon")
+        elif _light_pro.elevation == "horizon":  _query_light_tags.append("blue_hour")
+        elif _light_pro.elevation == "indoor":   _query_light_tags.append("indoor_warm")
+        if _light_pro.chiaroscuro_level == "extreme":
+            _query_light_tags.append("rim")
+    if _landmark_graph is not None:
+        for n in _landmark_graph.nodes[:10]:
+            if n.label in ("tree", "water_edge"):       _query_scene_tags.append("park")
+            elif n.label in ("doorway", "window"):      _query_scene_tags.append("architecture")
+            elif n.label in ("stair", "balcony"):       _query_scene_tags.append("architecture")
+            elif n.label in ("pillar", "wall_corner"):  _query_scene_tags.append("urban")
+    _query_scene_tags = list({t for t in _query_scene_tags if t})
+    _query_light_tags = list({t for t in _query_light_tags if t})
+    _wctx = works_retrieval_service.WorkSearchContext(
+        scene_tags=tuple(_query_scene_tags),
+        light_tags=tuple(_query_light_tags),
+        scene_mode=scene_mode,
+        needs_stereo=bool(_landmark_graph and _landmark_graph.has_stereo_opportunity),
+    )
+    _hits = works_retrieval_service.recall(
+        list(_REQUEST_WORKS_CORPUS.get() or []),
+        user_id=get_request_user_id(),
+        ctx=_wctx,
+        top_k=5,
+    )
+    works_block = works_retrieval_service.to_prompt_block(_hits)
     # Style preset block — biases camera params toward what each picked
     # style needs, plus annotates feasibility based on real env data.
     style_block = _style_presets_branch(meta, effective_weather)
@@ -604,6 +658,8 @@ def build_user_prompt(
         {light_pro_block}
 
         {hypothesis_block}
+
+        {works_block}
 
         {potential_block}
 
