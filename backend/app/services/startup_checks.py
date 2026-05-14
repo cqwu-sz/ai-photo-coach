@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Iterable
 
 from ..config import Settings
+from . import user_repo
 from .app_attest import APPLE_APP_ATTEST_ROOT_CA_PATH
 from .iap_apple import APPLE_ROOT_CA_PATH
 
@@ -111,7 +112,33 @@ def collect(settings: Settings) -> list[CheckResult]:
             False,
         ))
 
+    # ---- DB schema landmarks ------------------------------------------
+    # _ensure_schema_v2 already runs at first `_connect()`, but a silent
+    # migration failure (e.g. permissions, disk full at the exact moment
+    # of upgrade) would leave the table missing and the new telemetry
+    # POST endpoint would only fail at request time. Probing for the
+    # newest tables here surfaces the problem at boot in big red letters.
+    checks.append(_check_table("endpoint_override_audit"))
+
     return checks
+
+
+def _check_table(name: str) -> CheckResult:
+    try:
+        with user_repo._connect() as con:                       # noqa: SLF001
+            row = con.execute(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+                (name,),
+            ).fetchone()
+        if row:
+            return CheckResult(f"schema:{name}", True, "present", False)
+        return CheckResult(f"schema:{name}", False,
+                            "table missing — _ensure_schema_v2 did not "
+                            "create it; check DB permissions / disk space.",
+                            False)
+    except Exception as e:                                       # noqa: BLE001
+        return CheckResult(f"schema:{name}", False,
+                            f"probe failed: {e}", False)
 
 
 def run_and_report(settings: Settings) -> None:

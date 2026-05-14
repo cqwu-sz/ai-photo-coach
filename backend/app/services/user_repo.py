@@ -520,6 +520,35 @@ def _ensure_schema_v2(con: sqlite3.Connection) -> None:
     con.execute("CREATE INDEX IF NOT EXISTS idx_ep_tel_url "
                 "ON endpoint_telemetry(active_url, reported_at DESC)")
 
+    # ---- endpoint override audit (v18) ----------------------------------
+    # Separate table from endpoint_telemetry on purpose:
+    #   - endpoint_telemetry: every poll, "what URL is this install on
+    #     right now" -- high volume, GC'd at 24h.
+    #   - endpoint_override_audit: only when an Internal-build user
+    #     manually changes the override -- low volume, kept 90 days so
+    #     support can answer "why can't this device connect?".
+    # Source values: "internal_ui" (the only writer right now). Reserve
+    # "auto_remote" / "deeplink" for future writers so the schema doesn't
+    # need migrating again.
+    con.execute(
+        """
+        CREATE TABLE IF NOT EXISTS endpoint_override_audit (
+            id            INTEGER PRIMARY KEY AUTOINCREMENT,
+            device_fp     TEXT,
+            old_url       TEXT,
+            new_url       TEXT,
+            healthz_ok    INTEGER NOT NULL DEFAULT 0,
+            source        TEXT NOT NULL DEFAULT 'internal_ui',
+            app_version   TEXT,
+            reported_at   TEXT NOT NULL
+        )
+        """
+    )
+    con.execute("CREATE INDEX IF NOT EXISTS idx_ep_ovr_audit_time "
+                "ON endpoint_override_audit(reported_at DESC)")
+    con.execute("CREATE INDEX IF NOT EXISTS idx_ep_ovr_audit_device "
+                "ON endpoint_override_audit(device_fp, reported_at DESC)")
+
     con.execute(
         """
         CREATE TABLE IF NOT EXISTS endpoint_config_history (

@@ -5,6 +5,26 @@ options:
     iOS: "17.0"
   createIntermediateGroups: true
 
+# Variant model (商业化双产物):
+#
+#   - AIPhotoCoach           → 正式包 (App Store / 真实用户)
+#                              不含本机 endpoint 覆盖能力，连"该功能存在"
+#                              这件事都从二进制中物理消失。
+#   - AIPhotoCoach-Internal  → 内部包 (团队联调 / 局域网开发)
+#                              带本机 endpoint 覆盖 UI，Bundle ID 不同、
+#                              显示名 + 图标也不同，杜绝混淆。
+#
+# 区分手段：SWIFT_ACTIVE_COMPILATION_CONDITIONS=INTERNAL_BUILD。
+# 任何调试性代码统一用 `#if INTERNAL_BUILD` 包裹，Release 包根本不参与编译。
+#
+# Production 端的 API_BASE_URL 来源：
+#   1. CI:   secrets.PROD_API_BASE_URL → 写入 Config/Production.xcconfig
+#   2. 本地: 开发者拷贝 Config/Production.xcconfig.template → 填值
+# 该 xcconfig 文件被 .gitignore 排除，永远不进仓库。
+
+configFiles:
+  Release: Config/Production.xcconfig
+
 settings:
   base:
     SWIFT_VERSION: "5.9"
@@ -63,11 +83,118 @@ targets:
           NSAllowsArbitraryLoads: false
           NSAllowsLocalNetworking: true
         ITSAppUsesNonExemptEncryption: false
+        # 注入自 Production.xcconfig (CI: secrets.PROD_API_BASE_URL)。
+        # Release 构建若该值为空 → postCompileScripts 直接报错。
+        API_BASE_URL: $(API_BASE_URL)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.aiphotocoach.app
         TARGETED_DEVICE_FAMILY: "1"
         IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+    postCompileScripts:
+      - name: "Block leaked INTERNAL symbols in Release"
+        # 双重保险：万一某个文件忘了用 #if INTERNAL_BUILD 包裹本机覆盖
+        # 相关的符号，这个脚本会在 Release 编译产出后扫描二进制并拒绝。
+        # Debug build 跳过（开发者本地频繁编译要快）。
+        script: |
+          set -e
+          if [ "$CONFIGURATION" != "Release" ]; then
+            exit 0
+          fi
+          BIN="$TARGET_BUILD_DIR/$EXECUTABLE_PATH"
+          if [ ! -f "$BIN" ]; then
+            echo "warning: binary not found at $BIN, skipping symbol check"
+            exit 0
+          fi
+          LEAKED=$(nm -gU "$BIN" 2>/dev/null | grep -E 'ServerEndpointPublicView|EndpointOverrideAuditLog|setOverrideForInternalBuild' || true)
+          if [ -n "$LEAKED" ]; then
+            echo "error: INTERNAL_BUILD-only symbols leaked into Release binary:"
+            echo "$LEAKED"
+            exit 1
+          fi
+          # 同时校验 API_BASE_URL 已经从 Info.plist 落地为非空字符串。
+          PLIST="$TARGET_BUILD_DIR/$INFOPLIST_PATH"
+          if [ -f "$PLIST" ]; then
+            URL=$(/usr/libexec/PlistBuddy -c 'Print :API_BASE_URL' "$PLIST" 2>/dev/null || echo "")
+            if [ -z "$URL" ]; then
+              echo "error: API_BASE_URL is empty in Info.plist of Release build."
+              echo "       Set PROD_API_BASE_URL in CI secrets, or copy"
+              echo "       ios/Config/Production.xcconfig.template → Production.xcconfig"
+              echo "       and fill in the value for local archives."
+              exit 1
+            fi
+            # The .template ships with this sentinel host so accidental
+            # archives of the unmodified file fail loudly instead of
+            # producing a binary that points at a nonexistent domain.
+            if echo "$URL" | grep -qi 'REPLACE-ME\.invalid'; then
+              echo "error: API_BASE_URL still points at the template sentinel ($URL)."
+              echo "       Edit ios/Config/Production.xcconfig and replace REPLACE-ME.invalid"
+              echo "       with the real production backend URL."
+              exit 1
+            fi
+          fi
+
+  # ---------------------------------------------------------------------------
+  # Internal build — 团队联调专用
+  # ---------------------------------------------------------------------------
+  AIPhotoCoach-Internal:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: AIPhotoCoach
+        excludes:
+          - "Tests/**"
+    info:
+      path: AIPhotoCoach/Info-Internal.plist
+      properties:
+        CFBundleDisplayName: 拾光 Dev
+        CFBundleName: ShiGuangDev
+        CFBundleIconName: AppIcon-Sunset
+        CFBundleIcons:
+          CFBundlePrimaryIcon:
+            CFBundleIconName: AppIcon-Sunset
+            CFBundleIconFiles:
+              - AppIcon-Sunset
+        CFBundleShortVersionString: "0.1.0"
+        CFBundleVersion: "1"
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+          UIImageName: ""
+        UIRequiredDeviceCapabilities:
+          - arkit
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSCameraUsageDescription: "Used to capture an environment scan video, run the live AR shot-guide view, and power the AI-tuned shoot screen that auto-applies focal length / ISO / shutter / EV / WB."
+        NSMicrophoneUsageDescription: "Optional - audio is not stored, only video frames are analyzed."
+        NSPhotoLibraryUsageDescription: "Used so you can import reference photos that train your personal style."
+        NSPhotoLibraryAddUsageDescription: "Used when you tap '保存到相册' on a photo you just shot with an AI plan, so the final image lands in your camera roll."
+        NSMotionUsageDescription: "Used to estimate the direction your camera is facing during the scan, AR alignment, and the live shoot HUD."
+        NSLocationWhenInUseUsageDescription: "Optional — for the 光影 (light & shadow) scene mode, your location lets us compute exact sun direction and golden-hour countdowns so the AI can recommend rim-light angles and time-sensitive shots."
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: false
+          NSAllowsLocalNetworking: true
+          # Internal-only: 允许本机覆盖时使用 HTTP（局域网联调要用）。
+          # 正式包没有这一行 — ATS 默认强制 HTTPS。
+          NSExceptionDomains:
+            local:
+              NSIncludesSubdomains: true
+              NSExceptionAllowsInsecureHTTPLoads: true
+        ITSAppUsesNonExemptEncryption: false
+        # Internal 包不烤入 API_BASE_URL — 启动后由用户在
+        # "连接设置" 页面手动指定 (局域网 IP 或 staging URL)。
+        API_BASE_URL: ""
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.aiphotocoach.app.internal
+        TARGETED_DEVICE_FAMILY: "1"
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "INTERNAL_BUILD"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon-Sunset
+        # Internal 不依赖 Production.xcconfig，覆盖掉根级 configFiles。
+    configFiles:
+      Release: ""
+      Debug: ""
 
   AIPhotoCoachTests:
     type: bundle.unit-test
@@ -92,5 +219,14 @@ schemes:
       config: Debug
       targets:
         - AIPhotoCoachTests
+    archive:
+      config: Release
+
+  AIPhotoCoach-Internal:
+    build:
+      targets:
+        AIPhotoCoach-Internal: all
+    run:
+      config: Debug
     archive:
       config: Release

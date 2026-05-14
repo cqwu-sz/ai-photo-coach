@@ -737,6 +737,88 @@ async def get_endpoint_history(
     return {"items": ep_svc.history(limit=max(1, min(limit, 200)))}
 
 
+@router.get("/admin/endpoint/override_audit")
+async def get_endpoint_override_audit(
+    user: auth_svc.CurrentUser = Depends(auth_svc.require_admin),
+    hours: int = 24,
+    device_fp: Optional[str] = None,
+    limit: int = 100,
+    format: str = "json",
+):
+    """v18 — query the Internal-build override audit trail.
+
+    Support can answer "why can't device X connect?" by filtering on
+    its sha256 device fingerprint (visible in the iOS Internal build's
+    Connection Settings page). Without `device_fp` returns the most
+    recent overrides across all devices for triage / smoke-detection.
+    """
+    hours = max(1, min(hours, 24 * 30))   # cap at 30 days
+    limit = max(1, min(limit, 500))
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
+
+    sql = ("SELECT id, device_fp, old_url, new_url, healthz_ok, source, "
+            "app_version, reported_at "
+            "FROM endpoint_override_audit WHERE reported_at >= ?")
+    params: list = [cutoff]
+    if device_fp:
+        sql += " AND device_fp = ?"
+        params.append(device_fp[:128])
+    sql += " ORDER BY reported_at DESC LIMIT ?"
+    params.append(limit)
+
+    with user_repo._connect() as con:                               # noqa: SLF001
+        rows = con.execute(sql, params).fetchall()
+        total_24h = con.execute(
+            "SELECT COUNT(*) FROM endpoint_override_audit "
+            "WHERE reported_at >= ?", (cutoff,),
+        ).fetchone()[0]
+        distinct_devices = con.execute(
+            "SELECT COUNT(DISTINCT device_fp) FROM endpoint_override_audit "
+            "WHERE reported_at >= ?", (cutoff,),
+        ).fetchone()[0]
+
+    items = [
+        {
+            "id": int(r[0]),
+            "device_fp": r[1],
+            "old_url": r[2],
+            "new_url": r[3],
+            "healthz_ok": bool(r[4]),
+            "source": r[5],
+            "app_version": r[6],
+            "reported_at": r[7],
+        }
+        for r in rows
+    ]
+    if (format or "").lower() == "csv":
+        # Style-match other admin CSVs (RFC 4180, CRLF, quoted fields).
+        import csv
+        import io
+        from fastapi.responses import StreamingResponse
+        buf = io.StringIO()
+        w = csv.writer(buf, lineterminator="\r\n")
+        w.writerow(["id", "reported_at", "device_fp", "old_url", "new_url",
+                     "healthz_ok", "source", "app_version"])
+        for it in items:
+            w.writerow([it["id"], it["reported_at"], it["device_fp"] or "",
+                         it["old_url"] or "", it["new_url"] or "",
+                         "1" if it["healthz_ok"] else "0",
+                         it["source"], it["app_version"] or ""])
+        buf.seek(0)
+        fname = f"endpoint_override_audit_{hours}h.csv"
+        return StreamingResponse(
+            iter([buf.getvalue()]),
+            media_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="{fname}"'},
+        )
+    return {
+        "window_hours": hours,
+        "total_events": int(total_24h or 0),
+        "distinct_devices": int(distinct_devices or 0),
+        "items": items,
+    }
+
+
 @router.get("/admin/endpoint/distribution")
 async def get_endpoint_distribution(
     user: auth_svc.CurrentUser = Depends(auth_svc.require_admin),

@@ -216,6 +216,18 @@ struct AdminDashboardView: View {
                         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
                     }
                     NavigationLink {
+                        AdminEndpointOverrideAuditView()
+                    } label: {
+                        HStack {
+                            Image(systemName: "list.bullet.clipboard")
+                            Text("本机覆盖审计（内部包用户）")
+                            Spacer()
+                            Image(systemName: "chevron.right").foregroundStyle(.secondary)
+                        }
+                        .padding(.horizontal, 16).padding(.vertical, 14)
+                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                    }
+                    NavigationLink {
                         AdminRuntimeSettingsView()
                     } label: {
                         HStack {

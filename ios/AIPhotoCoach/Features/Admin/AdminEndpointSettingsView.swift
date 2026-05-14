@@ -363,40 +363,41 @@ struct AdminEndpointHistoryView: View {
 struct AdminEndpointSettingsView: View {
     @StateObject private var model = AdminEndpointModel()
     @ObservedObject private var store = ServerEndpointStore.shared
-    @State private var localOverride = ""
 
     var body: some View {
         Form {
-            Section("当前生效") {
-                LabeledContent("Active baseURL", value: APIConfig.baseURL.absoluteString)
+            Section {
+                if let url = APIConfig.resolvedBaseURL() {
+                    LabeledContent("Active baseURL", value: url.absoluteString)
+                } else {
+                    // Admin shouldn't observe this branch in practice — they
+                    // must have authenticated to land here, so a baseURL
+                    // resolved at least once. Showing a recoverable message
+                    // instead of the bare "(未配置)" string protects against
+                    // a future code path that surfaces this view before
+                    // login completes.
+                    Label("未解析到 baseURL，疑似配置异常",
+                            systemImage: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.orange)
+                    Text("正式包应在构建时烤入 API_BASE_URL；若线上出现此状态请联系工程团队检查 Info.plist 注入。")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
                 if let last = store.lastSyncedAt {
                     LabeledContent("远端配置同步时间",
                                     value: last.formatted(date: .abbreviated, time: .standard))
                 }
-            }
-
-            Section("本机覆盖（仅本机）") {
-                TextField("https://staging.example.com", text: $localOverride)
-                    .textInputAutocapitalization(.never)
-                    .autocorrectionDisabled()
-                HStack {
-                    Button("应用覆盖") {
-                        if !store.setOverride(localOverride) {
-                            model.error = "仅管理员可设置本机覆盖。"
-                        }
-                    }
-                    .disabled(localOverride.isEmpty)
-                    Spacer()
-                    Button("清除覆盖", role: .destructive) {
-                        _ = store.setOverride(nil)
-                        localOverride = ""
-                    }
-                    .disabled(store.activeOverrideRaw == nil)
-                }
-                if let cur = store.activeOverrideRaw {
-                    Text("当前覆盖：\(cur)")
-                        .font(.footnote).foregroundStyle(.secondary)
-                }
+            } header: {
+                Text("当前生效")
+            } footer: {
+                // 本机覆盖能力被搬到 Internal 包专属的 ServerEndpointPublicView,
+                // 因为它解的是"未登录也要能配 server"这个鸡生蛋问题；放在 admin
+                // 后台反而引出耦合。Production 包根本没有本机覆盖入口。
+                #if INTERNAL_BUILD
+                Text("如需仅在本机切换到 staging / 局域网，请在「连接设置」页面操作（登录页底部也可直达）。")
+                    .font(.footnote)
+                #else
+                EmptyView()
+                #endif
             }
 
             Section("全局规范地址（影响所有用户）") {
@@ -451,6 +452,5 @@ struct AdminEndpointSettingsView: View {
         }
         .navigationTitle("服务器地址")
         .task { await model.load() }
-        .onAppear { localOverride = store.activeOverrideRaw ?? "" }
     }
 }

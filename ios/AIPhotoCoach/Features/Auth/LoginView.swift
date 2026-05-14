@@ -51,6 +51,11 @@ struct LoginView: View {
     @State private var toastIsError: Bool = true
     @State private var toastDismissTask: Task<Void, Never>?
 
+    /// Internal-build only: the "服务器未配置" banner and the bottom
+    /// "连接设置" link both open the same sheet. Production builds
+    /// have this state declared (it's free) but no UI to flip it.
+    @State private var showEndpointSheet: Bool = false
+
     private let privacyURL = BrandConstants.privacyURL
     private let eulaURL = BrandConstants.appleEulaURL
 
@@ -61,6 +66,10 @@ struct LoginView: View {
             ScrollView {
                 VStack(spacing: 22) {
                     header
+                    if !APIConfig.isConfigured {
+                        endpointWarningBanner
+                            .padding(.horizontal, 24)
+                    }
                     valuePropPills
                         .padding(.horizontal, 24)
                     channelPicker
@@ -80,6 +89,9 @@ struct LoginView: View {
 
                     agreement
                     legalLinks
+                    #if INTERNAL_BUILD
+                    internalConnectionLink
+                    #endif
                 }
                 .padding(.top, 44)
                 .padding(.bottom, 40)
@@ -98,7 +110,69 @@ struct LoginView: View {
         }
         .preferredColorScheme(.dark)
         .animation(.spring(response: 0.4, dampingFraction: 0.78), value: toastMessage)
+        #if INTERNAL_BUILD
+        .sheet(isPresented: $showEndpointSheet) {
+            NavigationStack { ServerEndpointPublicView() }
+        }
+        #endif
     }
+
+    // MARK: - Endpoint warning + Internal connection link
+
+    /// Shown only when `APIConfig.isConfigured == false`. Production
+    /// builds reach this state only if the CI baked-in URL is somehow
+    /// missing at runtime (shouldn't happen — postCompileScripts
+    /// already failed the build) so the copy stays minimal there.
+    /// Internal builds turn it into a tappable shortcut into the
+    /// connection-settings sheet.
+    private var endpointWarningBanner: some View {
+        let content = HStack(spacing: 10) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundStyle(.orange)
+            VStack(alignment: .leading, spacing: 2) {
+                Text("未配置服务器")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.white)
+                Text(bannerSubtitle)
+                    .font(.caption)
+                    .foregroundStyle(.white.opacity(0.7))
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
+        .background(Color.orange.opacity(0.18))
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+
+        #if INTERNAL_BUILD
+        return Button { showEndpointSheet = true } label: { content }
+        #else
+        return content
+        #endif
+    }
+
+    private var bannerSubtitle: String {
+        #if INTERNAL_BUILD
+        return "点击进入「连接设置」填入后端地址。"
+        #else
+        return "服务器配置异常，请稍后重试或联系客服。"
+        #endif
+    }
+
+    #if INTERNAL_BUILD
+    private var internalConnectionLink: some View {
+        Button {
+            showEndpointSheet = true
+        } label: {
+            HStack(spacing: 4) {
+                Image(systemName: "gearshape")
+                Text("连接设置 · Internal Build")
+            }
+            .font(.caption2)
+            .foregroundStyle(.white.opacity(0.4))
+        }
+    }
+    #endif
 
     // MARK: - Header
 
@@ -458,6 +532,7 @@ struct LoginView: View {
 
     private func sendCode(target: String) async {
         guard !sending else { return }
+        guard ensureConfigured() else { return }
         sending = true
         defer { sending = false }
         do {
@@ -470,6 +545,7 @@ struct LoginView: View {
 
     private func verify(target: String) async {
         guard !verifying else { return }
+        guard ensureConfigured() else { return }
         verifying = true
         defer { verifying = false }
         do {
@@ -481,11 +557,26 @@ struct LoginView: View {
     }
 
     private func runSiwa() async {
+        guard ensureConfigured() else { return }
         do {
             try await auth.signInWithApple()
         } catch {
             present(error: error)
         }
+    }
+
+    /// Short-circuit any network action when the base URL hasn't been
+    /// resolved yet. Without this guard the request would target the
+    /// 192.0.2.1 sentinel and wait for the TCP timeout, which feels
+    /// like an unresponsive app rather than a config problem.
+    private func ensureConfigured() -> Bool {
+        if APIConfig.isConfigured { return true }
+        toastIsError = true
+        toastMessage = APIConfigError.endpointNotConfigured.localizedDescription
+        #if INTERNAL_BUILD
+        showEndpointSheet = true
+        #endif
+        return false
     }
 
     private func startCooldown() {

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Backend Endpoint QR · AI Photo Coach (Internal)</title>
+<!--
+  Internal-only helper page (not shipped to end users, no auth required).
+
+  Workflow:
+    1. 后端同学起完 server, 把 LAN/staging URL 填到本页输入框。
+    2. 浏览器实时渲染二维码到屏幕。
+    3. 团队成员用 Internal 包扫码 → URL 自动写入「连接设置」输入框 → 一键测试。
+
+  Why a static page instead of a backend endpoint:
+    - Zero auth / state on backend side — survives any DB reset.
+    - Works even before the backend has TLS / domain — page itself runs
+      on whatever URL you visit it from.
+    - qrcode.js (MIT) loaded from a CDN we already trust (jsDelivr).
+
+  Persistence: last 5 URLs are kept in localStorage so the next colleague
+  who needs the same server doesn't have to type the IP again.
+-->
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f7f7f9;
+    --card: #ffffff;
+    --fg: #111;
+    --muted: #6b6b75;
+    --accent: #2a72ff;
+    --danger: #e64545;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #15151a; --card: #1f1f26; --fg: #f0f0f4; --muted: #999; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    font: 15px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI",
+           "PingFang SC", "Hiragino Sans GB", sans-serif;
+    margin: 0; padding: 24px; background: var(--bg); color: var(--fg);
+    display: flex; justify-content: center;
+  }
+  .wrap { width: 100%; max-width: 720px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .subtitle { color: var(--muted); margin: 0 0 24px; font-size: 13px; }
+  .card {
+    background: var(--card); border-radius: 14px; padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 16px;
+  }
+  label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
+  input[type="text"] {
+    width: 100%; padding: 10px 12px; font: inherit; font-family:
+       ui-monospace, SFMono-Regular, Menlo, monospace;
+    border: 1px solid #d0d0d8; border-radius: 8px; background: transparent;
+    color: var(--fg);
+  }
+  input[type="text"]:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .row { display: flex; gap: 8px; align-items: center; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 999px; font-size: 12px;
+    background: #e8efff; color: var(--accent);
+  }
+  .pill.bad { background: #ffe2e2; color: var(--danger); }
+  .qr-host {
+    display: flex; flex-direction: column; align-items: center; padding: 24px;
+    background: white; border-radius: 12px;
+  }
+  .qr-host img, .qr-host canvas { width: 320px; height: 320px; image-rendering: pixelated; }
+  .url-display {
+    margin-top: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px; color: #111; word-break: break-all; text-align: center;
+  }
+  .recents button {
+    background: transparent; border: 1px solid #d0d0d8; border-radius: 8px;
+    padding: 6px 10px; font-family: ui-monospace, monospace; font-size: 12px;
+    cursor: pointer; color: var(--fg); margin: 4px 6px 4px 0;
+  }
+  .recents button:hover { background: #f0f0f4; }
+  .hints { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  code { background: rgba(127,127,127,0.15); padding: 1px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Backend Endpoint QR</h1>
+  <p class="subtitle">
+    Internal-only helper · 把后端 URL 转成二维码贴墙，让团队 iPhone 一扫即用。
+  </p>
+
+  <div class="card">
+    <label for="urlInput">后端 Base URL</label>
+    <div class="row">
+      <input id="urlInput" type="text"
+             placeholder="https://api.example.com 或 http://192.168.1.42:8000"
+             autocomplete="off" autocapitalize="off" spellcheck="false" />
+      <span id="status" class="pill">待输入</span>
+    </div>
+    <p class="hints">
+      规则：<code>https://</code> 任意 host；<code>http://</code> 仅
+      <code>localhost</code> / <code>*.local</code> / <code>10.x</code> /
+      <code>192.168.x</code> / <code>172.16-31.x</code> 网段；
+      禁用 <code>169.254.169.254</code> 等云元数据 IP。
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="qr-host">
+      <canvas id="qr" width="320" height="320"></canvas>
+      <div class="url-display" id="urlDisplay">（请在上面输入 URL）</div>
+      <button type="button" id="downloadBtn"
+              style="margin-top: 12px; padding: 8px 16px; border-radius: 8px;
+                     border: 1px solid #d0d0d8; background: transparent;
+                     font: inherit; cursor: pointer; color: var(--fg);"
+              disabled>
+        下载 PNG（贴墙用）
+      </button>
+    </div>
+  </div>
+
+  <div class="card">
+    <label>最近 5 条（点击复用）</label>
+    <div class="recents" id="recents"></div>
+  </div>
+</div>
+
+<!-- qrcode.js (MIT). Stable, zero deps, ~6KB gzipped. -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"
+        crossorigin="anonymous"></script>
+<script>
+'use strict';
+
+const LS_KEY = 'aiphotocoach.dev.endpoint-qr.recents';
+const $ = (id) => document.getElementById(id);
+const input = $('urlInput');
+const status = $('status');
+const canvas = $('qr');
+const display = $('urlDisplay');
+const recents = $('recents');
+const downloadBtn = $('downloadBtn');
+let lastCanonical = null;
+
+// Mirror of ServerEndpointStore.validate in Swift so the QR you generate
+// here will *definitely* be accepted by Internal builds. Keep these in
+// sync if you ever extend the iOS validator.
+const META_HOSTS = new Set([
+  '169.254.169.254',
+  'metadata.google.internal',
+  'metadata.azure.com',
+  '100.100.100.200',
+]);
+
+function isPrivateHost(host) {
+  if (host === 'localhost' || host.endsWith('.local')) return true;
+  const parts = host.split('.');
+  if (parts.length !== 4) return false;
+  const n = parts.map((p) => Number(p));
+  if (n.some((x) => !Number.isInteger(x) || x < 0 || x > 255)) return false;
+  if (n[0] === 127) return true;
+  if (n[0] === 10) return true;
+  if (n[0] === 192 && n[1] === 168) return true;
+  if (n[0] === 172 && n[1] >= 16 && n[1] <= 31) return true;
+  return false;
+}
+
+function validate(raw) {
+  const trimmed = (raw || '').trim();
+  if (!trimmed) return { ok: false, reason: '待输入' };
+  let u;
+  try { u = new URL(trimmed); } catch (_) {
+    return { ok: false, reason: 'URL 格式不合法' };
+  }
+  const scheme = u.protocol.replace(':', '').toLowerCase();
+  if (scheme !== 'http' && scheme !== 'https') {
+    return { ok: false, reason: `不允许的协议 ${scheme}` };
+  }
+  if (!u.hostname) return { ok: false, reason: 'URL 缺少主机名' };
+  const host = u.hostname.toLowerCase();
+  if (META_HOSTS.has(host)) {
+    return { ok: false, reason: `主机 ${host} 在禁用名单中` };
+  }
+  if (scheme === 'http' && !isPrivateHost(host)) {
+    return { ok: false, reason: `HTTP 仅允许本机/局域网；${host} 不符合` };
+  }
+  let canonical = trimmed;
+  while (canonical.endsWith('/')) canonical = canonical.slice(0, -1);
+  return { ok: true, canonical };
+}
+
+function renderQR(value) {
+  // qrcode.js draws onto the canvas directly. errorCorrectionLevel 'M'
+  // is the sweet spot — survives a coffee stain on a printed sign while
+  // keeping the matrix dense enough to scan from 1m away.
+  QRCode.toCanvas(canvas, value, {
+    errorCorrectionLevel: 'M',
+    width: 320,
+    margin: 1,
+  }, (err) => {
+    if (err) console.error(err);
+  });
+}
+
+function clearQR() {
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  lastCanonical = null;
+  downloadBtn.disabled = true;
+}
+
+downloadBtn.addEventListener('click', () => {
+  if (!lastCanonical) return;
+  // Render a higher-resolution PNG (1024) so it stays crisp when printed
+  // at A4/A5. We do this on a detached canvas so the on-screen preview
+  // doesn't reflow.
+  const big = document.createElement('canvas');
+  QRCode.toCanvas(big, lastCanonical, {
+    errorCorrectionLevel: 'M', width: 1024, margin: 2,
+  }, (err) => {
+    if (err) { console.error(err); return; }
+    big.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      // Slug the URL for the filename so the printed sheet is identifiable
+      // at a glance (e.g. endpoint-qr_192-168-1-42-8000.png).
+      const slug = lastCanonical.replace(/^https?:\/\//, '')
+                                 .replace(/[^a-z0-9]+/gi, '-')
+                                 .replace(/^-|-$/g, '');
+      a.href = url;
+      a.download = `endpoint-qr_${slug}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      // Free the blob URL after a tick — browser keeps the download alive.
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  });
+});
+
+function loadRecents() {
+  try {
+    return JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+  } catch (_) { return []; }
+}
+
+function pushRecent(url) {
+  const list = loadRecents().filter((x) => x !== url);
+  list.unshift(url);
+  while (list.length > 5) list.pop();
+  localStorage.setItem(LS_KEY, JSON.stringify(list));
+  paintRecents();
+}
+
+function paintRecents() {
+  const list = loadRecents();
+  recents.innerHTML = '';
+  if (list.length === 0) {
+    const e = document.createElement('span');
+    e.style.color = 'var(--muted)'; e.style.fontSize = '12px';
+    e.textContent = '（暂无）';
+    recents.appendChild(e);
+    return;
+  }
+  for (const url of list) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = url;
+    b.addEventListener('click', () => {
+      input.value = url;
+      onInput();
+    });
+    recents.appendChild(b);
+  }
+}
+
+let pushTimer = null;
+function onInput() {
+  const v = validate(input.value);
+  if (!v.ok) {
+    status.textContent = v.reason;
+    status.classList.add('bad');
+    display.textContent = v.reason;
+    clearQR();
+    return;
+  }
+  status.textContent = '已就绪';
+  status.classList.remove('bad');
+  display.textContent = v.canonical;
+  renderQR(v.canonical);
+  lastCanonical = v.canonical;
+  downloadBtn.disabled = false;
+  // Push to recents 1.5s after the user stops typing — avoids polluting
+  // the list with every intermediate keystroke.
+  if (pushTimer) clearTimeout(pushTimer);
+  pushTimer = setTimeout(() => pushRecent(v.canonical), 1500);
+}
+
+input.addEventListener('input', onInput);
+paintRecents();
+
+// If we landed via ?url=..., prefill (handy for sharing the page itself).
+const params = new URLSearchParams(location.search);
+const preset = params.get('url');
+if (preset) { input.value = preset; onInput(); }
+</script>
+</body>
+</html>

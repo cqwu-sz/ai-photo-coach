@@ -12,14 +12,51 @@ The repo ships sources only. Generate the `.xcodeproj` with
 ```bash
 brew install xcodegen
 cd ios
+# Provide a Production.xcconfig before generating — see the next section.
+cp Config/Production.xcconfig.template Config/Production.xcconfig
+# Edit Config/Production.xcconfig and set the real backend URL.
 xcodegen generate
 open AIPhotoCoach.xcodeproj
 ```
 
-## Backend dev URL
+## Build variants (商业化双产物)
 
-Point `APIConfig.baseURL` at your local backend (default `http://localhost:8000`).
-On a real device, start the backend on your dev box and use its LAN IP.
+This project intentionally produces **two binaries** to keep the
+"point at any server" debug capability out of App Store builds:
+
+| Scheme | Bundle ID | Display | INTERNAL_BUILD flag | Contains endpoint override UI |
+| --- | --- | --- | --- | --- |
+| `AIPhotoCoach` | `com.aiphotocoach.app` | 拾光 | ❌ | ❌ (compiled out at build time) |
+| `AIPhotoCoach-Internal` | `com.aiphotocoach.app.internal` | 拾光 Dev | ✅ | ✅ |
+
+- **Production** (`AIPhotoCoach`) bakes the backend URL into the binary
+  at build time via `Config/Production.xcconfig`. CI writes this from
+  `secrets.PROD_API_BASE_URL`; for local archives, you must
+  `cp Config/Production.xcconfig.template Config/Production.xcconfig`
+  and replace the `REPLACE-ME.invalid` sentinel with the real URL.
+  Building with the sentinel **fails the postCompileScripts gate**,
+  so you can never accidentally ship a placeholder.
+
+- **Internal** (`AIPhotoCoach-Internal`) ships with an empty
+  `API_BASE_URL` and exposes a *Connection Settings* sheet (from the
+  login screen) that lets the user point the app at any reachable URL
+  — typed manually or scanned from a QR code. Use this build for LAN
+  development against `http://<your-mac-lan-ip>:8000`.
+
+## Backend dev URL (Internal build)
+
+1. Boot the backend on your dev box, bound to `0.0.0.0`:
+   ```bash
+   uvicorn app.main:app --host 0.0.0.0 --port 8000
+   ```
+2. Find your LAN IP (`ipconfig` on Windows, `ifconfig` on macOS).
+3. Install the Internal IPA on your iPhone (see `docs/IOS_SIDELOAD.md`).
+4. Open *拾光 Dev* → tap **连接设置 · Internal Build** at the bottom of
+   the login screen → enter `http://192.168.x.y:8000` → **测试连接**
+   (probes `/healthz`) → **应用并保存**.
+
+> Local HTTP to the LAN host is allowed by `NSAllowsLocalNetworking`.
+> Public hosts must use `https://`.
 
 ## Layout
 
