@@ -158,6 +158,12 @@ struct FrameMeta: Codable, Sendable, Hashable {
     let hipOffsetX: Double?
     let chinForward: Double?
     let spineCurve: Double?
+    /// core-pro upgrade — 3D environment landmarks detected via ARKit
+    /// world map + LiDAR mesh. Filled by ``ARLandmarkExtractor`` per
+    /// keyframe; nil on devices without ARKit world tracking or when
+    /// the user hasn't started the AR session yet. Backend aggregates
+    /// these into a scene graph (services/landmark_graph.py).
+    let landmarkCandidates: [LandmarkCandidate]?
 
     init(
         index: Int,
@@ -195,7 +201,8 @@ struct FrameMeta: Codable, Sendable, Hashable {
         shoulderTiltDeg: Double? = nil,
         hipOffsetX: Double? = nil,
         chinForward: Double? = nil,
-        spineCurve: Double? = nil
+        spineCurve: Double? = nil,
+        landmarkCandidates: [LandmarkCandidate]? = nil
     ) {
         self.index = index
         self.azimuthDeg = azimuthDeg
@@ -233,6 +240,7 @@ struct FrameMeta: Codable, Sendable, Hashable {
         self.hipOffsetX = hipOffsetX
         self.chinForward = chinForward
         self.spineCurve = spineCurve
+        self.landmarkCandidates = landmarkCandidates
     }
 
     enum CodingKeys: String, CodingKey {
@@ -272,6 +280,35 @@ struct FrameMeta: Codable, Sendable, Hashable {
         case hipOffsetX       = "hip_offset_x"
         case chinForward      = "chin_forward"
         case spineCurve       = "spine_curve"
+        case landmarkCandidates = "landmark_candidates"
+    }
+}
+
+/// Mirrors backend ``LandmarkCandidate`` — a 3D environment landmark
+/// anchored in ARKit world coords. iOS clients fill these via
+/// ``ARLandmarkExtractor`` (raycast onto the LiDAR mesh + plane
+/// detection); older devices simply omit the field.
+struct LandmarkCandidate: Codable, Sendable, Hashable {
+    let label: String                   // elevated_platform | stair | balcony | doorway | ...
+    let worldXyz: [Double]              // [x, y, z] in metres, +Y up, ARKit world origin
+    let sizeM: [Double]?
+    let heightAboveGroundM: Double?
+    let materialLabel: String?
+    let lightExposure: String?          // lit | shaded | rim | backlit | unknown
+    let confidence: Double?
+    let sourceFrameIndex: Int?
+    let stableId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case label
+        case worldXyz = "world_xyz"
+        case sizeM = "size_m"
+        case heightAboveGroundM = "height_above_ground_m"
+        case materialLabel = "material_label"
+        case lightExposure = "light_exposure"
+        case confidence
+        case sourceFrameIndex = "source_frame_index"
+        case stableId = "stable_id"
     }
 }
 
@@ -957,6 +994,11 @@ struct ShotRecommendation: Codable, Sendable, Identifiable, Hashable {
     /// with ``angle``; ``absolute`` carries POI / SfM derived world coords
     /// so the result UI can render a map pin + walk distance.
     let position: ShotPosition?
+    /// core-pro upgrade — filter / beauty / LUT recipe to auto-apply in
+    /// PostProcessView. Co-emitted by the backend with the composition
+    /// + camera plan so the after-shoot look stays coherent with the
+    /// planned shoot mood. Nil = let the user pick manually.
+    let postProcessRecipe: PostProcessRecipe?
 
     enum CodingKeys: String, CodingKey {
         case id, title, angle, composition, camera, poses, rationale, confidence
@@ -971,6 +1013,7 @@ struct ShotRecommendation: Codable, Sendable, Identifiable, Hashable {
         case styleMatch    = "style_match"
         case foreground
         case position
+        case postProcessRecipe = "post_process_recipe"
     }
 
     init(from decoder: Decoder) throws {
@@ -994,6 +1037,43 @@ struct ShotRecommendation: Codable, Sendable, Identifiable, Hashable {
         self.styleMatch    = try c.decodeIfPresent(ShotStyleMatch.self, forKey: .styleMatch)
         self.foreground    = try c.decodeIfPresent(ShotForeground.self, forKey: .foreground)
         self.position      = try c.decodeIfPresent(ShotPosition.self, forKey: .position)
+        self.postProcessRecipe = try c.decodeIfPresent(PostProcessRecipe.self, forKey: .postProcessRecipe)
+    }
+}
+
+/// Mirrors backend ``PostProcessRecipe``. The PostProcessView applies
+/// this on appear (filter preset + beauty intensity + optional LUT).
+/// ``filterPreset`` is the canonical case name of FilterEngine.FilterPreset.
+struct PostProcessRecipe: Codable, Sendable, Hashable {
+    let filterPreset: String       // matches FilterEngine.FilterPreset rawValue
+    let beautyIntensity: Double    // 0..1
+    let lutId: String?
+    let rationaleZh: String?
+
+    enum CodingKeys: String, CodingKey {
+        case filterPreset    = "filter_preset"
+        case beautyIntensity = "beauty_intensity"
+        case lutId           = "lut_id"
+        case rationaleZh     = "rationale_zh"
+    }
+}
+
+/// Mirrors backend ``CoachLineModel`` — one natural-language coaching
+/// cue with prosody hints. Read aloud by ``VoiceCoach`` and shown as
+/// captions in the live coaching overlay.
+struct CoachLine: Codable, Sendable, Hashable, Identifiable {
+    let textZh: String
+    let emotion: String            // "calm" | "encouraging" | "playful" | "caution"
+    let priority: Int              // 1 = primary; 2/3 = supplementary
+
+    /// Identifiable conformance — derived stable id since the wire
+    /// format doesn't carry one (deterministic per text + priority).
+    var id: String { "\(priority)/\(emotion)/\(textZh)" }
+
+    enum CodingKeys: String, CodingKey {
+        case textZh   = "text_zh"
+        case emotion
+        case priority
     }
 }
 
@@ -1240,6 +1320,10 @@ struct AnalyzeResponse: Codable, Sendable, Hashable {
     let debug: AnalyzeDebug?
     let timeRecommendation: TimeRecommendation?
     let referenceFingerprints: [ReferenceFingerprint]?
+    /// core-pro upgrade — natural-language coaching cues for VoiceCoach.
+    /// Empty when the request had too-sparse signals for the potential
+    /// evaluator (e.g. 3 frames, no scene_aggregate output).
+    let coachLines: [CoachLine]
 
     enum CodingKeys: String, CodingKey {
         case scene
@@ -1252,6 +1336,22 @@ struct AnalyzeResponse: Codable, Sendable, Hashable {
         case debug
         case timeRecommendation = "time_recommendation"
         case referenceFingerprints = "reference_fingerprints"
+        case coachLines = "coach_lines"
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.scene             = try c.decode(SceneSummary.self, forKey: .scene)
+        self.shots             = try c.decode([ShotRecommendation].self, forKey: .shots)
+        self.generatedAt       = try c.decode(Date.self, forKey: .generatedAt)
+        self.model             = try c.decode(String.self, forKey: .model)
+        self.styleInspiration  = try c.decodeIfPresent(StyleInspiration.self, forKey: .styleInspiration)
+        self.environment       = try c.decodeIfPresent(EnvironmentSnapshot.self, forKey: .environment)
+        self.lightRecaptureHint = try c.decodeIfPresent(LightRecaptureHint.self, forKey: .lightRecaptureHint)
+        self.debug             = try c.decodeIfPresent(AnalyzeDebug.self, forKey: .debug)
+        self.timeRecommendation = try c.decodeIfPresent(TimeRecommendation.self, forKey: .timeRecommendation)
+        self.referenceFingerprints = try c.decodeIfPresent([ReferenceFingerprint].self, forKey: .referenceFingerprints)
+        self.coachLines        = try c.decodeIfPresent([CoachLine].self, forKey: .coachLines) ?? []
     }
 }
 

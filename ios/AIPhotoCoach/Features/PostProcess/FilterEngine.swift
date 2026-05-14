@@ -46,17 +46,124 @@ enum FilterPreset: String, CaseIterable, Identifiable {
         default: return "filter"
         }
     }
+
+    /// Map the backend ``PostProcessRecipe.filterPreset`` string (a
+    /// small fixed vocabulary the LLM is constrained to emit) into one
+    /// of our concrete presets. Unknown values degrade to ``.original``
+    /// so an unfamiliar backend version never crashes the UI.
+    static func from(recipeKey: String) -> FilterPreset {
+        switch recipeKey.lowercased() {
+        case "natural":         return .cleanBright
+        case "film_warm":       return .filmWarm
+        case "film_cool":       return .streetCool
+        case "mono":            return .bw
+        case "hk_neon":         return .hkVibe
+        case "japanese_clean":  return .japanCrisp
+        case "golden_glow":     return .cinematic
+        case "moody_fade":      return .retroFade
+        default:                return .original
+        }
+    }
 }
 
 final class FilterEngine {
     private let context = CIContext(options: [.useSoftwareRenderer: false])
+    /// Caches decoded 64^3 LUT tables so back-to-back applies don't
+    /// reparse the same .cube file. Key = lut id (file stem).
+    private var lutCache: [String: Data] = [:]
 
     func apply(_ preset: FilterPreset, to image: UIImage) -> UIImage {
-        guard preset != .original, let cg = image.cgImage else { return image }
-        let ci = CIImage(cgImage: cg)
-        let processed = chain(for: preset, image: ci)
-        guard let out = context.createCGImage(processed, from: processed.extent) else { return image }
+        return self.apply(preset, lutId: nil, to: image)
+    }
+
+    /// Apply a preset, then optionally a LUT lookup, then return the
+    /// processed UIImage. ``lutId`` matches a ``Resources/LUTs/<id>.cube``
+    /// shipped in the app bundle. Missing LUT id → falls back to the
+    /// preset-only chain so the user still gets *something*.
+    func apply(_ preset: FilterPreset, lutId: String?, to image: UIImage) -> UIImage {
+        guard let cg = image.cgImage else { return image }
+        var ci = CIImage(cgImage: cg)
+        if preset != .original {
+            ci = chain(for: preset, image: ci)
+        }
+        if let lutId, let lutFilter = self.makeLUTFilter(lutId: lutId) {
+            lutFilter.setValue(ci, forKey: kCIInputImageKey)
+            if let out = lutFilter.outputImage {
+                ci = out
+            }
+        }
+        guard let out = context.createCGImage(ci, from: ci.extent) else { return image }
         return UIImage(cgImage: out, scale: image.scale, orientation: image.imageOrientation)
+    }
+
+    // MARK: - LUT loading
+
+    /// Parse a Resolve-style ``.cube`` file from the bundle and build
+    /// a ``CIColorCubeWithColorSpace`` filter ready to apply. Returns
+    /// nil when the file is missing / unparseable; caller falls back
+    /// to no-LUT.
+    private func makeLUTFilter(lutId: String) -> CIFilter? {
+        let (dimension, data): (Int, Data)
+        if let cached = self.lutCache[lutId] {
+            // Caches the *packed* data; dimension is captured in the
+            // packed length: dim³ × 4 floats × 4 bytes.
+            let total = cached.count / (4 * MemoryLayout<Float>.size)
+            let dim = Int(round(pow(Double(total), 1.0/3.0)))
+            (dimension, data) = (dim, cached)
+        } else {
+            guard let url = Bundle.main.url(forResource: lutId, withExtension: "cube",
+                                            subdirectory: "LUTs")
+                  ?? Bundle.main.url(forResource: lutId, withExtension: "cube"),
+                  let text = try? String(contentsOf: url, encoding: .utf8) else {
+                return nil
+            }
+            guard let parsed = self.parseCubeLUT(text) else { return nil }
+            (dimension, data) = parsed
+            self.lutCache[lutId] = data
+        }
+
+        let filter = CIFilter(name: "CIColorCubeWithColorSpace")
+        filter?.setValue(dimension, forKey: "inputCubeDimension")
+        filter?.setValue(data, forKey: "inputCubeData")
+        filter?.setValue(CGColorSpace(name: CGColorSpace.sRGB), forKey: "inputColorSpace")
+        return filter
+    }
+
+    /// Minimal .cube parser — accepts the subset Resolve / Photoshop
+    /// emit: ``LUT_3D_SIZE N`` + ``N^3`` lines of ``r g b`` floats.
+    private func parseCubeLUT(_ text: String) -> (dimension: Int, data: Data)? {
+        var dimension = 0
+        var values: [Float] = []
+        for raw in text.split(whereSeparator: { $0.isNewline }) {
+            let line = raw.trimmingCharacters(in: .whitespaces)
+            if line.isEmpty || line.hasPrefix("#") || line.hasPrefix("//") { continue }
+            if line.uppercased().hasPrefix("LUT_3D_SIZE") {
+                let parts = line.split(whereSeparator: { $0.isWhitespace })
+                if parts.count >= 2, let n = Int(parts[1]) { dimension = n }
+                continue
+            }
+            // Skip "TITLE ..." / "DOMAIN_MIN" / "DOMAIN_MAX" / "LUT_1D_*" lines.
+            if line.uppercased().hasPrefix("TITLE")
+                || line.uppercased().hasPrefix("DOMAIN")
+                || line.uppercased().hasPrefix("LUT_1D") {
+                continue
+            }
+            let parts = line.split(whereSeparator: { $0.isWhitespace })
+            if parts.count == 3,
+               let r = Float(parts[0]), let g = Float(parts[1]), let b = Float(parts[2]) {
+                values.append(r)
+                values.append(g)
+                values.append(b)
+                values.append(1.0)               // alpha = 1
+            }
+        }
+        guard dimension > 0, values.count == dimension * dimension * dimension * 4 else {
+            return nil
+        }
+        let data = values.withUnsafeBufferPointer { buf in
+            Data(bytes: buf.baseAddress!, count: buf.count * MemoryLayout<Float>.size)
+        }
+        return (dimension, data)
     }
 
     private func chain(for preset: FilterPreset, image: CIImage) -> CIImage {

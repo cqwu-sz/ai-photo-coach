@@ -945,6 +945,51 @@ class ShotRecommendation(BaseModel):
     Filled by the LLM (prompt-driven) so it stays scene-aware. Always
     rendered alongside the iphone_apply_plan in both Web and iOS UIs."""
 
+    # ----- Post-process recipe (filter / beauty / LUT) (core-pro v1) -
+    post_process_recipe: Optional["PostProcessRecipe"] = None
+    """Backend-decided filter + beauty + LUT preset that PostProcessView
+    auto-applies after the user takes the shot. Co-emitted with the
+    composition + camera plan so the after-shoot look stays coherent
+    with the planned shoot mood. Older clients that don't know this
+    field simply skip auto-application; manual filter selection still
+    works."""
+
+
+class PostProcessRecipe(BaseModel):
+    """Filter / beauty / LUT preset paired with a shot recommendation.
+
+    The recipe is decided alongside the shot itself (the LLM is asked
+    to pick one of a fixed vocabulary), so the after-shoot look reflects
+    the same mood the shot was planned for. PostProcessView applies it
+    when the view appears; the user can still override.
+    """
+    filter_preset: str = Field(
+        default="natural",
+        description=(
+            "Name of an iOS FilterEngine FilterPreset case. Vocabulary "
+            "is kept in sync with ios/Features/PostProcess/FilterEngine.swift: "
+            "natural | film_warm | film_cool | mono | hk_neon | "
+            "japanese_clean | golden_glow | moody_fade."
+        ),
+    )
+    beauty_intensity: float = Field(
+        default=0.3, ge=0.0, le=1.0,
+        description="Overall beauty slider 0..1. UI exposes per-axis sliders too.",
+    )
+    lut_id: Optional[str] = Field(
+        default=None,
+        description=(
+            "Optional LUT id matching a .cube file shipped in the app "
+            "bundle (Resources/LUTs/<id>.cube). When set, FilterEngine "
+            "loads the LUT and chains it after the preset's basic CI "
+            "filters. Set None to use only the preset's CI chain."
+        ),
+    )
+    rationale_zh: Optional[str] = Field(
+        default=None,
+        description="One-sentence Chinese reason: why this look fits the shot.",
+    )
+
 
 class ShotStyleMatch(BaseModel):
     """Per-shot style intent + compliance result.

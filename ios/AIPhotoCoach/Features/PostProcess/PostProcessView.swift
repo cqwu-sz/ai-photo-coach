@@ -14,18 +14,48 @@ final class PostProcessModel: ObservableObject {
     @Published var rendered: UIImage
     @Published var showOriginal = false
     @Published var saveStatus: String?
+    /// Backend-recommended LUT id, if any. Threaded through to
+    /// ``FilterEngine.apply(_:lutId:to:)`` on every rerender so the
+    /// LUT chains *after* the preset's CIFilter stack.
+    @Published var lutId: String?
+    /// Whether the current ``preset`` / ``beauty`` / ``lutId`` came
+    /// from the backend recipe (true) or the user has manually edited
+    /// (false). Lets the UI show a "已套用 AI 推荐" hint when true.
+    @Published private(set) var recipeApplied: Bool = false
+    /// Original recipe captured at init time — surfaced as a "重设回 AI 推荐" button.
+    let recipe: PostProcessRecipe?
 
     let original: UIImage
     private let filterEngine = FilterEngine()
     private let beautyEngine = BeautyEngine()
 
-    init(original: UIImage) {
+    init(original: UIImage, recipe: PostProcessRecipe? = nil) {
         self.original = original
         self.rendered = original
+        self.recipe = recipe
+        if let recipe {
+            self.applyRecipe(recipe, markAsApplied: true, rerenderImmediately: true)
+        }
+    }
+
+    /// Apply (or re-apply) the backend recipe. ``rerenderImmediately``
+    /// defaults to true; call with false when you're already inside an
+    /// init / explicit rerender to avoid double work.
+    func applyRecipe(_ recipe: PostProcessRecipe, markAsApplied: Bool = true,
+                      rerenderImmediately: Bool = true) {
+        self.preset = FilterPreset.from(recipeKey: recipe.filterPreset)
+        self.beauty = BeautyParams.fromIntensity(recipe.beautyIntensity)
+        self.lutId = recipe.lutId
+        self.recipeApplied = markAsApplied
+        if rerenderImmediately { self.rerender() }
+    }
+
+    func markUserOverride() {
+        if recipeApplied { recipeApplied = false }
     }
 
     func rerender() {
-        var img = filterEngine.apply(preset, to: original)
+        var img = filterEngine.apply(preset, lutId: lutId, to: original)
         img = beautyEngine.apply(beauty, to: img)
         self.rendered = img
     }
@@ -77,11 +107,13 @@ struct PostProcessView: View {
                                         return
                                     }
                                     model.preset = p
+                                    model.markUserOverride()
                                     model.rerender()
                                 }
                                 return
                             }
                             model.preset = p
+                            model.markUserOverride()
                             model.rerender()
                         } label: {
                             HStack(spacing: 4) {
@@ -101,13 +133,29 @@ struct PostProcessView: View {
                 }.padding(.horizontal)
             }
             beautySliders
+            if model.recipeApplied, let rationale = model.recipe?.rationaleZh {
+                Text("AI 推荐：\(rationale)")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal)
+                    .multilineTextAlignment(.leading)
+            }
             HStack {
                 Button {
                     model.preset = .original
                     model.beauty = BeautyParams()
+                    model.lutId = nil
+                    model.markUserOverride()
                     model.rerender()
                 } label: {
                     Label("重置", systemImage: "arrow.uturn.backward")
+                }
+                if let recipe = model.recipe, !model.recipeApplied {
+                    Button {
+                        model.applyRecipe(recipe)
+                    } label: {
+                        Label("AI 推荐", systemImage: "sparkles")
+                    }
                 }
                 Spacer()
                 Button {
@@ -219,7 +267,10 @@ struct PostProcessView: View {
         HStack {
             Text(name).font(.caption).frame(width: 36, alignment: .leading)
             Slider(value: value, in: 0...1) { editing in
-                if !editing { model.rerender() }
+                if !editing {
+                    model.markUserOverride()
+                    model.rerender()
+                }
             }
             Text("\(Int(value.wrappedValue * 100))")
                 .font(.caption.monospacedDigit())

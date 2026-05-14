@@ -76,6 +76,20 @@ public final class RealityARController: NSObject, ObservableObject, ARSessionDel
     /// Place a USDZ avatar at the recommended world-space pose.
     /// Falls back to nil when the asset isn't bundled — the caller
     /// should then fall back to the legacy SceneKit avatar.
+    /// P3-ar-vertical — map a backend ``HeightHint`` enum to a metres-Y
+    /// offset above the device's ground plane. Lets us anchor a virtual
+    /// model on a second-floor balcony / staircase landing instead of
+    /// dropping it on the floor at the user's feet.
+    private static func subjectYOffset(for hint: HeightHint?) -> Float {
+        switch hint {
+        case .low:       return -0.4
+        case .eyeLevel:  return  0.0
+        case .high:      return  1.5
+        case .overhead:  return  3.0
+        case .none:      return  0.0
+        }
+    }
+
     @discardableResult
     // Internal: AlignmentMachine.Targets is itself internal.
     func placeSubject(
@@ -104,8 +118,9 @@ public final class RealityARController: NSObject, ObservableObject, ARSessionDel
         let x = sin(az) * dist
         let z = -cos(az) * dist
         let yaw = atan2(-x, -z)
+        let y = Self.subjectYOffset(for: shot?.angle.heightHint)
 
-        let anchor = AnchorEntity(world: SIMD3<Float>(x, 0, z))
+        let anchor = AnchorEntity(world: SIMD3<Float>(x, y, z))
         anchor.transform.rotation = simd_quatf(angle: yaw, axis: SIMD3<Float>(0, 1, 0))
         anchor.addChild(entity)
         arView.scene.addAnchor(anchor)

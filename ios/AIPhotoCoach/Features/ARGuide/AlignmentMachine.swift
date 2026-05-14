@@ -40,6 +40,14 @@ let headingOk: Double
 let headingWarn: Double
 let pitchOk: Double
 let pitchWarn: Double
+/// P3-alignment-pitch — four-tier pitch tolerance. The classic
+/// ``pitchOk`` / ``pitchWarn`` thresholds remain authoritative for
+/// the green-light state machine, but ``pitchNear`` / ``pitchFar``
+/// add two coarser bands so we can surface "微调一点点" vs "差很多"
+/// copy without overpromising. ``pitchNear`` should be > ``pitchOk``
+/// and < ``pitchWarn``; ``pitchFar`` should be > ``pitchWarn``.
+let pitchNear: Double
+let pitchFar: Double
 let distanceOkM: Double
 let distanceWarnM: Double
 let holdTime: TimeInterval
@@ -47,10 +55,20 @@ let holdTime: TimeInterval
 static let `default` = Tolerances(
             headingOk: 4.0, headingWarn: 12.0,
             pitchOk: 5.0, pitchWarn: 12.0,
+            pitchNear: 8.0, pitchFar: 20.0,
             distanceOkM: 0.25, distanceWarnM: 0.6,
             holdTime: 0.7
         )
     }
+
+    /// Coarse pitch alignment classification surfaced to the UI for
+    /// nicer copy. ``onTarget`` ⊆ ``Status.ok``; ``slight`` ⊆ ``.warn``;
+    /// ``noticeable`` and ``severe`` partition ``.bad``.
+    enum PitchTier: String { case onTarget, slight, noticeable, severe }
+
+    /// Last computed pitch tier. ``nil`` until ``update(pitchDeg:)``
+    /// has been called with a non-nil value at least once.
+    @Published private(set) var pitchTier: PitchTier?
 
     @Published private(set) var state: AggregateState
 let targets: Targets
@@ -120,13 +138,23 @@ func update(pitchDeg: Double?) {
             let delta = p - targets.pitchDeg
             d.value = delta
             d.status = classify(abs(delta), ok: tol.pitchOk, warn: tol.pitchWarn)
-            d.hint = pitchHint(delta)
+            let tier = classifyPitchTier(abs(delta))
+            self.pitchTier = tier
+            d.hint = pitchHint(delta, tier: tier)
         } else {
             d.status = .disabled
             d.hint = "仰角不可用"
+            self.pitchTier = nil
         }
         state.pitch = d
         recompute()
+    }
+
+    private func classifyPitchTier(_ absDelta: Double) -> PitchTier {
+        if absDelta <= tol.pitchOk { return .onTarget }
+        if absDelta <= tol.pitchNear { return .slight }
+        if absDelta <= tol.pitchFar { return .noticeable }
+        return .severe
     }
 
 func update(distanceM: Double?) {
@@ -218,10 +246,19 @@ func update(personPresent: Bool?) {
         return "向右转 \(Int(round(abs(delta))))°"
     }
 
-    private func pitchHint(_ delta: Double) -> String {
-        if abs(delta) <= tol.pitchOk { return "仰角 OK" }
-        if delta > 0 { return "手机抬高 \(Int(round(abs(delta))))°" }
-        return "手机放低 \(Int(round(abs(delta))))°"
+    private func pitchHint(_ delta: Double, tier: PitchTier) -> String {
+        let mag = Int(round(abs(delta)))
+        let direction = delta > 0 ? "抬高" : "放低"
+        switch tier {
+        case .onTarget:
+            return "仰角 OK"
+        case .slight:
+            return "再\(direction)一点点"
+        case .noticeable:
+            return "手机\(direction) \(mag)°"
+        case .severe:
+            return "手机\(direction) \(mag)°（差距较大）"
+        }
     }
 
     private func distanceHint(_ delta: Double) -> String {

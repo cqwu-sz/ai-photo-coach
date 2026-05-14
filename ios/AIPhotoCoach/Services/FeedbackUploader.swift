@@ -38,11 +38,20 @@ actor FeedbackUploader {
         self.endpoint = baseURL.appendingPathComponent("/feedback/")
     }
 
-    /// P1-7.1 — record what filters / beauty knobs the user applied.
-    /// Fire-and-forget; not user-blocking.
+    /// P1-7.1 / P3-feedback-loop — record what filters / beauty knobs
+    /// the user *actually* applied versus what the LLM recommended via
+    /// ``PostProcessRecipe``. The diff (e.g. recipe said ``film_warm``
+    /// but user picked ``hk_neon``) is what the calibration job mines
+    /// to refine the ``plan → filter`` mapping. Fire-and-forget; not
+    /// user-blocking.
     func recordPostProcess(
         analyzeRequestId: String?,
         presetId: String,
+        lutId: String? = nil,
+        recipeApplied: Bool? = nil,
+        recipeFilterPreset: String? = nil,
+        recipeLutId: String? = nil,
+        recipeBeautyIntensity: Double? = nil,
         smooth: Double,
         brighten: Double,
         slim: Double,
@@ -50,15 +59,28 @@ actor FeedbackUploader {
         brightenEye: Double,
     ) async {
         let url = baseURL.appendingPathComponent("/feedback/post_process")
-        let body: [String: Any] = [
+        var body: [String: Any] = [
             "analyze_request_id": analyzeRequestId ?? NSNull(),
             "preset_id": presetId,
+            "lut_id": lutId ?? NSNull(),
+            "recipe_applied": recipeApplied ?? NSNull(),
+            "recipe_filter_preset": recipeFilterPreset ?? NSNull(),
+            "recipe_lut_id": recipeLutId ?? NSNull(),
+            "recipe_beauty_intensity": recipeBeautyIntensity ?? NSNull(),
             "smooth": smooth,
             "brighten": brighten,
             "slim": slim,
             "enlarge_eye": enlargeEye,
             "brighten_eye": brightenEye,
         ]
+        // Convenience flag so the calibration query doesn't have to
+        // recompute the override in SQL — true iff the user diverged
+        // from the recipe on either the preset key or the LUT id.
+        if let recipeApplied {
+            let presetDiverged = (recipeFilterPreset != nil) && (recipeFilterPreset != presetId)
+            let lutDiverged = (recipeLutId ?? "") != (lutId ?? "")
+            body["recipe_user_override"] = (!recipeApplied) && (presetDiverged || lutDiverged)
+        }
         var req = URLRequest(url: url)
         req.httpMethod = "POST"
         req.addValue("application/json", forHTTPHeaderField: "Content-Type")

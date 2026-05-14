@@ -18,6 +18,21 @@ struct BeautyParams: Equatable {
     var enlargeEye: Double = 0  // 大眼 (CIBumpDistortion at eye centres)
     var brightenEye: Double = 0 // 亮眼 (local exposure at eyes)
 
+    /// Map a backend ``PostProcessRecipe.beautyIntensity`` (0...1) to
+    /// a sensible per-slider distribution. We keep eye-related sliders
+    /// (slim / enlargeEye) at 0 unless mesh-warp is shipped, since
+    /// those are gated behind ``ai_photo.beauty.meshWarp`` in
+    /// PostProcessView. Skin smoothing and brighten map at full
+    /// intensity; brightenEye at 60% to avoid the "shiny eyeball" look.
+    static func fromIntensity(_ intensity: Double) -> BeautyParams {
+        let clamped = max(0.0, min(1.0, intensity))
+        var p = BeautyParams()
+        p.smooth = clamped
+        p.brighten = clamped * 0.75
+        p.brightenEye = clamped * 0.6
+        return p
+    }
+
     var isIdentity: Bool {
         smooth == 0 && brighten == 0 && slim == 0 &&
         enlargeEye == 0 && brightenEye == 0
