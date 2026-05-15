@@ -118,6 +118,41 @@ def set_request_works_corpus(corpus: list) -> None:
     _REQUEST_WORKS_CORPUS.set(corpus or [])
 
 
+_REQUEST_ANTI_PATTERNS: ContextVar[list] = ContextVar(
+    "_REQUEST_ANTI_PATTERNS", default=[],
+)
+
+
+def set_request_anti_patterns(items: list) -> None:
+    """D-anti-pattern — stash rejected drafts for the current /analyze
+    request so ``build_user_prompt`` can render an AVOID block."""
+    _REQUEST_ANTI_PATTERNS.set(items or [])
+
+
+def _render_anti_pattern_block(items: list[dict], *, max_items: int = 4) -> str:
+    """Pick the most recent / most-tagged rejected entries and render a
+    short AVOID list so the LLM stops mimicking near-miss patterns."""
+    if not items:
+        return ""
+    # Prefer entries that share tag categories with the most works (i.e.
+    # they're rejections in *common* genres, not edge cases).
+    pruned = items[:max_items]
+    lines = ["── AVOID PATTERNS（主理人审核时拒掉的『看起来像但其实有问题』的样本） ──"]
+    for it in pruned:
+        scene = ", ".join(it.get("scene_tags") or []) or "any"
+        light = ", ".join(it.get("light_tags") or []) or "any"
+        lines.append(
+            f"  · [{it.get('id', '?')}] scene=({scene}) light=({light}) — "
+            f"拒因：{it.get('reject_reason', '')}"
+        )
+    lines.append(
+        "  AVOID DOCTRINE：上面这些是看起来像高赞作品、但被人筛掉的反面案例。"
+        "不要照搬它们的构图 / 光线 / 调色。如果你的方案在某条 AVOID 上有相似性，"
+        "rationale 必须主动说明你是如何规避对应缺陷的。"
+    )
+    return "\n".join(lines)
+
+
 SYSTEM_INSTRUCTION = dedent(
     """
     你是一位资深的现场取景师，正站在用户身边，看完他刚刚环视一圈拍下的
@@ -324,6 +359,17 @@ SYSTEM_INSTRUCTION = dedent(
             稳定让多帧合成完成。
           * 与 LIGHTING FACTS 冲突时，必须在 rationale 里写出为何（例如
             "故意保留高光裁剪强化纯白氛围"），否则视为忽略事实。
+          * **天气-光线一致性**：WEATHER FACTS 给出的云量 / softness 是
+            硬约束。``vision_light.quality`` 必须与之吻合：
+              - cloud_cover ≥ 70% 或 softness 含"软"字 →
+                ``quality = "soft"``（不允许 "hard"）。
+              - cloud_cover ≤ 20% 且高度角 > 30° →
+                ``quality = "hard"`` 是合理选择。
+              - mist / rain / haze → 强制 "soft" 或 "mixed"。
+            若你判断与天气冲突（例如阴天却看到锐利投影，说明可能是
+            人造光源主导），必须在 ``vision_light.notes`` 写明依据
+            （"虽阴天 cloud_cover=85，但 frame 3 显示窗内 LED 投影锐利，
+            主光实为室内人造光"）。
 
     20. **COMPOSITION DOCTRINE — 构图必须服从客户端度量**：
           * 当 SCENE INSIGHTS 给出 COMPOSITION FACTS：
@@ -358,6 +404,29 @@ SYSTEM_INSTRUCTION = dedent(
             ``height_hint = low + pitch_deg < -10``，但 rationale 要
             明说"故意仰拍是为 X 叙事"。否则视为忽视客户端事实。
 
+    23. **MOTION DOCTRINE — 快门必须服从主体动态意图（强制）**：
+        每个 shot 推 ``camera.shutter`` 前，先在心里判断**主体动态强度**：
+          * **static** — 坐 / 倚靠 / 站定不动 → 1/60 - 1/125 即可。
+          * **gentle** — 走动 / 自然走位 / 头发飘动 → 1/125 - 1/250。
+          * **dynamic** — 跳起 / 奔跑 / 飞起的裙摆 / 宠物玩耍 →
+            **必须** ≥ 1/500，宁可拉 ISO 也不要拍糊。
+        ``coach_brief`` 必须告诉摄影师**预期主体在做什么**，例如"让她
+        走两步再回头"或"等海浪打过来那一秒按下"。**不允许**给一个
+        dynamic 场景配 1/60 的快门 — 这是基础错误。
+
+    22. **TIME PRESSURE DOCTRINE — 光线时间窗口是稀缺资源**：
+        SUN FACTS 块如果给了 ``minutes_to_golden_end`` 或
+        ``minutes_to_blue_end``：
+          * 当剩余 ≤ 15 分钟 → 至少一个 shot 的 ``coach_brief``
+            必须前置时间感（"还有 10 分钟黄金光，先拍这条最稳的"）
+            ，``rationale`` 必须解释为什么这个机位优先于另一个
+            （例："那条引导线机位更难走位，先把暖光锁了再说"）。
+          * 当剩余 > 30 分钟 → 不要硬塞紧迫感，否则会显得啰嗦。
+          * 黄金时刻已经过去 → 别再推 ``golden_glow`` 配方，光线
+            事实不支持。
+        不允许沉默：剩余 ≤ 15 分钟而你给的三个 shot 都没体现
+        时间感，视为忽略事实。
+
     21. **POST-PROCESS DOCTRINE — 后期与拍摄方案同源（强制，每个 shot
         必填 ``post_process_recipe``）**：拍摄方案和后期 mood 是一件
         事，不能脱节。每个 shot 的 ``post_process_recipe.filter_preset``
@@ -382,6 +451,11 @@ SYSTEM_INSTRUCTION = dedent(
           - ``lut_id`` 可选；若你不确定就留空，前端只走 preset 链。
           - ``rationale_zh`` 一句 ≤ 25 字，告诉用户"为什么是这个调"，
             例："暖光本身漂亮，让 film_warm 把它再压一点"。
+          - ``alternative_recipes`` 可选 1-2 条对比 mood，主 recipe 的
+            ``filter_preset`` 一定不要重复出现在 alternatives 里；
+            建议给一个**相邻 mood**（如主 film_warm → alt golden_glow）
+            和一个**反差 mood**（如主 film_warm → alt mono），让用户能
+            一键 A/B 看哪个更合心意。
 
     ── 参考样片处理 ──
     如果用户附了参考样片（多模态附件中位于关键帧之后），**必须**填
@@ -656,6 +730,9 @@ def build_user_prompt(
         top_k=5,
     )
     works_block = works_retrieval_service.to_prompt_block(_hits)
+    anti_pattern_block = _render_anti_pattern_block(
+        list(_REQUEST_ANTI_PATTERNS.get() or []),
+    )
     # Style preset block — biases camera params toward what each picked
     # style needs, plus annotates feasibility based on real env data.
     style_block = _style_presets_branch(meta, effective_weather)
@@ -685,6 +762,7 @@ def build_user_prompt(
         {hypothesis_block}
 
         {works_block}
+        {anti_pattern_block}
 
         {potential_block}
 

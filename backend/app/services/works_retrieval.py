@@ -170,7 +170,46 @@ def recall(
                                  source="user_private"))
 
     hits.sort(key=lambda h: h.score, reverse=True)
+    hits = _apply_creator_consistency_bonus(hits, top_k=top_k)
     return hits[:top_k]
+
+
+def _apply_creator_consistency_bonus(hits: list[WorkHit],
+                                       *, top_k: int) -> list[WorkHit]:
+    """D-creator-bonus — once the top-1 work is locked in, give a small
+    score boost to any subsequent candidate by the *same* creator. This
+    nudges the final 3-6 hits toward a coherent voice (e.g. all from the
+    same Xiaohongshu blogger the user already admires) instead of a
+    grab-bag of one-offs that read as "AI mashed together random refs".
+
+    Bonus is intentionally modest (0.04) so a clearly more relevant
+    work from a different creator still wins; we just break near-ties
+    in favour of consistency.
+    """
+    if not hits:
+        return hits
+
+    def author_of(h: WorkHit) -> str:
+        return ((h.work.get("source") or {}).get("author") or "").strip()
+
+    top_author = author_of(hits[0])
+    if not top_author:
+        return hits
+
+    bumped: list[WorkHit] = []
+    bonus = 0.04
+    for i, h in enumerate(hits):
+        if i == 0:
+            bumped.append(h)
+            continue
+        if author_of(h) == top_author:
+            bumped.append(WorkHit(work=h.work,
+                                    score=round(h.score + bonus, 3),
+                                    source=h.source))
+        else:
+            bumped.append(h)
+    bumped.sort(key=lambda h: h.score, reverse=True)
+    return bumped[:max(top_k, len(bumped))]
 
 
 def to_prompt_block(hits: list[WorkHit]) -> str:

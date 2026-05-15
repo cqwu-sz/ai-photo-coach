@@ -43,6 +43,12 @@ public struct AvatarAnimationManifest: Codable, Sendable {
     public let threePerson: [String: String]
     public let fourPerson: [String: String]
     public let fallbackByCount: [String: String]
+    /// B-pose-for-height — map from HeightHint enum string ("low",
+    /// "eye_level", "high", "overhead") to a mixamo-id whose stance
+    /// makes sense at that altitude. When the manifest omits this map
+    /// we fall back to ``resolve(poseId:personCount:)`` so older
+    /// backend versions keep working without any null checks here.
+    public let poseForHeight: [String: String]?
 
     enum CodingKeys: String, CodingKey {
         case single
@@ -50,6 +56,7 @@ public struct AvatarAnimationManifest: Codable, Sendable {
         case threePerson = "three_person"
         case fourPerson = "four_person"
         case fallbackByCount = "fallback_by_count"
+        case poseForHeight = "pose_for_height"
     }
 
     /// Flatten all sections into a single pose-id → mixamo-id map.
@@ -66,6 +73,23 @@ public struct AvatarAnimationManifest: Codable, Sendable {
             return direct
         }
         return fallbackByCount[String(personCount)] ?? "idle_relaxed"
+    }
+
+    /// Pick a pose specifically tailored to the subject's vertical
+    /// position. ``heightHint`` strings match the backend HeightHint
+    /// enum. Returns a sensible built-in fallback when the manifest
+    /// doesn't carry ``pose_for_height``.
+    public func resolveForHeight(_ heightHint: String?) -> String? {
+        guard let h = heightHint else { return nil }
+        if let mapped = poseForHeight?[h] { return mapped }
+        // Built-in defaults so "overhead" doesn't fall back to a
+        // standing idle, which would look wrong floating 3 m in the air.
+        switch h {
+        case "overhead":  return "lean_look_down"
+        case "high":      return "stand_look_down_slight"
+        case "low":       return "look_up_curious"
+        default:          return nil
+        }
     }
 }
 

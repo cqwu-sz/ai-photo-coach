@@ -86,6 +86,37 @@ def load_works(path_str: str) -> list[dict[str, Any]]:
     return valid
 
 
+def load_anti_patterns(path_str: str) -> list[dict[str, Any]]:
+    """D-anti-pattern — load the **rejected** drafts produced by the
+    curator review UI. Each rejected entry carries a ``reject_reason``
+    field the LLM can read as "users said these patterns *look like*
+    great photos but are actually busted". Surfaced in prompts as
+    `AVOID:` block so the LLM stops mimicking near-misses.
+
+    Returns ``[]`` when ``path_str`` doesn't exist or is empty — older
+    deployments without a rejected/ folder don't break.
+    """
+    p = Path(path_str)
+    if not p.exists():
+        return []
+    items = _load_dir(p)
+    out: list[dict[str, Any]] = []
+    for w in items:
+        if not isinstance(w, dict):
+            continue
+        reason = w.get("reject_reason") or w.get("rejection_note")
+        if not reason:
+            continue
+        out.append({
+            "id": w.get("id") or "<no-id>",
+            "scene_tags": w.get("scene_tags") or [],
+            "light_tags": w.get("light_tags") or [],
+            "composition_tags": w.get("composition_tags") or [],
+            "reject_reason": str(reason)[:200],
+        })
+    return out
+
+
 @lru_cache(maxsize=4)
 def load_pose_to_mixamo(path_str: str) -> dict[str, str]:
     """Load the pose-id → Mixamo-animation-id mapping (v7).

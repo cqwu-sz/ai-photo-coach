@@ -38,6 +38,9 @@ final class PostProcessModel: ObservableObject {
     @Published private(set) var recipeDowngraded: Bool = false
     /// Original recipe captured at init time — surfaced as a "重设回 AI 推荐" button.
     let recipe: PostProcessRecipe?
+    /// E-ab-shot — alternative recipes the backend offered so the UI
+    /// can let the user one-tap into a contrasting mood for comparison.
+    let alternatives: [PostProcessRecipe]
     /// P3-strong-4 — how many times the user manually changed ``preset``
     /// in this session. Read by the post-process telemetry uploader so
     /// the calibration job can distinguish "AI 推荐不准 → 一锤定音切换"
@@ -48,10 +51,13 @@ final class PostProcessModel: ObservableObject {
     private let filterEngine = FilterEngine()
     private let beautyEngine = BeautyEngine()
 
-    init(original: UIImage, recipe: PostProcessRecipe? = nil, isProActive: Bool = false) {
+    init(original: UIImage, recipe: PostProcessRecipe? = nil,
+          alternatives: [PostProcessRecipe] = [],
+          isProActive: Bool = false) {
         self.original = original
         self.rendered = original
         self.recipe = recipe
+        self.alternatives = alternatives
         if let recipe {
             self.applyRecipe(recipe, isProActive: isProActive,
                              markAsApplied: true, rerenderImmediately: true)
@@ -260,6 +266,29 @@ struct PostProcessView: View {
                 .onLongPressGesture(minimumDuration: 0.3) {
                     UIImpactFeedbackGenerator(style: .light).impactOccurred()
                     showRationaleSheet = true
+                }
+            }
+            if !model.alternatives.isEmpty {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 8) {
+                        Text("试试别的:")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                        ForEach(Array(model.alternatives.enumerated()), id: \.offset) { _, alt in
+                            Button {
+                                model.applyRecipe(alt, isProActive: isProActive,
+                                                   markAsApplied: true,
+                                                   rerenderImmediately: true)
+                                previewMode = .ai
+                            } label: {
+                                Text(alt.filterPreset)
+                                    .font(.caption2.weight(.medium))
+                                    .padding(.horizontal, 10).padding(.vertical, 4)
+                                    .background(.gray.opacity(0.15), in: Capsule())
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }.padding(.horizontal)
                 }
             }
             if let warning = lutStatusWarning {

@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import logging
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Optional
 
 from pydantic import ValidationError
@@ -53,6 +54,7 @@ from .knowledge import (
     load_camera_kb,
     load_composition_kb,
     load_poses,
+    load_anti_patterns,
     load_works,
     summarize_camera_kb,
     summarize_composition_kb,
@@ -189,6 +191,16 @@ class AnalyzeService:
             prompts_mod.set_request_works_corpus(load_works(str(works_dir)))
         else:
             prompts_mod.set_request_works_corpus([])
+
+        # D-anti-pattern — pick up rejected drafts from the curator
+        # review tool. Best-effort; we never block analyze on a missing
+        # rejected/ folder.
+        try:
+            rejected_dir = (Path("scripts") / "works_crawler" / "drafts" / "_rejected")
+            prompts_mod.set_request_anti_patterns(load_anti_patterns(str(rejected_dir)))
+        except Exception as exc:                            # noqa: BLE001
+            log.info("anti-pattern load skipped: %s", exc)
+            prompts_mod.set_request_anti_patterns([])
 
         # Build a low-res 1024x512 panorama thumbnail to give the LLM a
         # global spatial map. Cheap (< 100ms for 10 frames) and bounded

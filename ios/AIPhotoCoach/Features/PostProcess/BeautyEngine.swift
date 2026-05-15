@@ -45,25 +45,92 @@ final class BeautyEngine {
     func apply(_ params: BeautyParams, to image: UIImage) -> UIImage {
         if params.isIdentity { return image }
         guard let cg = image.cgImage else { return image }
-        var ci = CIImage(cgImage: cg)
+        let base = CIImage(cgImage: cg)
+
+        // E-face-mask — detect face once and build a soft luminance mask
+        // around it. When a face exists, smooth + brighten only run
+        // inside the mask so the whole frame doesn't go pasty (e.g.
+        // wooden table textures or a sweater pattern keep their grain).
+        // When no face is found we fall back to global ops so the
+        // sliders still do something for "selfie of a hand holding
+        // something" type shots.
+        let faceMask = detectFaceMask(in: base)
+        var ci = base
+
         if params.smooth > 0 {
-            ci = ci.applyingFilter("CIGaussianBlur",
-                                   parameters: [kCIInputRadiusKey: 0.5 + 2.5 * params.smooth])
-            ci = ci.applyingFilter("CIColorMatrix")  // identity, settles output extent
+            let blurred = base.applyingFilter("CIGaussianBlur",
+                                              parameters: [kCIInputRadiusKey: 0.5 + 2.5 * params.smooth])
+                .cropped(to: base.extent)
+            ci = composite(over: ci, with: blurred, mask: faceMask)
         }
         if params.brighten > 0 {
-            ci = ci.applyingFilter("CIColorControls",
-                                   parameters: [
-                                    kCIInputBrightnessKey: 0.05 * params.brighten,
-                                    kCIInputContrastKey: 1.0 + 0.05 * params.brighten,
-                                    kCIInputSaturationKey: 1.0 - 0.05 * params.brighten,
-                                   ])
+            let brightened = ci.applyingFilter("CIColorControls",
+                                                parameters: [
+                                                    kCIInputBrightnessKey: 0.05 * params.brighten,
+                                                    kCIInputContrastKey: 1.0 + 0.05 * params.brighten,
+                                                    kCIInputSaturationKey: 1.0 - 0.05 * params.brighten,
+                                                ])
+            ci = composite(over: ci, with: brightened, mask: faceMask)
         }
         if params.enlargeEye > 0 || params.brightenEye > 0 {
             ci = applyEyeOps(ci, params: params, originalSize: image.size)
         }
         guard let out = context.createCGImage(ci, from: ci.extent) else { return image }
         return UIImage(cgImage: out, scale: image.scale, orientation: image.imageOrientation)
+    }
+
+    /// Run Vision face landmarks and return a soft alpha mask CIImage
+    /// covering the largest face (head + neck) with a feathered edge.
+    /// Returns nil when no face is detected — caller treats that as
+    /// "apply globally".
+    private func detectFaceMask(in image: CIImage) -> CIImage? {
+        let request = VNDetectFaceRectanglesRequest()
+        let handler = VNImageRequestHandler(ciImage: image, options: [:])
+        do { try handler.perform([request]) } catch { return nil }
+        guard let face = (request.results as? [VNFaceObservation])?
+            .max(by: { $0.boundingBox.size.width * $0.boundingBox.size.height
+                       < $1.boundingBox.size.width * $1.boundingBox.size.height })
+        else { return nil }
+
+        let extent = image.extent
+        let bbox = face.boundingBox
+        // Vision uses bottom-left origin in normalised space; CIImage
+        // matches that so no Y-flip is needed.
+        let rect = CGRect(
+            x: bbox.origin.x * extent.width,
+            y: bbox.origin.y * extent.height,
+            width: bbox.size.width * extent.width,
+            height: bbox.size.height * extent.height,
+        ).insetBy(dx: -bbox.size.width * extent.width * 0.10,
+                  dy: -bbox.size.height * extent.height * 0.20)
+
+        // Build a soft circular falloff mask via a radial gradient
+        // centred on the face. Radius slightly bigger than half the
+        // bbox so the mask fades smoothly past the cheeks.
+        let center = CIVector(x: rect.midX, y: rect.midY)
+        let r = Float(max(rect.width, rect.height) * 0.55)
+        let gradient = CIFilter(name: "CIRadialGradient", parameters: [
+            "inputCenter":  center,
+            "inputRadius0": r * 0.65,           // fully opaque inside this
+            "inputRadius1": r,                  // fully transparent outside
+            "inputColor0":  CIColor(red: 1, green: 1, blue: 1, alpha: 1),
+            "inputColor1":  CIColor(red: 1, green: 1, blue: 1, alpha: 0),
+        ])
+        return gradient?.outputImage?.cropped(to: extent)
+    }
+
+    /// Composite ``effect`` over ``base`` using ``mask`` (alpha
+    /// luminance) so the effect only lands where the mask is opaque.
+    /// When ``mask`` is nil we fall back to full-frame replacement.
+    private func composite(over base: CIImage, with effect: CIImage,
+                            mask: CIImage?) -> CIImage {
+        guard let mask else { return effect }
+        return effect
+            .applyingFilter("CIBlendWithMask", parameters: [
+                kCIInputBackgroundImageKey: base,
+                kCIInputMaskImageKey:       mask,
+            ])
+            .cropped(to: base.extent)
     }
 
     private func applyEyeOps(_ image: CIImage, params: BeautyParams,

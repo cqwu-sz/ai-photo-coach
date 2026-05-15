@@ -1023,6 +1023,9 @@ struct ShotRecommendation: Codable, Sendable, Identifiable, Hashable {
     /// + camera plan so the after-shoot look stays coherent with the
     /// planned shoot mood. Nil = let the user pick manually.
     let postProcessRecipe: PostProcessRecipe?
+    /// E-ab-shot — optional 1-2 contrasting recipes the UI can offer as
+    /// a one-tap A/B preview alongside the primary ``postProcessRecipe``.
+    let alternativeRecipes: [PostProcessRecipe]?
 
     enum CodingKeys: String, CodingKey {
         case id, title, angle, composition, camera, poses, rationale, confidence
@@ -1038,6 +1041,7 @@ struct ShotRecommendation: Codable, Sendable, Identifiable, Hashable {
         case foreground
         case position
         case postProcessRecipe = "post_process_recipe"
+        case alternativeRecipes = "alternative_recipes"
     }
 
     init(from decoder: Decoder) throws {
@@ -1062,6 +1066,7 @@ struct ShotRecommendation: Codable, Sendable, Identifiable, Hashable {
         self.foreground    = try c.decodeIfPresent(ShotForeground.self, forKey: .foreground)
         self.position      = try c.decodeIfPresent(ShotPosition.self, forKey: .position)
         self.postProcessRecipe = try c.decodeIfPresent(PostProcessRecipe.self, forKey: .postProcessRecipe)
+        self.alternativeRecipes = try c.decodeIfPresent([PostProcessRecipe].self, forKey: .alternativeRecipes)
     }
 }
 

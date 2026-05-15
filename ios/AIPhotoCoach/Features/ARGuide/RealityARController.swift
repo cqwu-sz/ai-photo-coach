@@ -141,7 +141,15 @@ public final class RealityARController: NSObject, ObservableObject, ARSessionDel
         // animation id via the manifest.
         // PoseSuggestion only carries a referenceThumbnailId — there's
         // no separate `id` field, so we fall back to that directly.
-        let poseId = shot?.poses.first?.referenceThumbnailId
+        // B-pose-for-height — when the shot anchors the subject above
+        // ground (heightHint = high / overhead), let the manifest pick
+        // a stance that *looks* like standing on a balcony rather than
+        // a default idle.
+        var poseId = shot?.poses.first?.referenceThumbnailId
+        if let h = shot?.angle.heightHint?.rawValue,
+           let heightPose = manifest?.poseToMixamo.resolveForHeight(h) {
+            poseId = heightPose
+        }
         let count = shot?.poses.first?.persons.count ?? 1
         animController = await AvatarLoader.shared.playPose(
             poseId, personCount: count, on: entity,

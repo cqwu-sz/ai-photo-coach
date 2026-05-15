@@ -955,6 +955,16 @@ class ShotRecommendation(BaseModel):
 
     # ----- Post-process recipe (filter / beauty / LUT) (core-pro v1) -
     post_process_recipe: Optional["PostProcessRecipe"] = None
+    alternative_recipes: Optional[list["PostProcessRecipe"]] = Field(
+        default=None,
+        description=(
+            "E-ab-shot — optional 1-2 *contrasting* recipes the UI can "
+            "offer as a one-tap A/B preview so the user can compare "
+            "moods on the same source. Should differ meaningfully from "
+            "``post_process_recipe`` (different filter_preset or LUT). "
+            "Empty/omitted is fine — clients fall back to single-recipe."
+        ),
+    )
     """Backend-decided filter + beauty + LUT preset that PostProcessView
     auto-applies after the user takes the shot. Co-emitted with the
     composition + camera plan so the after-shoot look stays coherent
