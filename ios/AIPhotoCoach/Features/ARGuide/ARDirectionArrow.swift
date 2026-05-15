@@ -35,8 +35,14 @@ final class ARDirectionArrow {
         if anchor != nil { return }
         self.arView = view
         let anchor = AnchorEntity(.camera)        // follows the camera
-        let cone = MeshResource.generateCone(height: 0.10, radius: 0.025)
-        let entity = ModelEntity(mesh: cone, materials: [bodyMaterial])
+        // NOTE: MeshResource.generateCone is iOS 18+. We're targeting
+        // iOS 17, so approximate the arrow with a thin elongated box
+        // (10 cm long, 5 cm wide, 2 cm thick). Visually reads as a chevron
+        // once rotated and tinted; users perceive direction from the long
+        // axis, not from a pointed tip.
+        let box = MeshResource.generateBox(size: SIMD3<Float>(0.05, 0.10, 0.02),
+                                            cornerRadius: 0.01)
+        let entity = ModelEntity(mesh: box, materials: [bodyMaterial])
         // Default position: 0.6 m in front of camera, slightly below
         // centre so it doesn't cover the subject.
         entity.position = SIMD3<Float>(0, -0.05, -0.6)
