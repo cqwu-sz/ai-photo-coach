@@ -38,6 +38,11 @@ def main() -> int:
                      help="Path to the feedback sqlite file.")
     ap.add_argument("--days", type=int, default=7,
                      help="Lookback window in days.")
+    ap.add_argument("--baseline-days", type=int, default=0,
+                     help="If > 0, compare the [now-days, now] window "
+                          "against the preceding [now-days-baseline, "
+                          "now-days] window and surface a ▲/▼ delta per "
+                          "recipe key. 0 disables the comparison.")
     ap.add_argument("--webhook", default=None,
                      help="Optional Slack-compatible incoming webhook URL. "
                           "When set, the markdown report is also POSTed there "
@@ -52,29 +57,42 @@ def main() -> int:
         print(f"db not found: {db_path}", file=sys.stderr)
         return 2
 
-    cutoff = (datetime.now(timezone.utc) - timedelta(days=args.days)).isoformat()
-    con = sqlite3.connect(db_path)
+    def load_window(days_from_now_start: int,
+                     days_from_now_end: int) -> dict[str, list[dict]]:
+        """Return a {recipe_key: [payload, ...]} dict for events whose
+        ``received_at_utc`` ∈ [now - start, now - end). ``end`` may be 0
+        to mean "up to now"; ``start`` must be > ``end``."""
+        now = datetime.now(timezone.utc)
+        lo = (now - timedelta(days=days_from_now_start)).isoformat()
+        hi = (now - timedelta(days=days_from_now_end)).isoformat()
+        con = sqlite3.connect(db_path)
+        try:
+            rows = con.execute(
+                "SELECT payload_json FROM post_process_events "
+                "WHERE received_at_utc >= ? AND received_at_utc < ?",
+                (lo, hi),
+            ).fetchall()
+        finally:
+            con.close()
+        bucket: dict[str, list[dict]] = defaultdict(list)
+        for (raw,) in rows:
+            try:
+                p = json.loads(raw)
+            except Exception:
+                continue
+            rec = p.get("recipe_filter_preset")
+            if not rec:
+                continue
+            bucket[rec].append(p)
+        return bucket
+
     try:
-        rows = con.execute(
-            "SELECT payload_json FROM post_process_events WHERE received_at_utc >= ?",
-            (cutoff,),
-        ).fetchall()
+        by_recipe = load_window(args.days, 0)
+        baseline = (load_window(args.days + args.baseline_days, args.days)
+                    if args.baseline_days > 0 else {})
     except sqlite3.OperationalError as e:
         print(f"query failed: {e}", file=sys.stderr)
         return 3
-    finally:
-        con.close()
-
-    by_recipe: dict[str, list[dict]] = defaultdict(list)
-    for (raw,) in rows:
-        try:
-            p = json.loads(raw)
-        except Exception:
-            continue
-        rec = p.get("recipe_filter_preset")
-        if not rec:
-            continue
-        by_recipe[rec].append(p)
 
     buf = io.StringIO()
 
@@ -88,9 +106,19 @@ def main() -> int:
         _maybe_post(args.webhook, buf.getvalue())
         return 0
 
-    emit(f"# Recipe hit-rate (last {args.days}d)\n")
-    emit("| recipe | n | hit | tweak | swap | hit% | p50 swaps | p90 swaps |")
-    emit("|---|---:|---:|---:|---:|---:|---:|---:|")
+    def hit_pct_for(samples: list[dict]) -> float:
+        if not samples: return 0.0
+        h = sum(1 for s in samples if s.get("recipe_applied") is True)
+        return (h / len(samples)) * 100
+
+    has_baseline = bool(baseline)
+    delta_col = " | Δ hit% |" if has_baseline else ""
+    delta_align = " ---:" if has_baseline else ""
+
+    emit(f"# Recipe hit-rate (last {args.days}d)"
+         + (f" vs prior {args.baseline_days}d" if has_baseline else "") + "\n")
+    emit(f"| recipe | n | hit | tweak | swap | hit% | p50 swaps | p90 swaps |{delta_col}")
+    emit(f"|---|---:|---:|---:|---:|---:|---:|---:|{delta_align}")
 
     for recipe, samples in sorted(by_recipe.items(), key=lambda kv: -len(kv[1])):
         n = len(samples)
@@ -104,8 +132,20 @@ def main() -> int:
             i = max(0, min(len(swaps_sorted) - 1, int(round(p * (len(swaps_sorted) - 1)))))
             return swaps_sorted[i]
         hit_pct = (hit / n) * 100 if n else 0.0
+        delta_cell = ""
+        if has_baseline:
+            prev = hit_pct_for(baseline.get(recipe, []))
+            d = hit_pct - prev
+            if not baseline.get(recipe):
+                delta_cell = " | _new_ |"
+            elif abs(d) < 0.5:
+                delta_cell = " | — |"
+            elif d > 0:
+                delta_cell = f" | ▲ {d:+.1f}pp |"
+            else:
+                delta_cell = f" | ▼ {d:+.1f}pp |"
         emit(f"| {recipe} | {n} | {hit} | {tweak} | {swap} | "
-              f"{hit_pct:.1f}% | {pct(0.50)} | {pct(0.90)} |")
+              f"{hit_pct:.1f}% | {pct(0.50)} | {pct(0.90)} |{delta_cell}")
 
     emit("")
     if swaps:

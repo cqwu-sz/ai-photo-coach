@@ -1,29 +1,28 @@
 /*
   Localizable.strings (en)
-  Mirror of zh-Hans/Localizable.strings — translate values lazily; any
-  missing entry falls back to the key, which is human-readable Chinese,
-  so the app never breaks. Replace strings as they're translated.
+  Mirror of zh-Hans/Localizable.strings. Any missing entry falls back to
+  the key, which is human-readable Chinese, so the app never breaks.
 */
 
 // MARK: - PostProcessKnowledge / preset explanations
 "postproc.preset.original"      = "Keeps your photo exactly as captured.";
-"postproc.preset.cleanBright"   = "Light brightness lift + a touch more contrast — great when the light is already flattering and you just want clean colours.";
-"postproc.preset.filmWarm"      = "Warm shift + softer contrast — flatters skin and emphasises the mood of golden hour or interior tungsten light.";
-"postproc.preset.streetCool"    = "Cool shift + slightly crushed shadows — film-like coolness for overcast streets, seaside, or blue-hour moments.";
-"postproc.preset.bw"            = "Desaturated + localised S-curve. When light and shadow alone tell the story, removing colour focuses the eye.";
-"postproc.preset.japanCrisp"    = "Lifted shadows + lower saturation + slight cool cast — the core of the Japanese-clean aesthetic: low contrast, high brightness, neutral whites.";
-"postproc.preset.cinematic"     = "Rolled highlights + lifted shadows + warm saturation. Cinematic feel is mostly latitude + a unified palette.";
-"postproc.preset.retroFade"     = "Lifted blacks + capped whites + lower saturation — a faded-film look for retro / lazy-afternoon moods.";
-"postproc.preset.hkVibe"        = "High contrast + high saturation + magenta-and-blue separation. Hong Kong neon look — don’t push night shots too hard or they turn mushy.";
-"postproc.preset.beauty"        = "Portrait-focused: skin softening + targeted brightening + eye catchlights, preserving pore texture.";
+"postproc.preset.cleanBright"   = "A gentle brightness lift with a touch more contrast. Best when the light is already flattering and you just want clean, true colour.";
+"postproc.preset.filmWarm"      = "A warm cast with softer contrast. Flatters skin and brings out the mood of golden hour or warm interior light.";
+"postproc.preset.streetCool"    = "A cool cast with slightly crushed shadows, mimicking cool-emulsion film. Great for overcast streets, coastlines, and the blue hour.";
+"postproc.preset.bw"            = "Desaturated with a localised S-curve. When the light and shadows tell the story by themselves, removing colour focuses the eye.";
+"postproc.preset.japanCrisp"    = "Lifted shadows, reduced saturation, and a slight cool tint. The classic Japanese-clean look: low contrast, high brightness, neutral whites.";
+"postproc.preset.cinematic"     = "Rolled-off highlights, lifted shadows, and a warmer palette. Cinematic feel is really about wide latitude and a unified tone.";
+"postproc.preset.retroFade"     = "Lifted blacks, capped whites, and lower saturation. A faded-film look that suits retro and lazy-afternoon moods.";
+"postproc.preset.hkVibe"        = "High contrast and saturation with magenta-and-blue separation, evoking Hong Kong neon. Go light on night scenes so it doesn't get muddy.";
+"postproc.preset.beauty"        = "Portrait-tuned: skin softening, targeted brightening, and eye catchlights, while preserving pore texture.";
 
 // MARK: - PostProcessKnowledge / LUT explanations
-"postproc.lut.natural"          = "Neutral lookup table — light contrast and saturation correction only.";
-"postproc.lut.film_warm"        = "Warm film curve emulating Portra / Gold-family colour casts.";
-"postproc.lut.film_cool"        = "Cool film curve emulating Cinestill / Ektar overcast casts.";
-"postproc.lut.mono"             = "Black-and-white response curve with a BT.709 luma weighted S-curve.";
-"postproc.lut.hk_neon"          = "Strong contrast plus magenta/cyan separation for a neon-poster mood.";
-"postproc.lut.japanese_clean"   = "Lifted shadows, reduced saturation, mild cool tint — the Japanese-clean baseline.";
-"postproc.lut.golden_glow"      = "Amber highlights, warm midtones — golden-hour emulation.";
-"postproc.lut.moody_fade"       = "Faded curve (blacks above 0, whites below 1) with low saturation.";
+"postproc.lut.natural"          = "Neutral lookup table with only mild contrast and saturation corrections.";
+"postproc.lut.film_warm"        = "Warm-film curve in the spirit of Portra or Kodak Gold colour casts.";
+"postproc.lut.film_cool"        = "Cool-film curve in the spirit of Cinestill or Ektar under overcast skies.";
+"postproc.lut.mono"             = "Black-and-white response with BT.709-weighted luma and a gentle S-curve.";
+"postproc.lut.hk_neon"          = "Strong contrast with magenta-and-cyan separation for a neon-poster mood.";
+"postproc.lut.japanese_clean"   = "Lifted shadows, lower saturation, and a slight cool tint: the Japanese-clean baseline.";
+"postproc.lut.golden_glow"      = "Amber-leaning highlights with warm midtones, emulating golden hour.";
+"postproc.lut.moody_fade"       = "A faded curve (blacks above 0, whites below 1) paired with low saturation.";
 "postproc.lut.custom"           = "Custom LUT.";
