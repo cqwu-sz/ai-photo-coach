@@ -119,12 +119,13 @@ public final class RealityARController: NSObject, ObservableObject, ARSessionDel
         let z = -cos(az) * dist
         let yaw = atan2(-x, -z)
         // P3-strong-2 — prefer measured ``subjectWorldYM`` from the
-        // landmark graph when present (clamped to a sane range so a
-        // garbage value can't fly the subject 200 m into the sky);
+        // landmark graph when present (clamped to the same [-5, 50] m
+        // range the backend ``Angle.subject_world_y_m`` Field validates
+        // against, so the iOS and server views of "valid Y" agree);
         // fall back to the HeightHint enum bucket otherwise.
         let y: Float
         if let measured = shot?.angle.subjectWorldYM {
-            y = Float(max(-2.0, min(20.0, measured)))
+            y = Float(max(-5.0, min(50.0, measured)))
         } else {
             y = Self.subjectYOffset(for: shot?.angle.heightHint)
         }

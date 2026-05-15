@@ -18,7 +18,9 @@ import math
 from dataclasses import dataclass
 from pathlib import Path
 
-SIZE = 17  # 17^3 = 4913 entries, plenty for a baseline preview LUT
+SIZE = 33  # 33^3 = 35937 entries — Resolve / Adobe standard, smooth
+           # gradients with no visible stepping. ~1 MB per .cube file;
+           # acceptable for an 8-preset shipping bundle (≈8 MB total).
 OUT_DIR = Path(__file__).resolve().parents[2] / "ios" / "AIPhotoCoach" / "Resources" / "LUTs"
 
 

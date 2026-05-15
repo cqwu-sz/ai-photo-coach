@@ -19,6 +19,10 @@ final class PostProcessModel: ObservableObject {
     /// without re-running CI filter chains. Refreshed whenever the
     /// recipe is (re)applied via ``applyRecipe``.
     @Published var aiPreview: UIImage?
+    /// P3-strong-2 — last LUT lookup outcome from FilterEngine, so the
+    /// UI can show "LUT 未加载" instead of the engine silently degrading
+    /// to a preset-only render that looks identical to no-LUT.
+    @Published private(set) var lutStatus: LUTResolutionStatus = .notRequested
     /// Backend-recommended LUT id, if any. Threaded through to
     /// ``FilterEngine.apply(_:lutId:to:)`` on every rerender so the
     /// LUT chains *after* the preset's CIFilter stack.
@@ -98,6 +102,7 @@ final class PostProcessModel: ObservableObject {
         var img = filterEngine.apply(preset, lutId: lutId, to: original)
         img = beautyEngine.apply(beauty, to: img)
         self.rendered = img
+        self.lutStatus = filterEngine.lastLUTStatus
     }
 
     func save() async {
@@ -126,6 +131,36 @@ struct PostProcessView: View {
     @State private var paywallError: String? = nil
     @State private var showRationaleSheet: Bool = false
     @State private var previewMode: PreviewMode = .mine
+    /// P3-strong-1 — once the user dismisses the Pro upsell banner we
+    /// keep it hidden for 24h (stored in UserDefaults). Subsequent
+    /// recipes with ``recipeDowngraded=true`` still downgrade silently
+    /// — they just don't nag the user every single time.
+    @State private var downgradeBannerDismissed: Bool = false
+    private static let upsellSuppressUntilKey = "post_process.upsell_suppress_until"
+
+    /// Surfaces a one-line warning when a LUT was requested but couldn't
+    /// be resolved — invaluable for distinguishing "AI 推荐生效了" from
+    /// "AI 推荐里有 LUT 但文件没进 bundle"。
+    private var lutStatusWarning: String? {
+        switch model.lutStatus {
+        case .missing(let id):      return "LUT 未加载（\(id).cube 不在 bundle）"
+        case .parseFailure(let id): return "LUT 解析失败（\(id).cube 格式异常）"
+        case .applied, .notRequested:
+            return nil
+        }
+    }
+
+    private var shouldShowDowngradeBanner: Bool {
+        guard model.recipeDowngraded, !downgradeBannerDismissed else { return false }
+        let until = UserDefaults.standard.double(forKey: Self.upsellSuppressUntilKey)
+        return Date().timeIntervalSince1970 > until
+    }
+
+    private func dismissDowngradeBanner() {
+        downgradeBannerDismissed = true
+        let next = Date().addingTimeInterval(24 * 60 * 60).timeIntervalSince1970
+        UserDefaults.standard.set(next, forKey: Self.upsellSuppressUntilKey)
+    }
 
     private var displayedImage: UIImage {
         switch previewMode {
@@ -190,10 +225,10 @@ struct PostProcessView: View {
             beautySliders
             if model.recipeApplied, let rationale = model.recipe?.rationaleZh {
                 HStack(alignment: .top, spacing: 6) {
-                    Image(systemName: model.recipeDowngraded ? "lock.fill" : "sparkles")
+                    Image(systemName: shouldShowDowngradeBanner ? "lock.fill" : "sparkles")
                         .font(.caption2)
-                        .foregroundStyle(model.recipeDowngraded ? .orange : .secondary)
-                    if model.recipeDowngraded {
+                        .foregroundStyle(shouldShowDowngradeBanner ? .orange : .secondary)
+                    if shouldShowDowngradeBanner {
                         Button {
                             showPaywall = true
                         } label: {
@@ -203,6 +238,16 @@ struct PostProcessView: View {
                                 .multilineTextAlignment(.leading)
                         }
                         .buttonStyle(.plain)
+                        Spacer(minLength: 4)
+                        Button {
+                            dismissDowngradeBanner()
+                        } label: {
+                            Image(systemName: "xmark")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("关闭升级提示，24 小时内不再显示")
                     } else {
                         Text("AI 推荐：\(rationale)")
                             .font(.caption2)
@@ -216,6 +261,18 @@ struct PostProcessView: View {
                     UIImpactFeedbackGenerator(style: .light).impactOccurred()
                     showRationaleSheet = true
                 }
+            }
+            if let warning = lutStatusWarning {
+                HStack(spacing: 4) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .font(.caption2)
+                        .foregroundStyle(.yellow)
+                    Text(warning)
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.horizontal)
+                .accessibilityElement(children: .combine)
             }
             HStack {
                 Button {

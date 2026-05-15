@@ -98,6 +98,7 @@ actor FeedbackUploader {
     /// hand-picked 8°/20° constants. Fire-and-forget telemetry.
     func recordAlignmentPitch(
         analyzeRequestId: String?,
+        shotId: String?,
         absDeltaDeg: Double,
         tier: String,
         targetPitchDeg: Double?,
@@ -105,6 +106,7 @@ actor FeedbackUploader {
         let url = baseURL.appendingPathComponent("/feedback/alignment_pitch")
         let body: [String: Any] = [
             "analyze_request_id": analyzeRequestId ?? NSNull(),
+            "shot_id": shotId ?? NSNull(),
             "abs_delta_deg": absDeltaDeg,
             "tier": tier,
             "target_pitch_deg": targetPitchDeg ?? NSNull(),

@@ -132,6 +132,11 @@ class Settings(BaseSettings):
     weekly_seed_active_radius_km: float = 5.0
     enable_post_process_telemetry: bool = True
     enable_ar_nav_telemetry: bool = True
+    # P3-strong-3 — sample |pitchDelta| at the green-light edge so the
+    # AlignmentMachine pitch tolerances can be calibrated from real
+    # users. Disable to silence the /feedback/alignment_pitch endpoint
+    # without code changes.
+    enable_alignment_pitch_telemetry: bool = True
 
     # ---- v16 — multi-user / auth / IAP (Phase 0 of MULTI_USER_AUTH) -----
     app_jwt_secret: str = ""

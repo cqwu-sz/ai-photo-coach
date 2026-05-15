@@ -183,24 +183,32 @@ async def alignment_pitch_telemetry(
     abs_delta_deg, PERCENTILE_DISC(0.9) and rotate the
     ``pitchNear``/``pitchFar`` thresholds without touching app code."""
     settings = get_settings()
-    if not getattr(settings, "enable_alignment_pitch_telemetry", True):
+    if not settings.enable_alignment_pitch_telemetry:
         return {"stored": False, "reason": "disabled"}
     try:
         abs_delta = float(payload.get("abs_delta_deg") or 0.0)
         tier = str(payload.get("tier") or "unknown")
+        shot_id = payload.get("shot_id")
+        shot_id_str = str(shot_id) if shot_id else None
         with _connect() as con:
             con.execute(
                 "CREATE TABLE IF NOT EXISTS alignment_pitch_events ("
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 "received_at_utc TEXT NOT NULL, "
+                "shot_id TEXT, "
                 "abs_delta_deg REAL NOT NULL, "
                 "tier TEXT NOT NULL, "
                 "payload_json TEXT NOT NULL)"
             )
+            # Idempotent migration: older rows lacked shot_id; ALTER if missing.
+            cols = {r[1] for r in con.execute("PRAGMA table_info(alignment_pitch_events)")}
+            if "shot_id" not in cols:
+                con.execute("ALTER TABLE alignment_pitch_events ADD COLUMN shot_id TEXT")
             con.execute(
                 "INSERT INTO alignment_pitch_events "
-                "(received_at_utc, abs_delta_deg, tier, payload_json) VALUES (?, ?, ?, ?)",
-                (datetime.now(timezone.utc).isoformat(), abs_delta, tier,
+                "(received_at_utc, shot_id, abs_delta_deg, tier, payload_json) "
+                "VALUES (?, ?, ?, ?, ?)",
+                (datetime.now(timezone.utc).isoformat(), shot_id_str, abs_delta, tier,
                  json.dumps(payload, ensure_ascii=False)),
             )
         metrics_api.inc("ai_photo_coach_alignment_pitch_total", tier=tier)

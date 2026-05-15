@@ -50,6 +50,17 @@ targets:
           # build errors on multi-target archives).
           - "Info.plist"
           - "Info-Internal.plist"
+          # Resources/LUTs is mounted separately below as a folder
+          # reference so the .cube files keep their `LUTs/` subdirectory
+          # inside the bundle (FilterEngine.makeLUTFilter looks for them
+          # with subdirectory:"LUTs" first). Without this, XcodeGen
+          # flattens the cubes into the bundle root and the subdirectory
+          # lookup misses (still works via the fallback path but the
+          # folder reference is cleaner).
+          - "Resources/LUTs/**"
+      - path: AIPhotoCoach/Resources/LUTs
+        type: folder
+        buildPhase: resources
     info:
       path: AIPhotoCoach/Info.plist
       properties:
@@ -158,6 +169,11 @@ targets:
           # plist this target uses. Exclude it explicitly.
           - "Info.plist"
           - "Info-Internal.plist"
+          # See AIPhotoCoach target for the rationale.
+          - "Resources/LUTs/**"
+      - path: AIPhotoCoach/Resources/LUTs
+        type: folder
+        buildPhase: resources
     info:
       path: AIPhotoCoach/Info-Internal.plist
       properties:

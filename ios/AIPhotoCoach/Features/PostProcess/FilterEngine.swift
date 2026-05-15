@@ -85,11 +85,26 @@ enum FilterPreset: String, CaseIterable, Identifiable {
     }
 }
 
+/// P3-strong-2 — outcome of the most recent ``apply(_:lutId:to:)`` call.
+/// Surfaced to ``PostProcessModel`` so the UI can show a small warning
+/// when a LUT was requested but couldn't be loaded (file missing from
+/// bundle, parse failure, etc.) instead of silently returning the
+/// preset-only render that looks identical to "no LUT requested".
+enum LUTResolutionStatus: Equatable {
+    case notRequested
+    case applied(String)
+    case missing(String)        // bundle has no such .cube file
+    case parseFailure(String)   // .cube file exists but is malformed
+}
+
 final class FilterEngine {
     private let context = CIContext(options: [.useSoftwareRenderer: false])
     /// Caches decoded 64^3 LUT tables so back-to-back applies don't
     /// reparse the same .cube file. Key = lut id (file stem).
     private var lutCache: [String: Data] = [:]
+    /// Outcome of the LUT lookup during the most recent ``apply`` call.
+    /// Read by ``PostProcessModel`` to drive a "LUT 未加载" UI hint.
+    private(set) var lastLUTStatus: LUTResolutionStatus = .notRequested
 
     func apply(_ preset: FilterPreset, to image: UIImage) -> UIImage {
         return self.apply(preset, lutId: nil, to: image)
@@ -98,18 +113,28 @@ final class FilterEngine {
     /// Apply a preset, then optionally a LUT lookup, then return the
     /// processed UIImage. ``lutId`` matches a ``Resources/LUTs/<id>.cube``
     /// shipped in the app bundle. Missing LUT id → falls back to the
-    /// preset-only chain so the user still gets *something*.
+    /// preset-only chain so the user still gets *something*; ``lastLUTStatus``
+    /// records why so the UI can surface it.
     func apply(_ preset: FilterPreset, lutId: String?, to image: UIImage) -> UIImage {
-        guard let cg = image.cgImage else { return image }
+        guard let cg = image.cgImage else {
+            self.lastLUTStatus = .notRequested
+            return image
+        }
         var ci = CIImage(cgImage: cg)
         if preset != .original {
             ci = chain(for: preset, image: ci)
         }
-        if let lutId, let lutFilter = self.makeLUTFilter(lutId: lutId) {
-            lutFilter.setValue(ci, forKey: kCIInputImageKey)
-            if let out = lutFilter.outputImage {
-                ci = out
+        if let lutId {
+            let (filter, status) = self.makeLUTFilter(lutId: lutId)
+            self.lastLUTStatus = status
+            if let lutFilter = filter {
+                lutFilter.setValue(ci, forKey: kCIInputImageKey)
+                if let out = lutFilter.outputImage {
+                    ci = out
+                }
             }
+        } else {
+            self.lastLUTStatus = .notRequested
         }
         guard let out = context.createCGImage(ci, from: ci.extent) else { return image }
         return UIImage(cgImage: out, scale: image.scale, orientation: image.imageOrientation)
@@ -119,9 +144,10 @@ final class FilterEngine {
 
     /// Parse a Resolve-style ``.cube`` file from the bundle and build
     /// a ``CIColorCubeWithColorSpace`` filter ready to apply. Returns
-    /// nil when the file is missing / unparseable; caller falls back
-    /// to no-LUT.
-    private func makeLUTFilter(lutId: String) -> CIFilter? {
+    /// nil + a structured ``LUTResolutionStatus`` reason when the file
+    /// is missing or unparseable; caller surfaces the status to the UI
+    /// and falls back to no-LUT.
+    private func makeLUTFilter(lutId: String) -> (CIFilter?, LUTResolutionStatus) {
         let (dimension, data): (Int, Data)
         if let cached = self.lutCache[lutId] {
             // Caches the *packed* data; dimension is captured in the
@@ -132,11 +158,13 @@ final class FilterEngine {
         } else {
             guard let url = Bundle.main.url(forResource: lutId, withExtension: "cube",
                                             subdirectory: "LUTs")
-                  ?? Bundle.main.url(forResource: lutId, withExtension: "cube"),
-                  let text = try? String(contentsOf: url, encoding: .utf8) else {
-                return nil
+                  ?? Bundle.main.url(forResource: lutId, withExtension: "cube") else {
+                return (nil, .missing(lutId))
             }
-            guard let parsed = self.parseCubeLUT(text) else { return nil }
+            guard let text = try? String(contentsOf: url, encoding: .utf8),
+                  let parsed = self.parseCubeLUT(text) else {
+                return (nil, .parseFailure(lutId))
+            }
             (dimension, data) = parsed
             self.lutCache[lutId] = data
         }
@@ -145,7 +173,7 @@ final class FilterEngine {
         filter?.setValue(dimension, forKey: "inputCubeDimension")
         filter?.setValue(data, forKey: "inputCubeData")
         filter?.setValue(CGColorSpace(name: CGColorSpace.sRGB), forKey: "inputColorSpace")
-        return filter
+        return (filter, .applied(lutId))
     }
 
     /// Minimal .cube parser — accepts the subset Resolve / Photoshop
