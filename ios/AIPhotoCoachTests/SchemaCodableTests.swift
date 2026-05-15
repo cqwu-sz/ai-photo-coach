@@ -483,6 +483,7 @@ final class SchemaCodableTests: XCTestCase {
                 "3": "group_triangle_pose",
                 "4": "group_diamond_pose",
             ],
+            poseForHeight: nil,
         )
         XCTAssertEqual(
             manifest.resolve(poseId: "pose_single_relaxed_001", personCount: 1),

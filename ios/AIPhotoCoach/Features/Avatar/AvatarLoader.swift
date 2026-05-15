@@ -150,7 +150,8 @@ public final class AvatarManifest: ObservableObject {
                     twoPerson: [:],
                     threePerson: [:],
                     fourPerson: [:],
-                    fallbackByCount: ["1": "idle_relaxed"]
+                    fallbackByCount: ["1": "idle_relaxed"],
+                    poseForHeight: nil
                 )
             )
             self.payload = fallback
