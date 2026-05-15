@@ -580,6 +580,14 @@ class Angle(BaseModel):
     pitch_deg: float
     distance_m: float = Field(ge=0.3, le=20)
     height_hint: Optional[HeightHint] = None
+    # P3-strong-2 — explicit subject Y offset (metres above device ground
+    # plane) for 3D shots like "model on second-floor balcony". When
+    # present this *overrides* the coarse ``height_hint`` bucket on the
+    # iOS RealityARController so the virtual subject anchors at the real
+    # measured height instead of a 1.5/3.0 m constant. Derived from
+    # ``LandmarkNode.height_above_ground_m`` of the subject node in a
+    # ``ShotHypothesis``; omitted for ordinary ground-level shots.
+    subject_world_y_m: Optional[float] = Field(default=None, ge=-5.0, le=50.0)
 
 
 class ShotPositionKind(str, Enum):
@@ -963,13 +971,16 @@ class PostProcessRecipe(BaseModel):
     the same mood the shot was planned for. PostProcessView applies it
     when the view appears; the user can still override.
     """
-    filter_preset: str = Field(
+    filter_preset: Literal[
+        "natural", "film_warm", "film_cool", "mono", "hk_neon",
+        "japanese_clean", "golden_glow", "moody_fade",
+    ] = Field(
         default="natural",
         description=(
-            "Name of an iOS FilterEngine FilterPreset case. Vocabulary "
-            "is kept in sync with ios/Features/PostProcess/FilterEngine.swift: "
-            "natural | film_warm | film_cool | mono | hk_neon | "
-            "japanese_clean | golden_glow | moody_fade."
+            "Name of an iOS FilterEngine FilterPreset case. Strictly "
+            "constrained to the 8 keys ios FilterEngine.from(recipeKey:) "
+            "knows how to map; any other string is rejected at parse "
+            "time so the client never silently falls back to .original."
         ),
     )
     beauty_intensity: float = Field(

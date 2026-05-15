@@ -75,6 +75,14 @@ let targets: Targets
 let tol: Tolerances
 
 var onGreenLight: (() -> Void)?
+    /// P3-strong-3 — fired exactly once the moment ``allOK`` first
+    /// flips true (the green-light edge), carrying the |pitchDelta|
+    /// at that instant and its tier. Used by callers to pipe a
+    /// ``FeedbackUploader.recordAlignmentPitch`` sample so the
+    /// 8°/20° thresholds can be calibrated from real users instead
+    /// of being a guess. Not fired again until ``allOK`` drops and
+    /// rises again.
+    var onGreenLightPitch: ((Double, PitchTier) -> Void)?
 
     private var greenSince: Date?
     private var lastFiredGreen = false
@@ -217,6 +225,9 @@ func update(personPresent: Bool?) {
                let s = greenSince, now.timeIntervalSince(s) >= tol.holdTime {
                 lastFiredGreen = true
                 onGreenLight?()
+                if let pd = state.pitch.value, let tier = pitchTier {
+                    onGreenLightPitch?(abs(pd), tier)
+                }
             }
         } else {
             greenSince = nil

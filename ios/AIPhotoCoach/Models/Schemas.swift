@@ -613,12 +613,36 @@ struct Angle: Codable, Sendable, Hashable {
     let pitchDeg: Double
     let distanceM: Double
     let heightHint: HeightHint?
+    /// P3-strong-2 — measured Y offset (m) of the subject above the
+    /// device ground plane. Sourced from a LandmarkNode through a
+    /// ShotHypothesis; when non-nil it overrides ``heightHint`` for the
+    /// RealityKit anchor Y. nil for ordinary ground-level shots.
+    let subjectWorldYM: Double?
 
     enum CodingKeys: String, CodingKey {
         case azimuthDeg = "azimuth_deg"
         case pitchDeg = "pitch_deg"
         case distanceM = "distance_m"
         case heightHint = "height_hint"
+        case subjectWorldYM = "subject_world_y_m"
+    }
+
+    init(azimuthDeg: Double, pitchDeg: Double, distanceM: Double,
+         heightHint: HeightHint? = nil, subjectWorldYM: Double? = nil) {
+        self.azimuthDeg = azimuthDeg
+        self.pitchDeg = pitchDeg
+        self.distanceM = distanceM
+        self.heightHint = heightHint
+        self.subjectWorldYM = subjectWorldYM
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.azimuthDeg = try c.decode(Double.self, forKey: .azimuthDeg)
+        self.pitchDeg = try c.decode(Double.self, forKey: .pitchDeg)
+        self.distanceM = try c.decode(Double.self, forKey: .distanceM)
+        self.heightHint = try c.decodeIfPresent(HeightHint.self, forKey: .heightHint)
+        self.subjectWorldYM = try c.decodeIfPresent(Double.self, forKey: .subjectWorldYM)
     }
 }
 

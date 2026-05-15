@@ -118,7 +118,16 @@ public final class RealityARController: NSObject, ObservableObject, ARSessionDel
         let x = sin(az) * dist
         let z = -cos(az) * dist
         let yaw = atan2(-x, -z)
-        let y = Self.subjectYOffset(for: shot?.angle.heightHint)
+        // P3-strong-2 — prefer measured ``subjectWorldYM`` from the
+        // landmark graph when present (clamped to a sane range so a
+        // garbage value can't fly the subject 200 m into the sky);
+        // fall back to the HeightHint enum bucket otherwise.
+        let y: Float
+        if let measured = shot?.angle.subjectWorldYM {
+            y = Float(max(-2.0, min(20.0, measured)))
+        } else {
+            y = Self.subjectYOffset(for: shot?.angle.heightHint)
+        }
 
         let anchor = AnchorEntity(world: SIMD3<Float>(x, y, z))
         anchor.transform.rotation = simd_quatf(angle: yaw, axis: SIMD3<Float>(0, 1, 0))

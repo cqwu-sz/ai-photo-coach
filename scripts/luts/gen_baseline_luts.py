@@ -1,0 +1,194 @@
+"""Generate 8 baseline 17x17x17 .cube LUTs matching the FilterPreset
+vocabulary the LLM is allowed to emit (see PostProcessRecipe.filter_preset).
+
+These are *baseline placeholders* — pixel math is intentionally simple so
+a curator can drop in commercial / hand-graded LUTs later (same filenames)
+without any code change. The IDs match the keys in
+``ios/AIPhotoCoach/Features/PostProcess/FilterEngine.swift::FilterPreset.from(recipeKey:)``.
+
+Run::
+
+    python scripts/luts/gen_baseline_luts.py
+
+Output: ``ios/AIPhotoCoach/Resources/LUTs/*.cube`` (8 files, ~80 KB total).
+"""
+from __future__ import annotations
+
+import math
+from dataclasses import dataclass
+from pathlib import Path
+
+SIZE = 17  # 17^3 = 4913 entries, plenty for a baseline preview LUT
+OUT_DIR = Path(__file__).resolve().parents[2] / "ios" / "AIPhotoCoach" / "Resources" / "LUTs"
+
+
+def _clip(x: float) -> float:
+    return max(0.0, min(1.0, x))
+
+
+def _smoothstep(edge0: float, edge1: float, x: float) -> float:
+    t = _clip((x - edge0) / (edge1 - edge0))
+    return t * t * (3.0 - 2.0 * t)
+
+
+def _to_hsv(r: float, g: float, b: float) -> tuple[float, float, float]:
+    mx, mn = max(r, g, b), min(r, g, b)
+    v = mx
+    d = mx - mn
+    s = 0.0 if mx == 0 else d / mx
+    if d == 0:
+        h = 0.0
+    elif mx == r:
+        h = ((g - b) / d) % 6
+    elif mx == g:
+        h = (b - r) / d + 2
+    else:
+        h = (r - g) / d + 4
+    return (h * 60.0, s, v)
+
+
+def _from_hsv(h: float, s: float, v: float) -> tuple[float, float, float]:
+    h = h % 360
+    c = v * s
+    x = c * (1 - abs((h / 60) % 2 - 1))
+    m = v - c
+    if   h <  60: r, g, b = c, x, 0
+    elif h < 120: r, g, b = x, c, 0
+    elif h < 180: r, g, b = 0, c, x
+    elif h < 240: r, g, b = 0, x, c
+    elif h < 300: r, g, b = x, 0, c
+    else:         r, g, b = c, 0, x
+    return (r + m, g + m, b + m)
+
+
+# --- per-preset transforms -------------------------------------------------
+
+def t_natural(r, g, b):
+    # Identity-ish; gentle contrast lift in midtones, slight saturation.
+    def lift(x):
+        return _clip(x + 0.02 * math.sin(math.pi * x))
+    r, g, b = lift(r), lift(g), lift(b)
+    h, s, v = _to_hsv(r, g, b)
+    s = _clip(s * 1.05)
+    return _from_hsv(h, s, v)
+
+
+def t_film_warm(r, g, b):
+    # Warm shift: more red/yellow, lifted shadows, slight fade.
+    r = _clip(r * 1.05 + 0.04)
+    g = _clip(g * 1.02 + 0.02)
+    b = _clip(b * 0.92)
+    r = _clip(r + 0.02 * (1 - r))
+    return (r, g, b)
+
+
+def t_film_cool(r, g, b):
+    # Cool shift: blue/green lift, mild fade in highlights.
+    r = _clip(r * 0.95)
+    g = _clip(g * 1.02 + 0.01)
+    b = _clip(b * 1.05 + 0.04)
+    return (r, g, b)
+
+
+def t_mono(r, g, b):
+    # BT.709 luma + slight S-curve.
+    y = 0.2126 * r + 0.7152 * g + 0.0722 * b
+    y = _smoothstep(0.05, 0.95, y)
+    return (y, y, y)
+
+
+def t_hk_neon(r, g, b):
+    # High contrast, magenta/cyan push.
+    def scurve(x):
+        return _clip(0.5 + 1.2 * (x - 0.5))
+    r, g, b = scurve(r), scurve(g), scurve(b)
+    h, s, v = _to_hsv(r, g, b)
+    s = _clip(s * 1.3)
+    if 180 <= h <= 240:
+        h += 5  # nudge blues toward cyan
+    elif 280 <= h <= 340:
+        h -= 5  # nudge magentas redder
+    return _from_hsv(h, s, v)
+
+
+def t_japanese_clean(r, g, b):
+    # Lifted shadows, low saturation, slightly cool whites.
+    r = _clip(0.08 + r * 0.9)
+    g = _clip(0.10 + g * 0.9)
+    b = _clip(0.12 + b * 0.9)
+    h, s, v = _to_hsv(r, g, b)
+    s = _clip(s * 0.75)
+    return _from_hsv(h, s, v)
+
+
+def t_golden_glow(r, g, b):
+    # Strong amber bias on highlights, warm midtones.
+    luma = 0.2126 * r + 0.7152 * g + 0.0722 * b
+    warm = _smoothstep(0.3, 1.0, luma)
+    r = _clip(r * (1 + 0.10 * warm) + 0.05 * warm)
+    g = _clip(g * (1 + 0.04 * warm) + 0.02 * warm)
+    b = _clip(b * (1 - 0.10 * warm))
+    return (r, g, b)
+
+
+def t_moody_fade(r, g, b):
+    # Lifted blacks, rolled highlights, desaturated.
+    def fade(x):
+        return _clip(0.10 + 0.78 * x + 0.05 * math.sin(math.pi * x))
+    r, g, b = fade(r), fade(g), fade(b)
+    h, s, v = _to_hsv(r, g, b)
+    s = _clip(s * 0.7)
+    return _from_hsv(h, s, v)
+
+
+@dataclass
+class Preset:
+    key: str
+    title_zh: str
+    fn: callable
+
+
+PRESETS: list[Preset] = [
+    Preset("natural",         "自然",         t_natural),
+    Preset("film_warm",       "胶片暖",       t_film_warm),
+    Preset("film_cool",       "胶片冷",       t_film_cool),
+    Preset("mono",            "单色",         t_mono),
+    Preset("hk_neon",         "港风霓虹",     t_hk_neon),
+    Preset("japanese_clean",  "日系清新",     t_japanese_clean),
+    Preset("golden_glow",     "金光",         t_golden_glow),
+    Preset("moody_fade",      "复古褪色",     t_moody_fade),
+]
+
+
+def write_cube(p: Preset) -> Path:
+    path = OUT_DIR / f"{p.key}.cube"
+    lines = [
+        f"# Baseline LUT for FilterPreset '{p.key}' ({p.title_zh}).",
+        f"# Generated by scripts/luts/gen_baseline_luts.py — replace with a",
+        "# hand-graded / commercial LUT keeping the same filename to upgrade.",
+        f"TITLE \"{p.key}\"",
+        f"LUT_3D_SIZE {SIZE}",
+        "DOMAIN_MIN 0.0 0.0 0.0",
+        "DOMAIN_MAX 1.0 1.0 1.0",
+    ]
+    for bi in range(SIZE):
+        for gi in range(SIZE):
+            for ri in range(SIZE):
+                r = ri / (SIZE - 1)
+                g = gi / (SIZE - 1)
+                b = bi / (SIZE - 1)
+                rr, gg, bb = p.fn(r, g, b)
+                lines.append(f"{rr:.6f} {gg:.6f} {bb:.6f}")
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return path
+
+
+def main() -> None:
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    for p in PRESETS:
+        out = write_cube(p)
+        print(f"wrote {out.relative_to(OUT_DIR.parents[3])} ({out.stat().st_size // 1024} KB)")
+
+
+if __name__ == "__main__":
+    main()

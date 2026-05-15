@@ -64,6 +64,25 @@ enum FilterPreset: String, CaseIterable, Identifiable {
         default:                return .original
         }
     }
+
+    /// Nearest free preset for paywall downgrade when the recipe asked
+    /// for a Pro-only preset and the user isn't subscribed. Picks a
+    /// flavour-similar free preset so the look is "close enough" rather
+    /// than dropping to ``.original`` (which would feel like a bug).
+    /// Returns ``self`` when already free.
+    var freeFallback: FilterPreset {
+        guard requiresPro else { return self }
+        switch self {
+        case .cinematic:   return .cleanBright   // golden_glow → clean
+        case .filmWarm:    return .cleanBright   // film_warm   → clean
+        case .hkVibe:      return .streetCool    // hk_neon     → cool
+        case .retroFade:   return .bw            // moody_fade  → mono
+        case .beautyNatural, .beautyStrong:
+            return .cleanBright
+        default:
+            return .cleanBright
+        }
+    }
 }
 
 final class FilterEngine {

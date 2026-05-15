@@ -173,6 +173,43 @@ async def post_process_telemetry(
         return {"stored": False, "error": str(e)}
 
 
+@router.post("/alignment_pitch")
+async def alignment_pitch_telemetry(
+    payload: dict,
+    user: auth_svc.CurrentUser = Depends(auth_svc.current_user),
+) -> dict:
+    """P3-strong-3 — sample |pitchDelta| at the green-light edge.
+    Persisted to a dedicated table so the calibration job can SELECT
+    abs_delta_deg, PERCENTILE_DISC(0.9) and rotate the
+    ``pitchNear``/``pitchFar`` thresholds without touching app code."""
+    settings = get_settings()
+    if not getattr(settings, "enable_alignment_pitch_telemetry", True):
+        return {"stored": False, "reason": "disabled"}
+    try:
+        abs_delta = float(payload.get("abs_delta_deg") or 0.0)
+        tier = str(payload.get("tier") or "unknown")
+        with _connect() as con:
+            con.execute(
+                "CREATE TABLE IF NOT EXISTS alignment_pitch_events ("
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "received_at_utc TEXT NOT NULL, "
+                "abs_delta_deg REAL NOT NULL, "
+                "tier TEXT NOT NULL, "
+                "payload_json TEXT NOT NULL)"
+            )
+            con.execute(
+                "INSERT INTO alignment_pitch_events "
+                "(received_at_utc, abs_delta_deg, tier, payload_json) VALUES (?, ?, ?, ?)",
+                (datetime.now(timezone.utc).isoformat(), abs_delta, tier,
+                 json.dumps(payload, ensure_ascii=False)),
+            )
+        metrics_api.inc("ai_photo_coach_alignment_pitch_total", tier=tier)
+        return {"stored": True}
+    except Exception as e:                                       # noqa: BLE001
+        log.info("alignment_pitch telemetry failed: %s", e)
+        return {"stored": False, "error": str(e)}
+
+
 @router.post("/ar_nav")
 async def ar_nav_telemetry(
     payload: dict,

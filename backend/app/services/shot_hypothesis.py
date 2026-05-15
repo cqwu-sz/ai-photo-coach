@@ -54,6 +54,11 @@ class ShotHypothesis:
     distance_m: float
     height_hint: HeightHintBucket
     rationale_prefix_zh: str
+    # P3-strong-2 — explicit subject Y above device ground plane, taken
+    # from the subject node's ``height_above_ground_m``. Lets the iOS
+    # RealityARController anchor the avatar at the *real* measured
+    # height instead of a HeightHint-derived constant.
+    subject_world_y_m: Optional[float] = None
 
     def to_dict(self) -> dict:
         return {
@@ -65,6 +70,7 @@ class ShotHypothesis:
             "pitch_deg":             self.pitch_deg,
             "distance_m":            self.distance_m,
             "height_hint":           self.height_hint,
+            "subject_world_y_m":     self.subject_world_y_m,
             "rationale_prefix_zh":   self.rationale_prefix_zh,
         }
 
@@ -132,6 +138,7 @@ def _hypothesis_subject_above(
         pitch_deg=pitch,
         distance_m=round(horizontal, 2),
         height_hint=_height_hint_for_pitch(pitch),
+        subject_world_y_m=high.height_above_ground_m,
         rationale_prefix_zh=(
             f"让主体上到 {high.node_id}（{high.label}，比地面高 "
             f"{high.height_above_ground_m:+.1f}m），你蹲到 {low.node_id} 的位置仰拍："
@@ -160,6 +167,7 @@ def _hypothesis_camera_above(
         pitch_deg=pitch,
         distance_m=round(horizontal, 2),
         height_hint=_height_hint_for_pitch(pitch),
+        subject_world_y_m=low.height_above_ground_m,
         rationale_prefix_zh=(
             f"你站上去 {high.node_id}（{high.label}），让主体留在 "
             f"{low.node_id} 附近，俯拍："
@@ -230,17 +238,21 @@ def to_prompt_block(hyps: list[ShotHypothesis]) -> str:
         "起飞的 node_id 和落点 node_id：",
     ]
     for h in hyps:
+        y_part = (f", subject_y={h.subject_world_y_m:+.2f}m"
+                  if h.subject_world_y_m is not None else "")
         lines.append(
             f"  · [{h.hypothesis_id}] {h.relation}: "
             f"主体={h.subject_node_id}, 摄影师={h.photographer_node_id}, "
             f"az={h.azimuth_deg}°/pitch={h.pitch_deg}°/dist={h.distance_m}m, "
-            f"height_hint={h.height_hint}"
+            f"height_hint={h.height_hint}{y_part}"
         )
         lines.append(f"      前缀：{h.rationale_prefix_zh}")
     lines.append(
         "  HYPOTHESIS DOCTRINE：本列表是几何上已经验证可行的机位（不是发散建议）。"
         "若你采纳某条，``shot.angle`` 的 azimuth/pitch/distance 必须沿用，"
-        "``shot.angle.height_hint`` 沿用本条的取值；如果你认为某条不合适，"
-        "rationale 必须说出原因（例：『ld_03 节点正对路人通道，不安全』）。"
+        "``shot.angle.height_hint`` 沿用本条的取值；当候选附带 ``subject_y=`` "
+        "时，必须把该数值写入 ``shot.angle.subject_world_y_m``（米），AR 会按"
+        "这个真实高度悬挂虚拟模特；如果你认为某条不合适，rationale 必须说出"
+        "原因（例：『ld_03 节点正对路人通道，不安全』）。"
     )
     return "\n".join(lines)

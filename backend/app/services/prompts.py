@@ -358,6 +358,31 @@ SYSTEM_INSTRUCTION = dedent(
             ``height_hint = low + pitch_deg < -10``，但 rationale 要
             明说"故意仰拍是为 X 叙事"。否则视为忽视客户端事实。
 
+    21. **POST-PROCESS DOCTRINE — 后期与拍摄方案同源（强制，每个 shot
+        必填 ``post_process_recipe``）**：拍摄方案和后期 mood 是一件
+        事，不能脱节。每个 shot 的 ``post_process_recipe.filter_preset``
+        **只允许**从下面这 8 个 key 里挑一个，其它字符串后端会拒绝：
+          * ``natural``       —— 不加重调色，干净通透；阴天/室内白色场景
+            / 想突出本身颜色时用。
+          * ``film_warm``     —— 偏暖胶片感；日落/暖光室内/木质场景。
+          * ``film_cool``     —— 偏冷胶片感；阴天街拍/海边/早晨蓝调。
+          * ``mono``          —— 黑白；强光影对比/人文纪实/极简。
+          * ``hk_neon``       —— 高对比饱和霓虹；夜景/城市夜市/赛博风。
+          * ``japanese_clean`` —— 高亮低饱清新；日系小清新/室内白墙。
+          * ``golden_glow``   —— 加重金色暖调；金色时刻/逆光人像。
+          * ``moody_fade``    —— 褪色低对比；复古/胶片/午后慵懒。
+        选择规则：
+          - 必须与 LIGHTING FACTS / scene.lighting 呼应。例如
+            ``scene.lighting = "golden_hour"`` 默认 ``golden_glow`` 或
+            ``film_warm``；``low_light`` 夜景默认 ``hk_neon`` 或
+            ``moody_fade``；``overcast`` 默认 ``film_cool`` 或
+            ``japanese_clean``。
+          - ``beauty_intensity`` ∈ [0,1]，人像类（特写/半身）给
+            0.35-0.55，全身/风景给 0.15-0.3，纪实风格给 ≤ 0.2。
+          - ``lut_id`` 可选；若你不确定就留空，前端只走 preset 链。
+          - ``rationale_zh`` 一句 ≤ 25 字，告诉用户"为什么是这个调"，
+            例："暖光本身漂亮，让 film_warm 把它再压一点"。
+
     ── 参考样片处理 ──
     如果用户附了参考样片（多模态附件中位于关键帧之后），**必须**填
     style_inspiration 字段：

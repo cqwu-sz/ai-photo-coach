@@ -52,6 +52,8 @@ actor FeedbackUploader {
         recipeFilterPreset: String? = nil,
         recipeLutId: String? = nil,
         recipeBeautyIntensity: Double? = nil,
+        recipeDowngraded: Bool? = nil,
+        presetSwapCount: Int? = nil,
         smooth: Double,
         brighten: Double,
         slim: Double,
@@ -67,6 +69,8 @@ actor FeedbackUploader {
             "recipe_filter_preset": recipeFilterPreset ?? NSNull(),
             "recipe_lut_id": recipeLutId ?? NSNull(),
             "recipe_beauty_intensity": recipeBeautyIntensity ?? NSNull(),
+            "recipe_downgraded": recipeDowngraded ?? NSNull(),
+            "preset_swap_count": presetSwapCount ?? NSNull(),
             "smooth": smooth,
             "brighten": brighten,
             "slim": slim,
@@ -81,6 +85,30 @@ actor FeedbackUploader {
             let lutDiverged = (recipeLutId ?? "") != (lutId ?? "")
             body["recipe_user_override"] = (!recipeApplied) && (presetDiverged || lutDiverged)
         }
+        var req = URLRequest(url: url)
+        req.httpMethod = "POST"
+        req.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        _ = try? await URLSession.shared.data(for: req)
+    }
+
+    /// P3-strong-3 — sample |pitchDelta| at the green-light edge so
+    /// we can calibrate ``AlignmentMachine.Tolerances.pitchNear`` /
+    /// ``pitchFar`` from real-user P90 instead of leaving them as
+    /// hand-picked 8°/20° constants. Fire-and-forget telemetry.
+    func recordAlignmentPitch(
+        analyzeRequestId: String?,
+        absDeltaDeg: Double,
+        tier: String,
+        targetPitchDeg: Double?,
+    ) async {
+        let url = baseURL.appendingPathComponent("/feedback/alignment_pitch")
+        let body: [String: Any] = [
+            "analyze_request_id": analyzeRequestId ?? NSNull(),
+            "abs_delta_deg": absDeltaDeg,
+            "tier": tier,
+            "target_pitch_deg": targetPitchDeg ?? NSNull(),
+        ]
         var req = URLRequest(url: url)
         req.httpMethod = "POST"
         req.addValue("application/json", forHTTPHeaderField: "Content-Type")
